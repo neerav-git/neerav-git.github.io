@@ -2,6 +2,7 @@
 import { EditableRegion } from '@/components/EditableRegion'
 import { MarkdownArticle } from '@/components/MarkdownArticle'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
+import { adminLinks } from '@/lib/admin'
 import { getSiteSettings } from '@/lib/content'
 
 export default async function AboutPage() {
@@ -10,7 +11,7 @@ export default async function AboutPage() {
   const about = settings?.about || {}
 
   return (
-    <EditableRegion editHref="/admin/#/collections/site_settings/entries/site" editLabel="about page">
+    <EditableRegion editHref={adminLinks.site} editLabel="about page">
       <div className="page-flow">
         <section className="section-heading">
           <div className="panel-eyebrow">{pageIntro.label || '05'}</div>

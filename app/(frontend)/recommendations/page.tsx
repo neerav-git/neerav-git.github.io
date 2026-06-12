@@ -1,5 +1,6 @@
 import { EditableRegion } from '@/components/EditableRegion'
 import { getUploadUrl } from '@/lib/assets'
+import { adminLinks } from '@/lib/admin'
 import { getRecommendations, getSiteSettings } from '@/lib/content'
 
 export default async function RecommendationsPage() {
@@ -8,7 +9,7 @@ export default async function RecommendationsPage() {
 
   return (
     <div className="page-flow">
-      <EditableRegion editHref="/admin/#/collections/site_settings/entries/site" editLabel="recommendations intro">
+      <EditableRegion editHref={adminLinks.lettersPage} editLabel="letters page intro">
         <section className="section-heading subdued-heading">
           <div className="panel-eyebrow">{pageIntro.label || '06'}</div>
           <h1>{pageIntro.title || 'Recommendations'}</h1>
@@ -19,9 +20,10 @@ export default async function RecommendationsPage() {
       <div className="stacked-list recommendation-list">
         {letters.map((letter) => (
           <EditableRegion
-            editHref={`/admin/#/collections/recommendations/entries/${letter.slug}`}
+            editHref={adminLinks.recommendations(letter.slug)}
             editLabel={letter.title || 'recommendation'}
             key={letter.slug}
+            mode="card"
           >
             <article className="stacked-item quiet-card">
               <div>

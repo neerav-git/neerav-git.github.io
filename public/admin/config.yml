@@ -16,20 +16,20 @@ public_folder: /uploads
 
 collections:
   - name: site_settings
-    label: Site Settings
+    label: Site Structure
     delete: false
     editor:
       preview: false
     files:
-      - label: Site
+      - label: Site Shell, Intros, and About
         name: site
         file: content/settings/site.json
         format: json
         fields:
-          - { label: Site Title, name: siteTitle, widget: string }
-          - { label: Site Tagline, name: siteTagline, widget: text }
-          - { label: Footer Line, name: footerLine, widget: string, required: false }
-          - { label: Contact Email, name: contactEmail, widget: string, required: false }
+          - { label: Site Title, name: siteTitle, widget: string, hint: "Shown in the header brand mark." }
+          - { label: Site Tagline, name: siteTagline, widget: text, hint: "Shown under the site title in the header." }
+          - { label: Footer Line, name: footerLine, widget: string, required: false, hint: "Short note shown in the footer." }
+          - { label: Contact Email, name: contactEmail, widget: string, required: false, hint: "Shown in the footer contact area." }
           - label: Social Links
             name: socialLinks
             widget: list
@@ -40,6 +40,7 @@ collections:
           - label: Navigation
             name: navigation
             widget: object
+            hint: "These labels appear in the site navigation."
             fields:
               - { label: Home Label, name: homeLabel, widget: string }
               - { label: Projects Label, name: projectsLabel, widget: string }
@@ -50,6 +51,7 @@ collections:
           - label: Page Intros
             name: pageIntros
             widget: object
+            hint: "These headings and summaries appear at the top of the major section pages."
             fields:
               - label: Projects
                 name: projects
@@ -89,45 +91,66 @@ collections:
           - label: About Section
             name: about
             widget: object
+            hint: "This controls the public About page."
             fields:
-              - { label: Lead, name: lead, widget: text, required: false }
-              - { label: Portrait, name: portrait, widget: image, required: false }
-              - { label: Biography Markdown, name: biographyMarkdown, widget: markdown, required: false }
-              - { label: Current Focus Markdown, name: currentFocusMarkdown, widget: markdown, required: false }
-      - label: Home
+              - { label: Lead, name: lead, widget: text, required: false, hint: "Short summary line near the top of the About page." }
+              - { label: Portrait, name: portrait, widget: image, required: false, hint: "Optional portrait shown beside the About text." }
+              - { label: Biography Markdown, name: biographyMarkdown, widget: markdown, required: false, hint: "Main About body content." }
+              - { label: Current Focus Markdown, name: currentFocusMarkdown, widget: markdown, required: false, hint: "Secondary section for current work and priorities." }
+      - label: Home Page
         name: home
         file: content/settings/home.json
         format: json
         fields:
-          - { label: Hero Eyebrow, name: heroEyebrow, widget: string, required: false }
-          - { label: Hero Title, name: heroTitle, widget: string }
-          - { label: Hero Body, name: heroBody, widget: text, required: false }
-          - { label: Hero Image, name: heroImage, widget: image, required: false }
+          - { label: Hero Eyebrow, name: heroEyebrow, widget: string, required: false, hint: "Small line above the homepage title." }
+          - { label: Hero Title, name: heroTitle, widget: string, hint: "Main homepage headline." }
+          - { label: Hero Body, name: heroBody, widget: text, required: false, hint: "Introductory paragraph on the homepage." }
+          - { label: Hero Image, name: heroImage, widget: image, required: false, hint: "Optional hero image shown on the homepage." }
           - label: Hero Links
             name: heroLinks
             widget: list
+            summary: "{{fields.label}}"
             fields:
               - { label: Label, name: label, widget: string }
               - { label: URL, name: url, widget: string }
-          - { label: Featured Projects Heading, name: featuredProjectsHeading, widget: string, required: false }
-          - label: Featured Project Slugs
+          - { label: Featured Projects Heading, name: featuredProjectsHeading, widget: string, required: false, hint: "Section heading above the homepage project cards." }
+          - label: Featured Projects
             name: featuredProjectSlugs
-            widget: list
-            field: { label: Project Slug, name: slug, widget: string }
-          - { label: Featured Writing Heading, name: featuredWritingHeading, widget: string, required: false }
-          - label: Featured Article Slugs
+            widget: relation
+            collection: projects
+            search_fields: [title, slug]
+            display_fields: [title, slug]
+            value_field: slug
+            multiple: true
+            required: false
+            hint: "Ordered list of project entries shown on the homepage."
+          - { label: Featured Writing Heading, name: featuredWritingHeading, widget: string, required: false, hint: "Section heading above the homepage writing list." }
+          - label: Featured Writing Entries
             name: featuredArticleSlugs
-            widget: list
-            field: { label: Article Slug, name: slug, widget: string }
-          - { label: Featured Archive Heading, name: featuredArchiveHeading, widget: string, required: false }
-          - label: Featured Archive Slugs
+            widget: relation
+            collection: writing
+            search_fields: [title, slug]
+            display_fields: [title, slug]
+            value_field: slug
+            multiple: true
+            required: false
+            hint: "Ordered list of writing entries shown on the homepage."
+          - { label: Featured Archive Heading, name: featuredArchiveHeading, widget: string, required: false, hint: "Section heading above the homepage archive list." }
+          - label: Featured Archive Entries
             name: featuredArchiveSlugs
-            widget: list
-            field: { label: Archive Slug, name: slug, widget: string }
-          - { label: Recommendations Note, name: recommendationsNote, widget: text, required: false }
+            widget: relation
+            collection: archive
+            search_fields: [title, slug]
+            display_fields: [title, slug]
+            value_field: slug
+            multiple: true
+            required: false
+            hint: "Ordered list of archive entries shown on the homepage."
+          - { label: Recommendations Note, name: recommendationsNote, widget: text, required: false, hint: "Quiet note shown above the letters section on the homepage." }
           - label: Home Modules
             name: modules
             widget: list
+            hint: "Reusable homepage sections shown below the featured content."
             types:
               - label: Markdown Section
                 name: markdownSection
@@ -203,6 +226,7 @@ collections:
 
   - name: projects
     label: Projects
+    label_singular: Project
     folder: content/projects
     create: true
     format: json
@@ -211,19 +235,20 @@ collections:
     slug: "{{slug}}"
     summary: "{{fields.title}}"
     fields: &project_like_fields
-      - { label: Title, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Card Eyebrow, name: cardEyebrow, widget: string, required: false }
-      - { label: Date Label, name: dateLabel, widget: string, required: false }
-      - { label: Summary, name: summary, widget: text }
-      - { label: Role, name: role, widget: string, required: false }
-      - { label: Featured, name: featured, widget: boolean, required: false, default: false }
-      - { label: Display Order, name: displayOrder, widget: number, required: false, value_type: int }
-      - { label: Cover Image, name: coverImage, widget: image, required: false }
+      - { label: Title, name: title, widget: string, hint: "Used on the project card and the project detail page." }
+      - { label: Slug, name: slug, widget: string, hint: "Used in the project URL." }
+      - { label: Card Eyebrow, name: cardEyebrow, widget: string, required: false, hint: "Small label shown above the project title on cards and headers." }
+      - { label: Date Label, name: dateLabel, widget: string, required: false, hint: "Short date or status label shown with the project." }
+      - { label: Summary, name: summary, widget: text, hint: "Used on both the project card and the detail page header." }
+      - { label: Role, name: role, widget: string, required: false, hint: "Optional role line shown near the top of the detail page." }
+      - { label: Featured, name: featured, widget: boolean, required: false, default: false, hint: "Fallback flag for homepage featuring if no explicit home selection is set." }
+      - { label: Display Order, name: displayOrder, widget: number, required: false, value_type: int, hint: "Controls ordering on the projects index page." }
+      - { label: Cover Image, name: coverImage, widget: image, required: false, hint: "Large image shown on the project detail page." }
       - label: Gallery
         name: gallery
         widget: list
         required: false
+        hint: "Additional images for the project detail page."
         field: { label: Image, name: url, widget: image }
       - label: Technologies
         name: technologies
@@ -237,6 +262,7 @@ collections:
         name: links
         widget: list
         required: false
+        hint: "External links shown in the project resources area."
         fields:
           - { label: Label, name: label, widget: string }
           - { label: URL, name: url, widget: string }
@@ -245,6 +271,7 @@ collections:
         name: attachments
         widget: list
         required: false
+        hint: "Upload PDFs, datasets, decks, posters, or supporting files here."
         fields:
           - { label: Label, name: label, widget: string }
           - { label: Description, name: description, widget: text, required: false }
@@ -254,6 +281,7 @@ collections:
         name: pageSections
         widget: list
         required: false
+        hint: "Main editorial sections for the project detail page."
         types: &block_types
           - label: Markdown Section
             name: markdownSection
@@ -330,6 +358,7 @@ collections:
         name: github
         widget: object
         required: false
+        hint: "Repository sync settings and imported README content."
         fields:
           - { label: Sync Enabled, name: syncEnabled, widget: boolean, required: false, default: true }
           - { label: Owner, name: owner, widget: string, required: false }
@@ -342,6 +371,7 @@ collections:
 
   - name: writing
     label: Writing
+    label_singular: Writing Entry
     folder: content/writing
     create: true
     format: json
@@ -350,16 +380,17 @@ collections:
     slug: "{{slug}}"
     summary: "{{fields.title}}"
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Category, name: category, widget: string, required: false }
-      - { label: Publish Date, name: publishDate, widget: datetime, required: false }
-      - { label: Excerpt, name: excerpt, widget: text }
-      - { label: Featured, name: featured, widget: boolean, required: false, default: false }
+      - { label: Title, name: title, widget: string, hint: "Shown on the writing index and article detail page." }
+      - { label: Slug, name: slug, widget: string, hint: "Used in the article URL." }
+      - { label: Category, name: category, widget: string, required: false, hint: "Short label shown beside the article entry." }
+      - { label: Publish Date, name: publishDate, widget: datetime, required: false, hint: "Used to sort writing entries." }
+      - { label: Excerpt, name: excerpt, widget: text, hint: "Short summary shown on cards and at the top of the article page." }
+      - { label: Featured, name: featured, widget: boolean, required: false, default: false, hint: "Optional flag for homepage fallback selection." }
       - label: Links
         name: links
         widget: list
         required: false
+        hint: "External references shown in the article resources area."
         fields:
           - { label: Label, name: label, widget: string }
           - { label: URL, name: url, widget: string }
@@ -368,6 +399,7 @@ collections:
         name: attachments
         widget: list
         required: false
+        hint: "Upload files or add external references tied to this article."
         fields:
           - { label: Label, name: label, widget: string }
           - { label: Description, name: description, widget: text, required: false }
@@ -377,10 +409,12 @@ collections:
         name: pageSections
         widget: list
         required: false
+        hint: "Main body sections for the writing entry."
         types: *block_types
 
   - name: archive
     label: Archive
+    label_singular: Archive Entry
     folder: content/archive
     create: true
     format: json
@@ -389,16 +423,17 @@ collections:
     slug: "{{slug}}"
     summary: "{{fields.title}}"
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Item Type, name: itemType, widget: string, required: false }
-      - { label: Date Label, name: dateLabel, widget: string, required: false }
-      - { label: Summary, name: summary, widget: text }
-      - { label: Preview Image, name: previewImage, widget: image, required: false }
+      - { label: Title, name: title, widget: string, hint: "Shown on the archive index and detail page." }
+      - { label: Slug, name: slug, widget: string, hint: "Used in the archive URL." }
+      - { label: Item Type, name: itemType, widget: string, required: false, hint: "Short label such as paper, note, dataset, or record." }
+      - { label: Date Label, name: dateLabel, widget: string, required: false, hint: "Short date or stage label for the archive item." }
+      - { label: Summary, name: summary, widget: text, hint: "Short summary shown on the index and detail header." }
+      - { label: Preview Image, name: previewImage, widget: image, required: false, hint: "Optional preview image for this archive item." }
       - label: Links
         name: links
         widget: list
         required: false
+        hint: "External references for this archive item."
         fields:
           - { label: Label, name: label, widget: string }
           - { label: URL, name: url, widget: string }
@@ -407,6 +442,7 @@ collections:
         name: attachments
         widget: list
         required: false
+        hint: "Upload supporting files such as papers, notes, screenshots, or PDFs."
         fields:
           - { label: Label, name: label, widget: string }
           - { label: Description, name: description, widget: text, required: false }
@@ -416,10 +452,12 @@ collections:
         name: pageSections
         widget: list
         required: false
+        hint: "Main body sections for the archive detail page."
         types: *block_types
 
   - name: recommendations
-    label: Recommendations
+    label: Letters
+    label_singular: Letter
     folder: content/recommendations
     create: true
     format: json
@@ -428,19 +466,20 @@ collections:
     slug: "{{slug}}"
     summary: "{{fields.title}}"
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Recommender Name, name: recommenderName, widget: string }
-      - { label: Recommender Role, name: recommenderRole, widget: string, required: false }
-      - { label: Context, name: context, widget: text, required: false }
-      - { label: Excerpt, name: excerpt, widget: text, required: false }
-      - { label: Thumbnail, name: thumbnail, widget: image, required: false }
-      - { label: PDF Letter, name: pdfLetter, widget: file, required: false }
-      - { label: Visibility Priority, name: visibilityPriority, widget: number, required: false, value_type: int }
+      - { label: Title, name: title, widget: string, hint: "Shown on the letters page." }
+      - { label: Slug, name: slug, widget: string, hint: "Used in the content file name." }
+      - { label: Recommender Name, name: recommenderName, widget: string, hint: "Person who wrote the letter or note." }
+      - { label: Recommender Role, name: recommenderRole, widget: string, required: false, hint: "Role or affiliation shown beneath the title." }
+      - { label: Context, name: context, widget: text, required: false, hint: "Short internal/public note for why this letter is included." }
+      - { label: Excerpt, name: excerpt, widget: text, required: false, hint: "Optional short excerpt shown in the public card." }
+      - { label: Thumbnail, name: thumbnail, widget: image, required: false, hint: "Optional image preview for the letter." }
+      - { label: PDF Letter, name: pdfLetter, widget: file, required: false, hint: "Upload the actual PDF here." }
+      - { label: Visibility Priority, name: visibilityPriority, widget: number, required: false, value_type: int, hint: "Lower numbers appear first." }
       - label: Links
         name: links
         widget: list
         required: false
+        hint: "Optional supporting links for this letter record."
         fields:
           - { label: Label, name: label, widget: string }
           - { label: URL, name: url, widget: string }

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { ArtifactList } from '@/components/ArtifactList'
 import { ContentBlocks } from '@/components/ContentBlocks'
 import { EditableRegion } from '@/components/EditableRegion'
+import { adminLinks } from '@/lib/admin'
 import { getArticleBySlug, getArticles } from '@/lib/content'
 
 type ArticlePageProps = {
@@ -27,10 +28,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   }
 
   return (
-    <EditableRegion
-      editHref={`/admin/#/collections/writing/entries/${article.slug}`}
-      editLabel={article.title || 'article'}
-    >
+    <EditableRegion editHref={adminLinks.article(article.slug)} editLabel={article.title || 'article'}>
       <article className="detail-page">
         <div className="detail-header">
           <div className="panel-eyebrow">{article.category || 'Writing'}</div>

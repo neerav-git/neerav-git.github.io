@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { ArtifactList } from '@/components/ArtifactList'
 import { ContentBlocks } from '@/components/ContentBlocks'
 import { EditableRegion } from '@/components/EditableRegion'
+import { adminLinks } from '@/lib/admin'
 import { getArchiveItemBySlug, getArchiveItems } from '@/lib/content'
 
 type ArchiveDetailPageProps = {
@@ -27,10 +28,7 @@ export default async function ArchiveDetailPage({ params }: ArchiveDetailPagePro
   }
 
   return (
-    <EditableRegion
-      editHref={`/admin/#/collections/archive/entries/${item.slug}`}
-      editLabel={item.title || 'archive item'}
-    >
+    <EditableRegion editHref={adminLinks.archive(item.slug)} editLabel={item.title || 'archive item'}>
       <article className="detail-page">
         <div className="detail-header">
           <div className="panel-eyebrow">{item.itemType || 'Archive item'}</div>

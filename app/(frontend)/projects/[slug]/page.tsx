@@ -6,6 +6,7 @@ import { ContentBlocks } from '@/components/ContentBlocks'
 import { EditableRegion } from '@/components/EditableRegion'
 import { MarkdownArticle } from '@/components/MarkdownArticle'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
+import { adminLinks } from '@/lib/admin'
 import { getProjectBySlug, getProjects } from '@/lib/content'
 
 type ProjectPageProps = {
@@ -33,10 +34,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const repoTopics = Array.isArray(project.github?.repoTopics) ? project.github.repoTopics : []
 
   return (
-    <EditableRegion
-      editHref={`/admin/#/collections/projects/entries/${project.slug}`}
-      editLabel={project.title || 'project'}
-    >
+    <EditableRegion editHref={adminLinks.project(project.slug)} editLabel={project.title || 'project'}>
       <article className="detail-page">
         <div className="detail-header">
           <div className="panel-eyebrow">

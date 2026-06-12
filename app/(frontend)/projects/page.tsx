@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { EditableRegion } from '@/components/EditableRegion'
+import { adminLinks } from '@/lib/admin'
 import { getProjects, getSiteSettings } from '@/lib/content'
 
 export default async function ProjectsPage() {
@@ -9,7 +10,7 @@ export default async function ProjectsPage() {
 
   return (
     <div className="page-flow">
-      <EditableRegion editHref="/admin/#/collections/site_settings/entries/site" editLabel="projects intro">
+      <EditableRegion editHref={adminLinks.projectsPage} editLabel="projects page intro">
         <section className="section-heading">
           <div className="panel-eyebrow">{pageIntro.label || '01'}</div>
           <h1>{pageIntro.title || 'Projects'}</h1>
@@ -21,9 +22,10 @@ export default async function ProjectsPage() {
         {projects.map((project) => (
           <EditableRegion
             className="feature-card"
-            editHref={`/admin/#/collections/projects/entries/${project.slug}`}
+            editHref={adminLinks.project(project.slug)}
             editLabel={project.title || 'project'}
             key={project.slug}
+            mode="card"
           >
             <Link href={`/projects/${project.slug}`}>
               <div className="card-meta">

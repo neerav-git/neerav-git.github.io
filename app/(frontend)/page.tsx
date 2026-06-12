@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ContentBlocks } from '@/components/ContentBlocks'
 import { EditableRegion } from '@/components/EditableRegion'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
+import { adminLinks } from '@/lib/admin'
 import { getHomePageData } from '@/lib/content'
 
 export default async function HomePage() {
@@ -11,7 +12,7 @@ export default async function HomePage() {
 
   return (
     <div className="page-flow">
-      <EditableRegion editHref="/admin/#/collections/site_content/entries/home" editLabel="homepage">
+      <EditableRegion editHref={adminLinks.home} editLabel="home page">
         <section className="hero-panel">
           <div className="hero-grid">
             <div>
@@ -41,65 +42,87 @@ export default async function HomePage() {
       </EditableRegion>
 
       <section className="section-stack">
-        <div className="section-heading">
-          <div className="panel-eyebrow">Featured Work</div>
-          <h2>{home?.featuredProjectsHeading || 'Selected Projects'}</h2>
-        </div>
+        <EditableRegion editHref={adminLinks.home} editLabel="featured projects section">
+          <div className="section-heading">
+            <div className="panel-eyebrow">Featured Work</div>
+            <h2>{home?.featuredProjectsHeading || 'Selected Projects'}</h2>
+          </div>
+        </EditableRegion>
         <div className="card-grid">
           {featuredProjects.map((project) => (
-            <Link className="feature-card" href={`/projects/${project.slug}`} key={project.slug}>
-              <div className="card-meta">{project.cardEyebrow || 'Project'}</div>
-              <h3>{project.title}</h3>
-              <p>{project.summary}</p>
-              <span>{project.dateLabel || 'Open record'}</span>
-            </Link>
+            <EditableRegion
+              className="feature-card"
+              editHref={adminLinks.project(project.slug)}
+              editLabel={project.title || 'project'}
+              key={project.slug}
+              mode="card"
+            >
+              <Link href={`/projects/${project.slug}`}>
+                <div className="card-meta">{project.cardEyebrow || 'Project'}</div>
+                <h3>{project.title}</h3>
+                <p>{project.summary}</p>
+                <span>{project.dateLabel || 'Open record'}</span>
+              </Link>
+            </EditableRegion>
           ))}
         </div>
       </section>
 
       <section className="section-stack">
-        <div className="section-heading">
-          <div className="panel-eyebrow">Writing</div>
-          <h2>{home?.featuredWritingHeading || 'Writing and Notes'}</h2>
-        </div>
+        <EditableRegion editHref={adminLinks.home} editLabel="featured writing section">
+          <div className="section-heading">
+            <div className="panel-eyebrow">Writing</div>
+            <h2>{home?.featuredWritingHeading || 'Writing and Notes'}</h2>
+          </div>
+        </EditableRegion>
         <div className="stacked-list">
           {featuredArticles.map((article) => (
-            <Link className="stacked-item" href={`/writing/${article.slug}`} key={article.slug}>
-              <div>
-                <strong>{article.title}</strong>
-                <p>{article.excerpt}</p>
-              </div>
-              <span>{article.category || 'Writing'}</span>
-            </Link>
+            <EditableRegion editHref={adminLinks.article(article.slug)} editLabel={article.title || 'article'} key={article.slug} mode="card">
+              <Link className="stacked-item" href={`/writing/${article.slug}`}>
+                <div>
+                  <strong>{article.title}</strong>
+                  <p>{article.excerpt}</p>
+                </div>
+                <span>{article.category || 'Writing'}</span>
+              </Link>
+            </EditableRegion>
           ))}
         </div>
       </section>
 
       <section className="section-stack">
-        <div className="section-heading">
-          <div className="panel-eyebrow">Archive</div>
-          <h2>{home?.featuredArchiveHeading || 'Research Archive'}</h2>
-        </div>
+        <EditableRegion editHref={adminLinks.home} editLabel="featured archive section">
+          <div className="section-heading">
+            <div className="panel-eyebrow">Archive</div>
+            <h2>{home?.featuredArchiveHeading || 'Research Archive'}</h2>
+          </div>
+        </EditableRegion>
         <div className="stacked-list">
           {featuredArchiveItems.map((item) => (
-            <Link className="stacked-item" href={`/archive/${item.slug}`} key={item.slug}>
-              <div>
-                <strong>{item.title}</strong>
-                <p>{item.summary}</p>
-              </div>
-              <span>{item.itemType || 'Archive item'}</span>
-            </Link>
+            <EditableRegion editHref={adminLinks.archive(item.slug)} editLabel={item.title || 'archive item'} key={item.slug} mode="card">
+              <Link className="stacked-item" href={`/archive/${item.slug}`}>
+                <div>
+                  <strong>{item.title}</strong>
+                  <p>{item.summary}</p>
+                </div>
+                <span>{item.itemType || 'Archive item'}</span>
+              </Link>
+            </EditableRegion>
           ))}
         </div>
       </section>
 
-      <ContentBlocks blocks={Array.isArray(home?.modules) ? home.modules : []} />
+      <EditableRegion editHref={adminLinks.home} editLabel="home page modules">
+        <ContentBlocks blocks={Array.isArray(home?.modules) ? home.modules : []} />
+      </EditableRegion>
 
       {home?.recommendationsNote ? (
-        <section className="quiet-note">
-          <div className="panel-eyebrow">Recommendations</div>
-          <p>{home.recommendationsNote}</p>
-        </section>
+        <EditableRegion editHref={adminLinks.home} editLabel="letters note">
+          <section className="quiet-note">
+            <div className="panel-eyebrow">Letters</div>
+            <p>{home.recommendationsNote}</p>
+          </section>
+        </EditableRegion>
       ) : null}
     </div>
   )

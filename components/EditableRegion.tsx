@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState, type ReactNode } from 'react'
 
 type EditableRegionProps = {
@@ -8,9 +9,11 @@ type EditableRegionProps = {
   className?: string
   editHref?: string
   editLabel: string
+  mode?: 'section' | 'card'
 }
 
-export function EditableRegion({ children, className, editHref, editLabel }: EditableRegionProps) {
+export function EditableRegion({ children, className, editHref, editLabel, mode = 'section' }: EditableRegionProps) {
+  const pathname = usePathname()
   const [isEditable, setIsEditable] = useState(false)
 
   useEffect(() => {
@@ -22,14 +25,29 @@ export function EditableRegion({ children, className, editHref, editLabel }: Edi
     }
 
     setIsEditable(enabled)
-  }, [])
+  }, [pathname])
 
   return (
-    <div className={['editable-region', isEditable ? 'is-editable' : '', className || ''].join(' ').trim()}>
+    <div
+      className={[
+        'editable-region',
+        isEditable ? 'is-editable' : '',
+        isEditable ? `is-${mode}` : '',
+        className || '',
+      ]
+        .join(' ')
+        .trim()}
+    >
       {isEditable && editHref ? (
-        <Link className="edit-chip" href={editHref}>
-          Edit {editLabel}
-        </Link>
+        <div className="edit-chip">
+          <div className="edit-chip-copy">
+            <span className="edit-chip-label">{editLabel}</span>
+            <small>Opens the matching studio entry</small>
+          </div>
+          <Link className="edit-chip-link" href={editHref}>
+            Edit in Studio
+          </Link>
+        </div>
       ) : null}
       {children}
     </div>
