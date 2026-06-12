@@ -3,7 +3,7 @@ backend:
   repo: neerav-git/neerav-git.github.io
   branch: main
   # Replace these with your deployed cms-auth-proxy values.
-  base_url: https://YOUR-OAUTH-HOST.example.com
+  base_url: https://neerav-git-github-io.vercel.app
   auth_endpoint: /api/auth
 
 local_backend: true
