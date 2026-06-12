@@ -1,8 +1,8 @@
 {
   "siteTitle": "Neerav Chaudhary",
-  "siteTagline": "Projects, research, and long-form technical thinking presented as a living archive.",
-  "footerLine": "Built as a working dossier rather than a recruiting surface.",
-  "contactEmail": "neerav.ch@icloud.com",
+  "siteTagline": "Projects, research, and long-form technical : a living archive.",
+  "footerLine": "",
+  "contactEmail": "",
   "socialLinks": [
     {
       "label": "GitHub",
@@ -16,7 +16,7 @@
   "navigation": {
     "homeLabel": "Home",
     "projectsLabel": "Projects",
-    "writingLabel": "Writing",
+    "writingLabel": "Blog",
     "archiveLabel": "Archive",
     "aboutLabel": "About",
     "recommendationsLabel": "Letters"
@@ -25,12 +25,12 @@
     "projects": {
       "label": "01",
       "title": "Projects",
-      "intro": "Projects are presented as records of work: what was built, why it mattered, what evidence supports it, and where the artifacts live."
+      "intro": "Records of work: what was built, why it mattered, what evidence supports it, and where the artifacts live."
     },
     "writing": {
       "label": "02",
       "title": "Writing",
-      "intro": "Essays, technical notes, and project writeups that track how the thinking behind the work evolves over time."
+      "intro": "Essays, technical notes, and project writeup/research"
     },
     "archive": {
       "label": "03",
@@ -50,7 +50,7 @@
   },
   "about": {
     "lead": "Thoughtful, meticulous technical work presented as an archive rather than an application packet.",
-    "biographyMarkdown": "I work across machine learning, research tooling, and the infrastructure around trust: provenance, evaluation, and careful system design.\n\nThis site is meant to read less like a polished pitch and more like a public research desk. Projects, notes, references, and attached materials all live in one place so the work can be read in context.",
+    "biographyMarkdown": "I work across machine learning, research tooling, and the infrastructure around trust: provenance, evaluation, and careful system design. \n\nThis site is meant to be read as a research desk. Projects, notes, references, and attached materials all live in one place, so the work can be grounded in context.",
     "currentFocusMarkdown": "## Current focus\n\n- research systems and evidence-aware interfaces\n- applied machine learning in scientific and healthcare contexts\n- technical writing that captures method, tradeoffs, and iteration\n- building archives of work instead of brochure sites"
   }
 }
