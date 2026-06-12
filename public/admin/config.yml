@@ -2,10 +2,9 @@ backend:
   name: github
   repo: neerav-git/neerav-git.github.io
   branch: main
-  # Replace these with your OAuth proxy values before enabling GitHub login on production.
-  # A tiny Vercel function, Cloudflare Worker, or separate auth service is enough.
+  # Replace these with your deployed cms-auth-proxy values.
   base_url: https://YOUR-OAUTH-HOST.example.com
-  auth_endpoint: /auth
+  auth_endpoint: /api/auth
 
 local_backend: true
 publish_mode: editorial_workflow

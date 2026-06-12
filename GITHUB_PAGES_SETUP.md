@@ -33,26 +33,18 @@ Example:
 
 The site already includes Decap CMS at `/admin/`, but GitHub login requires an OAuth proxy.
 
-You need:
+This repo now includes a ready-to-deploy proxy in `cms-auth-proxy/`.
+
+You still need:
 
 1. A GitHub OAuth app.
-2. A tiny auth endpoint hosted somewhere dynamic.
+2. A Vercel deployment for `cms-auth-proxy/`.
+3. The real OAuth values added in Vercel.
 
-Simple options:
-
-- Vercel function
-- Cloudflare Worker
-- small Node server anywhere
-
-Then update `public/admin/config.yml`:
+Then update `public/admin/config.yml` with:
 
 - `base_url`
-- `auth_endpoint`
-
-The CMS backend is already configured for:
-
-- repo: `neerav-git/neerav-git.github.io`
-- branch: `main`
+- `auth_endpoint: /api/auth`
 
 ## GitHub sync
 
