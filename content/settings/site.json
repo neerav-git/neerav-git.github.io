@@ -1,7 +1,7 @@
 {
   "siteTitle": "Neerav Chaudhary",
   "siteTagline": "Projects, research, and long-form technical thinking presented as a navigable working archive.",
-  "footerLine": "Built as a working dossier rather than a recruiting surface.",
+  "footerLine": "",
   "contactEmail": "neerav.ch@icloud.com",
   "socialLinks": [
     {
@@ -16,40 +16,40 @@
   "navigation": {
     "homeLabel": "Home",
     "projectsLabel": "Projects",
-    "writingLabel": "Writing",
+    "writingLabel": "Blog",
     "archiveLabel": "Archive",
     "aboutLabel": "About",
     "recommendationsLabel": "Letters"
   },
   "pageIntros": {
     "projects": {
-      "label": "01",
+      "label": "",
       "title": "Projects",
-      "intro": "Projects here are presented as records of work: what was built, how it was framed, what artifacts support it, and what deserves attention first."
+      "intro": "Deep dive into what was built, framing, and supporting artifacts."
     },
     "writing": {
-      "label": "02",
+      "label": "",
       "title": "Writing",
-      "intro": "Essays, technical notes, and project writeups that make the reasoning around the work legible rather than leaving it implicit."
+      "intro": "Essays, technical notes, and project write ups."
     },
     "archive": {
-      "label": "03",
+      "label": "",
       "title": "Research Archive",
-      "intro": "Supporting materials, diagrams, notebook records, and adjacent artifacts that add context without interrupting the main narratives."
+      "intro": "Supporting materials, diagrams, notebook records, and adjacent artifacts."
     },
     "about": {
-      "label": "04",
+      "label": "",
       "title": "About",
       "intro": "Background, current focus, and the editorial logic behind the site."
     },
     "recommendations": {
       "label": "05",
       "title": "Letters",
-      "intro": "A quiet appendix for recommendation letters and adjacent trust documents, kept available without becoming the center of attention."
+      "intro": "recommendations and acknowledgments."
     }
   },
   "about": {
-    "lead": "Thoughtful, meticulous technical work presented as an archive rather than an application packet.",
+    "lead": "Projects and Research Work Archive.",
     "biographyMarkdown": "I work across machine learning, research tooling, and the infrastructure around trust: provenance, evaluation, and careful system design. \n\nThis site is meant to be read as a research desk. Projects, notes, references, and attached materials all live in one place, so the work can be grounded in context.",
     "currentFocusMarkdown": "## Current focus\n\n- research systems and evidence-aware interfaces\n- applied machine learning in scientific and healthcare contexts\n- technical writing that captures method, tradeoffs, and iteration\n- building archives of work instead of brochure sites"
   }
