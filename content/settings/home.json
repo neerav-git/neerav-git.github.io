@@ -1,7 +1,8 @@
 {
   "heroEyebrow": "Research systems · evaluation · medical ML · careful engineering",
-  "heroTitle": "A public archive for projects, research, and long-form technical work.",
-  "heroBody": "This site is a presentation of ongoing work rather than a resume. It gathers projects, research notes, supporting artifacts, and writing into one editorial record that can keep growing over time.",
+  "heroTitle": "A public archive for projects, research, and technical writing that is meant to be read, not skimmed.",
+  "heroBody": "This site is organized as a working dossier rather than a recruiting page. Projects, notes, archive records, and supporting documents sit in one place so the work can be read in context and revisited over time.",
+  "heroImage": "/uploads/refract/workflow-overview.png",
   "heroLinks": [
     {
       "label": "Projects",
@@ -16,18 +17,23 @@
       "url": "/archive/"
     }
   ],
-  "featuredProjectsHeading": "Selected Projects",
+  "featuredProjectsHeading": "Projects in Focus",
   "featuredProjectSlugs": [
     "refract-ai",
     "alzheimers-disease-research"
   ],
-  "featuredWritingHeading": "Writing and Notes",
+  "featuredWritingHeading": "Writing and Field Notes",
   "featuredArticleSlugs": [
+    "designing-a-session-centered-research-workspace",
     "what-reliable-should-mean-for-llms-in-life-sciences",
+    "notebook-first-medical-ml-is-still-real-research",
     "notes-from-a-battery-rul-project"
   ],
-  "featuredArchiveHeading": "Supporting Materials",
+  "featuredArchiveHeading": "Archive Records",
   "featuredArchiveSlugs": [
+    "refract-workflow-record",
+    "refract-system-architecture-record",
+    "alzheimers-notebook-record",
     "alzheimers-disease-ieee-record"
   ],
   "recommendationsNote": "Recommendation letters are intentionally de-emphasized. They live here as supporting records, not as the thesis of the site.",
@@ -43,6 +49,27 @@
       "eyebrow": "Method",
       "title": "Everything visible should remain editable.",
       "markdown": "Every section on this site is meant to stay modular. Headings, descriptions, link groups, writeups, PDFs, images, and supporting files all belong to structured content files rather than hardcoded copy, so the site can evolve without reworking the code every time the record changes."
+    },
+    {
+      "blockType": "links",
+      "title": "Suggested starting points",
+      "links": [
+        {
+          "label": "Start with Refract",
+          "url": "/projects/refract-ai/",
+          "description": "The most complete integrated systems project on the site."
+        },
+        {
+          "label": "Read the workflow article",
+          "url": "/writing/designing-a-session-centered-research-workspace/",
+          "description": "A short explanation of the session-centered design logic."
+        },
+        {
+          "label": "Open the MRI project",
+          "url": "/projects/alzheimers-disease-research/",
+          "description": "A notebook-first medical imaging workflow and its archive."
+        }
+      ]
     }
   ]
 }

@@ -2,23 +2,31 @@
   "title": "Alzheimer’s Disease MRI Research",
   "slug": "alzheimers-disease-research",
   "cardEyebrow": "Medical Imaging Research",
-  "dateLabel": "IEEE record",
+  "dateLabel": "Notebook-first study",
   "status": "published-work",
-  "summary": "CNN-based dementia severity classification and supporting MRI image-processing workflows for studying atrophy and disease progression.",
-  "role": "Researcher working on model development, image-processing pipeline design, and technical interpretation.",
+  "summary": "An exploratory MRI classification workflow for staging Alzheimer’s disease progression through CNN and ensemble learning experiments built in Google Colab.",
+  "role": "Researcher building the preprocessing, augmentation, CNN training, and ensemble-evaluation workflow, then interpreting the notebook as a research record rather than a productized library.",
   "featured": true,
   "displayOrder": 2,
+  "coverImage": "/uploads/alzheimers/mri-grid.svg",
   "technologies": [
-    { "value": "PyTorch" },
+    { "value": "TensorFlow" },
+    { "value": "Keras" },
     { "value": "MRI" },
     { "value": "Medical imaging" },
-    { "value": "Computer vision" }
+    { "value": "Computer vision" },
+    { "value": "Google Colab" }
   ],
   "links": [
     {
       "label": "Repository",
-      "url": "https://github.com/neerav-git/alzheimers-disease",
-      "description": "Code and research materials."
+      "url": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
+      "description": "Notebook and project README."
+    },
+    {
+      "label": "Open in Colab",
+      "url": "https://colab.research.google.com/github/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning/blob/main/AZclassification5%28wide%29.ipynb",
+      "description": "Run the notebook in Google Colab."
     }
   ],
   "attachments": [],
@@ -27,8 +35,46 @@
     {
       "blockType": "markdownSection",
       "eyebrow": "Context",
-      "title": "Research framing",
-      "markdown": "This project combines dementia severity classification on MRI data with supporting image-processing work for quantifying atrophy. On the portfolio it should read as a research case study with method, artifacts, and decisions intact, not as a one-line accomplishment."
+      "title": "What the repository actually is",
+      "markdown": "This project is best read as a notebook-first experimentation workflow. The repository centers on a Google Colab notebook that loads MRI image data, builds a TensorFlow pipeline, trains a CNN classifier, and then compares baseline results against simple ensemble variants.\n\nThat framing matters. The value of the work is not that it looks like a polished package; it is that the notebook preserves the actual exploratory sequence used to test the problem."
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Pipeline",
+      "title": "What the notebook covers",
+      "items": [
+        {
+          "value": "4",
+          "label": "Diagnostic classes",
+          "context": "NonDemented, VeryMildDemented, MildDemented, and ModerateDemented."
+        },
+        {
+          "value": "256×256",
+          "label": "Input sizing",
+          "context": "The baseline CNN resizes images to 256 by 256 pixels."
+        },
+        {
+          "value": "80/10/10",
+          "label": "Dataset split",
+          "context": "Training, validation, and test partitions described in the README."
+        },
+        {
+          "value": "Ensemble",
+          "label": "Comparison layer",
+          "context": "The notebook compares single-model output against simple averaging and draft weighted ensembles."
+        }
+      ]
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Method",
+      "title": "Notebook-first machine learning changes what the artifact means",
+      "markdown": "The README is explicit that the work is exploratory and notebook-first. That makes the repository useful as a case study in how research code actually develops: dataset paths are hardcoded to Drive, model checkpoints are loaded from saved experiments, and the notebook mixes explanation, preprocessing, training, visualization, and ensemble testing in one place.\n\nFor this portfolio, that is not a weakness to hide. It is the right way to present the project because it shows the real state of the work."
+    },
+    {
+      "blockType": "quote",
+      "quote": "The artifact here is not just a classifier. It is a visible experiment log for how the classifier was framed, trained, and compared.",
+      "attribution": "Portfolio framing"
     },
     {
       "blockType": "links",
@@ -38,6 +84,11 @@
           "label": "ADNI",
           "url": "https://adni.loni.usc.edu/",
           "description": "Dataset source context."
+        },
+        {
+          "label": "Notebook archive record",
+          "url": "/archive/alzheimers-notebook-record/",
+          "description": "Companion archive item for the notebook and run assumptions."
         }
       ]
     }
@@ -45,15 +96,17 @@
   "github": {
     "syncEnabled": true,
     "owner": "neerav-git",
-    "repo": "alzheimers-disease",
-    "repoName": "alzheimers-disease",
-    "repoUrl": "https://github.com/neerav-git/alzheimers-disease",
+    "repo": "Alzheimer-s-Disease-Detection-Ensemble-Learning",
+    "repoName": "Alzheimer-s-Disease-Detection-Ensemble-Learning",
+    "repoUrl": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
     "sourceDescription": "Repository-backed source material for the Alzheimer’s disease research project page.",
     "sourceReadmePath": "README.md",
-    "importedReadmeMarkdown": "README content can be refreshed automatically during builds. This placeholder exists so the project page remains populated even before the first GitHub sync runs.",
+    "importedReadmeMarkdown": "README content can be refreshed automatically during builds. This copy is intentionally retained as a repository-sourced appendix beneath the curated project narrative.",
     "repoTopics": [
       { "value": "medical-imaging" },
-      { "value": "alzheimers" }
+      { "value": "alzheimers" },
+      { "value": "tensorflow" },
+      { "value": "ensemble-learning" }
     ]
   }
 }

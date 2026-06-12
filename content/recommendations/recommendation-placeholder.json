@@ -1,10 +1,10 @@
 {
-  "title": "Recommendation record placeholder",
+  "title": "Letters archive placeholder",
   "slug": "recommendation-placeholder",
-  "recommenderName": "Add recommender name",
-  "recommenderRole": "Add role or affiliation",
-  "context": "Upload PDF letters here once they are ready.",
-  "excerpt": "This section is intentionally quiet. Each entry can hold a PDF, thumbnail, supporting note, and related links.",
+  "recommenderName": "Archive slot ready",
+  "recommenderRole": "Use this entry structure for real letters",
+  "context": "Upload PDF letters here once they are ready, then replace this placeholder with actual recommender metadata.",
+  "excerpt": "This area stays deliberately quiet. Each record can hold a PDF, supporting note, thumbnail, and related links without becoming the center of the site.",
   "visibilityPriority": 100,
   "links": []
 }

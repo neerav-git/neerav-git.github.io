@@ -1,8 +1,8 @@
 {
   "siteTitle": "Neerav Chaudhary",
-  "siteTagline": "Projects, research, and long-form technical : a living archive.",
-  "footerLine": "",
-  "contactEmail": "",
+  "siteTagline": "Projects, research, and long-form technical thinking presented as a navigable working archive.",
+  "footerLine": "Built as a working dossier rather than a recruiting surface.",
+  "contactEmail": "neerav.ch@icloud.com",
   "socialLinks": [
     {
       "label": "GitHub",
@@ -16,7 +16,7 @@
   "navigation": {
     "homeLabel": "Home",
     "projectsLabel": "Projects",
-    "writingLabel": "Blog",
+    "writingLabel": "Writing",
     "archiveLabel": "Archive",
     "aboutLabel": "About",
     "recommendationsLabel": "Letters"
@@ -25,17 +25,17 @@
     "projects": {
       "label": "01",
       "title": "Projects",
-      "intro": "Records of work: what was built, why it mattered, what evidence supports it, and where the artifacts live."
+      "intro": "Projects here are presented as records of work: what was built, how it was framed, what artifacts support it, and what deserves attention first."
     },
     "writing": {
       "label": "02",
       "title": "Writing",
-      "intro": "Essays, technical notes, and project writeup/research"
+      "intro": "Essays, technical notes, and project writeups that make the reasoning around the work legible rather than leaving it implicit."
     },
     "archive": {
       "label": "03",
       "title": "Research Archive",
-      "intro": "Supporting materials, references, experiment notes, and adjacent artifacts that sit around the main project narratives."
+      "intro": "Supporting materials, diagrams, notebook records, and adjacent artifacts that add context without interrupting the main narratives."
     },
     "about": {
       "label": "04",

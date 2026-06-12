@@ -1,0 +1,23 @@
+{
+  "title": "Refract system architecture record",
+  "slug": "refract-system-architecture-record",
+  "itemType": "architecture-diagram",
+  "dateLabel": "Current README",
+  "summary": "A supporting architecture view of the Refract implementation across the React workspace, FastAPI backend, database, vector store, and storage layers.",
+  "previewImage": "/uploads/refract/system-architecture.png",
+  "links": [
+    {
+      "label": "Refract project page",
+      "url": "/projects/refract-ai/",
+      "description": "Main project narrative."
+    }
+  ],
+  "attachments": [],
+  "pageSections": [
+    {
+      "blockType": "markdownSection",
+      "title": "Archive role",
+      "markdown": "Architecture diagrams are useful supporting documents, but they should not dominate the public-facing project story. Here they live in the archive, where they can still be consulted by someone who wants to understand implementation seams without forcing that level of detail into the first read."
+    }
+  ]
+}

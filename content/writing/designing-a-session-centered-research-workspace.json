@@ -1,0 +1,47 @@
+{
+  "title": "Designing a session-centered research workspace",
+  "slug": "designing-a-session-centered-research-workspace",
+  "category": "Research systems",
+  "publishDate": "2026-06-12T00:00:00.000Z",
+  "excerpt": "If papers, datasets, and model runs do not share a durable context, interpretation becomes reconstruction. A short write-up on why the session is the real product surface in Refract.",
+  "featured": true,
+  "links": [
+    {
+      "label": "Refract project",
+      "url": "/projects/refract-ai/",
+      "description": "Project page with screenshots and system framing."
+    }
+  ],
+  "attachments": [],
+  "relatedProjectSlugs": [
+    "refract-ai"
+  ],
+  "pageSections": [
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Premise",
+      "title": "The session is the continuity layer",
+      "markdown": "A lot of research software solves local problems well and global continuity badly. Reading happens in one place, notes in another, data cleaning in a notebook, and the final interpretation somewhere else again.\n\nThe reason Refract feels different to me is not a specific model or response style. It is the decision to make the research session the thing that persists. The session holds papers, saved evidence, dataset files, and the quantitative run history. That means the interpretation layer can point back into the same working context instead of borrowing authority from memory."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Workflow",
+      "title": "The interface follows the handoff between tracks",
+      "description": "The qualitative track is not an isolated literature tool and the quantitative track is not an isolated modeling tool. Both inherit the same session and the same research goal.",
+      "media": "/uploads/refract/workflow-overview.png",
+      "caption": "Workflow overview from the live project README.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "quote",
+      "quote": "The hard problem is not generating an answer. It is preserving the conditions that make the answer inspectable later.",
+      "attribution": "Working principle"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Consequence",
+      "title": "Why that matters in practice",
+      "markdown": "Once the session becomes the continuity layer, several UX choices stop being cosmetic. Compare output can inherit the current research goal. Statistical interpretation can cite the run that produced it. Saved evidence can remain attached to the paper and passage that justified it.\n\nThat is a more interesting design problem than building a generic chat shell around PDFs, and it is the core reason I consider Refract a research environment rather than a note-taking interface."
+    }
+  ]
+}

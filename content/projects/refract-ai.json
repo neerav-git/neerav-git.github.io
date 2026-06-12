@@ -4,12 +4,15 @@
   "cardEyebrow": "Research Platform",
   "dateLabel": "Ongoing",
   "status": "ongoing",
-  "summary": "A provenance-aware research environment that combines retrieval, synthesis, evidence tracking, and structured analysis into a single workspace.",
-  "role": "Builder and designer of the research environment, writing system, and evidence architecture.",
+  "summary": "A session-centered research workspace that keeps literature review, saved evidence, datasets, and staged statistical analysis inside one continuous environment.",
+  "role": "Builder of the session model, evidence architecture, and the qualitative-to-quantitative workflow that ties reading, comparison, and analysis together.",
   "featured": true,
   "displayOrder": 1,
+  "coverImage": "/uploads/refract/workflow-overview.png",
   "technologies": [
     { "value": "Next.js" },
+    { "value": "FastAPI" },
+    { "value": "PostgreSQL" },
     { "value": "Python" },
     { "value": "LLM systems" },
     { "value": "Research workflows" }
@@ -17,49 +20,103 @@
   "links": [
     {
       "label": "Repository",
-      "url": "https://github.com/neerav-git/refract",
-      "description": "Primary codebase."
+      "url": "https://github.com/neerav-git/Refract",
+      "description": "Primary codebase and implementation details."
+    },
+    {
+      "label": "Workflow article",
+      "url": "/writing/designing-a-session-centered-research-workspace/",
+      "description": "Companion write-up on the design logic behind the workspace."
     }
   ],
   "attachments": [],
-  "gallery": [],
+  "gallery": [
+    { "url": "/uploads/refract/reader-workspace.png" },
+    { "url": "/uploads/refract/compare-workspace.png" },
+    { "url": "/uploads/refract/stats-workspace.png" },
+    { "url": "/uploads/refract/system-architecture.png" }
+  ],
   "pageSections": [
     {
       "blockType": "markdownSection",
       "eyebrow": "Overview",
-      "title": "Why it matters",
-      "markdown": "Refract is presented here as a research environment rather than a generic app. The important point is not only that it uses language models, but that it treats provenance, comparative reading, and evidence handling as product surfaces rather than hidden implementation details."
+      "title": "Why the project matters",
+      "markdown": "Refract treats the research session as the continuity layer. Papers, saved evidence, comparison outputs, datasets, and model runs all stay inside one shared context so interpretation does not have to be reconstructed after the fact.\n\nThat matters because applied research work usually gets split across PDF readers, note systems, notebooks, spreadsheets, and draft documents. Refract is designed to collapse that fragmentation into one working environment."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Workflow",
+      "title": "The session connects qualitative and quantitative work",
+      "description": "The implementation is organized around a two-track flow: literature ingestion, reading, and comparison on one side; session-scoped dataset upload, profiling, and modeling on the other. Both tracks converge in literature-informed interpretation.",
+      "media": "/uploads/refract/workflow-overview.png",
+      "caption": "README workflow diagram from the live repository.",
+      "layout": "wide"
     },
     {
       "blockType": "metrics",
-      "eyebrow": "Signals",
-      "title": "What the project emphasizes",
+      "eyebrow": "Surfaces",
+      "title": "What the app actually includes",
       "items": [
         {
-          "value": "evidence-aware",
-          "label": "Product stance",
-          "context": "Grounding and provenance are first-class concerns."
+          "value": "Reader",
+          "label": "Passage-grounded reading",
+          "context": "Upload PDFs, highlight passages, and respond from the active paper."
         },
         {
-          "value": "workspace-based",
-          "label": "Operating model",
-          "context": "The project treats reading, synthesis, and comparison as one workflow."
+          "value": "Index",
+          "label": "Persistent research memory",
+          "context": "Saved questions, notes, concept tags, and source-linked responses."
+        },
+        {
+          "value": "Compare",
+          "label": "Cross-paper synthesis",
+          "context": "Matrices, topic coverage, and gap analysis tied to a live session goal."
+        },
+        {
+          "value": "Stats",
+          "label": "Session-scoped analysis",
+          "context": "Dataset profile, audit, model benchmarking, and evidence-qualified interpretation."
         }
       ]
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Interface",
+      "title": "The UI is built around research work, not generic chat",
+      "description": "The Reader, Compare, and Stats views are separate surfaces, but they are joined by the same session object. The design goal is continuity: keep evidence, assumptions, and analysis outputs visible in context rather than scattered across tools.",
+      "media": "/uploads/refract/reader-workspace.png",
+      "caption": "Reader workspace from the live repository README.",
+      "layout": "split"
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "System",
+      "title": "The architecture reflects the workflow split",
+      "description": "The live implementation uses a React frontend, FastAPI backend, PostgreSQL state, ChromaDB vector storage, and object storage for uploaded files and artifacts. The important seam is the research session model, which coordinates both the literature and analysis tracks.",
+      "media": "/uploads/refract/system-architecture.png",
+      "caption": "System architecture diagram from the repository README.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "quote",
+      "quote": "The strongest implemented thread is not a single model. It is the integrated workflow that keeps reading, comparison, evidence, and statistical analysis in the same frame.",
+      "attribution": "Project framing"
     }
   ],
   "github": {
     "syncEnabled": true,
     "owner": "neerav-git",
-    "repo": "refract",
-    "repoName": "refract",
-    "repoUrl": "https://github.com/neerav-git/refract",
+    "repo": "Refract",
+    "repoName": "Refract",
+    "repoUrl": "https://github.com/neerav-git/Refract",
     "sourceDescription": "Repository-backed source material for the Refract project page.",
     "sourceReadmePath": "README.md",
-    "importedReadmeMarkdown": "README content can be refreshed automatically during builds. This placeholder exists so the project page remains populated even before the first GitHub sync runs.",
+    "importedReadmeMarkdown": "README content can be refreshed automatically during builds. This copy is intentionally retained as a repository-sourced appendix beneath the curated project narrative.",
     "repoTopics": [
       { "value": "research-tools" },
-      { "value": "llm" }
+      { "value": "llm" },
+      { "value": "statistics" },
+      { "value": "provenance" }
     ]
   }
 }

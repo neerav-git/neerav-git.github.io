@@ -1,0 +1,43 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="36" fill="#151718"/>
+  <rect x="42" y="42" width="1516" height="816" rx="26" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+  <text x="92" y="132" fill="#F6F3EB" font-family="IBM Plex Mono, monospace" font-size="30" letter-spacing="6">ALZHEIMER MRI CLASSIFICATION WORKFLOW</text>
+  <text x="92" y="176" fill="#B7AFA1" font-family="IBM Plex Mono, monospace" font-size="22" letter-spacing="2">Notebook-first study • four-stage classification • CNN and ensemble comparison</text>
+
+  <rect x="94" y="244" width="324" height="224" rx="24" fill="#1D2022" stroke="#36424B" stroke-width="2"/>
+  <rect x="454" y="244" width="324" height="224" rx="24" fill="#1D2022" stroke="#50635B" stroke-width="2"/>
+  <rect x="814" y="244" width="324" height="224" rx="24" fill="#1D2022" stroke="#6C5A40" stroke-width="2"/>
+  <rect x="1174" y="244" width="324" height="224" rx="24" fill="#1D2022" stroke="#6B4654" stroke-width="2"/>
+
+  <g fill="#30353A">
+    <ellipse cx="256" cy="346" rx="78" ry="66"/>
+    <ellipse cx="616" cy="346" rx="78" ry="66"/>
+    <ellipse cx="976" cy="346" rx="78" ry="66"/>
+    <ellipse cx="1336" cy="346" rx="78" ry="66"/>
+  </g>
+  <g fill="#0E1012">
+    <circle cx="232" cy="340" r="22"/>
+    <circle cx="280" cy="340" r="22"/>
+    <circle cx="592" cy="340" r="22"/>
+    <circle cx="640" cy="340" r="22"/>
+    <circle cx="952" cy="340" r="22"/>
+    <circle cx="1000" cy="340" r="22"/>
+    <circle cx="1312" cy="340" r="22"/>
+    <circle cx="1360" cy="340" r="22"/>
+  </g>
+
+  <text x="124" y="420" fill="#F6F3EB" font-family="Iowan Old Style, serif" font-size="38">NonDemented</text>
+  <text x="484" y="420" fill="#F6F3EB" font-family="Iowan Old Style, serif" font-size="38">Very Mild</text>
+  <text x="844" y="420" fill="#F6F3EB" font-family="Iowan Old Style, serif" font-size="38">Mild</text>
+  <text x="1204" y="420" fill="#F6F3EB" font-family="Iowan Old Style, serif" font-size="38">Moderate</text>
+
+  <text x="124" y="452" fill="#B7AFA1" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2">baseline stage</text>
+  <text x="484" y="452" fill="#B7AFA1" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2">early progression</text>
+  <text x="844" y="452" fill="#B7AFA1" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2">visible decline</text>
+  <text x="1204" y="452" fill="#B7AFA1" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2">advanced stage</text>
+
+  <rect x="92" y="548" width="1412" height="236" rx="24" fill="#111417" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+  <text x="128" y="614" fill="#D8C49B" font-family="IBM Plex Mono, monospace" font-size="22" letter-spacing="4">PIPELINE</text>
+  <text x="128" y="670" fill="#F6F3EB" font-family="Iowan Old Style, serif" font-size="42">Google Drive dataset → TensorFlow pipeline → CNN baseline → ensemble variants</text>
+  <text x="128" y="728" fill="#B7AFA1" font-family="IBM Plex Mono, monospace" font-size="20" letter-spacing="2">80/10/10 split • 256×256 inputs • augmentation • notebook-first experiment log</text>
+</svg>

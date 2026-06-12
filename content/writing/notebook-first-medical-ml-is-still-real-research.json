@@ -1,0 +1,60 @@
+{
+  "title": "Notebook-first medical ML is still real research",
+  "slug": "notebook-first-medical-ml-is-still-real-research",
+  "category": "Research note",
+  "publishDate": "2026-06-08T00:00:00.000Z",
+  "excerpt": "The Alzheimer MRI project is not a polished package, and that is exactly why it is useful to show. The notebook preserves the real experimental workflow: preprocessing, augmentation, CNN training, and ensemble comparison in one visible record.",
+  "featured": false,
+  "links": [
+    {
+      "label": "Alzheimer MRI project",
+      "url": "/projects/alzheimers-disease-research/",
+      "description": "Project page with notebook and research framing."
+    },
+    {
+      "label": "Open in Colab",
+      "url": "https://colab.research.google.com/github/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning/blob/main/AZclassification5%28wide%29.ipynb",
+      "description": "Run the notebook in Colab."
+    }
+  ],
+  "attachments": [],
+  "relatedProjectSlugs": [
+    "alzheimers-disease-research"
+  ],
+  "pageSections": [
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Artifact",
+      "title": "A notebook can be the honest form of the work",
+      "markdown": "There is a tendency to believe that only polished libraries count as serious technical artifacts. In research, that is often backwards. The notebook can be the more honest object because it preserves sequence: what the dataset looked like, how preprocessing was done, what assumptions were hardcoded, where evaluation happened, and how ensemble variants were introduced.\n\nThat is exactly why the Alzheimer MRI repository should be shown as a notebook-first case study rather than rewritten into a fake product package."
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Pipeline",
+      "title": "The notebook makes the experiment legible",
+      "items": [
+        {
+          "value": "4",
+          "label": "Staging labels",
+          "context": "The experiment distinguishes NonDemented through ModerateDemented classes."
+        },
+        {
+          "value": "CNN",
+          "label": "Baseline model",
+          "context": "A sequential convolutional model anchors the notebook."
+        },
+        {
+          "value": "Ensemble",
+          "label": "Comparison layer",
+          "context": "Later sections compare baseline output to averaging and weighted variants."
+        }
+      ]
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Interpretation",
+      "title": "What the portfolio should highlight",
+      "markdown": "The most interesting thing to preserve on a portfolio is not a claim that the model works in the abstract. It is the visible method: augmentation choices, dataset split logic, and how the notebook evolves from a single classifier toward comparison and ensemble experiments.\n\nThat kind of visibility makes the project easier to evaluate because it shows how the work was actually done."
+    }
+  ]
+}

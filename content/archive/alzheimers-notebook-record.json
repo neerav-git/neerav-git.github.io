@@ -1,0 +1,33 @@
+{
+  "title": "Alzheimer MRI notebook record",
+  "slug": "alzheimers-notebook-record",
+  "itemType": "notebook-summary",
+  "dateLabel": "Colab workflow",
+  "summary": "A supporting record for the Alzheimer’s disease MRI classification notebook, focused on dataset assumptions, staging labels, and ensemble experiments.",
+  "previewImage": "/uploads/alzheimers/mri-grid.svg",
+  "links": [
+    {
+      "label": "Project page",
+      "url": "/projects/alzheimers-disease-research/",
+      "description": "Main narrative page."
+    },
+    {
+      "label": "Open in Colab",
+      "url": "https://colab.research.google.com/github/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning/blob/main/AZclassification5%28wide%29.ipynb",
+      "description": "Notebook entry point."
+    },
+    {
+      "label": "Repository",
+      "url": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
+      "description": "Source repository."
+    }
+  ],
+  "attachments": [],
+  "pageSections": [
+    {
+      "blockType": "markdownSection",
+      "title": "Supporting notes",
+      "markdown": "The README makes clear that the repository is exploratory and notebook-first. That detail belongs in the archive because it shapes how the project should be evaluated: less like a production package, more like an explicit experiment log that includes preprocessing, model training, and ensemble comparison in one place."
+    }
+  ]
+}

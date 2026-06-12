@@ -1,29 +1,41 @@
 {
   "refract-ai": {
-    "repoName": "refract",
-    "repoUrl": "https://github.com/neerav-git/refract",
-    "sourceDescription": "Repository-backed source material for the Refract project page.",
-    "importedReadmeMarkdown": "README content will be refreshed here during the build workflow.",
+    "repoName": "Refract",
+    "repoUrl": "https://github.com/neerav-git/Refract",
+    "sourceDescription": "Session-centered research workspace for literature review and statistical analysis.",
+    "importedReadmeMarkdown": "# Refract\n\nRefract is a session-centered research workspace for literature review and statistical analysis. It keeps papers, saved evidence, datasets, and analysis runs inside one continuous environment so qualitative reading and quantitative modeling do not have to be reconstructed across separate tools.\n\n## What the app does\n\n- `Reader`: upload PDFs, read them in-app, select passages, and generate passage-grounded responses.\n- `Index`: turn saved questions, notes, concept tags, and source-linked responses into persistent research memory.\n- `Compare`: build structured cross-paper synthesis through matrices, topic coverage, and gap analysis tied to the session goal.\n- `Review`: surface study queues and review artifacts built from saved evidence.\n- `Stats`: attach a session-scoped dataset and run a staged quantitative workflow for profiling, audit, modeling, and interpretation.\n\n## Architecture notes\n\nThe live implementation uses a React/Vite frontend, FastAPI backend, PostgreSQL for relational state, ChromaDB for vector storage, and object storage for uploaded files and generated artifacts. The key seam is the research session model, which keeps literature work and statistical analysis tied to the same working context.",
     "repoTopics": [
       {
         "value": "research-tools"
       },
       {
         "value": "llm"
+      },
+      {
+        "value": "statistics"
+      },
+      {
+        "value": "provenance"
       }
     ]
   },
   "alzheimers-disease-research": {
-    "repoName": "alzheimers-disease",
-    "repoUrl": "https://github.com/neerav-git/alzheimers-disease",
-    "sourceDescription": "Repository-backed source material for the Alzheimer’s disease research project page.",
-    "importedReadmeMarkdown": "README content will be refreshed here during the build workflow.",
+    "repoName": "Alzheimer-s-Disease-Detection-Ensemble-Learning",
+    "repoUrl": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
+    "sourceDescription": "Google Colab notebook for MRI-based Alzheimer’s disease stage classification with CNN and ensemble experiments.",
+    "importedReadmeMarkdown": "# Alzheimer's Disease Detection with Ensemble Learning\n\nThis repository contains a Google Colab notebook for classifying Alzheimer's disease progression from brain MRI images using convolutional neural networks and ensemble learning experiments.\n\n## Project overview\n\nThe notebook builds an end-to-end image classification workflow:\n\n1. load MRI image data from Google Drive\n2. create a TensorFlow dataset pipeline\n3. split the data into training, validation, and test sets\n4. apply resizing, rescaling, and augmentation\n5. train a CNN classifier\n6. evaluate predictions on held-out samples\n7. compare single-model results with ensemble variants built from saved models\n\nThe repository is exploratory and notebook-first. It is best read as an experimentation workflow rather than a packaged training library.",
     "repoTopics": [
       {
         "value": "medical-imaging"
       },
       {
         "value": "alzheimers"
+      },
+      {
+        "value": "tensorflow"
+      },
+      {
+        "value": "ensemble-learning"
       }
     ]
   }

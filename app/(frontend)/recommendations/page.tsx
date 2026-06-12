@@ -10,10 +10,15 @@ export default async function RecommendationsPage() {
   return (
     <div className="page-flow">
       <EditableRegion editHref={adminLinks.lettersPage} editLabel="letters page intro">
-        <section className="section-heading subdued-heading">
-          <div className="panel-eyebrow">{pageIntro.label || '06'}</div>
-          <h1>{pageIntro.title || 'Recommendations'}</h1>
-          {pageIntro.intro ? <p className="section-summary">{pageIntro.intro}</p> : null}
+        <section className="section-heading subdued-heading page-mast">
+          <div>
+            <div className="panel-eyebrow">{pageIntro.label || '06'}</div>
+            <h1>{pageIntro.title || 'Recommendations'}</h1>
+          </div>
+          <div className="mast-side">
+            {pageIntro.intro ? <p className="section-summary">{pageIntro.intro}</p> : null}
+            <span className="count-pill">{letters.length} records</span>
+          </div>
         </section>
       </EditableRegion>
 

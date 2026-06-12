@@ -43,6 +43,13 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           <h1>{project.title}</h1>
           <p className="hero-copy">{project.summary}</p>
           {project.role ? <p className="detail-role">Role: {project.role}</p> : null}
+          {Array.isArray(project.technologies) && project.technologies.length ? (
+            <div className="tag-row">
+              {project.technologies.map((technology, index) =>
+                technology?.value ? <span key={`${technology.value}-${index}`}>{technology.value}</span> : null
+              )}
+            </div>
+          ) : null}
           <ArtifactList attachments={project.attachments} links={project.links} title="Project Links" />
         </div>
 

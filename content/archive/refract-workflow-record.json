@@ -1,0 +1,28 @@
+{
+  "title": "Refract workflow overview",
+  "slug": "refract-workflow-record",
+  "itemType": "workflow-diagram",
+  "dateLabel": "Current README",
+  "summary": "A visual overview of how Refract keeps literature work, dataset analysis, and evidence-qualified interpretation inside one shared research session.",
+  "previewImage": "/uploads/refract/workflow-overview.png",
+  "links": [
+    {
+      "label": "Refract project page",
+      "url": "/projects/refract-ai/",
+      "description": "Main narrative page for the project."
+    },
+    {
+      "label": "Repository",
+      "url": "https://github.com/neerav-git/Refract",
+      "description": "Source repository for the workflow diagram."
+    }
+  ],
+  "attachments": [],
+  "pageSections": [
+    {
+      "blockType": "markdownSection",
+      "title": "Why this artifact matters",
+      "markdown": "This diagram is useful because it makes the project's real operating model legible at a glance. The session sits at the top, the qualitative and quantitative tracks diverge, and both feed the final interpretation layer.\n\nFor the portfolio, this is exactly the kind of supporting artifact that should live in the archive: important enough to keep, but better read as adjacent context than as the main project narrative."
+    }
+  ]
+}
