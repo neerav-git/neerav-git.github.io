@@ -1,0 +1,48 @@
+import { EditableRegion } from '@/components/EditableRegion'
+import { getUploadUrl } from '@/lib/assets'
+import { getRecommendations, getSiteSettings } from '@/lib/content'
+
+export default async function RecommendationsPage() {
+  const [settings, letters] = await Promise.all([getSiteSettings(), getRecommendations()])
+  const pageIntro = settings?.pageIntros?.recommendations || {}
+
+  return (
+    <div className="page-flow">
+      <EditableRegion editHref="/admin/#/collections/site_settings/entries/site" editLabel="recommendations intro">
+        <section className="section-heading subdued-heading">
+          <div className="panel-eyebrow">{pageIntro.label || '06'}</div>
+          <h1>{pageIntro.title || 'Recommendations'}</h1>
+          {pageIntro.intro ? <p className="section-summary">{pageIntro.intro}</p> : null}
+        </section>
+      </EditableRegion>
+
+      <div className="stacked-list recommendation-list">
+        {letters.map((letter) => (
+          <EditableRegion
+            editHref={`/admin/#/collections/recommendations/entries/${letter.slug}`}
+            editLabel={letter.title || 'recommendation'}
+            key={letter.slug}
+          >
+            <article className="stacked-item quiet-card">
+              <div>
+                <strong>{letter.title}</strong>
+                <p>{letter.excerpt || letter.context}</p>
+                <small>
+                  {letter.recommenderName}
+                  {letter.recommenderRole ? ` · ${letter.recommenderRole}` : ''}
+                </small>
+              </div>
+              {getUploadUrl(letter.pdfLetter) ? (
+                <a href={getUploadUrl(letter.pdfLetter) || ''} rel="noreferrer" target="_blank">
+                  Open PDF
+                </a>
+              ) : (
+                <span>Supporting note</span>
+              )}
+            </article>
+          </EditableRegion>
+        ))}
+      </div>
+    </div>
+  )
+}

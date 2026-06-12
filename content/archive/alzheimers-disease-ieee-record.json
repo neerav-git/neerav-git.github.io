@@ -1,0 +1,22 @@
+{
+  "title": "Alzheimer’s disease research record",
+  "slug": "alzheimers-disease-ieee-record",
+  "itemType": "paper-summary",
+  "dateLabel": "IEEE period",
+  "summary": "Supporting research notes and adjacent material for the Alzheimer’s disease imaging project.",
+  "links": [
+    {
+      "label": "Project page",
+      "url": "/projects/alzheimers-disease-research/",
+      "description": "Main narrative page."
+    }
+  ],
+  "attachments": [],
+  "pageSections": [
+    {
+      "blockType": "markdownSection",
+      "title": "Archive role",
+      "markdown": "Archive items are where supporting matter belongs: references, figures, summaries, supporting documents, and adjacent notes that add context without interrupting the main project page."
+    }
+  ]
+}

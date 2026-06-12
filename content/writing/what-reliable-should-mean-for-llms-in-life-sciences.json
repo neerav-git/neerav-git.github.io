@@ -1,0 +1,25 @@
+{
+  "title": "What “reliable” should mean for LLMs in life sciences",
+  "slug": "what-reliable-should-mean-for-llms-in-life-sciences",
+  "category": "Essay",
+  "publishDate": "2026-06-10T00:00:00.000Z",
+  "excerpt": "Fluency is cheap and grounding is not. A short argument for treating evaluation as the product rather than an afterthought when language models touch regulated work.",
+  "featured": true,
+  "links": [],
+  "attachments": [],
+  "relatedProjectSlugs": [
+    "refract-ai"
+  ],
+  "pageSections": [
+    {
+      "blockType": "markdownSection",
+      "title": "Reliable means grounded",
+      "markdown": "When a language model writes a paragraph of a regulatory or scientific document, the failure that matters is rarely that the prose is awkward. The failure is that the prose can be confident and wrong.\n\nThat shifts evaluation from a clean-up step after the build into the thing being built. Reliability in these domains has to mean traceability, evidence, and constrained claims."
+    },
+    {
+      "blockType": "quote",
+      "quote": "The model got less impressive and more trustworthy. That trade is the right one for this domain.",
+      "attribution": "Working note"
+    }
+  ]
+}

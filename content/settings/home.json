@@ -1,0 +1,48 @@
+{
+  "heroEyebrow": "Research systems · evaluation · medical ML · careful engineering",
+  "heroTitle": "A public archive for projects, research, and long-form technical work.",
+  "heroBody": "This site is a presentation of ongoing work rather than a resume. It gathers projects, research notes, supporting artifacts, and writing into one editorial record that can keep growing over time.",
+  "heroLinks": [
+    {
+      "label": "Projects",
+      "url": "/projects/"
+    },
+    {
+      "label": "Writing",
+      "url": "/writing/"
+    },
+    {
+      "label": "Archive",
+      "url": "/archive/"
+    }
+  ],
+  "featuredProjectsHeading": "Selected Projects",
+  "featuredProjectSlugs": [
+    "refract-ai",
+    "alzheimers-disease-research"
+  ],
+  "featuredWritingHeading": "Writing and Notes",
+  "featuredArticleSlugs": [
+    "what-reliable-should-mean-for-llms-in-life-sciences",
+    "notes-from-a-battery-rul-project"
+  ],
+  "featuredArchiveHeading": "Supporting Materials",
+  "featuredArchiveSlugs": [
+    "alzheimers-disease-ieee-record"
+  ],
+  "recommendationsNote": "Recommendation letters are intentionally de-emphasized. They live here as supporting records, not as the thesis of the site.",
+  "modules": [
+    {
+      "blockType": "quote",
+      "quote": "The site should not feel like it is asking for a job. It should feel like a careful public notebook.",
+      "attribution": "Site principle",
+      "context": "Editorial direction"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Method",
+      "title": "Everything visible should remain editable.",
+      "markdown": "Every section on this site is meant to stay modular. Headings, descriptions, link groups, writeups, PDFs, images, and supporting files all belong to structured content files rather than hardcoded copy, so the site can evolve without reworking the code every time the record changes."
+    }
+  ]
+}

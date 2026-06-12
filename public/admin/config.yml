@@ -1,0 +1,448 @@
+backend:
+  name: github
+  repo: neerav-git/neerav-git.github.io
+  branch: main
+  # Replace these with your OAuth proxy values before enabling GitHub login on production.
+  # A tiny Vercel function, Cloudflare Worker, or separate auth service is enough.
+  base_url: https://YOUR-OAUTH-HOST.example.com
+  auth_endpoint: /auth
+
+local_backend: true
+publish_mode: editorial_workflow
+site_url: https://neerav-git.github.io
+display_url: https://neerav-git.github.io
+logo_url: /favicon.ico
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: site_settings
+    label: Site Settings
+    delete: false
+    editor:
+      preview: false
+    files:
+      - label: Site
+        name: site
+        file: content/settings/site.json
+        format: json
+        fields:
+          - { label: Site Title, name: siteTitle, widget: string }
+          - { label: Site Tagline, name: siteTagline, widget: text }
+          - { label: Footer Line, name: footerLine, widget: string, required: false }
+          - { label: Contact Email, name: contactEmail, widget: string, required: false }
+          - label: Social Links
+            name: socialLinks
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: url, widget: string }
+          - label: Navigation
+            name: navigation
+            widget: object
+            fields:
+              - { label: Home Label, name: homeLabel, widget: string }
+              - { label: Projects Label, name: projectsLabel, widget: string }
+              - { label: Writing Label, name: writingLabel, widget: string }
+              - { label: Archive Label, name: archiveLabel, widget: string }
+              - { label: About Label, name: aboutLabel, widget: string }
+              - { label: Recommendations Label, name: recommendationsLabel, widget: string }
+          - label: Page Intros
+            name: pageIntros
+            widget: object
+            fields:
+              - label: Projects
+                name: projects
+                widget: object
+                fields:
+                  - { label: Label, name: label, widget: string, required: false }
+                  - { label: Title, name: title, widget: string, required: false }
+                  - { label: Intro, name: intro, widget: text, required: false }
+              - label: Writing
+                name: writing
+                widget: object
+                fields:
+                  - { label: Label, name: label, widget: string, required: false }
+                  - { label: Title, name: title, widget: string, required: false }
+                  - { label: Intro, name: intro, widget: text, required: false }
+              - label: Archive
+                name: archive
+                widget: object
+                fields:
+                  - { label: Label, name: label, widget: string, required: false }
+                  - { label: Title, name: title, widget: string, required: false }
+                  - { label: Intro, name: intro, widget: text, required: false }
+              - label: About
+                name: about
+                widget: object
+                fields:
+                  - { label: Label, name: label, widget: string, required: false }
+                  - { label: Title, name: title, widget: string, required: false }
+                  - { label: Intro, name: intro, widget: text, required: false }
+              - label: Recommendations
+                name: recommendations
+                widget: object
+                fields:
+                  - { label: Label, name: label, widget: string, required: false }
+                  - { label: Title, name: title, widget: string, required: false }
+                  - { label: Intro, name: intro, widget: text, required: false }
+          - label: About Section
+            name: about
+            widget: object
+            fields:
+              - { label: Lead, name: lead, widget: text, required: false }
+              - { label: Portrait, name: portrait, widget: image, required: false }
+              - { label: Biography Markdown, name: biographyMarkdown, widget: markdown, required: false }
+              - { label: Current Focus Markdown, name: currentFocusMarkdown, widget: markdown, required: false }
+      - label: Home
+        name: home
+        file: content/settings/home.json
+        format: json
+        fields:
+          - { label: Hero Eyebrow, name: heroEyebrow, widget: string, required: false }
+          - { label: Hero Title, name: heroTitle, widget: string }
+          - { label: Hero Body, name: heroBody, widget: text, required: false }
+          - { label: Hero Image, name: heroImage, widget: image, required: false }
+          - label: Hero Links
+            name: heroLinks
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: url, widget: string }
+          - { label: Featured Projects Heading, name: featuredProjectsHeading, widget: string, required: false }
+          - label: Featured Project Slugs
+            name: featuredProjectSlugs
+            widget: list
+            field: { label: Project Slug, name: slug, widget: string }
+          - { label: Featured Writing Heading, name: featuredWritingHeading, widget: string, required: false }
+          - label: Featured Article Slugs
+            name: featuredArticleSlugs
+            widget: list
+            field: { label: Article Slug, name: slug, widget: string }
+          - { label: Featured Archive Heading, name: featuredArchiveHeading, widget: string, required: false }
+          - label: Featured Archive Slugs
+            name: featuredArchiveSlugs
+            widget: list
+            field: { label: Archive Slug, name: slug, widget: string }
+          - { label: Recommendations Note, name: recommendationsNote, widget: text, required: false }
+          - label: Home Modules
+            name: modules
+            widget: list
+            types:
+              - label: Markdown Section
+                name: markdownSection
+                widget: object
+                fields:
+                  - { label: Type, name: blockType, widget: hidden, default: markdownSection }
+                  - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Markdown, name: markdown, widget: markdown }
+              - label: Media Feature
+                name: mediaFeature
+                widget: object
+                fields:
+                  - { label: Type, name: blockType, widget: hidden, default: mediaFeature }
+                  - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Description, name: description, widget: text, required: false }
+                  - { label: Media, name: media, widget: image, required: false }
+                  - { label: Caption, name: caption, widget: text, required: false }
+                  - label: Layout
+                    name: layout
+                    widget: select
+                    options: [wide, split]
+              - label: Quote
+                name: quote
+                widget: object
+                fields:
+                  - { label: Type, name: blockType, widget: hidden, default: quote }
+                  - { label: Quote, name: quote, widget: text }
+                  - { label: Attribution, name: attribution, widget: string, required: false }
+                  - { label: Context, name: context, widget: string, required: false }
+              - label: Metrics
+                name: metrics
+                widget: object
+                fields:
+                  - { label: Type, name: blockType, widget: hidden, default: metrics }
+                  - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+                  - { label: Title, name: title, widget: string }
+                  - label: Items
+                    name: items
+                    widget: list
+                    fields:
+                      - { label: Value, name: value, widget: string }
+                      - { label: Label, name: label, widget: string }
+                      - { label: Context, name: context, widget: text, required: false }
+              - label: Link Group
+                name: links
+                widget: object
+                fields:
+                  - { label: Type, name: blockType, widget: hidden, default: links }
+                  - { label: Title, name: title, widget: string }
+                  - label: Links
+                    name: links
+                    widget: list
+                    fields:
+                      - { label: Label, name: label, widget: string }
+                      - { label: URL, name: url, widget: string }
+                      - { label: Description, name: description, widget: text, required: false }
+              - label: Attachment Group
+                name: attachments
+                widget: object
+                fields:
+                  - { label: Type, name: blockType, widget: hidden, default: attachments }
+                  - { label: Title, name: title, widget: string }
+                  - label: Attachments
+                    name: attachments
+                    widget: list
+                    fields:
+                      - { label: Label, name: label, widget: string }
+                      - { label: Description, name: description, widget: text, required: false }
+                      - { label: File, name: file, widget: file, required: false }
+                      - { label: External URL, name: externalUrl, widget: string, required: false }
+
+  - name: projects
+    label: Projects
+    folder: content/projects
+    create: true
+    format: json
+    extension: json
+    identifier_field: title
+    slug: "{{slug}}"
+    summary: "{{fields.title}}"
+    fields: &project_like_fields
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Card Eyebrow, name: cardEyebrow, widget: string, required: false }
+      - { label: Date Label, name: dateLabel, widget: string, required: false }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Role, name: role, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, required: false, default: false }
+      - { label: Display Order, name: displayOrder, widget: number, required: false, value_type: int }
+      - { label: Cover Image, name: coverImage, widget: image, required: false }
+      - label: Gallery
+        name: gallery
+        widget: list
+        required: false
+        field: { label: Image, name: url, widget: image }
+      - label: Technologies
+        name: technologies
+        widget: list
+        required: false
+        field:
+          label: Technology
+          name: value
+          widget: string
+      - label: Links
+        name: links
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: URL, name: url, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+      - label: Attachments
+        name: attachments
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+          - { label: File, name: file, widget: file, required: false }
+          - { label: External URL, name: externalUrl, widget: string, required: false }
+      - label: Page Sections
+        name: pageSections
+        widget: list
+        required: false
+        types: &block_types
+          - label: Markdown Section
+            name: markdownSection
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: markdownSection }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Title, name: title, widget: string }
+              - { label: Markdown, name: markdown, widget: markdown }
+          - label: Media Feature
+            name: mediaFeature
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: mediaFeature }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text, required: false }
+              - { label: Media, name: media, widget: image, required: false }
+              - { label: Caption, name: caption, widget: text, required: false }
+              - label: Layout
+                name: layout
+                widget: select
+                options: [wide, split]
+          - label: Quote
+            name: quote
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: quote }
+              - { label: Quote, name: quote, widget: text }
+              - { label: Attribution, name: attribution, widget: string, required: false }
+              - { label: Context, name: context, widget: string, required: false }
+          - label: Metrics
+            name: metrics
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: metrics }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Title, name: title, widget: string }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Value, name: value, widget: string }
+                  - { label: Label, name: label, widget: string }
+                  - { label: Context, name: context, widget: text, required: false }
+          - label: Link Group
+            name: links
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: links }
+              - { label: Title, name: title, widget: string }
+              - label: Links
+                name: links
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: URL, name: url, widget: string }
+                  - { label: Description, name: description, widget: text, required: false }
+          - label: Attachment Group
+            name: attachments
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: attachments }
+              - { label: Title, name: title, widget: string }
+              - label: Attachments
+                name: attachments
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Description, name: description, widget: text, required: false }
+                  - { label: File, name: file, widget: file, required: false }
+                  - { label: External URL, name: externalUrl, widget: string, required: false }
+      - label: GitHub
+        name: github
+        widget: object
+        required: false
+        fields:
+          - { label: Sync Enabled, name: syncEnabled, widget: boolean, required: false, default: true }
+          - { label: Owner, name: owner, widget: string, required: false }
+          - { label: Repo, name: repo, widget: string, required: false }
+          - { label: Repo Name, name: repoName, widget: string, required: false }
+          - { label: Repo URL, name: repoUrl, widget: string, required: false }
+          - { label: Source Description, name: sourceDescription, widget: text, required: false }
+          - { label: README Path, name: sourceReadmePath, widget: string, required: false }
+          - { label: Imported README Markdown, name: importedReadmeMarkdown, widget: markdown, required: false }
+
+  - name: writing
+    label: Writing
+    folder: content/writing
+    create: true
+    format: json
+    extension: json
+    identifier_field: title
+    slug: "{{slug}}"
+    summary: "{{fields.title}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Category, name: category, widget: string, required: false }
+      - { label: Publish Date, name: publishDate, widget: datetime, required: false }
+      - { label: Excerpt, name: excerpt, widget: text }
+      - { label: Featured, name: featured, widget: boolean, required: false, default: false }
+      - label: Links
+        name: links
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: URL, name: url, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+      - label: Attachments
+        name: attachments
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+          - { label: File, name: file, widget: file, required: false }
+          - { label: External URL, name: externalUrl, widget: string, required: false }
+      - label: Page Sections
+        name: pageSections
+        widget: list
+        required: false
+        types: *block_types
+
+  - name: archive
+    label: Archive
+    folder: content/archive
+    create: true
+    format: json
+    extension: json
+    identifier_field: title
+    slug: "{{slug}}"
+    summary: "{{fields.title}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Item Type, name: itemType, widget: string, required: false }
+      - { label: Date Label, name: dateLabel, widget: string, required: false }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Preview Image, name: previewImage, widget: image, required: false }
+      - label: Links
+        name: links
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: URL, name: url, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+      - label: Attachments
+        name: attachments
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+          - { label: File, name: file, widget: file, required: false }
+          - { label: External URL, name: externalUrl, widget: string, required: false }
+      - label: Page Sections
+        name: pageSections
+        widget: list
+        required: false
+        types: *block_types
+
+  - name: recommendations
+    label: Recommendations
+    folder: content/recommendations
+    create: true
+    format: json
+    extension: json
+    identifier_field: title
+    slug: "{{slug}}"
+    summary: "{{fields.title}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Recommender Name, name: recommenderName, widget: string }
+      - { label: Recommender Role, name: recommenderRole, widget: string, required: false }
+      - { label: Context, name: context, widget: text, required: false }
+      - { label: Excerpt, name: excerpt, widget: text, required: false }
+      - { label: Thumbnail, name: thumbnail, widget: image, required: false }
+      - { label: PDF Letter, name: pdfLetter, widget: file, required: false }
+      - { label: Visibility Priority, name: visibilityPriority, widget: number, required: false, value_type: int }
+      - label: Links
+        name: links
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: URL, name: url, widget: string }
+          - { label: Description, name: description, widget: text, required: false }

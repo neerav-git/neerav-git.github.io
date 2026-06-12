@@ -1,0 +1,10 @@
+{
+  "title": "Recommendation record placeholder",
+  "slug": "recommendation-placeholder",
+  "recommenderName": "Add recommender name",
+  "recommenderRole": "Add role or affiliation",
+  "context": "Upload PDF letters here once they are ready.",
+  "excerpt": "This section is intentionally quiet. Each entry can hold a PDF, thumbnail, supporting note, and related links.",
+  "visibilityPriority": 100,
+  "links": []
+}

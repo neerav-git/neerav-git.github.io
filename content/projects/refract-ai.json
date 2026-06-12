@@ -1,0 +1,65 @@
+{
+  "title": "Refract",
+  "slug": "refract-ai",
+  "cardEyebrow": "Research Platform",
+  "dateLabel": "Ongoing",
+  "status": "ongoing",
+  "summary": "A provenance-aware research environment that combines retrieval, synthesis, evidence tracking, and structured analysis into a single workspace.",
+  "role": "Builder and designer of the research environment, writing system, and evidence architecture.",
+  "featured": true,
+  "displayOrder": 1,
+  "technologies": [
+    { "value": "Next.js" },
+    { "value": "Python" },
+    { "value": "LLM systems" },
+    { "value": "Research workflows" }
+  ],
+  "links": [
+    {
+      "label": "Repository",
+      "url": "https://github.com/neerav-git/refract",
+      "description": "Primary codebase."
+    }
+  ],
+  "attachments": [],
+  "gallery": [],
+  "pageSections": [
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Overview",
+      "title": "Why it matters",
+      "markdown": "Refract is presented here as a research environment rather than a generic app. The important point is not only that it uses language models, but that it treats provenance, comparative reading, and evidence handling as product surfaces rather than hidden implementation details."
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Signals",
+      "title": "What the project emphasizes",
+      "items": [
+        {
+          "value": "evidence-aware",
+          "label": "Product stance",
+          "context": "Grounding and provenance are first-class concerns."
+        },
+        {
+          "value": "workspace-based",
+          "label": "Operating model",
+          "context": "The project treats reading, synthesis, and comparison as one workflow."
+        }
+      ]
+    }
+  ],
+  "github": {
+    "syncEnabled": true,
+    "owner": "neerav-git",
+    "repo": "refract",
+    "repoName": "refract",
+    "repoUrl": "https://github.com/neerav-git/refract",
+    "sourceDescription": "Repository-backed source material for the Refract project page.",
+    "sourceReadmePath": "README.md",
+    "importedReadmeMarkdown": "README content can be refreshed automatically during builds. This placeholder exists so the project page remains populated even before the first GitHub sync runs.",
+    "repoTopics": [
+      { "value": "research-tools" },
+      { "value": "llm" }
+    ]
+  }
+}

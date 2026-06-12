@@ -1,0 +1,30 @@
+{
+  "refract-ai": {
+    "repoName": "refract",
+    "repoUrl": "https://github.com/neerav-git/refract",
+    "sourceDescription": "Repository-backed source material for the Refract project page.",
+    "importedReadmeMarkdown": "README content will be refreshed here during the build workflow.",
+    "repoTopics": [
+      {
+        "value": "research-tools"
+      },
+      {
+        "value": "llm"
+      }
+    ]
+  },
+  "alzheimers-disease-research": {
+    "repoName": "alzheimers-disease",
+    "repoUrl": "https://github.com/neerav-git/alzheimers-disease",
+    "sourceDescription": "Repository-backed source material for the Alzheimer’s disease research project page.",
+    "importedReadmeMarkdown": "README content will be refreshed here during the build workflow.",
+    "repoTopics": [
+      {
+        "value": "medical-imaging"
+      },
+      {
+        "value": "alzheimers"
+      }
+    ]
+  }
+}

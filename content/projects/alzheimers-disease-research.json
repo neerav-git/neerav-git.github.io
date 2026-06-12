@@ -1,0 +1,59 @@
+{
+  "title": "Alzheimer’s Disease MRI Research",
+  "slug": "alzheimers-disease-research",
+  "cardEyebrow": "Medical Imaging Research",
+  "dateLabel": "IEEE record",
+  "status": "published-work",
+  "summary": "CNN-based dementia severity classification and supporting MRI image-processing workflows for studying atrophy and disease progression.",
+  "role": "Researcher working on model development, image-processing pipeline design, and technical interpretation.",
+  "featured": true,
+  "displayOrder": 2,
+  "technologies": [
+    { "value": "PyTorch" },
+    { "value": "MRI" },
+    { "value": "Medical imaging" },
+    { "value": "Computer vision" }
+  ],
+  "links": [
+    {
+      "label": "Repository",
+      "url": "https://github.com/neerav-git/alzheimers-disease",
+      "description": "Code and research materials."
+    }
+  ],
+  "attachments": [],
+  "gallery": [],
+  "pageSections": [
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Context",
+      "title": "Research framing",
+      "markdown": "This project combines dementia severity classification on MRI data with supporting image-processing work for quantifying atrophy. On the portfolio it should read as a research case study with method, artifacts, and decisions intact, not as a one-line accomplishment."
+    },
+    {
+      "blockType": "links",
+      "title": "Related references",
+      "links": [
+        {
+          "label": "ADNI",
+          "url": "https://adni.loni.usc.edu/",
+          "description": "Dataset source context."
+        }
+      ]
+    }
+  ],
+  "github": {
+    "syncEnabled": true,
+    "owner": "neerav-git",
+    "repo": "alzheimers-disease",
+    "repoName": "alzheimers-disease",
+    "repoUrl": "https://github.com/neerav-git/alzheimers-disease",
+    "sourceDescription": "Repository-backed source material for the Alzheimer’s disease research project page.",
+    "sourceReadmePath": "README.md",
+    "importedReadmeMarkdown": "README content can be refreshed automatically during builds. This placeholder exists so the project page remains populated even before the first GitHub sync runs.",
+    "repoTopics": [
+      { "value": "medical-imaging" },
+      { "value": "alzheimers" }
+    ]
+  }
+}

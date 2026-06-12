@@ -1,0 +1,17 @@
+{
+  "title": "Notes from a battery RUL project",
+  "slug": "notes-from-a-battery-rul-project",
+  "category": "Project writeup",
+  "publishDate": "2026-01-15T00:00:00.000Z",
+  "excerpt": "An R² of 0.993 looked great until I asked where it came from. A short write-up on leakage, feature honesty, and whether a model deserves trust.",
+  "featured": true,
+  "links": [],
+  "attachments": [],
+  "pageSections": [
+    {
+      "blockType": "markdownSection",
+      "title": "Trust the audit, not the headline",
+      "markdown": "A near-perfect score on a noisy target is a smell before it is a celebration. The real work in this kind of project is often the audit: whether the feature story makes sense, whether leakage is distorting the result, and whether the explanation of the model aligns with the system being modeled."
+    }
+  ]
+}

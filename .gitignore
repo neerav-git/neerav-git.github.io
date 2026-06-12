@@ -1,0 +1,12 @@
+node_modules
+.next
+.env
+.vercel
+out
+portfolio.db
+.DS_Store
+portfolio.db
+portfolio.db-shm
+portfolio.db-wal
+media
+documents
