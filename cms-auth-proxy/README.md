@@ -12,6 +12,7 @@ Recommended Vercel settings:
 
 - Framework preset: `Other`
 - Root directory: `cms-auth-proxy`
+- No custom build command needed
 
 ## Required environment variables
 
