@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neerav Chaudhary — AI/ML research &amp; evaluation</title>
+<meta name="description" content="AI/ML researcher working on LLM evaluation, robustness, and applied machine learning for healthcare and life sciences." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#EFF1ED;
+    --surface:#FAFBF8;
+    --ink:#15181A;
+    --muted:#5C6360;
+    --line:#D9DDD7;
+    --accent:#0E7E73;
+    --accent-ink:#0A5A52;
+    --accent-soft:rgba(14,126,115,.10);
+    --maxw:1080px;
+    --serif:"IBM Plex Serif",Georgia,serif;
+    --sans:"IBM Plex Sans",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  /* eyebrow / mono labels */
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent-ink);
+  }
+
+  /* nav */
+  .nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:18px}
+  .brand{font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:.02em;text-decoration:none}
+  .brand .dot{color:var(--accent)}
+  .navlinks{display:flex;gap:22px;flex-wrap:wrap}
+  .navlinks a{font-family:var(--mono);font-size:13px;color:var(--muted);text-decoration:none;letter-spacing:.02em}
+  .navlinks a:hover,.navlinks a:focus-visible{color:var(--ink)}
+
+  /* hero */
+  .hero{padding:74px 0 56px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}
+  .hero h1{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(33px,5.2vw,56px);line-height:1.06;letter-spacing:-.01em;
+    margin:.5rem 0 .9rem;
+  }
+  .hero h1 em{font-style:italic;color:var(--accent-ink)}
+  .lede{font-size:18px;color:var(--muted);max-width:46ch;margin:0 0 1.4rem}
+  .links{display:flex;gap:10px;flex-wrap:wrap}
+  .links a{
+    font-family:var(--mono);font-size:13px;text-decoration:none;
+    border:1px solid var(--line);background:var(--surface);
+    padding:8px 13px;border-radius:7px;color:var(--ink);
+    transition:border-color .15s,transform .15s;
+  }
+  .links a:hover,.links a:focus-visible{border-color:var(--accent);transform:translateY(-1px)}
+  .links a .arr{color:var(--accent)}
+
+  /* signature: signal panel */
+  .panel{
+    background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    padding:20px 20px 16px;
+  }
+  .panel .cap{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .chart{width:100%;height:auto;display:block;margin:6px 0 12px}
+  .trace{fill:none;stroke:var(--accent);stroke-width:2.25;
+    stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1400;stroke-dashoffset:1400;
+    animation:draw 2.1s .25s cubic-bezier(.6,.02,.2,1) forwards}
+  .dot{fill:var(--accent);opacity:0;animation:pop .4s forwards}
+  .baseline{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes pop{to{opacity:1}}
+  .chips{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .chip{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--paper)}
+  .chip b{font-family:var(--mono);font-size:15px;color:var(--accent-ink);display:block}
+  .chip span{font-size:12.5px;color:var(--muted)}
+
+  /* sections */
+  section{padding:46px 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:26px}
+  .sec-head h2{font-family:var(--serif);font-weight:500;font-size:27px;margin:0;letter-spacing:-.01em}
+
+  /* projects */
+  .proj{display:grid;grid-template-columns:1fr;gap:14px}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:13px;
+    padding:22px 22px;display:grid;grid-template-columns:1fr auto;gap:8px 24px;
+    transition:border-color .15s;
+  }
+  .card:hover{border-color:#c4cbc4}
+  .card h3{font-family:var(--sans);font-weight:600;font-size:19px;margin:0}
+  .card .when{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap;text-align:right}
+  .card p{margin:.35rem 0 .6rem;color:#3a4040;grid-column:1/-1;max-width:68ch}
+  .tags{grid-column:1/-1;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+  .tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line);
+    border-radius:5px;padding:3px 7px;background:var(--paper)}
+  .card .go{font-family:var(--mono);font-size:12.5px;color:var(--accent-ink);text-decoration:none;margin-left:auto}
+  .card .go:hover{text-decoration:underline}
+
+  /* writing */
+  .posts{display:grid;gap:2px}
+  .post{display:grid;grid-template-columns:108px 1fr;gap:20px;padding:18px 6px;
+    border-bottom:1px solid var(--line);text-decoration:none;color:inherit;align-items:start}
+  .post:first-child{border-top:1px solid var(--line)}
+  .post:hover .post-title{color:var(--accent-ink)}
+  .post time{font-family:var(--mono);font-size:12.5px;color:var(--muted);padding-top:3px}
+  .post-title{font-family:var(--serif);font-size:20px;font-weight:500;margin:0 0 4px;transition:color .15s}
+  .post p{margin:0;color:var(--muted);font-size:15px;max-width:64ch}
+  .post .ptags{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:40px}
+  .about p{margin:0 0 1rem;max-width:60ch}
+  .meta{font-family:var(--mono);font-size:13px;color:var(--muted);line-height:1.9}
+  .meta b{color:var(--ink);font-weight:500}
+
+  footer{border-top:1px solid var(--line);padding:30px 0 48px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  footer a{color:var(--muted);text-decoration:none}
+  footer a:hover{color:var(--ink)}
+
+  @media (max-width:760px){
+    .hero-grid,.about-grid{grid-template-columns:1fr;gap:30px}
+    .card{grid-template-columns:1fr}
+    .card .when{text-align:left}
+    .post{grid-template-columns:1fr;gap:4px}
+    .post time{padding-top:0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .trace{animation:none;stroke-dashoffset:0}
+    .dot{animation:none;opacity:1}
+    html{scroll-behavior:auto}
+  }
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">neerav chaudhary<span class="dot">.</span></a>
+    <div class="navlinks">
+      <a href="#work">work</a>
+      <a href="#writing">writing</a>
+      <a href="#about">about</a>
+      <a href="Neerav_Chaudhary.pdf">resume</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">AI/ML research &middot; evaluation &middot; healthcare</span>
+      <h1>I build machine-learning systems &mdash; and the <em>evaluations</em> that decide whether to trust them.</h1>
+      <p class="lede">Early-career AI/ML researcher and published author, working at the boundary of LLM reliability and applied ML for healthcare and life sciences.</p>
+      <div class="links">
+        <a href="https://github.com/neerav-git">GitHub <span class="arr">&#8599;</span></a>
+        <a href="https://www.linkedin.com/in/neeravch/">LinkedIn <span class="arr">&#8599;</span></a>
+        <a href="mailto:neerav.ch@icloud.com">Email</a>
+        <a href="Neerav_Chaudhary.pdf">Resume <span class="arr">&#8599;</span></a>
+      </div>
+    </div>
+
+    <aside class="panel" aria-label="Selected results">
+      <div class="cap">selected results</div>
+      <svg class="chart" viewBox="0 0 320 150" role="img" aria-label="A rising measurement curve">
+        <line class="baseline" x1="10" y1="120" x2="310" y2="120"/>
+        <path class="trace" d="M14,116 C50,112 64,96 92,98 C120,100 130,72 158,66 C186,60 196,40 224,34 C252,28 270,24 306,18"/>
+        <circle class="dot" cx="92"  cy="98" r="3.4" style="animation-delay:1.1s"/>
+        <circle class="dot" cx="158" cy="66" r="3.4" style="animation-delay:1.6s"/>
+        <circle class="dot" cx="224" cy="34" r="3.4" style="animation-delay:2.0s"/>
+        <circle class="dot" cx="306" cy="18" r="3.8" style="animation-delay:2.4s"/>
+      </svg>
+      <div class="chips">
+        <div class="chip"><b>78&rarr;85%</b><span>dementia classification, ADNI MRI</span></div>
+        <div class="chip"><b>R&sup2; 0.993</b><span>battery remaining-useful-life</span></div>
+        <div class="chip"><b>&minus;25%</b><span>false positives, risk model</span></div>
+        <div class="chip"><b>&minus;45%</b><span>research workflow time, Refract-AI</span></div>
+      </div>
+    </aside>
+  </div>
+</header>
+
+<main>
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">01</span><h2>Selected work</h2></div>
+      <div class="proj">
+
+        <article class="card">
+          <h3>Refract-AI &mdash; RAG research platform</h3>
+          <div class="when">2026</div>
+          <p>A single environment that pairs retrieval-augmented literature synthesis with automated statistical analysis. The core idea: provenance-classified, session-scoped retrieval that refuses ungrounded claims &mdash; a grounding and robustness safeguard, not just a generator. Cut end-to-end research workflow time ~45%.</p>
+          <div class="tags">
+            <span class="tag">RAG</span><span class="tag">React</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span><span class="tag">ChromaDB</span>
+            <a class="go" href="https://github.com/neerav-git">repo &#8599;</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Battery remaining-useful-life prediction</h3>
+          <div class="when">2024</div>
+          <p>A predictive-maintenance pipeline estimating lithium-ion RUL from degradation history so failures are caught early. R&sup2; 0.993 / RMSE 25.6 cycles after a correlation-based leakage audit, with discharge time carrying ~85% of the signal.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">Random Forest</span><span class="tag">feature audit</span>
+            <a class="go" href="https://github.com/neerav-git">repo &#8599;</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Brain-atrophy quantification from MRI</h3>
+          <div class="when">2022 &middot; IEEE</div>
+          <p>CNN ensembles for dementia-severity classification on the ADNI longitudinal MRI dataset (accuracy 78&rarr;85%), plus an OpenCV pipeline that quantifies neural atrophy to cut manual assessment time. Published at IEEE ICRITO 2022.</p>
+          <div class="tags">
+            <span class="tag">CNN</span><span class="tag">OpenCV</span><span class="tag">medical imaging</span><span class="tag">PyTorch</span>
+            <a class="go" href="https://github.com/neerav-git">paper &#8599;</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>LLM support assistant</h3>
+          <div class="when">2023</div>
+          <p>A prototype LLM application that ran sentiment and intent analysis on support logs, routed issues via vector retrieval, and drafted SOP-grounded responses &mdash; with prompt and retrieval iteration aimed at output reliability.</p>
+          <div class="tags">
+            <span class="tag">LLMs</span><span class="tag">vector retrieval</span><span class="tag">prompt design</span><span class="tag">NLP</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="writing">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">02</span><h2>Writing</h2></div>
+      <div class="posts" id="posts"><!-- rendered from articles.js --></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">03</span><h2>About</h2></div>
+      <div class="about-grid">
+        <div class="about">
+          <p>I work on the part of machine learning that decides whether a system can be trusted: evaluation, grounding, and robustness &mdash; especially where the stakes are high, like healthcare and life sciences.</p>
+          <p>My background runs from computer-vision research on medical imaging (published at IEEE ICRITO) to LLM applications, retrieval, and AI-safety analysis. I&rsquo;m most interested in the unglamorous work that happens after a model trains: figuring out where it fails, and how you&rsquo;d know.</p>
+          <p>This site is where I write about what I&rsquo;m building, what I&rsquo;m reading, and where I think applied AI is heading.</p>
+        </div>
+        <div class="meta">
+          <b>Education</b><br>
+          M.S. Engineering Management, SJSU<br>
+          B.Tech Computer Engineering, MUJ<br><br>
+          <b>Focus</b><br>
+          LLM evaluation &amp; robustness<br>
+          Applied ML for healthcare<br>
+          Statistical / scientific rigor<br><br>
+          <b>Elsewhere</b><br>
+          <a href="https://github.com/neerav-git">github.com/neerav-git</a><br>
+          <a href="https://www.linkedin.com/in/neeravch/">linkedin.com/in/neeravch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="yr"></span> Neerav Chaudhary</span>
+    <span>Built to be edited &middot; <a href="mailto:neerav.ch@icloud.com">neerav.ch@icloud.com</a></span>
+  </div>
+</footer>
+
+<script src="articles.js"></script>
+<script>
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  // Render the writing list from ARTICLES
+  (function(){
+    var host = document.getElementById("posts");
+    var list = (window.ARTICLES || []).slice().sort(function(a,b){
+      return (b.date || "").localeCompare(a.date || "");
+    });
+    if(!list.length){
+      host.innerHTML = '<p style="color:var(--muted)">No posts yet. Add one in <code>articles.js</code>.</p>';
+      return;
+    }
+    function fmt(d){
+      var p = (d || "").split("-");
+      var m = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      if(p.length>=2) return m[(+p[1])-1] + " " + p[0];
+      return d || "";
+    }
+    host.innerHTML = list.map(function(a){
+      var tags = (a.tags||[]).map(function(t){return '<span class="tag">'+t+'</span>';}).join("");
+      return '<a class="post" href="article.html?p='+encodeURIComponent(a.slug)+'">'
+        + '<time>'+fmt(a.date)+'</time>'
+        + '<div><h3 class="post-title">'+a.title+'</h3>'
+        + '<p>'+(a.summary||"")+'</p>'
+        + '<div class="ptags">'+tags+'</div></div></a>';
+    }).join("");
+  })();
+</script>
+</body>
+</html>

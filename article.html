@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neerav Chaudhary — Writing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#EFF1ED;--surface:#FAFBF8;--ink:#15181A;--muted:#5C6360;--line:#D9DDD7;
+    --accent:#0E7E73;--accent-ink:#0A5A52;
+    --serif:"IBM Plex Serif",Georgia,serif;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px;margin:0 auto;padding:0 28px}
+  .nav{border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .back{font-family:var(--mono);font-size:13px;color:var(--muted);text-decoration:none}
+  .back:hover{color:var(--ink)}
+  .brand{font-family:var(--mono);font-weight:500;font-size:14px;text-decoration:none}
+  .brand .dot{color:var(--accent)}
+  article{padding:52px 0 70px}
+  .meta{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:14px}
+  h1.title{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4.6vw,42px);line-height:1.12;letter-spacing:-.01em;margin:0 0 10px}
+  .tags{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 36px}
+  .tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:3px 7px;background:var(--surface)}
+  .body h3{font-family:var(--sans);font-weight:600;font-size:21px;margin:2em 0 .5em}
+  .body p{margin:0 0 1.15em}
+  .body a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px}
+  .body code{font-family:var(--mono);font-size:.86em;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+  .body em{color:var(--ink)}
+  .body blockquote{margin:1.4em 0;padding:.3em 0 .3em 18px;border-left:3px solid var(--accent);color:var(--muted);font-style:italic}
+  .body ul,.body ol{padding-left:1.2em}
+  .foot{border-top:1px solid var(--line);margin-top:48px;padding-top:22px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .foot a{color:var(--accent-ink);text-decoration:none}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="index.html">neerav chaudhary<span class="dot">.</span></a>
+  <a class="back" href="index.html#writing">&larr; all writing</a>
+</div></nav>
+
+<article><div class="wrap">
+  <div class="meta" id="meta"></div>
+  <h1 class="title" id="title">Loading&hellip;</h1>
+  <div class="tags" id="tags"></div>
+  <div class="body" id="body"></div>
+  <div class="foot">
+    <span id="back2"></span>
+  </div>
+</div></article>
+
+<script src="articles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  (function(){
+    function q(id){return document.getElementById(id);}
+    function fmt(d){var p=(d||"").split("-");var m=["January","February","March","April","May","June","July","August","September","October","November","December"];return p.length>=2?(m[(+p[1])-1]+" "+p[0]):(d||"");}
+    var params=new URLSearchParams(location.search);
+    var slug=params.get("p");
+    var list=window.ARTICLES||[];
+    var post=list.filter(function(a){return a.slug===slug;})[0];
+
+    if(!post){
+      q("title").textContent="Post not found";
+      q("body").innerHTML='<p style="color:var(--muted)">That article doesn&rsquo;t exist. <a href="index.html#writing">Back to all writing &rarr;</a></p>';
+      return;
+    }
+    document.title="Neerav Chaudhary — "+post.title;
+    q("meta").textContent=fmt(post.date);
+    q("title").textContent=post.title;
+    q("tags").innerHTML=(post.tags||[]).map(function(t){return '<span class="tag">'+t+'</span>';}).join("");
+    var html;
+    try{ html = window.marked ? marked.parse(post.content) : null; }catch(e){ html=null; }
+    if(!html){
+      // Fallback if the markdown library is unavailable: show plain paragraphs.
+      html = post.content.split(/\n\n+/).map(function(p){return "<p>"+p.replace(/</g,"&lt;")+"</p>";}).join("");
+    }
+    q("body").innerHTML=html;
+    q("back2").innerHTML='<a href="index.html#writing">&larr; All writing</a>';
+  })();
+</script>
+</body>
+</html>
