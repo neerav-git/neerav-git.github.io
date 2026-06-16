@@ -66,7 +66,7 @@ export default async function HomePage() {
                   ))}
                 </div>
                 <p className="overview-note">
-                  Start with the project spotlight, then move into the writing and archive records that surround it.
+                  Begin with the projects, then follow the writing and archive records that deepen the technical context around them.
                 </p>
               </div>
             </aside>
@@ -82,7 +82,7 @@ export default async function HomePage() {
               <h2>{home?.featuredProjectsHeading || 'Selected Projects'}</h2>
             </div>
             <p className="section-summary">
-              The main projects are treated as records of work, with companion writing and archive material close by.
+              The main projects combine system design, experimental work, and supporting records so the technical story remains complete.
             </p>
           </div>
         </EditableRegion>
@@ -165,16 +165,16 @@ export default async function HomePage() {
       <div className="editorial-columns">
         <section className="primary-column section-stack" id="home-writing">
           <EditableRegion editHref={adminLinks.home} editLabel="featured writing section">
-            <div className="section-heading section-heading-wide">
-              <div>
-                <div className="panel-eyebrow">Writing</div>
-                <h2>{home?.featuredWritingHeading || 'Writing and Notes'}</h2>
-              </div>
-              <p className="section-summary">
-                Essays and project notes that make the reasoning around the work legible rather than leaving it implicit.
-              </p>
+          <div className="section-heading section-heading-wide">
+            <div>
+              <div className="panel-eyebrow">Writing</div>
+              <h2>{home?.featuredWritingHeading || 'Writing and Notes'}</h2>
             </div>
-          </EditableRegion>
+            <p className="section-summary">
+              Essays and project notes on design choices, evaluation, and the reasoning behind the work.
+            </p>
+          </div>
+        </EditableRegion>
 
           {leadArticle ? (
             <EditableRegion editHref={adminLinks.article(leadArticle.slug)} editLabel={leadArticle.title || 'article'}>
@@ -206,14 +206,14 @@ export default async function HomePage() {
 
         <aside className="secondary-column section-stack" id="home-archive">
           <EditableRegion editHref={adminLinks.home} editLabel="featured archive section">
-            <div className="section-heading">
-              <div className="panel-eyebrow">Archive</div>
-              <h2>{home?.featuredArchiveHeading || 'Research Archive'}</h2>
-              <p className="section-summary">
-                Diagrams, notebook records, and supporting artifacts that add context to the main project narratives.
-              </p>
-            </div>
-          </EditableRegion>
+          <div className="section-heading">
+            <div className="panel-eyebrow">Archive</div>
+            <h2>{home?.featuredArchiveHeading || 'Research Archive'}</h2>
+            <p className="section-summary">
+              Diagrams, notebook records, and reference materials that extend the main project pages with implementation and study context.
+            </p>
+          </div>
+        </EditableRegion>
 
           {leadArchive ? (
             <EditableRegion editHref={adminLinks.archive(leadArchive.slug)} editLabel={leadArchive.title || 'archive record'}>

@@ -1,7 +1,7 @@
 {
   "siteTitle": "Neerav Chaudhary",
-  "siteTagline": "Research systems, applied machine learning, and technical writing.",
-  "footerLine": "Selected work in research infrastructure, medical imaging, and model evaluation.",
+  "siteTagline": "Research systems, applied machine learning, and technical writing on method and evaluation.",
+  "footerLine": "Work across research infrastructure, medical imaging, and model evaluation.",
   "contactEmail": "neerav.ch@icloud.com",
   "socialLinks": [
     {
@@ -25,17 +25,17 @@
     "projects": {
       "label": "01",
       "title": "Projects",
-      "intro": "Projects include product systems, machine-learning studies, and implementation work shaped by research goals, technical constraints, and close attention to how results are produced."
+      "intro": "Projects include software systems, machine-learning studies, and implementation work shaped by research goals, technical constraints, and careful attention to how results are produced."
     },
     "writing": {
       "label": "02",
       "title": "Writing",
-      "intro": "Writing focuses on method, evaluation, system design, and the practical questions that arise when technical work needs to be clear, inspectable, and worth revisiting."
+      "intro": "Writing focuses on method, evaluation, system design, and the practical questions that arise when technical work needs to be clear, inspectable, and durable."
     },
     "archive": {
       "label": "03",
       "title": "Research Archive",
-      "intro": "The archive gathers supporting materials: workflow diagrams, notebook records, technical references, and other documents that deepen the record around the main project pages."
+      "intro": "The archive gathers workflow diagrams, notebook records, technical references, and other materials that extend the main project pages without interrupting them."
     },
     "about": {
       "label": "04",

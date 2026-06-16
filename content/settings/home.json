@@ -17,7 +17,7 @@
       "url": "/archive/"
     }
   ],
-  "featuredProjectsHeading": "Projects in Focus",
+  "featuredProjectsHeading": "Selected Projects",
   "featuredProjectSlugs": [
     "refract-ai",
     "alzheimers-disease-research"
@@ -29,7 +29,7 @@
     "notebook-first-medical-ml-is-still-real-research",
     "notes-from-a-battery-rul-project"
   ],
-  "featuredArchiveHeading": "Archive Records",
+  "featuredArchiveHeading": "Archive",
   "featuredArchiveSlugs": [
     "refract-workflow-record",
     "refract-system-architecture-record",
@@ -41,14 +41,14 @@
     {
       "blockType": "markdownSection",
       "eyebrow": "Focus",
-      "title": "Current work",
-      "markdown": "Current work sits at the intersection of research tooling, evidence-aware interfaces, and applied machine learning. That includes systems for literature review and statistical analysis, notebook-driven experimentation in medical imaging, and writing that records method, constraints, and interpretation with enough detail to be useful later."
+      "title": "Current areas",
+      "markdown": "Current work sits at the intersection of research tooling, evidence-aware interfaces, and applied machine learning. That includes systems for literature review and statistical analysis, notebook-driven experimentation in medical imaging, and writing that records method, constraints, and interpretation in enough detail to be useful later."
     },
     {
       "blockType": "markdownSection",
       "eyebrow": "Approach",
       "title": "Areas of interest",
-      "markdown": "I am particularly interested in systems where technical outputs need to remain inspectable: research workflows that carry forward context, model pipelines that make evaluation legible, and interfaces that help reasoning stay anchored to source material rather than drift into summary without evidence."
+      "markdown": "I am particularly interested in systems where technical outputs need to remain inspectable: research workflows that carry forward context, model pipelines that make evaluation legible, and interfaces that help reasoning stay anchored to source material rather than drift into unsupported summary."
     },
     {
       "blockType": "links",
