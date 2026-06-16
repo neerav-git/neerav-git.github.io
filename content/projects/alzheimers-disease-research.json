@@ -2,95 +2,122 @@
   "title": "Alzheimer’s Disease MRI Research",
   "slug": "alzheimers-disease-research",
   "cardEyebrow": "Medical Imaging Research",
-  "dateLabel": "Notebook-first study",
+  "dateLabel": "Notebook-based study",
   "status": "published-work",
-  "summary": "An exploratory MRI classification workflow for staging Alzheimer’s disease progression through CNN and ensemble learning experiments built in Google Colab.",
-  "role": "Researcher building the preprocessing, augmentation, CNN training, and ensemble-evaluation workflow, then interpreting the notebook as a research record rather than a productized library.",
+  "summary": "A notebook-based MRI classification study that explores Alzheimer’s disease staging through preprocessing, convolutional modeling, and ensemble comparison in Google Colab.",
+  "role": "I built the data preparation, augmentation, model training, and evaluation flow, then used the notebook itself as the primary record of experimental decisions and results.",
   "featured": true,
   "displayOrder": 2,
-  "coverImage": "/uploads/alzheimers/mri-grid.svg",
+  "coverImage": "/uploads/alzheimers/notebook-output-1.png",
   "technologies": [
     { "value": "TensorFlow" },
     { "value": "Keras" },
-    { "value": "MRI" },
-    { "value": "Medical imaging" },
+    { "value": "Google Colab" },
+    { "value": "MRI imaging" },
     { "value": "Computer vision" },
-    { "value": "Google Colab" }
+    { "value": "Ensemble learning" }
   ],
   "links": [
     {
       "label": "Repository",
       "url": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
-      "description": "Notebook and project README."
+      "description": "Source repository with README and notebook."
     },
     {
       "label": "Open in Colab",
       "url": "https://colab.research.google.com/github/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning/blob/main/AZclassification5%28wide%29.ipynb",
-      "description": "Run the notebook in Google Colab."
+      "description": "Notebook entry point in Google Colab."
+    },
+    {
+      "label": "Notebook archive record",
+      "url": "/archive/alzheimers-notebook-record/",
+      "description": "Supporting notes on the notebook, dataset assumptions, and evaluation flow."
     }
   ],
   "attachments": [],
-  "gallery": [],
+  "gallery": [
+    { "url": "/uploads/alzheimers/notebook-output-1.png" },
+    { "url": "/uploads/alzheimers/notebook-output-2.png" },
+    { "url": "/uploads/alzheimers/notebook-output-3.png" }
+  ],
   "pageSections": [
     {
       "blockType": "markdownSection",
-      "eyebrow": "Context",
-      "title": "What the repository actually is",
-      "markdown": "This project is best read as a notebook-first experimentation workflow. The repository centers on a Google Colab notebook that loads MRI image data, builds a TensorFlow pipeline, trains a CNN classifier, and then compares baseline results against simple ensemble variants.\n\nThat framing matters. The value of the work is not that it looks like a polished package; it is that the notebook preserves the actual exploratory sequence used to test the problem."
+      "eyebrow": "Overview",
+      "title": "A medical imaging study preserved in the form it was carried out",
+      "markdown": "The study focuses on MRI-based classification of Alzheimer’s disease progression using a notebook-driven workflow in Google Colab. The work moves from image loading and preprocessing to augmentation, baseline CNN training, and comparison against simple ensemble variants.\n\nThe full experimental sequence remains visible throughout the repository. Paths, preprocessing choices, image resizing, evaluation steps, and later comparison logic all appear in the same notebook, which makes it possible to understand how the result was produced rather than seeing only a final metric."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Data view",
+      "title": "Representative MRI slices remain part of the experimental record",
+      "description": "The notebook includes direct visual inspection of MRI inputs. Keeping examples like these in the workflow matters because it ties preprocessing and model design back to the actual structure of the data rather than treating the dataset as an abstraction.",
+      "media": "/uploads/alzheimers/notebook-output-1.png",
+      "caption": "MRI sample montage extracted from the notebook output in the repository.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Problem framing",
+      "title": "The work is organized around staged classification rather than a single binary distinction",
+      "markdown": "The study uses four classes: NonDemented, VeryMildDemented, MildDemented, and ModerateDemented. That framing introduces a more demanding classification problem than a simple healthy-versus-disease split, because the model has to distinguish not just presence but degree of progression.\n\nThe notebook reflects that framing at every stage. Data preparation, augmentation, and evaluation all sit inside a multi-class setup, and the later ensemble work is meaningful precisely because the task itself is not trivial."
     },
     {
       "blockType": "metrics",
       "eyebrow": "Pipeline",
-      "title": "What the notebook covers",
+      "title": "Key experimental choices",
       "items": [
         {
           "value": "4",
-          "label": "Diagnostic classes",
+          "label": "Classification labels",
           "context": "NonDemented, VeryMildDemented, MildDemented, and ModerateDemented."
         },
         {
           "value": "256×256",
-          "label": "Input sizing",
-          "context": "The baseline CNN resizes images to 256 by 256 pixels."
+          "label": "Image sizing",
+          "context": "The notebook resizes images before model training."
         },
         {
           "value": "80/10/10",
-          "label": "Dataset split",
-          "context": "Training, validation, and test partitions described in the README."
+          "label": "Data split",
+          "context": "Training, validation, and test partitions described in the repository README."
         },
         {
-          "value": "Ensemble",
-          "label": "Comparison layer",
-          "context": "The notebook compares single-model output against simple averaging and draft weighted ensembles."
+          "value": "CNN + ensemble",
+          "label": "Modeling approach",
+          "context": "A baseline convolutional model is extended with simple ensemble comparison."
         }
       ]
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Preprocessing",
+      "title": "Single-slice inspection helps keep the pipeline concrete",
+      "description": "Notebook-based work is often criticized for being less polished than packaged code, but it has one important advantage: the data remains visible. Images like this make preprocessing decisions easier to inspect and discuss.",
+      "media": "/uploads/alzheimers/notebook-output-2.png",
+      "caption": "Single MRI slice extracted from the repository notebook output.",
+      "layout": "split"
     },
     {
       "blockType": "markdownSection",
       "eyebrow": "Method",
-      "title": "Notebook-first machine learning changes what the artifact means",
-      "markdown": "The README is explicit that the work is exploratory and notebook-first. That makes the repository useful as a case study in how research code actually develops: dataset paths are hardcoded to Drive, model checkpoints are loaded from saved experiments, and the notebook mixes explanation, preprocessing, training, visualization, and ensemble testing in one place.\n\nFor this portfolio, that is not a weakness to hide. It is the right way to present the project because it shows the real state of the work."
+      "title": "Why the notebook form matters",
+      "markdown": "In this project, the notebook is not an intermediate artifact waiting to become a cleaner library. It is the most faithful representation of the work. It shows where the dataset is loaded from, how the images are augmented, how the convolutional model is trained, and how later comparison logic is layered in.\n\nThat visibility is important in medical and scientific contexts, where the most useful question is often not whether a result looks good in isolation, but whether the sequence of choices behind it can be examined with enough detail to judge the work responsibly."
     },
     {
-      "blockType": "quote",
-      "quote": "The artifact here is not just a classifier. It is a visible experiment log for how the classifier was framed, trained, and compared.",
-      "attribution": "Portfolio framing"
+      "blockType": "mediaFeature",
+      "eyebrow": "Evaluation context",
+      "title": "The project is best understood as a visible sequence of experiments",
+      "description": "The later portions of the notebook move beyond a single model result and into comparison. That transition is where the study becomes more interesting, because it reveals how performance was interrogated rather than simply reported.",
+      "media": "/uploads/alzheimers/notebook-output-3.png",
+      "caption": "Additional MRI output extracted from the notebook record.",
+      "layout": "split"
     },
     {
-      "blockType": "links",
-      "title": "Related references",
-      "links": [
-        {
-          "label": "ADNI",
-          "url": "https://adni.loni.usc.edu/",
-          "description": "Dataset source context."
-        },
-        {
-          "label": "Notebook archive record",
-          "url": "/archive/alzheimers-notebook-record/",
-          "description": "Companion archive item for the notebook and run assumptions."
-        }
-      ]
+      "blockType": "markdownSection",
+      "eyebrow": "Scope",
+      "title": "What this study demonstrates",
+      "markdown": "This work demonstrates a practical medical imaging workflow built under notebook-first conditions: dataset preparation, convolutional modeling, staged classification, and comparison-oriented evaluation in a single reproducible file. It is not presented as a clinical system or a polished deployment target. Its value lies in the transparency of the experimental process and in the way it captures model development in a form that can still be reviewed, rerun, and extended."
     }
   ],
   "github": {
@@ -99,7 +126,7 @@
     "repo": "Alzheimer-s-Disease-Detection-Ensemble-Learning",
     "repoName": "Alzheimer-s-Disease-Detection-Ensemble-Learning",
     "repoUrl": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
-    "sourceDescription": "Repository-backed source material for the Alzheimer’s disease research project page.",
+    "sourceDescription": "Repository-backed source material for the Alzheimer’s disease MRI research project page.",
     "sourceReadmePath": "README.md",
     "importedReadmeMarkdown": "README content can be refreshed automatically during builds. This copy is intentionally retained as a repository-sourced appendix beneath the curated project narrative.",
     "repoTopics": [

@@ -21,7 +21,18 @@ async function readJsonFile<T>(...segments: string[]) {
 
 async function readCollection<T>(directory: string) {
   const folder = path.join(contentRoot, directory)
-  const files = (await fs.readdir(folder)).filter((file) => file.endsWith('.json')).sort()
+  let files: string[] = []
+
+  try {
+    files = (await fs.readdir(folder)).filter((file) => file.endsWith('.json')).sort()
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return []
+    }
+
+    throw error
+  }
+
   const items = await Promise.all(files.map((file) => readJsonFile<T>(directory, file)))
   return items
 }

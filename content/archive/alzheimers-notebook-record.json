@@ -1,15 +1,15 @@
 {
   "title": "Alzheimer MRI notebook record",
   "slug": "alzheimers-notebook-record",
-  "itemType": "notebook-summary",
-  "dateLabel": "Colab workflow",
-  "summary": "A supporting record for the Alzheimer’s disease MRI classification notebook, focused on dataset assumptions, staging labels, and ensemble experiments.",
-  "previewImage": "/uploads/alzheimers/mri-grid.svg",
+  "itemType": "Notebook record",
+  "dateLabel": "Google Colab study",
+  "summary": "Notebook outputs and technical notes from the Alzheimer’s disease MRI study, including representative images and experimental context.",
+  "previewImage": "/uploads/alzheimers/notebook-output-1.png",
   "links": [
     {
       "label": "Project page",
       "url": "/projects/alzheimers-disease-research/",
-      "description": "Main narrative page."
+      "description": "Main project narrative."
     },
     {
       "label": "Open in Colab",
@@ -26,8 +26,24 @@
   "pageSections": [
     {
       "blockType": "markdownSection",
-      "title": "Supporting notes",
-      "markdown": "The README makes clear that the repository is exploratory and notebook-first. That detail belongs in the archive because it shapes how the project should be evaluated: less like a production package, more like an explicit experiment log that includes preprocessing, model training, and ensemble comparison in one place."
+      "eyebrow": "Artifact",
+      "title": "The notebook is the primary research document",
+      "markdown": "The study is preserved here in the form it was actually carried out. The notebook contains the data-loading assumptions, the preprocessing steps, the image examples, the model-building sequence, and the movement into comparison and ensemble work. It functions not only as code for execution but as the main technical record of the experiment."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Notebook output",
+      "title": "Representative MRI samples remain visible inside the study",
+      "description": "Direct visual inspection of the images is part of the analytical process. It helps keep augmentation, preprocessing, and model design connected to the actual structure of the input data.",
+      "media": "/uploads/alzheimers/notebook-output-1.png",
+      "caption": "Notebook output extracted from the Alzheimer MRI repository.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Value",
+      "title": "Why the notebook belongs in the archive",
+      "markdown": "The project page presents the overall study, but the notebook record preserves the texture of the work: how the images are inspected, how the workflow is staged, and how the experiment evolves from data handling to model comparison. Keeping this artifact close to the project makes the work easier to review because the technical sequence remains visible."
     }
   ]
 }

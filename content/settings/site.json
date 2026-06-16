@@ -1,7 +1,7 @@
 {
   "siteTitle": "Neerav Chaudhary",
-  "siteTagline": "Projects, research, and long-form technical thinking presented as a navigable working archive.",
-  "footerLine": "",
+  "siteTagline": "Research systems, applied machine learning, and technical writing.",
+  "footerLine": "Selected work in research infrastructure, medical imaging, and model evaluation.",
   "contactEmail": "neerav.ch@icloud.com",
   "socialLinks": [
     {
@@ -16,41 +16,41 @@
   "navigation": {
     "homeLabel": "Home",
     "projectsLabel": "Projects",
-    "writingLabel": "Blog",
+    "writingLabel": "Writing",
     "archiveLabel": "Archive",
     "aboutLabel": "About",
     "recommendationsLabel": "Letters"
   },
   "pageIntros": {
     "projects": {
-      "label": "",
+      "label": "01",
       "title": "Projects",
-      "intro": "Deep dive into what was built, framing, and supporting artifacts."
+      "intro": "Projects include product systems, machine-learning studies, and implementation work shaped by research goals, technical constraints, and close attention to how results are produced."
     },
     "writing": {
-      "label": "",
+      "label": "02",
       "title": "Writing",
-      "intro": "Essays, technical notes, and project write ups."
+      "intro": "Writing focuses on method, evaluation, system design, and the practical questions that arise when technical work needs to be clear, inspectable, and worth revisiting."
     },
     "archive": {
-      "label": "",
+      "label": "03",
       "title": "Research Archive",
-      "intro": "Supporting materials, diagrams, notebook records, and adjacent artifacts."
+      "intro": "The archive gathers supporting materials: workflow diagrams, notebook records, technical references, and other documents that deepen the record around the main project pages."
     },
     "about": {
-      "label": "",
+      "label": "04",
       "title": "About",
-      "intro": "Background, current focus, and the editorial logic behind the site."
+      "intro": "Background, ongoing areas of work, and the technical interests that connect the projects collected here."
     },
     "recommendations": {
       "label": "05",
       "title": "Letters",
-      "intro": "recommendations and acknowledgments."
+      "intro": "Letters and reference material are available here for readers who need formal documentation."
     }
   },
   "about": {
-    "lead": "Projects and Research Work Archive.",
-    "biographyMarkdown": "I work across machine learning, research tooling, and the infrastructure around trust: provenance, evaluation, and careful system design. \n\nThis site is meant to be read as a research desk. Projects, notes, references, and attached materials all live in one place, so the work can be grounded in context.",
-    "currentFocusMarkdown": "## Current focus\n\n- research systems and evidence-aware interfaces\n- applied machine learning in scientific and healthcare contexts\n- technical writing that captures method, tradeoffs, and iteration\n- building archives of work instead of brochure sites"
+    "lead": "I work on research systems, applied machine learning, and technical writing that keeps method and evaluation visible.",
+    "biographyMarkdown": "My interests sit between software systems and research practice. I am drawn to projects where technical work benefits from stronger continuity: environments that preserve context across reading and analysis, model pipelines that make assumptions and evaluation easier to inspect, and writing that records not only outcomes but the reasoning that produced them.\n\nMuch of my recent work has focused on research infrastructure, evidence-aware interfaces, and machine-learning studies in scientific and healthcare settings. Across those areas, I care about clarity, traceability, and the discipline required to keep results tied to source material, implementation details, and the limits of the underlying method.",
+    "currentFocusMarkdown": "## Current focus\n\n- research workflows that connect literature review, evidence capture, and statistical analysis\n- applied machine learning in medical and scientific settings, especially where evaluation matters as much as model performance\n- technical writing that explains decisions, tradeoffs, and experimental results with precision\n- systems that make it easier to revisit work later without losing the context in which it was done"
   }
 }

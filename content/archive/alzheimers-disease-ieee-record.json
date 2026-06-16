@@ -1,22 +1,44 @@
 {
-  "title": "Alzheimer’s disease research record",
+  "title": "Alzheimer’s disease study notes",
   "slug": "alzheimers-disease-ieee-record",
-  "itemType": "paper-summary",
-  "dateLabel": "IEEE period",
-  "summary": "Supporting research notes and adjacent material for the Alzheimer’s disease imaging project.",
+  "itemType": "Literature note",
+  "dateLabel": "Supporting context",
+  "summary": "Background notes and supporting context for the Alzheimer’s disease MRI classification study.",
+  "previewImage": "/uploads/alzheimers/notebook-output-2.png",
   "links": [
     {
       "label": "Project page",
       "url": "/projects/alzheimers-disease-research/",
-      "description": "Main narrative page."
+      "description": "Main study overview."
+    },
+    {
+      "label": "Notebook record",
+      "url": "/archive/alzheimers-notebook-record/",
+      "description": "Notebook-centered archive record for the same study."
     }
   ],
   "attachments": [],
   "pageSections": [
     {
       "blockType": "markdownSection",
-      "title": "Archive role",
-      "markdown": "Archive items are where supporting matter belongs: references, figures, summaries, supporting documents, and adjacent notes that add context without interrupting the main project page."
+      "eyebrow": "Context",
+      "title": "Background material helps clarify what the model is being asked to distinguish",
+      "markdown": "Medical imaging studies benefit from preserving more than code and outputs. They also need background context on the condition being studied, the staging logic that shapes the labels, and the practical meaning of the categories used during classification. Keeping that material close to the project makes the modeling choices easier to interpret."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Reference image",
+      "title": "Input examples help keep the discussion concrete",
+      "description": "Even as a supporting note, the study is easier to understand when the imaging material remains visible. A classification problem in this domain should stay tied to the appearance and structure of the actual input data.",
+      "media": "/uploads/alzheimers/notebook-output-2.png",
+      "caption": "MRI slice extracted from the repository notebook output.",
+      "layout": "split"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Use",
+      "title": "The record supports interpretation rather than replacing it",
+      "markdown": "Supporting notes like this are valuable because they preserve medical and experimental context around the classification task. They help explain what the categories mean, why the data matters, and what questions should remain in view when reading the modeling results."
     }
   ]
 }

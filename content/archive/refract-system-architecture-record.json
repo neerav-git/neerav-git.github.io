@@ -1,23 +1,44 @@
 {
   "title": "Refract system architecture record",
   "slug": "refract-system-architecture-record",
-  "itemType": "architecture-diagram",
-  "dateLabel": "Current README",
-  "summary": "A supporting architecture view of the Refract implementation across the React workspace, FastAPI backend, database, vector store, and storage layers.",
+  "itemType": "Architecture diagram",
+  "dateLabel": "Current repository",
+  "summary": "A supporting architecture view of the Refract implementation across the frontend, backend, database, vector store, and file storage layers.",
   "previewImage": "/uploads/refract/system-architecture.png",
   "links": [
     {
       "label": "Refract project page",
       "url": "/projects/refract-ai/",
       "description": "Main project narrative."
+    },
+    {
+      "label": "Repository",
+      "url": "https://github.com/neerav-git/Refract",
+      "description": "Source repository for the architecture diagram."
     }
   ],
   "attachments": [],
   "pageSections": [
     {
       "blockType": "markdownSection",
-      "title": "Archive role",
-      "markdown": "Architecture diagrams are useful supporting documents, but they should not dominate the public-facing project story. Here they live in the archive, where they can still be consulted by someone who wants to understand implementation seams without forcing that level of detail into the first read."
+      "eyebrow": "Artifact",
+      "title": "A technical view of the application boundaries",
+      "markdown": "Refract coordinates several forms of state at once: application data, uploaded documents, vector retrieval, and analytical outputs. The architecture diagram makes those layers explicit and shows how they are separated without losing the continuity provided by the session model."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Diagram",
+      "title": "The architecture reflects the product’s split responsibilities",
+      "description": "The frontend handles research-facing interaction, the backend coordinates services and workflow logic, and storage layers preserve documents, state, and retrieval context. The system is easiest to understand when these responsibilities are visible at the same time.",
+      "media": "/uploads/refract/system-architecture.png",
+      "caption": "Architecture diagram from the Refract repository README.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Interpretation",
+      "title": "The important seam is the shared research state",
+      "markdown": "A diagram can make a system look more complicated than it is, or it can reveal what actually matters. In this case, the most important seam is not simply that the app has a frontend and a backend. It is that the research state must remain coherent across document operations, evidence capture, comparison logic, and later statistical work. That is the requirement the architecture has to satisfy."
     }
   ]
 }

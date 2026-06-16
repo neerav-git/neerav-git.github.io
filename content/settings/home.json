@@ -1,63 +1,8 @@
 {
-  "featuredArticleSlugs": [
-    "designing-a-session-centered-research-workspace",
-    "what-reliable-should-mean-for-llms-in-life-sciences",
-    "notebook-first-medical-ml-is-still-real-research",
-    "notes-from-a-battery-rul-project"
-  ],
+  "heroEyebrow": "Research systems · machine learning · medical imaging · technical writing",
+  "heroTitle": "Projects, research, and technical writing grounded in method, implementation, and evidence.",
+  "heroBody": "My work spans research infrastructure, applied machine learning, and long-form technical writing. The common thread is disciplined execution: building systems that preserve context, studying models with attention to assumptions and evaluation, and documenting the reasoning that connects design decisions to results.",
   "heroImage": "/uploads/refract/workflow-overview.png",
-  "modules": [
-    {
-      "blockType": "quote",
-      "quote": "The site should not feel like it is asking for a job. It should feel like a careful public notebook.",
-      "attribution": "Site principle",
-      "context": "Editorial direction"
-    },
-    {
-      "blockType": "markdownSection",
-      "eyebrow": "Method",
-      "title": "Everything visible should remain editable.",
-      "markdown": "Every section on this site is meant to stay modular. Headings, descriptions, link groups, writeups, PDFs, images, and supporting files all belong to structured content files rather than hardcoded copy, so the site can evolve without reworking the code every time the record changes."
-    },
-    {
-      "blockType": "links",
-      "title": "Suggested starting points",
-      "links": [
-        {
-          "label": "Start with Refract",
-          "url": "/projects/refract-ai/",
-          "description": "The most complete integrated systems project on the site."
-        },
-        {
-          "label": "Read the workflow article",
-          "url": "/writing/designing-a-session-centered-research-workspace/",
-          "description": "A short explanation of the session-centered design logic."
-        },
-        {
-          "label": "Open the MRI project",
-          "url": "/projects/alzheimers-disease-research/",
-          "description": "A notebook-first medical imaging workflow and its archive."
-        }
-      ]
-    }
-  ],
-  "recommendationsNote": "Recommendation letters are intentionally de-emphasized. They live here as supporting records, not as the thesis of the site.",
-  "featuredArchiveHeading": "Archive Records",
-  "heroEyebrow": "Research systems · evaluation · medical ML · careful engineering",
-  "featuredWritingHeading": "Writing and Field Notes",
-  "featuredArchiveSlugs": [
-    "refract-workflow-record",
-    "refract-system-architecture-record",
-    "alzheimers-notebook-record",
-    "alzheimers-disease-ieee-record"
-  ],
-  "featuredProjectsHeading": "Projects in Focus",
-  "heroBody": " Projects, notes, archive records, and supporting documents compiled in one place.",
-  "featuredProjectSlugs": [
-    "refract-ai",
-    "alzheimers-disease-research"
-  ],
-  "heroTitle": "A public archive for projects, research, and writing.",
   "heroLinks": [
     {
       "label": "Projects",
@@ -70,6 +15,61 @@
     {
       "label": "Archive",
       "url": "/archive/"
+    }
+  ],
+  "featuredProjectsHeading": "Projects in Focus",
+  "featuredProjectSlugs": [
+    "refract-ai",
+    "alzheimers-disease-research"
+  ],
+  "featuredWritingHeading": "Writing",
+  "featuredArticleSlugs": [
+    "designing-a-session-centered-research-workspace",
+    "what-reliable-should-mean-for-llms-in-life-sciences",
+    "notebook-first-medical-ml-is-still-real-research",
+    "notes-from-a-battery-rul-project"
+  ],
+  "featuredArchiveHeading": "Archive Records",
+  "featuredArchiveSlugs": [
+    "refract-workflow-record",
+    "refract-system-architecture-record",
+    "alzheimers-notebook-record",
+    "alzheimers-disease-ieee-record"
+  ],
+  "recommendationsNote": "Formal letters and reference material are available separately for readers who need them.",
+  "modules": [
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Focus",
+      "title": "Current work",
+      "markdown": "Current work sits at the intersection of research tooling, evidence-aware interfaces, and applied machine learning. That includes systems for literature review and statistical analysis, notebook-driven experimentation in medical imaging, and writing that records method, constraints, and interpretation with enough detail to be useful later."
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Approach",
+      "title": "Areas of interest",
+      "markdown": "I am particularly interested in systems where technical outputs need to remain inspectable: research workflows that carry forward context, model pipelines that make evaluation legible, and interfaces that help reasoning stay anchored to source material rather than drift into summary without evidence."
+    },
+    {
+      "blockType": "links",
+      "title": "Selected starting points",
+      "links": [
+        {
+          "label": "Refract",
+          "url": "/projects/refract-ai/",
+          "description": "A research workspace that brings reading, saved evidence, comparison, and statistical analysis into one session model."
+        },
+        {
+          "label": "Session-centered research workspace",
+          "url": "/writing/designing-a-session-centered-research-workspace/",
+          "description": "An article on why durable context matters more than isolated model outputs in research software."
+        },
+        {
+          "label": "Alzheimer's disease MRI research",
+          "url": "/projects/alzheimers-disease-research/",
+          "description": "A notebook-based classification study covering preprocessing, CNN training, and ensemble comparison."
+        }
+      ]
     }
   ]
 }

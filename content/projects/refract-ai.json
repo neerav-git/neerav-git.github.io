@@ -4,8 +4,8 @@
   "cardEyebrow": "Research Platform",
   "dateLabel": "Ongoing",
   "status": "ongoing",
-  "summary": "A session-centered research workspace that keeps literature review, saved evidence, datasets, and staged statistical analysis inside one continuous environment.",
-  "role": "Builder of the session model, evidence architecture, and the qualitative-to-quantitative workflow that ties reading, comparison, and analysis together.",
+  "summary": "A session-centered research workspace that brings literature review, saved evidence, comparison, and statistical analysis into one continuous environment.",
+  "role": "I designed and built the session model, evidence flow, and application structure that keep reading, synthesis, and analysis tied to the same working context.",
   "featured": true,
   "displayOrder": 1,
   "coverImage": "/uploads/refract/workflow-overview.png",
@@ -14,8 +14,8 @@
     { "value": "FastAPI" },
     { "value": "PostgreSQL" },
     { "value": "Python" },
-    { "value": "LLM systems" },
-    { "value": "Research workflows" }
+    { "value": "ChromaDB" },
+    { "value": "LLM systems" }
   ],
   "links": [
     {
@@ -24,9 +24,9 @@
       "description": "Primary codebase and implementation details."
     },
     {
-      "label": "Workflow article",
+      "label": "Research workspace article",
       "url": "/writing/designing-a-session-centered-research-workspace/",
-      "description": "Companion write-up on the design logic behind the workspace."
+      "description": "A longer explanation of the session-centered design model."
     }
   ],
   "attachments": [],
@@ -40,67 +40,92 @@
     {
       "blockType": "markdownSection",
       "eyebrow": "Overview",
-      "title": "Why the project matters",
-      "markdown": "Refract treats the research session as the continuity layer. Papers, saved evidence, comparison outputs, datasets, and model runs all stay inside one shared context so interpretation does not have to be reconstructed after the fact.\n\nThat matters because applied research work usually gets split across PDF readers, note systems, notebooks, spreadsheets, and draft documents. Refract is designed to collapse that fragmentation into one working environment."
+      "title": "A research environment built around continuity",
+      "markdown": "Refract began with a simple practical problem: research work becomes difficult to trust when its parts are scattered across too many tools. Reading happens in one interface, notes in another, comparison in a separate document, and data analysis somewhere else again. Once that split appears, interpretation starts depending on memory and manual reconstruction.\n\nRefract addresses that by making the research session the primary object in the system. A session carries the goal of the work, the papers under review, saved evidence, comparison outputs, uploaded datasets, and the record of statistical runs. That structure makes it possible to move between qualitative and quantitative work without losing the context in which each conclusion was produced."
     },
     {
       "blockType": "mediaFeature",
       "eyebrow": "Workflow",
-      "title": "The session connects qualitative and quantitative work",
-      "description": "The implementation is organized around a two-track flow: literature ingestion, reading, and comparison on one side; session-scoped dataset upload, profiling, and modeling on the other. Both tracks converge in literature-informed interpretation.",
+      "title": "The session connects the literature and analysis tracks",
+      "description": "The workflow diagram from the repository README captures the core structure of the product. Literature ingestion, reading, and comparison occupy one side of the system; dataset upload, profiling, audit, and modeling occupy the other. Both feed the same session and the same interpretation layer.",
       "media": "/uploads/refract/workflow-overview.png",
-      "caption": "README workflow diagram from the live repository.",
+      "caption": "Workflow overview from the Refract repository README.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "System design",
+      "title": "Context is treated as part of the product",
+      "markdown": "The most important design decision in Refract is not a specific model choice. It is the insistence that context be stored, revisited, and reused as the work evolves. When a passage is saved, when a comparison is generated, or when a dataset is profiled, the result should remain attached to the session that produced it. That keeps later reasoning anchored to evidence, settings, and source material rather than turning the application into an elegant interface for disconnected outputs.\n\nThis has architectural consequences. The frontend needs explicit research surfaces rather than a single chat shell. The backend needs a model that can relate papers, extracted evidence, uploaded files, and analysis runs. The application also needs a way to preserve provenance so that a later conclusion can be traced back through the chain of reading, comparison, and model evaluation that produced it."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Reader",
+      "title": "Document work remains passage-level and inspectable",
+      "description": "The reading interface is designed for active work rather than passive storage. PDFs, highlights, saved notes, and source-linked responses all stay close to the document rather than being flattened into generic chat history.",
+      "media": "/uploads/refract/reader-workspace.png",
+      "caption": "Reader workspace captured from the live repository README.",
+      "layout": "split"
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Compare",
+      "title": "Cross-paper synthesis stays tied to the active research question",
+      "description": "Comparison is treated as structured synthesis rather than a one-off answer. The interface keeps the current research goal visible and organizes agreement, contrast, and coverage across the source set, which makes the output easier to evaluate and revise.",
+      "media": "/uploads/refract/compare-workspace.png",
+      "caption": "Comparison workspace from the repository README.",
+      "layout": "split"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Analysis layer",
+      "title": "Quantitative work belongs inside the same session",
+      "markdown": "A separate statistical environment may be acceptable for one-off analyses, but it becomes a liability when the goal is cumulative research. In Refract, uploaded datasets, profiling output, audit checks, and model comparisons belong to the same session that already contains the literature and saved evidence. That makes it easier to keep analysis grounded in the papers, assumptions, and questions that motivated it.\n\nThe value is not only convenience. It is the ability to inspect how interpretation was formed. A claim drawn from a model result can sit next to the dataset profile that justified the inputs and the literature record that shaped the analysis question in the first place."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Stats",
+      "title": "Statistical interpretation is presented with its surrounding evidence",
+      "description": "The statistical workspace provides a structured layer for profiling, auditing, modeling, and interpreting results inside the same research frame as the supporting literature.",
+      "media": "/uploads/refract/stats-workspace.png",
+      "caption": "Stats workspace from the repository README.",
       "layout": "wide"
     },
     {
       "blockType": "metrics",
-      "eyebrow": "Surfaces",
-      "title": "What the app actually includes",
+      "eyebrow": "Implementation",
+      "title": "Core surfaces and infrastructure",
       "items": [
         {
           "value": "Reader",
-          "label": "Passage-grounded reading",
-          "context": "Upload PDFs, highlight passages, and respond from the active paper."
-        },
-        {
-          "value": "Index",
-          "label": "Persistent research memory",
-          "context": "Saved questions, notes, concept tags, and source-linked responses."
+          "label": "Document-grounded reading",
+          "context": "Upload papers, highlight passages, and keep answers attached to the document context."
         },
         {
           "value": "Compare",
-          "label": "Cross-paper synthesis",
-          "context": "Matrices, topic coverage, and gap analysis tied to a live session goal."
+          "label": "Structured synthesis",
+          "context": "Cross-paper comparison organized around the current research question."
         },
         {
           "value": "Stats",
           "label": "Session-scoped analysis",
-          "context": "Dataset profile, audit, model benchmarking, and evidence-qualified interpretation."
+          "context": "Dataset profiling, audit, model benchmarking, and interpretation in one workflow."
+        },
+        {
+          "value": "PostgreSQL + ChromaDB",
+          "label": "State and retrieval",
+          "context": "Persistent application state combined with vector retrieval for document and evidence operations."
         }
       ]
     },
     {
       "blockType": "mediaFeature",
-      "eyebrow": "Interface",
-      "title": "The UI is built around research work, not generic chat",
-      "description": "The Reader, Compare, and Stats views are separate surfaces, but they are joined by the same session object. The design goal is continuity: keep evidence, assumptions, and analysis outputs visible in context rather than scattered across tools.",
-      "media": "/uploads/refract/reader-workspace.png",
-      "caption": "Reader workspace from the live repository README.",
-      "layout": "split"
-    },
-    {
-      "blockType": "mediaFeature",
-      "eyebrow": "System",
-      "title": "The architecture reflects the workflow split",
-      "description": "The live implementation uses a React frontend, FastAPI backend, PostgreSQL state, ChromaDB vector storage, and object storage for uploaded files and artifacts. The important seam is the research session model, which coordinates both the literature and analysis tracks.",
+      "eyebrow": "Architecture",
+      "title": "The technical structure mirrors the workflow structure",
+      "description": "The repository architecture separates interface, services, storage, and retrieval layers, but the important seam is the research session that coordinates them. That shared model is what allows the application to carry context forward instead of forcing users to rebuild it at each step.",
       "media": "/uploads/refract/system-architecture.png",
-      "caption": "System architecture diagram from the repository README.",
+      "caption": "System architecture diagram from the Refract repository README.",
       "layout": "wide"
-    },
-    {
-      "blockType": "quote",
-      "quote": "The strongest implemented thread is not a single model. It is the integrated workflow that keeps reading, comparison, evidence, and statistical analysis in the same frame.",
-      "attribution": "Project framing"
     }
   ],
   "github": {

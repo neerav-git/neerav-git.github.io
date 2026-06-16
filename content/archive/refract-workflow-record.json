@@ -1,15 +1,15 @@
 {
   "title": "Refract workflow overview",
   "slug": "refract-workflow-record",
-  "itemType": "workflow-diagram",
-  "dateLabel": "Current README",
-  "summary": "A visual overview of how Refract keeps literature work, dataset analysis, and evidence-qualified interpretation inside one shared research session.",
+  "itemType": "Workflow diagram",
+  "dateLabel": "Current repository",
+  "summary": "A visual summary of how Refract connects document work, saved evidence, and statistical analysis inside the same research session.",
   "previewImage": "/uploads/refract/workflow-overview.png",
   "links": [
     {
       "label": "Refract project page",
       "url": "/projects/refract-ai/",
-      "description": "Main narrative page for the project."
+      "description": "Main project narrative and system overview."
     },
     {
       "label": "Repository",
@@ -21,8 +21,24 @@
   "pageSections": [
     {
       "blockType": "markdownSection",
-      "title": "Why this artifact matters",
-      "markdown": "This diagram is useful because it makes the project's real operating model legible at a glance. The session sits at the top, the qualitative and quantitative tracks diverge, and both feed the final interpretation layer.\n\nFor the portfolio, this is exactly the kind of supporting artifact that should live in the archive: important enough to keep, but better read as adjacent context than as the main project narrative."
+      "eyebrow": "Artifact",
+      "title": "A compact explanation of the operating model",
+      "markdown": "The workflow diagram captures the main structural idea behind Refract. The session sits at the top, document-grounded work and statistical work branch outward from it, and both return to the same interpretation layer. The application reads most clearly at this level: a coordinated workflow held together by a shared context object."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Diagram",
+      "title": "The workflow can be read from left to right or from top to bottom",
+      "description": "From top to bottom, the session acts as the frame that keeps the work coherent. From left to right, the diagram distinguishes literature work from quantitative analysis while still showing where they reconnect.",
+      "media": "/uploads/refract/workflow-overview.png",
+      "caption": "Workflow diagram from the Refract repository README.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Use",
+      "title": "Why this record matters",
+      "markdown": "A diagram like this is useful because it clarifies the logic of the system before implementation details take over. It explains where reading happens, where analysis happens, and why both need to remain within the same research frame. For someone trying to understand the project quickly, this artifact is one of the fastest ways to see what the application is designed to hold together."
     }
   ]
 }

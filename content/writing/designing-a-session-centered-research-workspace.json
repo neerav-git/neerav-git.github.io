@@ -3,13 +3,18 @@
   "slug": "designing-a-session-centered-research-workspace",
   "category": "Research systems",
   "publishDate": "2026-06-12T00:00:00.000Z",
-  "excerpt": "If papers, datasets, and model runs do not share a durable context, interpretation becomes reconstruction. A short write-up on why the session is the real product surface in Refract.",
+  "excerpt": "Research software becomes more reliable when the context of reading, evidence, and analysis persists across the life of the work. Refract treats the session as that continuity layer.",
   "featured": true,
   "links": [
     {
       "label": "Refract project",
       "url": "/projects/refract-ai/",
-      "description": "Project page with screenshots and system framing."
+      "description": "Project page with screenshots, architecture, and implementation details."
+    },
+    {
+      "label": "Repository",
+      "url": "https://github.com/neerav-git/Refract",
+      "description": "Source repository for the application."
     }
   ],
   "attachments": [],
@@ -19,29 +24,69 @@
   "pageSections": [
     {
       "blockType": "markdownSection",
-      "eyebrow": "Premise",
-      "title": "The session is the continuity layer",
-      "markdown": "A lot of research software solves local problems well and global continuity badly. Reading happens in one place, notes in another, data cleaning in a notebook, and the final interpretation somewhere else again.\n\nThe reason Refract feels different to me is not a specific model or response style. It is the decision to make the research session the thing that persists. The session holds papers, saved evidence, dataset files, and the quantitative run history. That means the interpretation layer can point back into the same working context instead of borrowing authority from memory."
+      "eyebrow": "Problem",
+      "title": "Most research tools lose continuity at exactly the wrong point",
+      "markdown": "A familiar weakness in research software is that each phase of the work is handled in isolation. Reading happens in one environment, note capture in another, comparison in a third, and quantitative analysis somewhere else again. The interfaces may be individually effective, but the overall process becomes difficult to trust because the connections between those stages are not preserved.\n\nThat gap matters most when the work becomes cumulative. Once conclusions depend on several papers, saved excerpts, dataset assumptions, and model results, it is no longer enough to have good local tools. The system also needs a durable way to keep context attached to the work as it develops."
     },
     {
       "blockType": "mediaFeature",
-      "eyebrow": "Workflow",
-      "title": "The interface follows the handoff between tracks",
-      "description": "The qualitative track is not an isolated literature tool and the quantitative track is not an isolated modeling tool. Both inherit the same session and the same research goal.",
+      "eyebrow": "Structure",
+      "title": "The session is the object that carries the work forward",
+      "description": "In Refract, the research session holds the goal, the active source material, the saved evidence, and the record of analysis. That decision provides a stable frame across reading, synthesis, and statistics.",
       "media": "/uploads/refract/workflow-overview.png",
-      "caption": "Workflow overview from the live project README.",
+      "caption": "Workflow overview from the Refract repository README.",
       "layout": "wide"
     },
     {
-      "blockType": "quote",
-      "quote": "The hard problem is not generating an answer. It is preserving the conditions that make the answer inspectable later.",
-      "attribution": "Working principle"
+      "blockType": "markdownSection",
+      "eyebrow": "Design choice",
+      "title": "A session is more useful than a conversation log",
+      "markdown": "There is an important difference between a session model and a simple chat history. A conversation log remembers turns. A research session, by contrast, can hold the goal of the work, the relevant papers, the evidence already extracted from them, the comparisons run against the current question, and the statistical artifacts that emerge later. It becomes a working frame rather than a transcript.\n\nThat distinction makes later interpretation more disciplined. If an answer or synthesis is generated, it can be checked against the session state that produced it. If a model result is used to support a conclusion, the supporting dataset and analysis run remain nearby. The system no longer asks the user to remember how pieces connect."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Reader",
+      "title": "Reading remains anchored to the source material",
+      "description": "The reading layer is not treated as a preprocessing step before conversation begins. It remains a first-class surface where highlights, notes, and passage-level evidence stay tied to the document itself.",
+      "media": "/uploads/refract/reader-workspace.png",
+      "caption": "Reader workspace from the live project README.",
+      "layout": "split"
     },
     {
       "blockType": "markdownSection",
-      "eyebrow": "Consequence",
-      "title": "Why that matters in practice",
-      "markdown": "Once the session becomes the continuity layer, several UX choices stop being cosmetic. Compare output can inherit the current research goal. Statistical interpretation can cite the run that produced it. Saved evidence can remain attached to the paper and passage that justified it.\n\nThat is a more interesting design problem than building a generic chat shell around PDFs, and it is the core reason I consider Refract a research environment rather than a note-taking interface."
+      "eyebrow": "Synthesis",
+      "title": "Comparison becomes stronger when it inherits the active question",
+      "markdown": "Cross-paper synthesis is often weakened by context loss. Once the application no longer knows which sources matter, what the current research goal is, or which passages have already been treated as evidence, comparison becomes generic. The result may still be fluent, but it is harder to evaluate.\n\nA session-centered design makes comparison more specific. The current question can remain explicit, the paper set can remain bounded, and the resulting analysis can be read as part of an ongoing line of work rather than as a detached output."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Comparison",
+      "title": "Structured synthesis is easier to evaluate than isolated answers",
+      "description": "A comparison surface can organize agreement, contrast, gaps, and coverage across a group of papers while preserving the specific question that motivated the analysis.",
+      "media": "/uploads/refract/compare-workspace.png",
+      "caption": "Comparison workspace from the repository README.",
+      "layout": "split"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Analysis",
+      "title": "Quantitative work benefits from the same continuity",
+      "markdown": "The same reasoning applies to statistical analysis. If datasets, profile reports, audit checks, and model outputs live outside the research context that motivated them, interpretation becomes unnecessarily fragile. A session-centered design allows the analysis layer to remain close to the literature, assumptions, and questions that shaped it.\n\nThat does not make the quantitative work simpler. It makes it more accountable. A later reader can see not only the result, but the analytical setting in which the result became relevant."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Statistics",
+      "title": "Analysis outputs remain part of the same research frame",
+      "description": "The statistical workspace extends the session rather than starting over in a detached environment. That continuity is what allows evidence, assumptions, and model results to stay connected.",
+      "media": "/uploads/refract/stats-workspace.png",
+      "caption": "Stats workspace from the repository README.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Conclusion",
+      "title": "Context preservation is an engineering decision",
+      "markdown": "It is easy to describe continuity as a product preference, but in practice it is an engineering decision that affects the entire system. It changes how state is modeled, how interfaces are separated, how evidence is stored, and how outputs are interpreted. Refract is interesting to me because it treats that problem directly. The product is not only a set of tools for reading and analysis. It is an attempt to keep the conditions of interpretation intact long enough for the work to remain inspectable."
     }
   ]
 }

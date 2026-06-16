@@ -3,15 +3,55 @@
   "slug": "notes-from-a-battery-rul-project",
   "category": "Project writeup",
   "publishDate": "2026-01-15T00:00:00.000Z",
-  "excerpt": "An R² of 0.993 looked great until I asked where it came from. A short write-up on leakage, feature honesty, and whether a model deserves trust.",
+  "excerpt": "A very high score is only useful if the feature story, data framing, and evaluation procedure still make sense when examined closely.",
   "featured": true,
   "links": [],
   "attachments": [],
   "pageSections": [
     {
       "blockType": "markdownSection",
-      "title": "Trust the audit, not the headline",
-      "markdown": "A near-perfect score on a noisy target is a smell before it is a celebration. The real work in this kind of project is often the audit: whether the feature story makes sense, whether leakage is distorting the result, and whether the explanation of the model aligns with the system being modeled."
+      "eyebrow": "Observation",
+      "title": "A strong metric deserves suspicion before celebration",
+      "markdown": "In remaining-useful-life prediction, a very high score can be impressive or misleading, sometimes both. The first question worth asking is not whether the model performed well in a narrow numerical sense, but whether the path to that performance reflects a credible understanding of the problem.\n\nThat means looking hard at leakage, temporal structure, feature construction, and whether the training procedure allowed information from the future to slip back into the past. In a system with strong autocorrelation and many derived variables, it is easy to build a model that appears excellent while learning a story that would not survive contact with the real operating environment."
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Audit",
+      "title": "Feature honesty is as important as algorithm choice",
+      "markdown": "A feature can be predictive and still be misleading. If it encodes future information, smuggles target structure through preprocessing, or only makes sense inside the training slice, then its apparent usefulness does not translate into a trustworthy model.\n\nThe practical work in projects like this is often less glamorous than model selection. It involves checking what each feature really means, how it would be available in deployment, and whether the resulting explanation of performance lines up with the physical system under study."
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Questions",
+      "title": "What deserves scrutiny in an RUL pipeline",
+      "items": [
+        {
+          "value": "Temporal leakage",
+          "label": "Ordering matters",
+          "context": "Train-test separation must respect the sequence of degradation and measurement."
+        },
+        {
+          "value": "Feature provenance",
+          "label": "Inputs need a believable origin",
+          "context": "A useful predictor should make sense as an observable variable, not only as an artifact of processing."
+        },
+        {
+          "value": "Evaluation design",
+          "label": "Scores need context",
+          "context": "A result is only meaningful relative to the split strategy, baseline choice, and real deployment question."
+        },
+        {
+          "value": "Interpretability",
+          "label": "Performance should have a story",
+          "context": "A model becomes more convincing when the explanation of its behavior fits the system it models."
+        }
+      ]
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Conclusion",
+      "title": "Trust comes from the audit trail",
+      "markdown": "The most useful outcome of a strong RUL project is not a headline metric in isolation. It is a result that remains defensible after the data handling, feature design, and evaluation logic have been examined. That kind of result usually looks less magical and more credible, which is exactly what good engineering work should produce."
     }
   ]
 }

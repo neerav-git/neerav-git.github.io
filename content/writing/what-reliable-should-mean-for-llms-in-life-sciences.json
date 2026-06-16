@@ -1,11 +1,17 @@
 {
-  "title": "What “reliable” should mean for LLMs in life sciences",
+  "title": "What reliable should mean for LLMs in life sciences",
   "slug": "what-reliable-should-mean-for-llms-in-life-sciences",
   "category": "Essay",
   "publishDate": "2026-06-10T00:00:00.000Z",
-  "excerpt": "Fluency is cheap and grounding is not. A short argument for treating evaluation as the product rather than an afterthought when language models touch regulated work.",
+  "excerpt": "In scientific and regulated settings, reliability is less about polished prose and more about whether claims remain traceable to evidence, scope, and method.",
   "featured": true,
-  "links": [],
+  "links": [
+    {
+      "label": "Refract project",
+      "url": "/projects/refract-ai/",
+      "description": "Project page for a system built around evidence-aware interpretation."
+    }
+  ],
   "attachments": [],
   "relatedProjectSlugs": [
     "refract-ai"
@@ -13,13 +19,72 @@
   "pageSections": [
     {
       "blockType": "markdownSection",
-      "title": "Reliable means grounded",
-      "markdown": "When a language model writes a paragraph of a regulatory or scientific document, the failure that matters is rarely that the prose is awkward. The failure is that the prose can be confident and wrong.\n\nThat shifts evaluation from a clean-up step after the build into the thing being built. Reliability in these domains has to mean traceability, evidence, and constrained claims."
+      "eyebrow": "Definition",
+      "title": "Reliability is not a style attribute",
+      "markdown": "In life sciences and other regulated domains, a response does not become reliable because it sounds measured or technically literate. Reliability has to be earned through constraint: bounded claims, visible evidence, and language that remains proportionate to what the source material actually supports.\n\nThis shifts the design problem. The question is not only how to make a model answer well, but how to build a system in which the answer can be checked, narrowed, and tied back to the material that justified it."
     },
     {
-      "blockType": "quote",
-      "quote": "The model got less impressive and more trustworthy. That trade is the right one for this domain.",
-      "attribution": "Working note"
+      "blockType": "mediaFeature",
+      "eyebrow": "System context",
+      "title": "Evidence needs a durable place in the workflow",
+      "description": "Reliability becomes easier to reason about when source material, saved evidence, and interpretation remain in the same working context rather than being separated across tools.",
+      "media": "/uploads/refract/workflow-overview.png",
+      "caption": "Workflow overview from the Refract repository README.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Failure mode",
+      "title": "Fluency creates a dangerous kind of confidence",
+      "markdown": "The most important failure in these settings is rarely clumsy wording. The real risk is persuasive language that outruns its evidence. A model can produce a coherent explanation, a plausible summary, or a seemingly careful recommendation while still making unsupported or overstated claims.\n\nThat is why evaluation has to move closer to the center of the product. The system needs to know what evidence is in frame, what the claim is allowed to rely on, and where uncertainty should remain explicit."
+    },
+    {
+      "blockType": "mediaFeature",
+      "eyebrow": "Interface",
+      "title": "Interpretation improves when source material stays visible",
+      "description": "A passage-grounded reading surface changes the quality of later responses because it reduces the distance between a claim and the material that should support it.",
+      "media": "/uploads/refract/reader-workspace.png",
+      "caption": "Reader workspace from the repository README.",
+      "layout": "split"
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Practical standard",
+      "title": "Grounding should be treated as part of the output",
+      "markdown": "A reliable system in life sciences should not present grounding as an optional add-on. The connection between response and evidence should be built into the normal use of the tool. That includes preserving source material, surfacing supporting excerpts, constraining generalization, and making it possible to revisit how a conclusion was formed.\n\nThis is less dramatic than promises of autonomous scientific reasoning, but it is much more useful. In technical domains, progress often comes from making a system more inspectable before trying to make it more expansive."
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Criteria",
+      "title": "A more serious standard for reliability",
+      "items": [
+        {
+          "value": "Traceability",
+          "label": "Claims should point back to source material",
+          "context": "A reader should be able to inspect what evidence supported the answer."
+        },
+        {
+          "value": "Constraint",
+          "label": "The system should stay within the evidence available",
+          "context": "Useful restraint is more important than persuasive extrapolation."
+        },
+        {
+          "value": "Scope awareness",
+          "label": "Domain limits should remain explicit",
+          "context": "A strong answer should preserve uncertainty where the material does not support certainty."
+        },
+        {
+          "value": "Evaluation",
+          "label": "Reliability must be tested, not assumed",
+          "context": "Grounding and correctness need to be part of routine system judgment."
+        }
+      ]
+    },
+    {
+      "blockType": "markdownSection",
+      "eyebrow": "Conclusion",
+      "title": "The useful system is usually the more restrained one",
+      "markdown": "A trustworthy system in life sciences may feel less impressive than one that speaks with total confidence. That is acceptable. The better goal is a system that can show why it is saying something, what it is relying on, and where its answer should stop. In this domain, that restraint is not a weakness. It is part of the product."
     }
   ]
 }
