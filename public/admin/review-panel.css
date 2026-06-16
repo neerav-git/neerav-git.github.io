@@ -1,0 +1,212 @@
+body.cms-review-open {
+  --cms-review-width: min(420px, calc(100vw - 32px));
+}
+
+body.cms-review-open #nc-root {
+  margin-right: calc(var(--cms-review-width) + 18px);
+  transition: margin-right 180ms ease;
+}
+
+.cms-review-toggle {
+  appearance: none;
+  background: rgba(18, 19, 22, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+  color: #f6f3eb;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: 0.08em;
+  padding: 10px 14px;
+  position: fixed;
+  right: 16px;
+  text-transform: uppercase;
+  top: 74px;
+  z-index: 2000;
+}
+
+.cms-review-panel {
+  background:
+    linear-gradient(180deg, rgba(34, 35, 38, 0.94), rgba(15, 16, 18, 0.98)),
+    #101114;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  bottom: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+  color: #f6f3eb;
+  overflow: hidden;
+  position: fixed;
+  right: 16px;
+  top: 118px;
+  transform: translateX(calc(100% + 26px));
+  transition: transform 180ms ease;
+  width: var(--cms-review-width, 380px);
+  z-index: 1999;
+}
+
+body.cms-review-open .cms-review-panel {
+  transform: translateX(0);
+}
+
+.cms-review-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cms-review-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 16px 18px 14px;
+}
+
+.cms-review-eyebrow {
+  color: rgba(246, 243, 235, 0.6);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.cms-review-header h2 {
+  font-size: 16px;
+  line-height: 1.3;
+  margin: 0 0 6px;
+}
+
+.cms-review-header p {
+  color: rgba(246, 243, 235, 0.72);
+  font-size: 12px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.cms-review-scroll {
+  flex: 1;
+  overflow: auto;
+  padding: 14px 14px 18px;
+}
+
+.cms-review-card,
+.cms-review-group {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  margin-bottom: 12px;
+  padding: 12px;
+}
+
+.cms-review-card h3,
+.cms-review-group h3 {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.cms-review-card p {
+  color: rgba(246, 243, 235, 0.78);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.cms-review-link-list,
+.cms-review-field-list {
+  display: grid;
+  gap: 8px;
+}
+
+.cms-review-link,
+.cms-review-field {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: inherit;
+  cursor: pointer;
+  display: block;
+  font: inherit;
+  padding: 10px 11px;
+  text-align: left;
+  width: 100%;
+}
+
+.cms-review-link:hover,
+.cms-review-field:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cms-review-link strong,
+.cms-review-field strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.cms-review-link span,
+.cms-review-field span {
+  color: rgba(246, 243, 235, 0.72);
+  display: block;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.cms-review-field.is-missing {
+  border-style: dashed;
+  opacity: 0.6;
+}
+
+.cms-review-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.cms-review-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  color: rgba(246, 243, 235, 0.78);
+  font-size: 11px;
+  padding: 6px 10px;
+}
+
+.cms-review-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  color: rgba(246, 243, 235, 0.64);
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 12px 16px 14px;
+}
+
+.cms-review-flash {
+  animation: cms-review-flash 1.2s ease;
+  outline: 2px solid rgba(220, 185, 116, 0.95);
+  outline-offset: 6px;
+}
+
+@keyframes cms-review-flash {
+  0% {
+    outline-color: rgba(220, 185, 116, 0);
+  }
+
+  25% {
+    outline-color: rgba(220, 185, 116, 0.95);
+  }
+
+  100% {
+    outline-color: rgba(220, 185, 116, 0);
+  }
+}
+
+@media (max-width: 1180px) {
+  body.cms-review-open #nc-root {
+    margin-right: 0;
+  }
+
+  .cms-review-panel {
+    left: 16px;
+    top: 118px;
+    width: auto;
+  }
+}
