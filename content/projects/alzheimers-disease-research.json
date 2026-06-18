@@ -42,13 +42,14 @@
   ],
   "pageSections": [
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Overview",
+      "blockType": "sectionLead",
+      "eyebrow": "Study frame",
       "title": "A medical imaging study preserved in the form it was carried out",
-      "markdown": "The study focuses on MRI-based classification of Alzheimer’s disease progression using a notebook-driven workflow in Google Colab. The work moves from image loading and preprocessing to augmentation, baseline CNN training, and comparison against simple ensemble variants.\n\nThe full experimental sequence remains visible throughout the repository. Paths, preprocessing choices, image resizing, evaluation steps, and later comparison logic all appear in the same notebook, which makes it possible to understand how the result was produced rather than seeing only a final metric."
+      "description": "The work stays close to its actual experimental form: a notebook-driven MRI classification study in Google Colab that moves from inspection and preprocessing to modeling and comparison.",
+      "context": "The notebook is not treated as an embarrassing precursor to a cleaner system. It is the primary record of the work."
     },
     {
-      "blockType": "mediaFeature",
+      "blockType": "figure",
       "eyebrow": "Data view",
       "title": "Representative MRI slices remain part of the experimental record",
       "description": "The notebook includes direct visual inspection of MRI inputs. Keeping examples like these in the workflow matters because it ties preprocessing and model design back to the actual structure of the data rather than treating the dataset as an abstraction.",
@@ -57,10 +58,12 @@
       "layout": "wide"
     },
     {
-      "blockType": "markdownSection",
+      "blockType": "proseSection",
       "eyebrow": "Problem framing",
       "title": "The work is organized around staged classification rather than a single binary distinction",
-      "markdown": "The study uses four classes: NonDemented, VeryMildDemented, MildDemented, and ModerateDemented. That framing introduces a more demanding classification problem than a simple healthy-versus-disease split, because the model has to distinguish not just presence but degree of progression.\n\nThe notebook reflects that framing at every stage. Data preparation, augmentation, and evaluation all sit inside a multi-class setup, and the later ensemble work is meaningful precisely because the task itself is not trivial."
+      "description": "The classification target is more demanding than a simple healthy-versus-disease split.",
+      "markdown": "The study uses four classes: NonDemented, VeryMildDemented, MildDemented, and ModerateDemented. That framing introduces a more demanding classification problem than a simple healthy-versus-disease split, because the model has to distinguish not just presence but degree of progression.\n\nThe notebook reflects that framing at every stage. Data preparation, augmentation, and evaluation all sit inside a multi-class setup, and the later ensemble work is meaningful precisely because the task itself is not trivial.",
+      "layout": "narrow"
     },
     {
       "blockType": "metrics",
@@ -90,7 +93,30 @@
       ]
     },
     {
-      "blockType": "mediaFeature",
+      "blockType": "insightGrid",
+      "eyebrow": "Why the format matters",
+      "title": "Notebook-first work retains useful forms of visibility",
+      "description": "In this study, inspectability is part of the value rather than a sign of incompleteness.",
+      "items": [
+        {
+          "label": "Data",
+          "title": "Images remain visible",
+          "body": "Representative MRI slices stay inside the experimental record, which keeps preprocessing and modeling grounded in the data itself."
+        },
+        {
+          "label": "Method",
+          "title": "Pipeline decisions stay local",
+          "body": "Loading paths, resizing, augmentation, training, and evaluation appear in one continuous environment instead of being scattered across scripts."
+        },
+        {
+          "label": "Interpretation",
+          "title": "Comparisons can be read in sequence",
+          "body": "Later ensemble or comparison logic is easier to judge when it appears as an extension of earlier notebook steps rather than as an isolated result."
+        }
+      ]
+    },
+    {
+      "blockType": "figure",
       "eyebrow": "Preprocessing",
       "title": "Single-slice inspection helps keep the pipeline concrete",
       "description": "Notebook-based work is often criticized for being less polished than packaged code, but it has one important advantage: the data remains visible. Images like this make preprocessing decisions easier to inspect and discuss.",
@@ -99,13 +125,42 @@
       "layout": "split"
     },
     {
-      "blockType": "markdownSection",
+      "blockType": "callout",
       "eyebrow": "Method",
-      "title": "Why the notebook form matters",
+      "title": "The notebook is the record, not a placeholder for a future rewrite",
+      "description": "Its value lies in preserving sequence and decision-making, not in pretending the work happened somewhere else.",
       "markdown": "In this project, the notebook is not an intermediate artifact waiting to become a cleaner library. It is the most faithful representation of the work. It shows where the dataset is loaded from, how the images are augmented, how the convolutional model is trained, and how later comparison logic is layered in.\n\nThat visibility is important in medical and scientific contexts, where the most useful question is often not whether a result looks good in isolation, but whether the sequence of choices behind it can be examined with enough detail to judge the work responsibly."
     },
     {
-      "blockType": "mediaFeature",
+      "blockType": "timeline",
+      "eyebrow": "Experimental flow",
+      "title": "How the study progresses",
+      "description": "The notebook format makes each stage legible in order rather than compressing everything into a final result.",
+      "items": [
+        {
+          "label": "01",
+          "title": "Load and inspect MRI inputs",
+          "body": "The first step is not training but looking at the images closely enough to understand what the data actually contains."
+        },
+        {
+          "label": "02",
+          "title": "Prepare and augment the dataset",
+          "body": "Resizing, partitioning, and augmentation decisions are made in the open, with the implications visible alongside the code."
+        },
+        {
+          "label": "03",
+          "title": "Train the baseline CNN",
+          "body": "The core convolutional model establishes the initial performance frame for the classification task."
+        },
+        {
+          "label": "04",
+          "title": "Extend into comparison and ensemble logic",
+          "body": "Later evaluation becomes meaningful because it grows directly out of the earlier pipeline rather than replacing it."
+        }
+      ]
+    },
+    {
+      "blockType": "figure",
       "eyebrow": "Evaluation context",
       "title": "The project is best understood as a visible sequence of experiments",
       "description": "The later portions of the notebook move beyond a single model result and into comparison. That transition is where the study becomes more interesting, because it reveals how performance was interrogated rather than simply reported.",
@@ -114,10 +169,12 @@
       "layout": "split"
     },
     {
-      "blockType": "markdownSection",
+      "blockType": "proseSection",
       "eyebrow": "Scope",
       "title": "What this study demonstrates",
-      "markdown": "This work demonstrates a practical medical imaging workflow built under notebook-first conditions: dataset preparation, convolutional modeling, staged classification, and comparison-oriented evaluation in a single reproducible file. It is not presented as a clinical system or a polished deployment target. Its value lies in the transparency of the experimental process and in the way it captures model development in a form that can still be reviewed, rerun, and extended."
+      "description": "The contribution is methodological transparency rather than a claim of production or clinical readiness.",
+      "markdown": "This work demonstrates a practical medical imaging workflow built under notebook-first conditions: dataset preparation, convolutional modeling, staged classification, and comparison-oriented evaluation in a single reproducible file. It is not presented as a clinical system or a polished deployment target. Its value lies in the transparency of the experimental process and in the way it captures model development in a form that can still be reviewed, rerun, and extended.",
+      "layout": "narrow"
     }
   ],
   "github": {

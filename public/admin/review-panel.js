@@ -38,36 +38,35 @@
       groups: [
         { title: 'Identity', fields: ['Title', 'Slug', 'Card Eyebrow', 'Date Label', 'Summary', 'Role'] },
         { title: 'Visuals', fields: ['Cover Image', 'Gallery'] },
-        { title: 'Metadata', fields: ['Technologies', 'Attachments', 'External Links'] },
-        { title: 'Narrative', fields: ['Body Markdown', 'Related Writing Slugs', 'Related Archive Slugs'] },
+        { title: 'Metadata', fields: ['Technologies', 'Attachments', 'Links'] },
+        { title: 'Narrative', fields: ['Page Sections', 'GitHub'] },
       ],
     },
     writing: {
       title: 'Writing review',
       note: 'This panel tracks the article record while you type. Use it as a quick outline and field navigator.',
       groups: [
-        { title: 'Identity', fields: ['Title', 'Slug', 'Card Eyebrow', 'Date Label', 'Summary'] },
-        { title: 'Body', fields: ['Body Markdown'] },
-        { title: 'Attachments and links', fields: ['Attachments', 'External Links'] },
-        { title: 'Relations', fields: ['Related Project Slugs', 'Related Archive Slugs'] },
+        { title: 'Identity', fields: ['Title', 'Slug', 'Category', 'Publish Date', 'Excerpt'] },
+        { title: 'Body', fields: ['Page Sections'] },
+        { title: 'Attachments and links', fields: ['Attachments', 'Links'] },
       ],
     },
     archive: {
       title: 'Archive record review',
       note: 'Archive entries work best as supporting records. Click through to update the exact field you need.',
       groups: [
-        { title: 'Identity', fields: ['Title', 'Slug', 'Card Eyebrow', 'Date Label', 'Summary'] },
-        { title: 'Preview assets', fields: ['Cover Image', 'File', 'External URL'] },
-        { title: 'Context', fields: ['Body Markdown', 'Related Project Slugs', 'Related Writing Slugs'] },
+        { title: 'Identity', fields: ['Title', 'Slug', 'Item Type', 'Date Label', 'Summary'] },
+        { title: 'Preview assets', fields: ['Preview Image', 'Attachments', 'Links'] },
+        { title: 'Context', fields: ['Page Sections'] },
       ],
     },
     recommendations: {
       title: 'Letter review',
       note: 'Letters stay quiet on the public site, but everything here remains directly editable.',
       groups: [
-        { title: 'Identity', fields: ['Title', 'Slug', 'Card Eyebrow', 'Date Label', 'Summary'] },
-        { title: 'Letter asset', fields: ['File', 'Cover Image', 'External URL'] },
-        { title: 'Context', fields: ['Body Markdown', 'Role'] },
+        { title: 'Identity', fields: ['Title', 'Slug', 'Recommender Name', 'Recommender Role', 'Excerpt'] },
+        { title: 'Letter asset', fields: ['Thumbnail', 'PDF Letter', 'Links'] },
+        { title: 'Context', fields: ['Context', 'Visibility Priority'] },
       ],
     },
   }
@@ -80,6 +79,9 @@
   let footerNode
   let initialized = false
   let renderQueued = false
+  let cmsConfigPromise = null
+  const draftState = new Map()
+  const SUPPORTED_DRAFT_COLLECTIONS = ['projects', 'writing', 'archive']
 
   function normalize(text) {
     return String(text || '')
@@ -95,6 +97,27 @@
     if (!clean) return 'Empty'
     if (clean.length <= max) return clean
     return `${clean.slice(0, max - 1)}…`
+  }
+
+  function routeKey(route) {
+    return `${route.collection || 'unknown'}:${route.entry || 'index'}`
+  }
+
+  function getDraftState(route) {
+    const key = routeKey(route)
+
+    if (!draftState.has(key)) {
+      draftState.set(key, {
+        brief: '',
+        error: '',
+        generating: false,
+        output: null,
+        status: '',
+        sourceNotes: '',
+      })
+    }
+
+    return draftState.get(key)
   }
 
   function isEntryRoute(route) {
@@ -130,6 +153,69 @@
     }
 
     return reviewSchemas[route.collection]
+  }
+
+  function supportsDraftLab(route) {
+    return isEntryRoute(route) && SUPPORTED_DRAFT_COLLECTIONS.includes(route.collection)
+  }
+
+  async function loadCmsConfig() {
+    if (!cmsConfigPromise) {
+      const candidates = ['/admin/config.yml', './config.yml', 'config.yml']
+
+      cmsConfigPromise = (async () => {
+        for (const path of candidates) {
+          try {
+            const response = await fetch(path)
+            if (!response.ok) continue
+
+            const text = await response.text()
+            if (!text.trim()) continue
+
+            const baseUrlMatch = text.match(/^\s*base_url:\s*(.+)\s*$/m)
+            const authMatch = text.match(/^\s*auth_endpoint:\s*(.+)\s*$/m)
+
+            return {
+              authEndpoint: authMatch ? authMatch[1].trim() : '/api/auth',
+              baseUrl: baseUrlMatch ? baseUrlMatch[1].trim() : '',
+            }
+          } catch {
+            continue
+          }
+        }
+
+        return { authEndpoint: '/api/auth', baseUrl: '' }
+      })()
+    }
+
+    return cmsConfigPromise
+  }
+
+  function getProxyWriteUrl(config) {
+    if (!config?.baseUrl) return ''
+    return `${config.baseUrl.replace(/\/$/, '')}/api/write`
+  }
+
+  function getAuthTokenFromStorage() {
+    for (let index = 0; index < window.localStorage.length; index += 1) {
+      const key = window.localStorage.key(index)
+      if (!key) continue
+
+      const raw = window.localStorage.getItem(key)
+      if (!raw) continue
+
+      try {
+        const parsed = JSON.parse(raw)
+        if (parsed && typeof parsed === 'object') {
+          if (typeof parsed.token === 'string' && parsed.token) return parsed.token
+          if (typeof parsed.access_token === 'string' && parsed.access_token) return parsed.access_token
+        }
+      } catch {
+        continue
+      }
+    }
+
+    return ''
   }
 
   function getPanelOpen() {
@@ -243,6 +329,111 @@
     return truncate(control.textContent || '')
   }
 
+  function readControlRawValue(control) {
+    if (!control) return ''
+
+    if (control.matches('textarea')) {
+      return String(control.value || control.textContent || '').trim()
+    }
+
+    if (control.matches('select')) {
+      return String(control.value || '').trim()
+    }
+
+    if (control.matches('input[type="checkbox"]')) {
+      return control.checked ? 'true' : 'false'
+    }
+
+    if (control.matches('input[type="file"]')) {
+      return String(control.value || '').trim()
+    }
+
+    if (control.matches('input')) {
+      return String(control.value || '').trim()
+    }
+
+    return String(control.textContent || '').trim()
+  }
+
+  function collectCurrentFields() {
+    const fieldMap = {}
+
+    getFieldCandidates().forEach((label) => {
+      const text = String(label.textContent || '').replace(/\s+/g, ' ').trim()
+      if (!text) return
+      const control = findControlForLabel(label)
+      const value = readControlRawValue(control)
+      if (!value) return
+
+      if (!fieldMap[text]) {
+        fieldMap[text] = value
+      }
+    })
+
+    return fieldMap
+  }
+
+  function collectVisibleAssets() {
+    const values = new Set()
+
+    Array.from(document.querySelectorAll('input, textarea')).forEach((node) => {
+      const value = 'value' in node ? String(node.value || '').trim() : ''
+      if (value.includes('/uploads/')) {
+        values.add(value)
+      }
+    })
+
+    Array.from(document.querySelectorAll('img')).forEach((img) => {
+      const src = img.getAttribute('src') || ''
+      if (src.includes('/uploads/')) {
+        values.add(src)
+      }
+    })
+
+    return Array.from(values)
+  }
+
+  function setControlValue(control, value) {
+    if (!control) return false
+
+    if ('value' in control) {
+      control.value = value
+      control.dispatchEvent(new Event('input', { bubbles: true }))
+      control.dispatchEvent(new Event('change', { bubbles: true }))
+      return true
+    }
+
+    return false
+  }
+
+  function applyDraftField(labelText, value) {
+    const field = findField(labelText)
+    if (!field?.control) return false
+    return setControlValue(field.control, value)
+  }
+
+  function outputFieldMap(route) {
+    const maps = {
+      archive: { summary: 'Summary' },
+      projects: { role: 'Role', summary: 'Summary' },
+      writing: { excerpt: 'Excerpt' },
+    }
+
+    return maps[route.collection] || {}
+  }
+
+  function sourcePacketForRoute(route, state) {
+    return {
+      brief: state.brief,
+      collection: route.collection,
+      entry: route.entry,
+      fields: collectCurrentFields(),
+      route,
+      sourceNotes: state.sourceNotes,
+      visibleAssets: collectVisibleAssets(),
+    }
+  }
+
   function findField(labelText) {
     const target = normalize(labelText)
     const labels = getFieldCandidates()
@@ -280,6 +471,310 @@
   function navigate(href) {
     if (!href) return
     window.location.href = href
+  }
+
+  async function copyText(text) {
+    if (!text) return false
+
+    try {
+      await navigator.clipboard.writeText(text)
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  async function generateDraftForRoute(route) {
+    const state = getDraftState(route)
+    state.error = ''
+    state.status = ''
+    state.generating = true
+    scheduleRender()
+
+    try {
+      const config = await loadCmsConfig()
+      const proxyUrl = getProxyWriteUrl(config)
+      const token = getAuthTokenFromStorage()
+
+      if (!proxyUrl) {
+        throw new Error('Could not resolve the writing proxy URL from admin/config.yml')
+      }
+
+      if (!token) {
+        throw new Error('GitHub CMS login token not found. Sign in to the CMS first, then try again.')
+      }
+
+      const response = await fetch(proxyUrl, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(sourcePacketForRoute(route, state)),
+      })
+
+      const payload = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(payload?.error || `Draft generation failed with ${response.status}`)
+      }
+
+      state.output = {
+        draft: payload.draft || null,
+        model: payload.model || 'unknown',
+      }
+      state.status = 'Draft generated in the panel. Review it, apply fields, and publish only when ready.'
+    } catch (error) {
+      state.error = error instanceof Error ? error.message : 'Unexpected drafting error'
+    } finally {
+      state.generating = false
+      scheduleRender()
+    }
+  }
+
+  function renderDraftField(fieldLabel, value, onApply) {
+    const card = createNode('article', 'cms-draft-field')
+    card.appendChild(createNode('h4', '', fieldLabel))
+
+    const label = createNode('label', '', 'Generated text')
+    const textarea = createNode('textarea')
+    textarea.value = value || ''
+    label.appendChild(textarea)
+    card.appendChild(label)
+
+    const actions = createNode('div', 'cms-draft-field-actions')
+
+    const copyButton = createNode('button', '', 'Copy')
+    copyButton.type = 'button'
+    copyButton.addEventListener('click', async () => {
+      onApply((await copyText(textarea.value)) ? 'Copied to clipboard.' : 'Clipboard copy was blocked by the browser.')
+    })
+    actions.appendChild(copyButton)
+
+    const applyButton = createNode('button', '', 'Apply to field')
+    applyButton.type = 'button'
+    applyButton.addEventListener('click', () => {
+      onApply(textarea.value, true)
+    })
+    actions.appendChild(applyButton)
+
+    card.appendChild(actions)
+    return card
+  }
+
+  function renderDraftSection(section, index, state) {
+    const card = createNode('article', 'cms-draft-section')
+    const heading = section?.title ? `${index + 1}. ${section.title}` : `Section ${index + 1}`
+    card.appendChild(createNode('h4', '', heading))
+
+    if (section?.blockType) {
+      card.appendChild(createNode('small', '', `Suggested block: ${section.blockType}`))
+    }
+
+    if (section?.eyebrow) {
+      card.appendChild(createNode('small', '', `Eyebrow: ${section.eyebrow}`))
+    }
+
+    if (section?.description) {
+      const descriptionLabel = createNode('label', '', 'Standfirst')
+      const descriptionArea = createNode('textarea')
+      descriptionArea.value = section.description
+      descriptionLabel.appendChild(descriptionArea)
+      card.appendChild(descriptionLabel)
+    }
+
+    const label = createNode('label', '', 'Section markdown')
+    const textarea = createNode('textarea')
+    textarea.value = section?.markdown || ''
+    label.appendChild(textarea)
+    card.appendChild(label)
+
+    const actions = createNode('div', 'cms-draft-field-actions')
+
+    const copyMarkdown = createNode('button', '', 'Copy markdown')
+    copyMarkdown.type = 'button'
+    copyMarkdown.addEventListener('click', async () => {
+      state.status = (await copyText(textarea.value)) ? 'Section markdown copied to clipboard.' : 'Clipboard copy was blocked by the browser.'
+      scheduleRender()
+    })
+    actions.appendChild(copyMarkdown)
+
+    const copyJson = createNode('button', '', 'Copy section JSON')
+    copyJson.type = 'button'
+    copyJson.addEventListener('click', async () => {
+      const payload = JSON.stringify(
+        {
+          blockType: section?.blockType || 'proseSection',
+          eyebrow: section?.eyebrow || '',
+          title: section?.title || '',
+          description: section?.description || '',
+          markdown: section?.markdown || '',
+          context: section?.context || '',
+        },
+        null,
+        2
+      )
+      state.status = (await copyText(payload)) ? 'Section JSON copied to clipboard.' : 'Clipboard copy was blocked by the browser.'
+      scheduleRender()
+    })
+    actions.appendChild(copyJson)
+
+    card.appendChild(actions)
+
+    if (section?.imageSuggestion) {
+      card.appendChild(createNode('small', '', `Image role: ${section.imageSuggestion}`))
+    }
+
+    if (section?.context) {
+      card.appendChild(createNode('small', '', `Context line: ${section.context}`))
+    }
+
+    return card
+  }
+
+  function renderDraftLab(route) {
+    const state = getDraftState(route)
+    const card = createNode('section', 'cms-review-card cms-draft-card')
+    card.appendChild(createNode('h3', '', 'Draft Lab'))
+    card.appendChild(
+      createNode(
+        'p',
+        'cms-draft-help',
+        'Uses GPT-5.5 through the CMS proxy to draft grounded long-form copy from the entry currently open in Decap. It reads the visible form state, keeps images and files replaceable through the CMS, and does not publish automatically.'
+      )
+    )
+
+    const form = createNode('div', 'cms-draft-form')
+
+    const briefLabel = createNode('label', '', 'Editorial brief')
+    const briefInput = createNode('textarea')
+    briefInput.placeholder = 'What should this entry emphasize, avoid, or clarify?'
+    briefInput.value = state.brief
+    briefInput.addEventListener('input', () => {
+      state.brief = briefInput.value
+    })
+    briefLabel.appendChild(briefInput)
+    form.appendChild(briefLabel)
+
+    const notesLabel = createNode('label', '', 'Source notes')
+    const notesInput = createNode('textarea')
+    notesInput.placeholder = 'Optional notes, source constraints, or context not yet reflected in the form.'
+    notesInput.value = state.sourceNotes
+    notesInput.addEventListener('input', () => {
+      state.sourceNotes = notesInput.value
+    })
+    notesLabel.appendChild(notesInput)
+    form.appendChild(notesLabel)
+
+    const actions = createNode('div', 'cms-draft-actions')
+
+    const generateButton = createNode(
+      'button',
+      'cms-draft-button is-primary',
+      state.generating ? 'Generating…' : 'Generate deep rewrite'
+    )
+    generateButton.type = 'button'
+    generateButton.disabled = state.generating
+    generateButton.addEventListener('click', () => {
+      generateDraftForRoute(route)
+    })
+    actions.appendChild(generateButton)
+
+    const clearButton = createNode('button', 'cms-draft-button', 'Clear')
+    clearButton.type = 'button'
+    clearButton.disabled = state.generating
+    clearButton.addEventListener('click', () => {
+      state.brief = ''
+      state.error = ''
+      state.output = null
+      state.sourceNotes = ''
+      state.status = ''
+      scheduleRender()
+    })
+    actions.appendChild(clearButton)
+
+    const focusSectionsButton = createNode('button', 'cms-draft-button', 'Focus page sections')
+    focusSectionsButton.type = 'button'
+    focusSectionsButton.addEventListener('click', () => {
+      focusField(findField('Page Sections'))
+    })
+    actions.appendChild(focusSectionsButton)
+
+    form.appendChild(actions)
+    card.appendChild(form)
+
+    if (state.error) {
+      card.appendChild(createNode('p', 'cms-draft-status cms-draft-error', state.error))
+    } else if (state.status) {
+      card.appendChild(createNode('p', 'cms-draft-status', state.status))
+    }
+
+    if (!state.output?.draft) {
+      scrollArea.appendChild(card)
+      return
+    }
+
+    const output = state.output.draft
+    const outputWrap = createNode('div', 'cms-draft-output')
+
+    if (output?.overview) {
+      outputWrap.appendChild(createNode('p', 'cms-draft-help', `${output.overview} Model: ${state.output.model}.`))
+    }
+
+    Object.entries(outputFieldMap(route)).forEach(([outputKey, fieldLabel]) => {
+      const value = output?.fields?.[outputKey]
+      if (!value) return
+
+      outputWrap.appendChild(
+        renderDraftField(fieldLabel, value, (nextValue, shouldApply = false) => {
+          if (!shouldApply) {
+            state.status = nextValue
+            scheduleRender()
+            return
+          }
+
+          const applied = applyDraftField(fieldLabel, nextValue)
+          state.status = applied
+            ? `${fieldLabel} updated in the current CMS form. Save or publish in Decap when ready.`
+            : `${fieldLabel} could not be located in the current form.`
+          scheduleRender()
+        })
+      )
+    })
+
+    if (Array.isArray(output?.sections) && output.sections.length) {
+      const sectionWrap = createNode('div', 'cms-draft-sections')
+      sectionWrap.appendChild(createNode('h4', '', 'Draft sections'))
+
+      output.sections.forEach((section, index) => {
+        sectionWrap.appendChild(renderDraftSection(section, index, state))
+      })
+
+      const copyAllButton = createNode('button', 'cms-draft-button', 'Copy sections JSON')
+      copyAllButton.type = 'button'
+      copyAllButton.addEventListener('click', async () => {
+        state.status = (await copyText(JSON.stringify(output.sections, null, 2)))
+          ? 'Draft sections JSON copied to clipboard.'
+          : 'Clipboard copy was blocked by the browser.'
+        scheduleRender()
+      })
+      sectionWrap.appendChild(copyAllButton)
+      outputWrap.appendChild(sectionWrap)
+    }
+
+    if (Array.isArray(output?.imagePlan) && output.imagePlan.length) {
+      const imageWrap = createNode('div', 'cms-draft-image-plan')
+      imageWrap.appendChild(createNode('h4', '', 'Image plan'))
+
+      output.imagePlan.forEach((item) => {
+        imageWrap.appendChild(createNode('article', 'cms-draft-image-item', item))
+      })
+
+      outputWrap.appendChild(imageWrap)
+    }
+
+    card.appendChild(outputWrap)
+    scrollArea.appendChild(card)
   }
 
   function renderCollectionLinks() {
@@ -371,6 +866,9 @@
       renderFallback(route)
     } else {
       renderFieldGroups(schema)
+      if (supportsDraftLab(route)) {
+        renderDraftLab(route)
+      }
     }
 
     footerNode.textContent = isEntryRoute(route)

@@ -21,12 +21,18 @@ Recommended Vercel settings:
 - `PROXY_BASE_URL`
 - `SITE_URL`
 - `ALLOWED_ORIGINS`
+- `OPENAI_API_KEY`
 
 Suggested values:
 
 - `PROXY_BASE_URL=https://YOUR-PROJECT.vercel.app`
 - `SITE_URL=https://neerav-git.github.io`
 - `ALLOWED_ORIGINS=https://neerav-git.github.io`
+
+Optional:
+
+- `GITHUB_REPO=neerav-git/neerav-git.github.io`
+- `OPENAI_WRITING_MODEL=gpt-5.5`
 
 ## GitHub OAuth App
 
@@ -43,3 +49,12 @@ In `public/admin/config.yml`, set:
 base_url: https://YOUR-PROJECT.vercel.app
 auth_endpoint: /api/auth
 ```
+
+## Draft Lab
+
+The `/api/write` endpoint powers the admin-side Draft Lab inside Decap CMS.
+
+- It uses the GitHub login token already present in the CMS session.
+- It verifies that the signed-in user can access `GITHUB_REPO` before generating text.
+- It supports `projects`, `writing`, and `archive` entries.
+- It returns draft text only. Nothing is committed, saved, or published automatically.

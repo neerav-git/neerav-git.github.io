@@ -30,17 +30,18 @@ export default async function HomePage() {
               <div className="panel-eyebrow">{home?.heroEyebrow || 'Research systems · writing · long-form work'}</div>
               <h1>{home?.heroTitle || 'A public record of projects, research, and careful technical work.'}</h1>
               {home?.heroBody ? <p className="hero-copy">{home.heroBody}</p> : null}
-              <div className="hero-links">
-                {Array.isArray(home?.heroLinks)
-                  ? home.heroLinks.map((link, index) =>
-                      typeof link?.url === 'string' ? (
-                        <Link href={link.url} key={`${link.url}-${index}`}>
-                          {link.label || link.url}
-                        </Link>
-                      ) : null
-                    )
-                  : null}
-              </div>
+              {Array.isArray(home?.heroLinks) && home.heroLinks.length ? (
+                <div className="hero-route-list">
+                  {home.heroLinks.map((link, index) =>
+                    typeof link?.url === 'string' ? (
+                      <Link className="hero-route-card" href={link.url} key={`${link.url}-${index}`}>
+                        <strong>{link.label || link.url}</strong>
+                        {link.description ? <span>{link.description}</span> : null}
+                      </Link>
+                    ) : null
+                  )}
+                </div>
+              ) : null}
               <div className="jump-ribbon">
                 <a href="#home-projects">Projects</a>
                 <a href="#home-writing">Writing</a>
@@ -88,76 +89,88 @@ export default async function HomePage() {
         </EditableRegion>
 
         {leadProject ? (
-          <EditableRegion editHref={adminLinks.project(leadProject.slug)} editLabel={`${leadProject.title || 'project'} spotlight`}>
-            <article className="spotlight-panel">
-              <div className="spotlight-grid">
-                <div className="spotlight-copy">
-                  <div className="panel-eyebrow">
-                    {leadProject.cardEyebrow || 'Project'} {leadProject.dateLabel ? `· ${leadProject.dateLabel}` : ''}
-                  </div>
-                  <h3>{leadProject.title}</h3>
-                  <p className="spotlight-summary">{leadProject.summary}</p>
-                  {leadProject.role ? <p className="spotlight-detail">{leadProject.role}</p> : null}
-                  {Array.isArray(leadProject.technologies) && leadProject.technologies.length ? (
-                    <div className="tag-row">
-                      {leadProject.technologies.map((technology, index) =>
-                        technology?.value ? <span key={`${technology.value}-${index}`}>{technology.value}</span> : null
-                      )}
+          <div className="project-feature-grid">
+            <EditableRegion editHref={adminLinks.project(leadProject.slug)} editLabel={`${leadProject.title || 'project'} spotlight`}>
+              <article className="spotlight-panel">
+                <div className="spotlight-grid">
+                  <div className="spotlight-copy">
+                    <div className="panel-eyebrow">
+                      {leadProject.cardEyebrow || 'Project'} {leadProject.dateLabel ? `· ${leadProject.dateLabel}` : ''}
                     </div>
-                  ) : null}
-                  <div className="spotlight-actions">
-                    <Link className="primary-button" href={`/projects/${leadProject.slug}`}>
-                      Open Project
+                    <h3>{leadProject.title}</h3>
+                    <p className="spotlight-summary">{leadProject.summary}</p>
+                    {leadProject.role ? <p className="spotlight-detail">{leadProject.role}</p> : null}
+                    {Array.isArray(leadProject.technologies) && leadProject.technologies.length ? (
+                      <div className="tag-row">
+                        {leadProject.technologies.map((technology, index) =>
+                          technology?.value ? <span key={`${technology.value}-${index}`}>{technology.value}</span> : null
+                        )}
+                      </div>
+                    ) : null}
+                    <div className="spotlight-actions">
+                      <Link className="primary-button" href={`/projects/${leadProject.slug}`}>
+                        Open Project
+                      </Link>
+                      {Array.isArray(leadProject.links)
+                        ? leadProject.links.slice(0, 2).map((link, index) =>
+                            typeof link?.url === 'string' ? (
+                              <a className="secondary-button" href={link.url} key={`${link.url}-${index}`} rel="noreferrer" target="_blank">
+                                {link.label || link.url}
+                              </a>
+                            ) : null
+                          )
+                        : null}
+                    </div>
+                  </div>
+
+                  {leadProject.coverImage && getUploadUrl(leadProject.coverImage) ? (
+                    <Link className="spotlight-media" href={`/projects/${leadProject.slug}`}>
+                      <img alt={getUploadAlt(leadProject.coverImage)} src={getUploadUrl(leadProject.coverImage) || ''} />
                     </Link>
-                    {Array.isArray(leadProject.links)
-                      ? leadProject.links.slice(0, 2).map((link, index) =>
-                          typeof link?.url === 'string' ? (
-                            <a className="secondary-button" href={link.url} key={`${link.url}-${index}`} rel="noreferrer" target="_blank">
-                              {link.label || link.url}
-                            </a>
-                          ) : null
-                        )
-                      : null}
-                  </div>
+                  ) : null}
                 </div>
+              </article>
+            </EditableRegion>
 
-                {leadProject.coverImage && getUploadUrl(leadProject.coverImage) ? (
-                  <Link className="spotlight-media" href={`/projects/${leadProject.slug}`}>
-                    <img alt={getUploadAlt(leadProject.coverImage)} src={getUploadUrl(leadProject.coverImage) || ''} />
-                  </Link>
-                ) : null}
+            {supportingProjects.length ? (
+              <div className="project-support-stack">
+                {supportingProjects.map((project) => (
+                  <EditableRegion
+                    className="feature-card project-support-card"
+                    editHref={adminLinks.project(project.slug)}
+                    editLabel={project.title || 'project'}
+                    key={project.slug}
+                    mode="card"
+                  >
+                    <Link className="project-support-link" href={`/projects/${project.slug}`}>
+                      {project.coverImage && getUploadUrl(project.coverImage) ? (
+                        <div className="project-support-media">
+                          <img alt={getUploadAlt(project.coverImage)} src={getUploadUrl(project.coverImage) || ''} />
+                        </div>
+                      ) : (
+                        <div className="project-card-media project-card-media-placeholder">
+                          <span>{project.cardEyebrow || 'Project'}</span>
+                        </div>
+                      )}
+                      <div className="card-meta">
+                        {project.cardEyebrow || 'Project'} {project.dateLabel ? `· ${project.dateLabel}` : ''}
+                      </div>
+                      <h3>{project.title}</h3>
+                      <p>{project.summary}</p>
+                      {project.role ? <small>{project.role}</small> : null}
+                      {Array.isArray(project.technologies) && project.technologies.length ? (
+                        <div className="tag-row">
+                          {project.technologies.slice(0, 4).map((technology, index) =>
+                            technology?.value ? <span key={`${technology.value}-${index}`}>{technology.value}</span> : null
+                          )}
+                        </div>
+                      ) : null}
+                      <span className="project-support-cta">Open project</span>
+                    </Link>
+                  </EditableRegion>
+                ))}
               </div>
-            </article>
-          </EditableRegion>
-        ) : null}
-
-        {supportingProjects.length ? (
-          <div className="card-grid project-card-grid">
-            {supportingProjects.map((project) => (
-              <EditableRegion
-                className="feature-card project-card-shell"
-                editHref={adminLinks.project(project.slug)}
-                editLabel={project.title || 'project'}
-                key={project.slug}
-                mode="card"
-              >
-                <Link className="project-card-link" href={`/projects/${project.slug}`}>
-                  {project.coverImage && getUploadUrl(project.coverImage) ? (
-                    <div className="project-card-media">
-                      <img alt={getUploadAlt(project.coverImage)} src={getUploadUrl(project.coverImage) || ''} />
-                    </div>
-                  ) : (
-                    <div className="project-card-media project-card-media-placeholder">
-                      <span>{project.cardEyebrow || 'Project'}</span>
-                    </div>
-                  )}
-                  <div className="card-meta">{project.cardEyebrow || 'Project'}</div>
-                  <h3>{project.title}</h3>
-                  <p>{project.summary}</p>
-                  <span>{project.dateLabel || 'Open record'}</span>
-                </Link>
-              </EditableRegion>
-            ))}
+            ) : null}
           </div>
         ) : null}
       </section>

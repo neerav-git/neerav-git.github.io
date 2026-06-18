@@ -25,25 +25,46 @@
   "attachments": [],
   "pageSections": [
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Artifact",
+      "blockType": "sectionLead",
+      "eyebrow": "Record",
       "title": "The notebook is the primary research document",
-      "markdown": "The study is preserved here in the form it was actually carried out. The notebook contains the data-loading assumptions, the preprocessing steps, the image examples, the model-building sequence, and the movement into comparison and ensemble work. It functions not only as code for execution but as the main technical record of the experiment."
+      "description": "This archive entry exists because the Alzheimer study is most honestly represented by the notebook itself. The code, the image inspection, the preprocessing choices, and the movement into model comparison all live in the same artifact.",
+      "context": "The preview image already shows the visual character of the notebook output, so the rest of the record concentrates on what the artifact preserves."
     },
     {
-      "blockType": "mediaFeature",
-      "eyebrow": "Notebook output",
-      "title": "Representative MRI samples remain visible inside the study",
-      "description": "Direct visual inspection of the images is part of the analytical process. It helps keep augmentation, preprocessing, and model design connected to the actual structure of the input data.",
-      "media": "/uploads/alzheimers/notebook-output-1.png",
-      "caption": "Notebook output extracted from the Alzheimer MRI repository.",
-      "layout": "wide"
+      "blockType": "timeline",
+      "eyebrow": "What it preserves",
+      "title": "The notebook captures the experiment in sequence",
+      "description": "That sequence is the main reason the record belongs in the archive.",
+      "items": [
+        {
+          "label": "01",
+          "title": "Data access and setup",
+          "body": "The artifact shows where the dataset comes from and how the working environment is established."
+        },
+        {
+          "label": "02",
+          "title": "Image inspection and preprocessing",
+          "body": "Representative MRI slices, resizing decisions, and augmentation logic remain visible rather than being abstracted away."
+        },
+        {
+          "label": "03",
+          "title": "Model construction and training",
+          "body": "The notebook preserves the exact path from prepared images into CNN training."
+        },
+        {
+          "label": "04",
+          "title": "Evaluation and comparison",
+          "body": "Later ensemble and comparison work can be read as an extension of the earlier pipeline rather than as a detached result."
+        }
+      ]
     },
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Value",
-      "title": "Why the notebook belongs in the archive",
-      "markdown": "The project page presents the overall study, but the notebook record preserves the texture of the work: how the images are inspected, how the workflow is staged, and how the experiment evolves from data handling to model comparison. Keeping this artifact close to the project makes the work easier to review because the technical sequence remains visible."
+      "blockType": "callout",
+      "eyebrow": "Why archive it",
+      "title": "The value is methodological transparency",
+      "description": "The record is useful because it keeps the texture of the work visible, not because it pretends to be a polished production system.",
+      "markdown": "The project page presents the overall study, but the notebook record preserves the texture of the work: how the images are inspected, how the workflow is staged, and how the experiment evolves from data handling to model comparison. Keeping this artifact close to the project makes the work easier to review because the technical sequence remains visible.\n\nThe honest limitation is that a notebook record does not provide the same guarantees as a broader benchmark suite, formal study protocol, or deployment-ready package. What it does provide is a faithful account of how the experiment was actually carried out."
     }
   ]
 }

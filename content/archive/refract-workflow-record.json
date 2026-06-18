@@ -20,24 +20,25 @@
   "attachments": [],
   "pageSections": [
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Artifact",
+      "blockType": "sectionLead",
+      "eyebrow": "Record",
       "title": "A compact explanation of the operating model",
-      "markdown": "The workflow diagram captures the main structural idea behind Refract. The session sits at the top, document-grounded work and statistical work branch outward from it, and both return to the same interpretation layer. The application reads most clearly at this level: a coordinated workflow held together by a shared context object."
+      "description": "This diagram is useful because it shows the project before implementation detail takes over. The session is the coordinating object; literature work and statistical work branch outward from it and reconnect through interpretation.",
+      "context": "The image already appears at the top of the record. The purpose of the text below is to explain how to read it, not to restage it at full size."
     },
     {
-      "blockType": "mediaFeature",
-      "eyebrow": "Diagram",
-      "title": "The workflow can be read from left to right or from top to bottom",
-      "description": "From top to bottom, the session acts as the frame that keeps the work coherent. From left to right, the diagram distinguishes literature work from quantitative analysis while still showing where they reconnect.",
-      "media": "/uploads/refract/workflow-overview.png",
-      "caption": "Workflow diagram from the Refract repository README.",
-      "layout": "wide"
+      "blockType": "proseSection",
+      "eyebrow": "How to read it",
+      "title": "The workflow can be read in two directions",
+      "description": "Both readings matter because they show different aspects of the same design.",
+      "markdown": "From top to bottom, the diagram explains how the session acts as the frame that keeps the work coherent. The research goal, the papers, the saved evidence, and the later analysis all remain parts of the same ongoing object.\n\nFrom left to right, the diagram distinguishes literature work from quantitative analysis while still showing where they reconnect. That distinction is important because the point of the system is not to collapse those activities into one surface. It is to keep them separate enough to be usable while still preserving the shared context that makes later interpretation possible.",
+      "layout": "narrow"
     },
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Use",
-      "title": "Why this record matters",
+      "blockType": "callout",
+      "eyebrow": "Why preserve it",
+      "title": "This is the fastest route into the project",
+      "description": "The artifact matters because it exposes the architectural intention without requiring a full code-level reading first.",
       "markdown": "A diagram like this is useful because it clarifies the logic of the system before implementation details take over. It explains where reading happens, where analysis happens, and why both need to remain within the same research frame. For someone trying to understand the project quickly, this artifact is one of the fastest ways to see what the application is designed to hold together."
     }
   ]

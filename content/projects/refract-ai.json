@@ -8,7 +8,7 @@
   "role": "I designed and built the session model, evidence flow, and application structure that keep reading, synthesis, and analysis tied to the same working context.",
   "featured": true,
   "displayOrder": 1,
-  "coverImage": "/uploads/refract/workflow-overview.png",
+  "coverImage": "/uploads/refract/reader-workspace.png",
   "technologies": [
     { "value": "Next.js" },
     { "value": "FastAPI" },
@@ -31,20 +31,29 @@
   ],
   "attachments": [],
   "gallery": [
-    { "url": "/uploads/refract/reader-workspace.png" },
+    { "url": "/uploads/refract/workflow-overview.png" },
     { "url": "/uploads/refract/compare-workspace.png" },
     { "url": "/uploads/refract/stats-workspace.png" },
     { "url": "/uploads/refract/system-architecture.png" }
   ],
   "pageSections": [
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Overview",
+      "blockType": "sectionLead",
+      "eyebrow": "System premise",
       "title": "A research environment built around continuity",
-      "markdown": "Refract began with a simple practical problem: research work becomes difficult to trust when its parts are scattered across too many tools. Reading happens in one interface, notes in another, comparison in a separate document, and data analysis somewhere else again. Once that split appears, interpretation starts depending on memory and manual reconstruction.\n\nRefract addresses that by making the research session the primary object in the system. A session carries the goal of the work, the papers under review, saved evidence, comparison outputs, uploaded datasets, and the record of statistical runs. That structure makes it possible to move between qualitative and quantitative work without losing the context in which each conclusion was produced."
+      "description": "Refract starts from a practical observation: once research work is split across too many tools, interpretation begins to depend on memory and reconstruction instead of inspectable context.",
+      "context": "The session is the central object. It holds the goal, source material, saved evidence, comparisons, uploaded datasets, and statistical runs in one durable frame."
     },
     {
-      "blockType": "mediaFeature",
+      "blockType": "proseSection",
+      "eyebrow": "Why it exists",
+      "title": "Continuity matters more than interface polish",
+      "description": "The design problem is not simply information overload. It is the loss of traceable connection between stages of work.",
+      "markdown": "Refract began with a simple practical problem: research work becomes difficult to trust when its parts are scattered across too many tools. Reading happens in one interface, notes in another, comparison in a separate document, and data analysis somewhere else again. Once that split appears, interpretation starts depending on memory and manual reconstruction.\n\nRefract addresses that by making the research session the primary object in the system. A session carries the goal of the work, the papers under review, saved evidence, comparison outputs, uploaded datasets, and the record of statistical runs. That structure makes it possible to move between qualitative and quantitative work without losing the context in which each conclusion was produced.",
+      "layout": "narrow"
+    },
+    {
+      "blockType": "figure",
       "eyebrow": "Workflow",
       "title": "The session connects the literature and analysis tracks",
       "description": "The workflow diagram from the repository README captures the core structure of the product. Literature ingestion, reading, and comparison occupy one side of the system; dataset upload, profiling, audit, and modeling occupy the other. Both feed the same session and the same interpretation layer.",
@@ -53,13 +62,43 @@
       "layout": "wide"
     },
     {
-      "blockType": "markdownSection",
-      "eyebrow": "System design",
-      "title": "Context is treated as part of the product",
-      "markdown": "The most important design decision in Refract is not a specific model choice. It is the insistence that context be stored, revisited, and reused as the work evolves. When a passage is saved, when a comparison is generated, or when a dataset is profiled, the result should remain attached to the session that produced it. That keeps later reasoning anchored to evidence, settings, and source material rather than turning the application into an elegant interface for disconnected outputs.\n\nThis has architectural consequences. The frontend needs explicit research surfaces rather than a single chat shell. The backend needs a model that can relate papers, extracted evidence, uploaded files, and analysis runs. The application also needs a way to preserve provenance so that a later conclusion can be traced back through the chain of reading, comparison, and model evaluation that produced it."
+      "blockType": "insightGrid",
+      "eyebrow": "Core surfaces",
+      "title": "The product is organized around a few explicit research moves",
+      "description": "Each major surface exists to preserve one kind of work without detaching it from the surrounding session.",
+      "items": [
+        {
+          "label": "Reader",
+          "title": "Document-grounded reading",
+          "body": "Papers, highlights, notes, and source-linked responses remain tied to the document instead of being flattened into generic chat history."
+        },
+        {
+          "label": "Compare",
+          "title": "Structured synthesis",
+          "body": "Cross-paper analysis stays attached to the active research question, which makes agreement, contrast, and gaps easier to evaluate."
+        },
+        {
+          "label": "Stats",
+          "title": "Session-scoped analysis",
+          "body": "Dataset profiling, audit checks, modeling, and interpretation belong to the same frame as the literature that motivated them."
+        },
+        {
+          "label": "State model",
+          "title": "Persistent provenance",
+          "body": "The application stores papers, evidence, files, and analysis runs in a way that makes later conclusions traceable."
+        }
+      ]
     },
     {
-      "blockType": "mediaFeature",
+      "blockType": "proseSection",
+      "eyebrow": "System design",
+      "title": "Context is treated as part of the product",
+      "description": "The most important decision is not a model choice. It is the insistence that generated outputs remain attached to the conditions that produced them.",
+      "markdown": "The most important design decision in Refract is not a specific model choice. It is the insistence that context be stored, revisited, and reused as the work evolves. When a passage is saved, when a comparison is generated, or when a dataset is profiled, the result should remain attached to the session that produced it. That keeps later reasoning anchored to evidence, settings, and source material rather than turning the application into an elegant interface for disconnected outputs.\n\nThis has architectural consequences. The frontend needs explicit research surfaces rather than a single chat shell. The backend needs a model that can relate papers, extracted evidence, uploaded files, and analysis runs. The application also needs a way to preserve provenance so that a later conclusion can be traced back through the chain of reading, comparison, and model evaluation that produced it.",
+      "layout": "narrow"
+    },
+    {
+      "blockType": "figure",
       "eyebrow": "Reader",
       "title": "Document work remains passage-level and inspectable",
       "description": "The reading interface is designed for active work rather than passive storage. PDFs, highlights, saved notes, and source-linked responses all stay close to the document rather than being flattened into generic chat history.",
@@ -68,7 +107,7 @@
       "layout": "split"
     },
     {
-      "blockType": "mediaFeature",
+      "blockType": "figure",
       "eyebrow": "Compare",
       "title": "Cross-paper synthesis stays tied to the active research question",
       "description": "Comparison is treated as structured synthesis rather than a one-off answer. The interface keeps the current research goal visible and organizes agreement, contrast, and coverage across the source set, which makes the output easier to evaluate and revise.",
@@ -77,13 +116,14 @@
       "layout": "split"
     },
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Analysis layer",
-      "title": "Quantitative work belongs inside the same session",
-      "markdown": "A separate statistical environment may be acceptable for one-off analyses, but it becomes a liability when the goal is cumulative research. In Refract, uploaded datasets, profiling output, audit checks, and model comparisons belong to the same session that already contains the literature and saved evidence. That makes it easier to keep analysis grounded in the papers, assumptions, and questions that motivated it.\n\nThe value is not only convenience. It is the ability to inspect how interpretation was formed. A claim drawn from a model result can sit next to the dataset profile that justified the inputs and the literature record that shaped the analysis question in the first place."
+      "blockType": "callout",
+      "eyebrow": "Interpretation",
+      "title": "A session is more useful than a conversation log",
+      "description": "The application is designed as a working frame rather than a transcript of model turns.",
+      "markdown": "A conversation log remembers turns. A research session can hold the goal of the work, the relevant papers, the evidence already extracted from them, the comparisons run against the current question, and the statistical artifacts that emerge later. That difference is what makes later interpretation more disciplined rather than merely more convenient."
     },
     {
-      "blockType": "mediaFeature",
+      "blockType": "figure",
       "eyebrow": "Stats",
       "title": "Statistical interpretation is presented with its surrounding evidence",
       "description": "The statistical workspace provides a structured layer for profiling, auditing, modeling, and interpreting results inside the same research frame as the supporting literature.",
@@ -92,34 +132,40 @@
       "layout": "wide"
     },
     {
-      "blockType": "metrics",
-      "eyebrow": "Implementation",
-      "title": "Core surfaces and infrastructure",
+      "blockType": "timeline",
+      "eyebrow": "Research loop",
+      "title": "How work moves through the system",
+      "description": "The important architectural choice is not just what tools exist, but that each stage inherits context from the one before it.",
       "items": [
         {
-          "value": "Reader",
-          "label": "Document-grounded reading",
-          "context": "Upload papers, highlight passages, and keep answers attached to the document context."
+          "label": "01",
+          "title": "Ingest and frame the session",
+          "body": "A research goal, source set, and initial working context establish the frame for the rest of the work."
         },
         {
-          "value": "Compare",
-          "label": "Structured synthesis",
-          "context": "Cross-paper comparison organized around the current research question."
+          "label": "02",
+          "title": "Read at passage level",
+          "body": "Highlights, notes, and saved evidence remain attached to the document rather than being summarized away."
         },
         {
-          "value": "Stats",
-          "label": "Session-scoped analysis",
-          "context": "Dataset profiling, audit, model benchmarking, and interpretation in one workflow."
+          "label": "03",
+          "title": "Synthesize across sources",
+          "body": "Comparison inherits the active question and source set, which makes the resulting analysis easier to inspect."
         },
         {
-          "value": "PostgreSQL + ChromaDB",
-          "label": "State and retrieval",
-          "context": "Persistent application state combined with vector retrieval for document and evidence operations."
+          "label": "04",
+          "title": "Run analysis inside the same frame",
+          "body": "Datasets, profiles, audits, and model comparisons remain adjacent to the literature and assumptions that motivated them."
+        },
+        {
+          "label": "05",
+          "title": "Interpret with provenance intact",
+          "body": "Later conclusions can be checked against the evidence, files, and analytical steps that produced them."
         }
       ]
     },
     {
-      "blockType": "mediaFeature",
+      "blockType": "figure",
       "eyebrow": "Architecture",
       "title": "The technical structure mirrors the workflow structure",
       "description": "The repository architecture separates interface, services, storage, and retrieval layers, but the important seam is the research session that coordinates them. That shared model is what allows the application to carry context forward instead of forcing users to rebuild it at each step.",

@@ -26,16 +26,36 @@ export type MetricItem = {
   value: string
 }
 
+export type ContentItem = {
+  body?: string
+  context?: string
+  label?: string
+  title?: string
+  value?: string
+}
+
 export type ContentBlock = {
   attachments?: AttachmentItem[]
   attribution?: string
-  blockType: 'markdownSection' | 'mediaFeature' | 'quote' | 'metrics' | 'links' | 'attachments'
+  blockType:
+    | 'markdownSection'
+    | 'proseSection'
+    | 'sectionLead'
+    | 'mediaFeature'
+    | 'figure'
+    | 'quote'
+    | 'callout'
+    | 'metrics'
+    | 'insightGrid'
+    | 'timeline'
+    | 'links'
+    | 'attachments'
   caption?: string
   context?: string
   description?: string
   eyebrow?: string
-  items?: MetricItem[]
-  layout?: 'wide' | 'split'
+  items?: Array<MetricItem | ContentItem>
+  layout?: 'narrow' | 'wide' | 'split'
   links?: LinkItem[]
   markdown?: string
   media?: Asset | null

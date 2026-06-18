@@ -95,6 +95,116 @@ body.cms-review-open .cms-review-panel {
   padding: 12px;
 }
 
+.cms-draft-card {
+  background: rgba(216, 196, 155, 0.035);
+  border: 1px solid rgba(216, 196, 155, 0.14);
+}
+
+.cms-draft-form,
+.cms-draft-output,
+.cms-draft-sections,
+.cms-draft-image-plan {
+  display: grid;
+  gap: 10px;
+}
+
+.cms-draft-form label,
+.cms-draft-output label {
+  color: rgba(246, 243, 235, 0.86);
+  display: grid;
+  font-size: 11px;
+  gap: 6px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cms-draft-form textarea,
+.cms-draft-output textarea {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  color: #f6f3eb;
+  font: inherit;
+  line-height: 1.5;
+  min-height: 84px;
+  padding: 10px 12px;
+  resize: vertical;
+  width: 100%;
+}
+
+.cms-draft-form textarea:focus,
+.cms-draft-output textarea:focus {
+  border-color: rgba(216, 196, 155, 0.45);
+  outline: none;
+}
+
+.cms-draft-actions,
+.cms-draft-field-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cms-draft-button,
+.cms-draft-field-actions button {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  color: #f6f3eb;
+  cursor: pointer;
+  font: inherit;
+  padding: 8px 12px;
+}
+
+.cms-draft-button.is-primary {
+  background: rgba(216, 196, 155, 0.18);
+  border-color: rgba(216, 196, 155, 0.34);
+}
+
+.cms-draft-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.cms-draft-status,
+.cms-draft-help {
+  color: rgba(246, 243, 235, 0.72);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.cms-draft-error {
+  color: #ffb3b3;
+}
+
+.cms-draft-field,
+.cms-draft-section,
+.cms-draft-image-item {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 10px;
+}
+
+.cms-draft-field h4,
+.cms-draft-section h4 {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.cms-draft-section small,
+.cms-draft-image-item small {
+  color: rgba(246, 243, 235, 0.68);
+  display: block;
+  font-size: 11px;
+  line-height: 1.45;
+  margin-top: 6px;
+}
+
 .cms-review-card h3,
 .cms-review-group h3 {
   font-size: 12px;

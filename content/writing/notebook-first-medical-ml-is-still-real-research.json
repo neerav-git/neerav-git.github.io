@@ -4,12 +4,18 @@
   "category": "Research note",
   "publishDate": "2026-06-08T00:00:00.000Z",
   "excerpt": "A notebook can be the most faithful record of a machine-learning study when it preserves data inspection, preprocessing, training, and evaluation in the same visible sequence.",
+  "coverImage": "/uploads/supporting/brain-axial-t2.jpg",
   "featured": false,
   "links": [
     {
       "label": "Alzheimer MRI project",
       "url": "/projects/alzheimers-disease-research/",
       "description": "Project page for the MRI classification study."
+    },
+    {
+      "label": "Repository",
+      "url": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
+      "description": "Notebook-first source repository for the study."
     },
     {
       "label": "Open in Colab",
@@ -23,67 +29,96 @@
   ],
   "pageSections": [
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Premise",
+      "blockType": "sectionLead",
+      "eyebrow": "Claim",
+      "title": "Notebook-first work can be the most honest form of a machine-learning study",
+      "description": "The Alzheimer MRI repository is a useful example because the source artifact is not a polished training library. It is a Colab notebook that preserves the actual order of the work: loading data, inspecting images, building a TensorFlow pipeline, training a CNN, and comparing later variants.",
+      "context": "That does not make the work less serious. It makes the chain of decisions easier to inspect."
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Problem",
       "title": "Polish is not the same thing as fidelity",
-      "markdown": "There is a common habit in technical presentation to treat notebooks as provisional artifacts and packaged code as the only serious final form. In research work, that distinction can be misleading. A notebook often preserves the actual order in which the work happened: data loading, visual inspection, preprocessing, model definition, training, evaluation, and the first attempts at comparison.\n\nThat sequence matters. It keeps the experiment legible. When the artifact is rewritten too aggressively into a cleaner package, some of that visibility disappears, and with it the ability to understand how the result was produced."
+      "description": "A cleaner interface is not always a better record of the work.",
+      "markdown": "There is a common habit in technical presentation to treat notebooks as provisional artifacts and packaged code as the only serious final form. In research work, that distinction can be misleading. A notebook often preserves the actual order in which the work happened: data loading, visual inspection, preprocessing, model definition, training, evaluation, and the first attempts at comparison.\n\nThat sequence matters because it keeps the experiment legible. In this repository, the reader can see the study moving from MRI input inspection to dataset partitioning, augmentation, TensorFlow model definition, and later comparison logic without needing to reconstruct the process from a cleaned-up abstraction. When that chain is rewritten too aggressively into a cleaner package, some of the most informative parts of the work disappear with it.",
+      "layout": "narrow"
     },
     {
-      "blockType": "mediaFeature",
-      "eyebrow": "Data",
-      "title": "The data should remain visible throughout the study",
-      "description": "MRI examples from the notebook make the classification task concrete. They also make it easier to evaluate whether preprocessing and model choices remain proportionate to the structure of the underlying images.",
-      "media": "/uploads/alzheimers/notebook-output-1.png",
-      "caption": "MRI sample montage extracted from the project notebook.",
-      "layout": "wide"
-    },
-    {
-      "blockType": "markdownSection",
-      "eyebrow": "Experimental record",
-      "title": "A notebook preserves the sequence of technical decisions",
-      "markdown": "In the Alzheimer MRI study, the notebook shows where the data is loaded from, how the class structure is framed, how augmentation enters the workflow, and how a baseline convolutional model gives way to later comparison and ensemble logic. That is not incidental detail. It is the structure of the experiment itself.\n\nWhen that sequence remains visible, the study becomes easier to evaluate. It is possible to ask whether the dataset split is sensible, whether the image sizing and preprocessing are appropriate, and whether later modeling choices genuinely extend the analysis rather than only making it look more sophisticated."
-    },
-    {
-      "blockType": "mediaFeature",
-      "eyebrow": "Inspection",
-      "title": "Single-slice views keep the workflow grounded in actual inputs",
-      "description": "Close inspection of input images is part of the work, not decoration around it. It keeps the discussion of preprocessing and model behavior tied to the data that the model actually sees.",
-      "media": "/uploads/alzheimers/notebook-output-2.png",
-      "caption": "Single MRI slice extracted from notebook output.",
-      "layout": "split"
-    },
-    {
-      "blockType": "metrics",
-      "eyebrow": "Study setup",
-      "title": "Why the artifact remains informative",
+      "blockType": "timeline",
+      "eyebrow": "Repository flow",
+      "title": "What the notebook actually contains",
+      "description": "The repository README describes a fairly direct experimental sequence, and that sequence is exactly what makes the artifact useful.",
       "items": [
         {
-          "value": "4 classes",
-          "label": "Disease staging",
-          "context": "The study distinguishes progressive stages rather than reducing the task to a binary split."
+          "label": "01",
+          "title": "Load MRI data from Google Drive",
+          "body": "The repository begins with data access and dataset construction rather than hiding those assumptions behind a packaged interface."
         },
         {
-          "value": "Colab notebook",
-          "label": "Execution environment",
-          "context": "The project keeps experimentation, training, and evaluation in one visible file."
+          "label": "02",
+          "title": "Build the TensorFlow pipeline",
+          "body": "Resizing, rescaling, augmentation, and train-validation-test partitioning are visible parts of the workflow."
         },
         {
-          "value": "CNN baseline",
-          "label": "Initial model",
-          "context": "A baseline convolutional model anchors later comparisons."
+          "label": "03",
+          "title": "Train a baseline CNN",
+          "body": "The initial model establishes the study's first pass at four-class staging rather than jumping immediately to more elaborate claims."
         },
         {
-          "value": "Ensemble variants",
-          "label": "Evaluation extension",
-          "context": "The notebook moves beyond a single model output into comparison."
+          "label": "04",
+          "title": "Evaluate held-out predictions",
+          "body": "The project shows how the model is judged, which matters as much as the architecture itself."
+        },
+        {
+          "label": "05",
+          "title": "Compare against ensemble variants",
+          "body": "Later comparison becomes meaningful because it grows out of an already visible baseline rather than replacing it."
         }
       ]
     },
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Judgment",
-      "title": "A faithful experiment log is often more valuable than a cleaner façade",
-      "markdown": "In scientific and medical machine learning, clarity about method matters as much as presentational polish. A notebook that keeps assumptions, preprocessing, training, and evaluation visible can be more useful than a cleaner interface that hides the path from data to result.\n\nThat is why I think notebook-first work should be presented directly when it remains the most accurate representation of the study. The goal is not to make the artifact look less technical. It is to make the technical work easier to read honestly."
+      "blockType": "figure",
+      "eyebrow": "Data visibility",
+      "title": "The input images remain part of the argument",
+      "description": "Representative MRI samples are useful here not as decoration but as a reminder that preprocessing and modeling decisions should stay proportionate to the structure of the data itself.",
+      "media": "/uploads/alzheimers/notebook-output-1.png",
+      "caption": "MRI sample montage drawn from the notebook output.",
+      "layout": "split"
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Why it matters",
+      "title": "The notebook stays informative for four different reasons",
+      "description": "Its value is not only that it runs. It also preserves the parts of the experiment that are easiest to lose in retrospective cleanup.",
+      "items": [
+        {
+          "label": "Problem",
+          "title": "The classification target is explicit",
+          "body": "The study distinguishes four disease stages rather than collapsing the task into a simpler binary distinction."
+        },
+        {
+          "label": "Approach",
+          "title": "The workflow remains inspectable",
+          "body": "Experimentation, preprocessing, training, and evaluation all live in one visible document."
+        },
+        {
+          "label": "Tools",
+          "title": "The stack fits the stated goal",
+          "body": "Google Colab, TensorFlow, and Keras are used in a way that suits exploratory model-building rather than pretending to be a production deployment."
+        },
+        {
+          "label": "Result",
+          "title": "Later comparison has a visible baseline",
+          "body": "Ensemble extensions can be judged against the earlier CNN workflow because the intermediate steps are not hidden."
+        }
+      ]
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Scope",
+      "title": "What the artifact supports, and what it does not",
+      "description": "This is not a clinical product, and it should not be presented as one.",
+      "markdown": "What the repository does well is preserve the experimental sequence with enough clarity to make technical judgment possible. A reader can see what data is loaded, how the TensorFlow pipeline is assembled, how the convolutional baseline is trained, and where comparison-oriented extensions enter the study. That is real value for anyone trying to understand the work as work rather than as a polished retrospective.\n\nWhat it does not do is provide the stronger guarantees that would come from a broader benchmark, a more formal evaluation protocol, or a production-grade training package. In that sense, the notebook is valuable precisely because it does not disguise its scope. In scientific and medical machine learning, that kind of candor matters. A faithful experiment log can be more useful than a cleaner facade if the facade hides how the result was actually produced."
     }
   ]
 }

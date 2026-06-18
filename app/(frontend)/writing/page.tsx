@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { EditableRegion } from '@/components/EditableRegion'
 import { adminLinks } from '@/lib/admin'
+import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { getArticles, getSiteSettings } from '@/lib/content'
 
 const monthFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' })
@@ -43,15 +44,25 @@ export default async function WritingPage() {
       {leadArticle ? (
         <EditableRegion editHref={adminLinks.article(leadArticle.slug)} editLabel={leadArticle.title || 'lead article'}>
           <article className="lead-story lead-story-wide">
-            <div className="lead-story-meta">
-              <span className="panel-eyebrow">{leadArticle.category || 'Writing'}</span>
-              {formatPublishDate(leadArticle.publishDate) ? <span className="panel-eyebrow">{formatPublishDate(leadArticle.publishDate)}</span> : null}
+            <div className="lead-story-grid">
+              <div className="lead-story-stack">
+                <div className="lead-story-meta">
+                  <span className="panel-eyebrow">{leadArticle.category || 'Writing'}</span>
+                  {formatPublishDate(leadArticle.publishDate) ? <span className="panel-eyebrow">{formatPublishDate(leadArticle.publishDate)}</span> : null}
+                </div>
+                <h2>{leadArticle.title}</h2>
+                <p className="lead-story-copy">{leadArticle.excerpt}</p>
+                <Link className="primary-button" href={`/writing/${leadArticle.slug}`}>
+                  Read Entry
+                </Link>
+              </div>
+
+              {leadArticle.coverImage && getUploadUrl(leadArticle.coverImage) ? (
+                <div className="lead-story-media">
+                  <img alt={getUploadAlt(leadArticle.coverImage)} src={getUploadUrl(leadArticle.coverImage) || ''} />
+                </div>
+              ) : null}
             </div>
-            <h2>{leadArticle.title}</h2>
-            <p className="lead-story-copy">{leadArticle.excerpt}</p>
-            <Link className="primary-button" href={`/writing/${leadArticle.slug}`}>
-              Read Entry
-            </Link>
           </article>
         </EditableRegion>
       ) : null}
@@ -66,6 +77,11 @@ export default async function WritingPage() {
             mode="card"
           >
             <Link className="writing-card-link" href={`/writing/${article.slug}`}>
+              {article.coverImage && getUploadUrl(article.coverImage) ? (
+                <div className="writing-card-media">
+                  <img alt={getUploadAlt(article.coverImage)} src={getUploadUrl(article.coverImage) || ''} />
+                </div>
+              ) : null}
               <div className="card-meta">
                 {article.category || 'Writing'} {formatPublishDate(article.publishDate) ? `· ${formatPublishDate(article.publishDate)}` : ''}
               </div>

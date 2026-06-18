@@ -11,6 +11,10 @@ export function ArtifactList({ attachments, links, title = 'Resources' }: Artifa
   const hasAttachments = Boolean(attachments?.length)
   const hasLinks = Boolean(links?.length)
 
+  function isInternalHref(href: string) {
+    return href.startsWith('/') && !href.startsWith('//')
+  }
+
   if (!hasAttachments && !hasLinks) {
     return null
   }
@@ -47,8 +51,16 @@ export function ArtifactList({ attachments, links, title = 'Resources' }: Artifa
             return null
           }
 
+          const internal = isInternalHref(link.url)
+
           return (
-            <a className="resource-item" href={link.url} key={`${link.url}-${index}`} rel="noreferrer" target="_blank">
+            <a
+              className="resource-item"
+              href={link.url}
+              key={`${link.url}-${index}`}
+              rel={internal ? undefined : 'noreferrer'}
+              target={internal ? undefined : '_blank'}
+            >
               <span>{typeof link.label === 'string' ? link.label : 'Link'}</span>
               {typeof link.description === 'string' && link.description ? <small>{link.description}</small> : null}
             </a>

@@ -3,8 +3,8 @@
   "slug": "alzheimers-disease-ieee-record",
   "itemType": "Literature note",
   "dateLabel": "Supporting context",
-  "summary": "Background notes and supporting context for the Alzheimer’s disease MRI classification study.",
-  "previewImage": "/uploads/alzheimers/notebook-output-2.png",
+  "summary": "Background notes on the MRI setting, disease staging, and interpretive limits around the Alzheimer’s disease classification study.",
+  "previewImage": "/uploads/supporting/brain-axial-t2.jpg",
   "links": [
     {
       "label": "Project page",
@@ -20,25 +20,26 @@
   "attachments": [],
   "pageSections": [
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Context",
-      "title": "Background material helps clarify what the model is being asked to distinguish",
-      "markdown": "Medical imaging studies benefit from preserving more than code and outputs. They also need background context on the condition being studied, the staging logic that shapes the labels, and the practical meaning of the categories used during classification. Keeping that material close to the project makes the modeling choices easier to interpret."
+      "blockType": "sectionLead",
+      "eyebrow": "Record",
+      "title": "Background notes help clarify what the model is being asked to distinguish",
+      "description": "This entry exists to preserve supporting context around the MRI classification task: the meaning of the disease stages, the role of the labels, and the framing needed to read the modeling choices responsibly.",
+      "context": "Without that context, a medical imaging workflow can collapse into generic machine-learning language far too quickly."
     },
     {
-      "blockType": "mediaFeature",
-      "eyebrow": "Reference image",
-      "title": "Input examples help keep the discussion concrete",
-      "description": "Even as a supporting note, the study is easier to understand when the imaging material remains visible. A classification problem in this domain should stay tied to the appearance and structure of the actual input data.",
-      "media": "/uploads/alzheimers/notebook-output-2.png",
-      "caption": "MRI slice extracted from the repository notebook output.",
-      "layout": "split"
-    },
-    {
-      "blockType": "markdownSection",
+      "blockType": "proseSection",
       "eyebrow": "Use",
-      "title": "The record supports interpretation rather than replacing it",
-      "markdown": "Supporting notes like this are valuable because they preserve medical and experimental context around the classification task. They help explain what the categories mean, why the data matters, and what questions should remain in view when reading the modeling results."
+      "title": "The notes support interpretation rather than replace it",
+      "description": "The point is not to restate the project page. It is to preserve the background assumptions that make the project easier to judge.",
+      "markdown": "Medical imaging studies benefit from preserving more than code and outputs. They also need background context on the condition being studied, the staging logic that shapes the labels, and the practical meaning of the categories used during classification. Keeping that material close to the project makes the modeling choices easier to interpret.\n\nFor a study like this, the most useful background questions are not decorative. They include what each class actually represents, how clinically or anatomically distinct those classes are likely to appear in MRI data, how the dataset labels were produced, and what the images can reasonably support without auxiliary clinical context. Those questions shape how seriously later evaluation results should be taken.",
+      "layout": "narrow"
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Limits",
+      "title": "Background context helps interpretation, but it does not validate the study",
+      "description": "Context helps, but it does not rescue a model if the study logic is poor.",
+      "markdown": "Supporting notes like this are valuable because they preserve medical and experimental context around the classification task. They help explain what the categories mean, why the data matters, and what questions should remain in view when reading the modeling results.\n\nAt the same time, background material should not be mistaken for validation. It improves interpretation, but it does not by itself answer harder questions about dataset adequacy, subject-level splitting, scanner variability, generalization, or clinical relevance. That distinction is worth keeping explicit, especially in medical machine-learning work where polished metrics can otherwise outrun what the study design really supports."
     }
   ]
 }

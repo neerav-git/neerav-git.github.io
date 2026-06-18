@@ -5,16 +5,19 @@
   "heroImage": "/uploads/refract/workflow-overview.png",
   "heroLinks": [
     {
-      "label": "Projects",
-      "url": "/projects/"
+      "label": "Refract",
+      "url": "/projects/refract-ai/",
+      "description": "Research workspace for reading, evidence capture, comparison, and analysis in one session model."
     },
     {
-      "label": "Writing",
-      "url": "/writing/"
+      "label": "Alzheimer MRI study",
+      "url": "/projects/alzheimers-disease-research/",
+      "description": "Notebook-based imaging workflow for staged classification, preprocessing, and model evaluation."
     },
     {
-      "label": "Archive",
-      "url": "/archive/"
+      "label": "Reliability essay",
+      "url": "/writing/what-reliable-should-mean-for-llms-in-life-sciences/",
+      "description": "A concise position on evidence, scope, and inspection in scientific LLM workflows."
     }
   ],
   "featuredProjectsHeading": "Selected Projects",
@@ -31,8 +34,8 @@
   ],
   "featuredArchiveHeading": "Archive",
   "featuredArchiveSlugs": [
-    "refract-workflow-record",
     "refract-system-architecture-record",
+    "refract-workflow-record",
     "alzheimers-notebook-record",
     "alzheimers-disease-ieee-record"
   ],

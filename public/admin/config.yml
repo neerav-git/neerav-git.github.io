@@ -283,6 +283,15 @@ collections:
         required: false
         hint: "Main editorial sections for the project detail page."
         types: &block_types
+          - label: Section Lead
+            name: sectionLead
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: sectionLead }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text, required: false }
+              - { label: Context Line, name: context, widget: text, required: false, hint: "Short supporting line shown beneath the lead." }
           - label: Markdown Section
             name: markdownSection
             widget: object
@@ -291,11 +300,42 @@ collections:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Title, name: title, widget: string }
               - { label: Markdown, name: markdown, widget: markdown }
+              - { label: Description, name: description, widget: text, required: false, hint: "Optional standfirst above the main prose." }
+              - { label: Context Line, name: context, widget: text, required: false }
+          - label: Prose Section
+            name: proseSection
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: proseSection }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text, required: false }
+              - { label: Markdown, name: markdown, widget: markdown }
+              - { label: Context Line, name: context, widget: text, required: false }
+              - label: Layout
+                name: layout
+                widget: select
+                required: false
+                options: [narrow, wide]
           - label: Media Feature
             name: mediaFeature
             widget: object
             fields:
               - { label: Type, name: blockType, widget: hidden, default: mediaFeature }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text, required: false }
+              - { label: Media, name: media, widget: image, required: false }
+              - { label: Caption, name: caption, widget: text, required: false }
+              - label: Layout
+                name: layout
+                widget: select
+                options: [wide, split]
+          - label: Figure
+            name: figure
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: figure }
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Title, name: title, widget: string }
               - { label: Description, name: description, widget: text, required: false }
@@ -313,6 +353,16 @@ collections:
               - { label: Quote, name: quote, widget: text }
               - { label: Attribution, name: attribution, widget: string, required: false }
               - { label: Context, name: context, widget: string, required: false }
+          - label: Callout
+            name: callout
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: callout }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text, required: false }
+              - { label: Markdown, name: markdown, widget: markdown }
+              - { label: Context Line, name: context, widget: text, required: false }
           - label: Metrics
             name: metrics
             widget: object
@@ -323,9 +373,41 @@ collections:
               - label: Items
                 name: items
                 widget: list
+                    fields:
+                      - { label: Value, name: value, widget: string }
+                      - { label: Label, name: label, widget: string }
+                      - { label: Context, name: context, widget: text, required: false }
+          - label: Insight Grid
+            name: insightGrid
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: insightGrid }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text, required: false }
+              - label: Items
+                name: items
+                widget: list
                 fields:
-                  - { label: Value, name: value, widget: string }
-                  - { label: Label, name: label, widget: string }
+                  - { label: Label, name: label, widget: string, required: false }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Body, name: body, widget: text, required: false }
+                  - { label: Context, name: context, widget: text, required: false }
+          - label: Timeline
+            name: timeline
+            widget: object
+            fields:
+              - { label: Type, name: blockType, widget: hidden, default: timeline }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text, required: false }
+              - label: Steps
+                name: items
+                widget: list
+                fields:
+                  - { label: Step Label, name: label, widget: string, required: false }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Body, name: body, widget: text, required: false }
                   - { label: Context, name: context, widget: text, required: false }
           - label: Link Group
             name: links
@@ -385,6 +467,7 @@ collections:
       - { label: Category, name: category, widget: string, required: false, hint: "Short label shown beside the article entry." }
       - { label: Publish Date, name: publishDate, widget: datetime, required: false, hint: "Used to sort writing entries." }
       - { label: Excerpt, name: excerpt, widget: text, hint: "Short summary shown on cards and at the top of the article page." }
+      - { label: Cover Image, name: coverImage, widget: image, required: false, hint: "Optional visual used on the writing index and at the top of the article page." }
       - { label: Featured, name: featured, widget: boolean, required: false, default: false, hint: "Optional flag for homepage fallback selection." }
       - label: Links
         name: links

@@ -3,55 +3,84 @@
   "slug": "notes-from-a-battery-rul-project",
   "category": "Project writeup",
   "publishDate": "2026-01-15T00:00:00.000Z",
-  "excerpt": "A very high score is only useful if the feature story, data framing, and evaluation procedure still make sense when examined closely.",
+  "excerpt": "In battery remaining-useful-life work, a strong score only matters if the feature story, time structure, and evaluation protocol remain believable under scrutiny.",
+  "coverImage": "/uploads/supporting/lithium-ion-degradation-map.jpg",
   "featured": true,
-  "links": [],
+  "links": [
+    {
+      "label": "Battery degradation modeling survey",
+      "url": "https://arxiv.org/abs/2112.02037",
+      "description": "A broader technical reference on how degradation mechanisms are modeled in lithium-ion systems."
+    }
+  ],
   "attachments": [],
   "pageSections": [
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Observation",
-      "title": "A strong metric deserves suspicion before celebration",
-      "markdown": "In remaining-useful-life prediction, a very high score can be impressive or misleading, sometimes both. The first question worth asking is not whether the model performed well in a narrow numerical sense, but whether the path to that performance reflects a credible understanding of the problem.\n\nThat means looking hard at leakage, temporal structure, feature construction, and whether the training procedure allowed information from the future to slip back into the past. In a system with strong autocorrelation and many derived variables, it is easy to build a model that appears excellent while learning a story that would not survive contact with the real operating environment."
+      "blockType": "sectionLead",
+      "eyebrow": "Working note",
+      "title": "A strong RUL score deserves suspicion before celebration",
+      "description": "This note is preserved as a methodological reflection on what deserves scrutiny in a remaining-useful-life pipeline, especially when a result looks unusually strong.",
+      "context": "The central concern is credibility: whether the path to a strong metric still makes sense once leakage, feature provenance, and evaluation design are examined closely."
     },
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Audit",
-      "title": "Feature honesty is as important as algorithm choice",
-      "markdown": "A feature can be predictive and still be misleading. If it encodes future information, smuggles target structure through preprocessing, or only makes sense inside the training slice, then its apparent usefulness does not translate into a trustworthy model.\n\nThe practical work in projects like this is often less glamorous than model selection. It involves checking what each feature really means, how it would be available in deployment, and whether the resulting explanation of performance lines up with the physical system under study."
+      "blockType": "proseSection",
+      "eyebrow": "Problem",
+      "title": "Why RUL work is easy to flatter accidentally",
+      "description": "Battery degradation data can contain strong structure even before the model does anything interesting.",
+      "markdown": "In remaining-useful-life prediction, a very high score can be impressive or misleading, sometimes both. The first question worth asking is not whether the model performed well in a narrow numerical sense, but whether the path to that performance reflects a credible understanding of the problem.\n\nBattery data has unusually strong built-in structure: capacity fades gradually, internal resistance shifts over long horizons, and many derived variables echo the same underlying degradation process. That makes the field attractive for modeling, but it also makes it easy to overstate what a model has learned. If the split leaks later-cycle information backward, if smoothed variables erase the local behavior that matters operationally, or if the features only make sense after offline preprocessing, the result may look excellent while still failing the real deployment question.",
+      "layout": "narrow"
     },
     {
-      "blockType": "metrics",
-      "eyebrow": "Questions",
-      "title": "What deserves scrutiny in an RUL pipeline",
+      "blockType": "figure",
+      "eyebrow": "Degradation frame",
+      "title": "A battery score sits on top of several overlapping failure pathways",
+      "description": "Even a compact diagram of lithium-ion degradation is enough to show why simple performance claims deserve inspection. Capacity loss, power loss, and mechanism-level changes interact over time rather than reducing cleanly to one variable.",
+      "media": "/uploads/supporting/lithium-ion-degradation-map.jpg",
+      "caption": "Degradation-pathway overview from Wikimedia Commons.",
+      "layout": "split"
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Audit frame",
+      "title": "The problem can be decomposed into a few hard questions",
+      "description": "These are the checks I would want to pass before taking a result seriously.",
       "items": [
         {
-          "value": "Temporal leakage",
-          "label": "Ordering matters",
-          "context": "Train-test separation must respect the sequence of degradation and measurement."
+          "label": "Temporal order",
+          "title": "Does the split respect degradation over time?",
+          "body": "If the train-test split ignores sequence, the model may receive information that would never be available when the prediction is actually needed."
         },
         {
-          "value": "Feature provenance",
-          "label": "Inputs need a believable origin",
-          "context": "A useful predictor should make sense as an observable variable, not only as an artifact of processing."
+          "label": "Feature story",
+          "title": "Do the predictors have a believable origin?",
+          "body": "A variable can be highly predictive and still be unusable if it smuggles future information or depends on preprocessing unavailable in deployment."
         },
         {
-          "value": "Evaluation design",
-          "label": "Scores need context",
-          "context": "A result is only meaningful relative to the split strategy, baseline choice, and real deployment question."
+          "label": "Evaluation",
+          "title": "Does the score answer the right operational question?",
+          "body": "A metric only becomes meaningful once it is tied to the split strategy, baseline, and actual prediction task."
         },
         {
-          "value": "Interpretability",
-          "label": "Performance should have a story",
-          "context": "A model becomes more convincing when the explanation of its behavior fits the system it models."
+          "label": "Interpretation",
+          "title": "Can the model's performance be explained coherently?",
+          "body": "A result is more convincing when the story behind the predictors still fits the physical system being modeled."
         }
       ]
     },
     {
-      "blockType": "markdownSection",
+      "blockType": "proseSection",
+      "eyebrow": "Approach",
+      "title": "Feature honesty is as important as algorithm choice",
+      "description": "The less glamorous part of the work is often the more decisive one.",
+      "markdown": "A feature can be predictive and still be misleading. If it encodes future information, smuggles target structure through preprocessing, or only makes sense inside the training slice, then its apparent usefulness does not translate into a trustworthy model.\n\nThe practical work in projects like this is often less glamorous than model selection. It involves checking what each feature really means, how it would be available in deployment, and whether the resulting explanation of performance lines up with the physical system under study. In battery work, that means asking whether the predictor captures a signal a monitoring system could actually observe in time, whether smoothing has hidden the events that carry warning value, and whether the train-test split respects the chronology of degradation rather than merely distributing examples evenly.",
+      "layout": "narrow"
+    },
+    {
+      "blockType": "callout",
       "eyebrow": "Conclusion",
       "title": "Trust comes from the audit trail",
-      "markdown": "The most useful outcome of a strong RUL project is not a headline metric in isolation. It is a result that remains defensible after the data handling, feature design, and evaluation logic have been examined. That kind of result usually looks less magical and more credible, which is exactly what good engineering work should produce."
+      "description": "A less dramatic but defensible result is usually worth more than a score that cannot survive questioning.",
+      "markdown": "The most useful outcome of a strong RUL project is not a headline metric in isolation. It is a result that remains defensible after the data handling, feature design, and evaluation logic have been examined. The score should be explainable in terms of what the signals represent, when they become available, and how the model would be used by someone making maintenance decisions.\n\nThat kind of result usually looks less magical and more credible, which is exactly what good engineering work should produce. If the strongest claim survives a careful audit of chronology, feature provenance, and operational meaning, then the number has earned some trust. If it does not, the right response is not celebration but revision."
     }
   ]
 }

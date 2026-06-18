@@ -4,12 +4,18 @@
   "category": "Essay",
   "publishDate": "2026-06-10T00:00:00.000Z",
   "excerpt": "In scientific and regulated settings, reliability is less about polished prose and more about whether claims remain traceable to evidence, scope, and method.",
+  "coverImage": "/uploads/refract/system-architecture.png",
   "featured": true,
   "links": [
     {
       "label": "Refract project",
       "url": "/projects/refract-ai/",
       "description": "Project page for a system built around evidence-aware interpretation."
+    },
+    {
+      "label": "Refract repository",
+      "url": "https://github.com/neerav-git/Refract",
+      "description": "Repository source for the research workflow discussed here."
     }
   ],
   "attachments": [],
@@ -18,73 +24,78 @@
   ],
   "pageSections": [
     {
-      "blockType": "markdownSection",
-      "eyebrow": "Definition",
+      "blockType": "sectionLead",
+      "eyebrow": "Position",
+      "title": "Reliability in life sciences is a systems property, not a tone of voice",
+      "description": "A response does not become reliable because it sounds careful. It becomes more reliable when the surrounding system constrains what can be claimed, preserves the evidence in scope, and makes later checking possible.",
+      "context": "That is why the discussion has to move away from stylistic fluency and toward architecture, provenance, and evaluation."
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Problem",
       "title": "Reliability is not a style attribute",
-      "markdown": "In life sciences and other regulated domains, a response does not become reliable because it sounds measured or technically literate. Reliability has to be earned through constraint: bounded claims, visible evidence, and language that remains proportionate to what the source material actually supports.\n\nThis shifts the design problem. The question is not only how to make a model answer well, but how to build a system in which the answer can be checked, narrowed, and tied back to the material that justified it."
+      "description": "The hardest failure is not awkward wording. It is unsupported confidence.",
+      "markdown": "In life sciences and other regulated domains, a response does not become reliable because it sounds measured or technically literate. Reliability has to be earned through constraint: bounded claims, visible evidence, and language that remains proportionate to what the source material actually supports.\n\nThis shifts the design problem. The question is not only how to make a model answer well, but how to build a system in which the answer can be checked, narrowed, and tied back to the material that justified it.",
+      "layout": "narrow"
     },
     {
-      "blockType": "mediaFeature",
-      "eyebrow": "System context",
-      "title": "Evidence needs a durable place in the workflow",
-      "description": "Reliability becomes easier to reason about when source material, saved evidence, and interpretation remain in the same working context rather than being separated across tools.",
-      "media": "/uploads/refract/workflow-overview.png",
-      "caption": "Workflow overview from the Refract repository README.",
-      "layout": "wide"
-    },
-    {
-      "blockType": "markdownSection",
-      "eyebrow": "Failure mode",
-      "title": "Fluency creates a dangerous kind of confidence",
-      "markdown": "The most important failure in these settings is rarely clumsy wording. The real risk is persuasive language that outruns its evidence. A model can produce a coherent explanation, a plausible summary, or a seemingly careful recommendation while still making unsupported or overstated claims.\n\nThat is why evaluation has to move closer to the center of the product. The system needs to know what evidence is in frame, what the claim is allowed to rely on, and where uncertainty should remain explicit."
-    },
-    {
-      "blockType": "mediaFeature",
-      "eyebrow": "Interface",
-      "title": "Interpretation improves when source material stays visible",
-      "description": "A passage-grounded reading surface changes the quality of later responses because it reduces the distance between a claim and the material that should support it.",
-      "media": "/uploads/refract/reader-workspace.png",
-      "caption": "Reader workspace from the repository README.",
-      "layout": "split"
-    },
-    {
-      "blockType": "markdownSection",
-      "eyebrow": "Practical standard",
-      "title": "Grounding should be treated as part of the output",
-      "markdown": "A reliable system in life sciences should not present grounding as an optional add-on. The connection between response and evidence should be built into the normal use of the tool. That includes preserving source material, surfacing supporting excerpts, constraining generalization, and making it possible to revisit how a conclusion was formed.\n\nThis is less dramatic than promises of autonomous scientific reasoning, but it is much more useful. In technical domains, progress often comes from making a system more inspectable before trying to make it more expansive."
-    },
-    {
-      "blockType": "metrics",
-      "eyebrow": "Criteria",
-      "title": "A more serious standard for reliability",
+      "blockType": "insightGrid",
+      "eyebrow": "What the system has to do",
+      "title": "A more serious definition of reliability has four parts",
+      "description": "These are not interface flourishes. They are operational requirements.",
       "items": [
         {
-          "value": "Traceability",
-          "label": "Claims should point back to source material",
-          "context": "A reader should be able to inspect what evidence supported the answer."
+          "label": "Evidence",
+          "title": "The source material has to remain present",
+          "body": "If the answer cannot be read against the documents, passages, or records that support it, later review becomes speculative."
         },
         {
-          "value": "Constraint",
-          "label": "The system should stay within the evidence available",
-          "context": "Useful restraint is more important than persuasive extrapolation."
+          "label": "Constraint",
+          "title": "The claim has to stay inside its scope",
+          "body": "Useful systems stop where the available evidence stops instead of expanding into persuasive extrapolation."
         },
         {
-          "value": "Scope awareness",
-          "label": "Domain limits should remain explicit",
-          "context": "A strong answer should preserve uncertainty where the material does not support certainty."
+          "label": "Uncertainty",
+          "title": "The limits have to remain visible",
+          "body": "A technically serious answer preserves unresolved ambiguity rather than smoothing it away."
         },
         {
-          "value": "Evaluation",
-          "label": "Reliability must be tested, not assumed",
-          "context": "Grounding and correctness need to be part of routine system judgment."
+          "label": "Audit",
+          "title": "The result has to be testable afterward",
+          "body": "Reliability is not established at generation time alone. It has to survive inspection and comparison."
         }
       ]
     },
     {
-      "blockType": "markdownSection",
+      "blockType": "proseSection",
+      "eyebrow": "Failure mode",
+      "title": "Fluency creates a dangerous kind of confidence",
+      "description": "The system can sound coherent long before it is actually dependable.",
+      "markdown": "The most important failure in these settings is rarely clumsy wording. The real risk is persuasive language that outruns its evidence. A model can produce a coherent explanation, a plausible summary, or a seemingly careful recommendation while still making unsupported or overstated claims.\n\nThat is why evaluation has to move closer to the center of the product. The system needs to know what evidence is in frame, what the claim is allowed to rely on, and where uncertainty should remain explicit.",
+      "layout": "narrow"
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Repository lesson",
+      "title": "Evidence needs a durable place in the workflow",
+      "description": "What Refract gets right at the architectural level is that documents, saved evidence, and later analysis are kept in one session frame instead of being scattered across separate tools.",
+      "markdown": "The Refract repository is useful here not because it solves reliability in the abstract, but because it treats context preservation as part of the product. Reading, evidence capture, comparison, and later analysis remain attached to the same working session. That reduces the distance between a claim and the material meant to justify it.\n\nIn practice, that kind of continuity is more valuable than many louder promises about scientific reasoning. Reliability improves when the system makes inspection easier before it tries to make generation more ambitious."
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Practical standard",
+      "title": "Grounding should be treated as part of the output",
+      "description": "It should not appear only as an optional citation layer bolted on after the answer is written.",
+      "markdown": "A reliable system in life sciences should not present grounding as an optional add-on. The connection between response and evidence should be built into the normal use of the tool. That includes preserving source material, surfacing supporting excerpts, constraining generalization, and making it possible to revisit how a conclusion was formed.\n\nThis is less dramatic than promises of autonomous scientific reasoning, but it is much more useful. In technical domains, progress often comes from making a system more inspectable before trying to make it more expansive.",
+      "layout": "narrow"
+    },
+    {
+      "blockType": "proseSection",
       "eyebrow": "Conclusion",
-      "title": "The useful system is usually the more restrained one",
-      "markdown": "A trustworthy system in life sciences may feel less impressive than one that speaks with total confidence. That is acceptable. The better goal is a system that can show why it is saying something, what it is relying on, and where its answer should stop. In this domain, that restraint is not a weakness. It is part of the product."
+      "title": "The more useful system is usually the more restrained one",
+      "description": "That is an honest tradeoff, not a marketing compromise.",
+      "markdown": "A trustworthy system in life sciences may feel less impressive than one that speaks with total confidence. That is acceptable. The better goal is a system that can show why it is saying something, what it is relying on, and where its answer should stop.\n\nThere is also an honest limitation to acknowledge. A workflow can preserve evidence, scope, and provenance and still fall short of domain adequacy if the underlying data, validation logic, or scientific framing are weak. Reliability is therefore not solved by interface design alone. But interfaces that preserve the conditions for checking are still a better starting point than interfaces that hide them.",
+      "layout": "narrow"
     }
   ]
 }
