@@ -13,7 +13,7 @@ export function getUploadUrl(asset: unknown) {
 
 export function getUploadAlt(asset: unknown) {
   if (typeof asset === 'string') {
-    return ''
+    return formatAssetLabel(asset)
   }
 
   if (!asset || typeof asset !== 'object') {
@@ -21,7 +21,23 @@ export function getUploadAlt(asset: unknown) {
   }
 
   const record = asset as Record<string, unknown>
-  return typeof record.alt === 'string' ? record.alt : ''
+  if (typeof record.alt === 'string' && record.alt) {
+    return record.alt
+  }
+
+  if (typeof record.label === 'string' && record.label) {
+    return record.label
+  }
+
+  if (typeof record.filename === 'string' && record.filename) {
+    return formatAssetLabel(record.filename)
+  }
+
+  if (typeof record.url === 'string' && record.url) {
+    return formatAssetLabel(record.url)
+  }
+
+  return ''
 }
 
 export function getUploadLabel(asset: unknown) {
@@ -44,4 +60,10 @@ export function getUploadLabel(asset: unknown) {
   }
 
   return ''
+}
+
+function formatAssetLabel(value: string) {
+  const filename = value.split('/').pop()?.split('?')[0] || value
+  const withoutExtension = filename.replace(/\.[a-z0-9]+$/i, '')
+  return withoutExtension.replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim()
 }

@@ -2,6 +2,7 @@
 import Link from 'next/link'
 
 import { EditableRegion } from '@/components/EditableRegion'
+import { ProjectProof } from '@/components/ProjectProof'
 import { adminLinks } from '@/lib/admin'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { getProjects, getSiteSettings } from '@/lib/content'
@@ -37,6 +38,7 @@ export default async function ProjectsPage() {
                 </div>
                 <h2>{leadProject.title}</h2>
                 <p className="spotlight-summary">{leadProject.summary}</p>
+                <ProjectProof project={leadProject} />
                 {leadProject.role ? <p className="spotlight-detail">{leadProject.role}</p> : null}
                 {Array.isArray(leadProject.technologies) && leadProject.technologies.length ? (
                   <div className="tag-row">
@@ -87,6 +89,7 @@ export default async function ProjectsPage() {
                 </div>
                 <h3>{project.title}</h3>
                 <p>{project.summary}</p>
+                <ProjectProof compact project={project} />
                 {Array.isArray(project.technologies) && project.technologies.length ? (
                   <div className="tag-row">
                     {project.technologies.slice(0, 4).map((technology, index) =>

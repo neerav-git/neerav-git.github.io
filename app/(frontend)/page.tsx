@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { ContentBlocks } from '@/components/ContentBlocks'
 import { EditableRegion } from '@/components/EditableRegion'
+import { ProjectProof } from '@/components/ProjectProof'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { adminLinks } from '@/lib/admin'
 import { getHomePageData } from '@/lib/content'
@@ -15,10 +16,25 @@ export default async function HomePage() {
   const secondaryArticles = leadArticle ? featuredArticles.slice(1) : []
   const leadArchive = featuredArchiveItems[0] || null
   const secondaryArchive = leadArchive ? featuredArchiveItems.slice(1) : []
-  const glanceItems = [
-    { value: String(featuredProjects.length || 0), label: 'projects in focus' },
-    { value: String(featuredArticles.length || 0), label: 'featured writing entries' },
-    { value: String(featuredArchiveItems.length || 0), label: 'archive records surfaced' },
+  const workSignals = [
+    {
+      label: 'Research software',
+      title: leadProject?.title || 'Refract',
+      body: leadProject?.problem || 'A research workspace for keeping papers, evidence, comparison, and analysis inside one durable session.',
+      href: leadProject?.slug ? `/projects/${leadProject.slug}` : '/projects/',
+    },
+    {
+      label: 'Applied ML',
+      title: supportingProjects[0]?.title || 'Alzheimer MRI study',
+      body: supportingProjects[0]?.problem || 'Notebook-based MRI classification work covering preprocessing, staged labels, CNN training, and evaluation.',
+      href: supportingProjects[0]?.slug ? `/projects/${supportingProjects[0].slug}` : '/projects/',
+    },
+    {
+      label: 'Technical note',
+      title: leadArticle?.title || 'Technical notes',
+      body: 'Long-form records on design decisions, evaluation concerns, and implementation tradeoffs.',
+      href: leadArticle?.slug ? `/writing/${leadArticle.slug}` : '/writing/',
+    },
   ]
 
   return (
@@ -32,48 +48,28 @@ export default async function HomePage() {
                 <h1>{home?.heroTitle || 'A public record of projects, research, and careful technical work.'}</h1>
                 {home?.heroBody ? <p className="hero-copy">{home.heroBody}</p> : null}
               </div>
-              {Array.isArray(home?.heroLinks) && home.heroLinks.length ? (
-                <div className="hero-route-list">
-                  {home.heroLinks.map((link, index) =>
-                    typeof link?.url === 'string' ? (
-                      <Link className="hero-route-card" href={link.url} key={`${link.url}-${index}`}>
-                        <strong>{link.label || link.url}</strong>
-                        {link.description ? <span>{link.description}</span> : null}
-                      </Link>
-                    ) : null
-                  )}
-                </div>
-              ) : null}
               <div className="jump-ribbon">
-                <a href="#home-projects">Projects</a>
-                <a href="#home-writing">Writing</a>
-                <a href="#home-archive">Archive</a>
+                <a href="#home-projects">Work</a>
+                <a href="#home-writing">Notes</a>
+                <a href="#home-archive">Records</a>
+                <Link href="/resume/">Resume</Link>
               </div>
-              <a className="hero-scroll-cue" href="#home-projects">
-                <span>Scroll to featured work</span>
-                <strong>01</strong>
-              </a>
             </div>
 
             <aside className="hero-sidecar">
-              {home?.heroImage && getUploadUrl(home.heroImage) ? (
-                <div className="hero-image-frame editorial-hero-image">
-                  <img alt={getUploadAlt(home.heroImage)} src={getUploadUrl(home.heroImage) || ''} />
-                </div>
-              ) : null}
-
               <div className="overview-panel">
-                <div className="panel-eyebrow">At a glance</div>
-                <div className="glance-grid">
-                  {glanceItems.map((item) => (
-                    <article className="glance-card" key={item.label}>
-                      <strong>{item.value}</strong>
+                <div className="panel-eyebrow">Start here</div>
+                <div className="signal-list">
+                  {workSignals.map((item) => (
+                    <Link className="signal-card" href={item.href} key={item.label}>
                       <span>{item.label}</span>
-                    </article>
+                      <strong>{item.title}</strong>
+                      <small>{item.body}</small>
+                    </Link>
                   ))}
                 </div>
                 <p className="overview-note">
-                  Begin with the projects, then follow the writing and archive records that deepen the technical context around them.
+                  Start with the project pages for the concrete work. Use the notes and records for method, screenshots, and supporting context.
                 </p>
               </div>
             </aside>
@@ -85,11 +81,11 @@ export default async function HomePage() {
         <EditableRegion editHref={adminLinks.home} editLabel="featured projects section">
           <div className="section-heading section-heading-wide">
             <div>
-              <div className="panel-eyebrow">Featured Work</div>
-              <h2>{home?.featuredProjectsHeading || 'Selected Projects'}</h2>
+              <div className="panel-eyebrow">Work</div>
+              <h2>{home?.featuredProjectsHeading || 'Projects'}</h2>
             </div>
             <p className="section-summary">
-              The main projects combine system design, experimental work, and supporting records so the technical story remains complete.
+              Two primary artifacts anchor the site: a research workspace and a notebook-based medical imaging study.
             </p>
           </div>
         </EditableRegion>
@@ -105,6 +101,7 @@ export default async function HomePage() {
                     </div>
                     <h3>{leadProject.title}</h3>
                     <p className="spotlight-summary">{leadProject.summary}</p>
+                    <ProjectProof compact project={leadProject} />
                     {leadProject.role ? <p className="spotlight-detail">{leadProject.role}</p> : null}
                     {Array.isArray(leadProject.technologies) && leadProject.technologies.length ? (
                       <div className="tag-row">
@@ -141,8 +138,8 @@ export default async function HomePage() {
             {supportingProjects.length ? (
               <div className="project-support-stack">
                 <div className="project-support-header">
-                  <div className="panel-eyebrow">Also in focus</div>
-                  <p>A second project entry with a different research texture: notebook-driven experimentation, dataset handling, and evaluation notes.</p>
+                  <div className="panel-eyebrow">Medical imaging study</div>
+                  <p>Notebook-driven experimentation, staged image labels, and model comparison.</p>
                 </div>
                 {supportingProjects.map((project) => (
                   <EditableRegion
@@ -167,6 +164,7 @@ export default async function HomePage() {
                       </div>
                       <h3>{project.title}</h3>
                       <p>{project.summary}</p>
+                      <ProjectProof compact project={project} />
                       {project.role ? <small>{project.role}</small> : null}
                       {Array.isArray(project.technologies) && project.technologies.length ? (
                         <div className="tag-row">
@@ -191,10 +189,10 @@ export default async function HomePage() {
           <div className="section-heading section-heading-wide">
             <div>
               <div className="panel-eyebrow">Writing</div>
-              <h2>{home?.featuredWritingHeading || 'Writing and Notes'}</h2>
+              <h2>{home?.featuredWritingHeading || 'Writing'}</h2>
             </div>
             <p className="section-summary">
-              Essays and project notes on design choices, evaluation, and the reasoning behind the work.
+              Project notes and essays that explain decisions, constraints, and evaluation concerns in plain language.
             </p>
           </div>
         </EditableRegion>
@@ -230,10 +228,10 @@ export default async function HomePage() {
         <aside className="secondary-column section-stack" id="home-archive">
           <EditableRegion editHref={adminLinks.home} editLabel="featured archive section">
           <div className="section-heading">
-            <div className="panel-eyebrow">Archive</div>
-            <h2>{home?.featuredArchiveHeading || 'Research Archive'}</h2>
+            <div className="panel-eyebrow">Records</div>
+            <h2>{home?.featuredArchiveHeading || 'Records'}</h2>
             <p className="section-summary">
-              Diagrams, notebook records, and reference materials that extend the main project pages with implementation and study context.
+              Diagrams, notebook records, screenshots, and reference notes kept out of the main reading path.
             </p>
           </div>
         </EditableRegion>
@@ -241,11 +239,6 @@ export default async function HomePage() {
           {leadArchive ? (
             <EditableRegion editHref={adminLinks.archive(leadArchive.slug)} editLabel={leadArchive.title || 'archive record'}>
               <article className="archive-lead-card">
-                {leadArchive.previewImage && getUploadUrl(leadArchive.previewImage) ? (
-                  <div className="archive-lead-media">
-                    <img alt={getUploadAlt(leadArchive.previewImage)} src={getUploadUrl(leadArchive.previewImage) || ''} />
-                  </div>
-                ) : null}
                 <div className="panel-eyebrow">{leadArchive.itemType || 'Archive item'}</div>
                 <h3>{leadArchive.title}</h3>
                 <p>{leadArchive.summary}</p>
@@ -273,8 +266,11 @@ export default async function HomePage() {
           {home?.recommendationsNote ? (
             <EditableRegion editHref={adminLinks.home} editLabel="letters note">
               <section className="quiet-note quiet-note-emphasis">
-                <div className="panel-eyebrow">Letters</div>
+                <div className="panel-eyebrow">Resume</div>
                 <p>{home.recommendationsNote}</p>
+                <Link className="secondary-button quiet-note-link" href="/resume/">
+                  Open resume page
+                </Link>
               </section>
             </EditableRegion>
           ) : null}

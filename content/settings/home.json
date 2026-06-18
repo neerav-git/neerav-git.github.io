@@ -1,26 +1,26 @@
 {
-  "heroEyebrow": "Research systems · machine learning · medical imaging · technical writing",
-  "heroTitle": "Projects, research, and technical writing grounded in method, implementation, and evidence.",
-  "heroBody": "My work spans research infrastructure, applied machine learning, and long-form technical writing. The common thread is disciplined execution: building systems that preserve context, studying models with attention to assumptions and evaluation, and documenting the reasoning that connects design decisions to results.",
+  "heroEyebrow": "Research software · applied ML · technical notes",
+  "heroTitle": "Research software and applied machine-learning studies.",
+  "heroBody": "A compact record of projects, notebooks, screenshots, and notes. The emphasis is on what was built, what problem it addressed, and what evidence or artifact remains available to inspect.",
   "heroImage": "/uploads/refract/workflow-overview.png",
   "heroLinks": [
     {
       "label": "Refract",
       "url": "/projects/refract-ai/",
-      "description": "Research workspace for reading, evidence capture, comparison, and analysis in one session model."
+      "description": "Research software for reading papers, saving evidence, comparing sources, and keeping analysis inside one working session."
     },
     {
       "label": "Alzheimer MRI study",
       "url": "/projects/alzheimers-disease-research/",
-      "description": "Notebook-based imaging workflow for staged classification, preprocessing, and model evaluation."
+      "description": "A notebook-based MRI classification study with visible data inspection, preprocessing, CNN training, and comparison."
     },
     {
       "label": "Reliability essay",
       "url": "/writing/what-reliable-should-mean-for-llms-in-life-sciences/",
-      "description": "A concise position on evidence, scope, and inspection in scientific LLM workflows."
+      "description": "A method note on evidence, scope, and inspection in scientific LLM workflows."
     }
   ],
-  "featuredProjectsHeading": "Selected Projects",
+  "featuredProjectsHeading": "Projects",
   "featuredProjectSlugs": [
     "refract-ai",
     "alzheimers-disease-research"
@@ -32,45 +32,39 @@
     "notebook-first-medical-ml-is-still-real-research",
     "notes-from-a-battery-rul-project"
   ],
-  "featuredArchiveHeading": "Archive",
+  "featuredArchiveHeading": "Records",
   "featuredArchiveSlugs": [
     "refract-system-architecture-record",
     "refract-workflow-record",
     "alzheimers-notebook-record",
     "alzheimers-disease-ieee-record"
   ],
-  "recommendationsNote": "Formal letters and reference material are available separately for readers who need them.",
+  "recommendationsNote": "Resume and formal references are available as supporting material.",
   "modules": [
     {
       "blockType": "markdownSection",
-      "eyebrow": "Focus",
-      "title": "Current areas",
-      "markdown": "Current work sits at the intersection of research tooling, evidence-aware interfaces, and applied machine learning. That includes systems for literature review and statistical analysis, notebook-driven experimentation in medical imaging, and writing that records method, constraints, and interpretation in enough detail to be useful later."
-    },
-    {
-      "blockType": "markdownSection",
-      "eyebrow": "Approach",
-      "title": "Areas of interest",
-      "markdown": "I am particularly interested in systems where technical outputs need to remain inspectable: research workflows that carry forward context, model pipelines that make evaluation legible, and interfaces that help reasoning stay anchored to source material rather than drift into unsupported summary."
+      "eyebrow": "Working principles",
+      "title": "Common thread",
+      "markdown": "The projects differ in format, but they share a concern with traceability. Refract asks how research software can keep reading, evidence, comparison, and analysis from breaking into disconnected tools. The Alzheimer MRI study asks how a notebook can preserve the experimental sequence of a medical imaging workflow. The writing records the design and evaluation questions behind those artifacts."
     },
     {
       "blockType": "links",
-      "title": "Selected starting points",
+      "title": "Suggested paths through the site",
       "links": [
         {
           "label": "Refract",
           "url": "/projects/refract-ai/",
-          "description": "A research workspace that brings reading, saved evidence, comparison, and statistical analysis into one session model."
-        },
-        {
-          "label": "Session-centered research workspace",
-          "url": "/writing/designing-a-session-centered-research-workspace/",
-          "description": "An article on why durable context matters more than isolated model outputs in research software."
+          "description": "Start here for the main software system and its session-centered workflow."
         },
         {
           "label": "Alzheimer's disease MRI research",
           "url": "/projects/alzheimers-disease-research/",
-          "description": "A notebook-based classification study covering preprocessing, CNN training, and ensemble comparison."
+          "description": "Use this for the notebook-based machine-learning study and supporting image outputs."
+        },
+        {
+          "label": "Resume",
+          "url": "/resume/",
+          "description": "Open the conventional PDF summary if you need a compact professional overview."
         }
       ]
     }

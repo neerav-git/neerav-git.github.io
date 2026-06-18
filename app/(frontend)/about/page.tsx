@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from 'next/link'
+
 import { EditableRegion } from '@/components/EditableRegion'
 import { MarkdownArticle } from '@/components/MarkdownArticle'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
@@ -23,6 +25,14 @@ export default async function AboutPage() {
           <div className="about-column">
             <MarkdownArticle markdown={about.biographyMarkdown} />
             <MarkdownArticle markdown={about.currentFocusMarkdown} />
+            <div className="about-actions">
+              <Link className="secondary-button" href="/resume/">
+                Resume
+              </Link>
+              <Link className="secondary-button" href="/projects/">
+                Projects
+              </Link>
+            </div>
           </div>
 
           {about.portrait && getUploadUrl(about.portrait) ? (

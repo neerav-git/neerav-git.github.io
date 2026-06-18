@@ -47,6 +47,7 @@ collections:
               - { label: Writing Label, name: writingLabel, widget: string }
               - { label: Archive Label, name: archiveLabel, widget: string }
               - { label: About Label, name: aboutLabel, widget: string }
+              - { label: Resume Label, name: resumeLabel, widget: string, required: false }
               - { label: Recommendations Label, name: recommendationsLabel, widget: string }
           - label: Page Intros
             name: pageIntros
@@ -76,6 +77,13 @@ collections:
                   - { label: Intro, name: intro, widget: text, required: false }
               - label: About
                 name: about
+                widget: object
+                fields:
+                  - { label: Label, name: label, widget: string, required: false }
+                  - { label: Title, name: title, widget: string, required: false }
+                  - { label: Intro, name: intro, widget: text, required: false }
+              - label: Resume
+                name: resume
                 widget: object
                 fields:
                   - { label: Label, name: label, widget: string, required: false }
@@ -240,6 +248,9 @@ collections:
       - { label: Card Eyebrow, name: cardEyebrow, widget: string, required: false, hint: "Small label shown above the project title on cards and headers." }
       - { label: Date Label, name: dateLabel, widget: string, required: false, hint: "Short date or status label shown with the project." }
       - { label: Summary, name: summary, widget: text, hint: "Used on both the project card and the detail page header." }
+      - { label: Problem, name: problem, widget: text, required: false, hint: "Concrete problem shown in project cards and detail headers." }
+      - { label: Approach, name: approach, widget: text, required: false, hint: "Concrete approach shown in project cards and detail headers." }
+      - { label: Output, name: output, widget: text, required: false, hint: "Concrete artifact or result shown in project cards and detail headers." }
       - { label: Role, name: role, widget: string, required: false, hint: "Optional role line shown near the top of the detail page." }
       - { label: Featured, name: featured, widget: boolean, required: false, default: false, hint: "Fallback flag for homepage featuring if no explicit home selection is set." }
       - { label: Display Order, name: displayOrder, widget: number, required: false, value_type: int, hint: "Controls ordering on the projects index page." }
@@ -373,10 +384,10 @@ collections:
               - label: Items
                 name: items
                 widget: list
-                    fields:
-                      - { label: Value, name: value, widget: string }
-                      - { label: Label, name: label, widget: string }
-                      - { label: Context, name: context, widget: text, required: false }
+                fields:
+                  - { label: Value, name: value, widget: string }
+                  - { label: Label, name: label, widget: string }
+                  - { label: Context, name: context, widget: text, required: false }
           - label: Insight Grid
             name: insightGrid
             widget: object
@@ -539,8 +550,8 @@ collections:
         types: *block_types
 
   - name: recommendations
-    label: Letters
-    label_singular: Letter
+    label: Resume and References
+    label_singular: Resume or Reference Record
     folder: content/recommendations
     create: true
     format: json
@@ -549,14 +560,14 @@ collections:
     slug: "{{slug}}"
     summary: "{{fields.title}}"
     fields:
-      - { label: Title, name: title, widget: string, hint: "Shown on the letters page." }
+      - { label: Title, name: title, widget: string, hint: "Shown on the resume or references page." }
       - { label: Slug, name: slug, widget: string, hint: "Used in the content file name." }
-      - { label: Recommender Name, name: recommenderName, widget: string, hint: "Person who wrote the letter or note." }
-      - { label: Recommender Role, name: recommenderRole, widget: string, required: false, hint: "Role or affiliation shown beneath the title." }
-      - { label: Context, name: context, widget: text, required: false, hint: "Short internal/public note for why this letter is included." }
+      - { label: Name, name: recommenderName, widget: string, hint: "For a resume record, use your name. For a letter, use the recommender name." }
+      - { label: Role or Document Type, name: recommenderRole, widget: string, required: false, hint: "Examples: Resume / CV, Professor, Research Advisor." }
+      - { label: Context, name: context, widget: text, required: false, hint: "Short public note for why this document is included." }
       - { label: Excerpt, name: excerpt, widget: text, required: false, hint: "Optional short excerpt shown in the public card." }
-      - { label: Thumbnail, name: thumbnail, widget: image, required: false, hint: "Optional image preview for the letter." }
-      - { label: PDF Letter, name: pdfLetter, widget: file, required: false, hint: "Upload the actual PDF here." }
+      - { label: Thumbnail, name: thumbnail, widget: image, required: false, hint: "Optional image preview for the document." }
+      - { label: PDF File, name: pdfLetter, widget: file, required: false, hint: "Upload the resume, letter, or reference PDF here." }
       - { label: Visibility Priority, name: visibilityPriority, widget: number, required: false, value_type: int, hint: "Lower numbers appear first." }
       - label: Links
         name: links

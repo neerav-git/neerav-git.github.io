@@ -116,7 +116,7 @@
         },
         {
           "label": "05",
-          "title": "Interpret with provenance intact",
+          "title": "Keep interpretation traceable",
           "body": "Later conclusions can still be checked against the conditions that made them relevant."
         }
       ]

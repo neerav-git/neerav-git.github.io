@@ -4,8 +4,11 @@
   "cardEyebrow": "Research Platform",
   "dateLabel": "Ongoing",
   "status": "ongoing",
-  "summary": "A session-centered research workspace that brings literature review, saved evidence, comparison, and statistical analysis into one continuous environment.",
-  "role": "I designed and built the session model, evidence flow, and application structure that keep reading, synthesis, and analysis tied to the same working context.",
+  "summary": "A research workspace for reading papers, saving evidence, comparing sources, and running analysis without losing the working context that connects those steps.",
+  "problem": "Research work often breaks across PDFs, notes, comparison tables, datasets, and analysis notebooks. Once those pieces separate, conclusions become difficult to trace back to source material.",
+  "approach": "Refract treats the session as the main object. Papers, saved passages, comparison outputs, uploaded files, and analysis runs all belong to the same working frame.",
+  "output": "A Next.js and FastAPI application with reader, compare, and statistics surfaces backed by persistent project/session state.",
+  "role": "I designed and built the session model, reader flow, evidence storage, comparison surfaces, and analysis structure.",
   "featured": true,
   "displayOrder": 1,
   "coverImage": "/uploads/refract/reader-workspace.png",
@@ -40,16 +43,16 @@
     {
       "blockType": "sectionLead",
       "eyebrow": "System premise",
-      "title": "A research environment built around continuity",
-      "description": "Refract starts from a practical observation: once research work is split across too many tools, interpretation begins to depend on memory and reconstruction instead of inspectable context.",
-      "context": "The session is the central object. It holds the goal, source material, saved evidence, comparisons, uploaded datasets, and statistical runs in one durable frame."
+      "title": "A research workspace for keeping evidence and analysis together",
+      "description": "Refract starts from a practical observation: research work becomes fragile when papers, notes, comparison tables, datasets, and model outputs are scattered across separate tools.",
+      "context": "The session is the central object. It holds the research goal, source material, saved evidence, comparisons, uploaded datasets, and statistical runs in one durable frame."
     },
     {
       "blockType": "proseSection",
       "eyebrow": "Why it exists",
-      "title": "Continuity matters more than interface polish",
+      "title": "The problem is loss of traceability, not just information overload",
       "description": "The design problem is not simply information overload. It is the loss of traceable connection between stages of work.",
-      "markdown": "Refract began with a simple practical problem: research work becomes difficult to trust when its parts are scattered across too many tools. Reading happens in one interface, notes in another, comparison in a separate document, and data analysis somewhere else again. Once that split appears, interpretation starts depending on memory and manual reconstruction.\n\nRefract addresses that by making the research session the primary object in the system. A session carries the goal of the work, the papers under review, saved evidence, comparison outputs, uploaded datasets, and the record of statistical runs. That structure makes it possible to move between qualitative and quantitative work without losing the context in which each conclusion was produced.",
+      "markdown": "The project began from a practical gap in research workflows. Reading, note-taking, comparison, and data analysis often happen in different places. That separation is manageable at first, but it becomes fragile when a later conclusion has to be checked against the original passage, dataset, or assumption that produced it.\n\nRefract addresses that gap by making the research session the primary object. A session carries the goal of the work, the papers under review, saved evidence, comparison outputs, uploaded datasets, and the record of statistical runs. The application is not only a cleaner interface over separate tasks. It is an attempt to keep the chain of work intact long enough for later review.",
       "layout": "narrow"
     },
     {
@@ -64,7 +67,7 @@
     {
       "blockType": "insightGrid",
       "eyebrow": "Core surfaces",
-      "title": "The product is organized around a few explicit research moves",
+      "title": "The product is organized around explicit research moves",
       "description": "Each major surface exists to preserve one kind of work without detaching it from the surrounding session.",
       "items": [
         {
@@ -92,9 +95,9 @@
     {
       "blockType": "proseSection",
       "eyebrow": "System design",
-      "title": "Context is treated as part of the product",
-      "description": "The most important decision is not a model choice. It is the insistence that generated outputs remain attached to the conditions that produced them.",
-      "markdown": "The most important design decision in Refract is not a specific model choice. It is the insistence that context be stored, revisited, and reused as the work evolves. When a passage is saved, when a comparison is generated, or when a dataset is profiled, the result should remain attached to the session that produced it. That keeps later reasoning anchored to evidence, settings, and source material rather than turning the application into an elegant interface for disconnected outputs.\n\nThis has architectural consequences. The frontend needs explicit research surfaces rather than a single chat shell. The backend needs a model that can relate papers, extracted evidence, uploaded files, and analysis runs. The application also needs a way to preserve provenance so that a later conclusion can be traced back through the chain of reading, comparison, and model evaluation that produced it.",
+      "title": "The data model carries the research context forward",
+      "description": "The important product decision is that generated outputs remain attached to the conditions that produced them.",
+      "markdown": "The central design decision in Refract is that context should be stored, revisited, and reused as the work evolves. When a passage is saved, a comparison is generated, or a dataset is profiled, the result remains attached to the session that produced it. That keeps later reasoning anchored to evidence, settings, and source material instead of turning the application into a polished interface for disconnected outputs.\n\nThis affects the architecture. The frontend needs explicit research surfaces rather than a single chat shell. The backend needs a model that can relate papers, extracted evidence, uploaded files, and analysis runs. The application also needs provenance strong enough for a later conclusion to be traced back through the chain of reading, comparison, and model evaluation that produced it.",
       "layout": "narrow"
     },
     {
@@ -159,7 +162,7 @@
         },
         {
           "label": "05",
-          "title": "Interpret with provenance intact",
+          "title": "Keep interpretation traceable",
           "body": "Later conclusions can be checked against the evidence, files, and analytical steps that produced them."
         }
       ]

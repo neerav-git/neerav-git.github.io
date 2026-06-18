@@ -17,11 +17,11 @@ export function SiteChrome({ children, settings }: SiteChromeProps) {
 
   const navItems = [
     { href: '/', label: navigation.homeLabel || 'Home' },
-    { href: '/projects', label: navigation.projectsLabel || 'Projects' },
+    { href: '/projects', label: navigation.projectsLabel || 'Work' },
     { href: '/writing', label: navigation.writingLabel || 'Writing' },
     { href: '/archive', label: navigation.archiveLabel || 'Archive' },
     { href: '/about', label: navigation.aboutLabel || 'About' },
-    { href: '/recommendations', label: navigation.recommendationsLabel || 'Recommendations' },
+    { href: '/resume', label: navigation.resumeLabel || 'Resume' },
   ]
 
   return (
@@ -40,7 +40,7 @@ export function SiteChrome({ children, settings }: SiteChromeProps) {
           <div className="header-right">
             <nav className="top-nav" aria-label="Primary">
               {navItems.map((item) => (
-                <Link href={item.href} key={item.href}>
+                <Link className={item.href === '/resume' ? 'resume-nav-link' : undefined} href={item.href} key={item.href}>
                   {item.label}
                 </Link>
               ))}

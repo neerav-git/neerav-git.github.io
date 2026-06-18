@@ -4,8 +4,11 @@
   "cardEyebrow": "Medical Imaging Research",
   "dateLabel": "Notebook-based study",
   "status": "published-work",
-  "summary": "A notebook-based MRI classification study that explores Alzheimer’s disease staging through preprocessing, convolutional modeling, and ensemble comparison in Google Colab.",
-  "role": "I built the data preparation, augmentation, model training, and evaluation flow, then used the notebook itself as the primary record of experimental decisions and results.",
+  "summary": "A Google Colab MRI classification study that keeps image inspection, preprocessing, staged labels, CNN training, and comparison visible in the notebook record.",
+  "problem": "Medical imaging experiments can become difficult to judge when the final score is separated from the images, preprocessing choices, label structure, and evaluation path.",
+  "approach": "The notebook keeps the study sequence visible: MRI inspection, image resizing, augmentation, four-class labeling, CNN training, and ensemble-oriented comparison.",
+  "output": "A repository-backed Colab notebook and supporting image outputs that show the experiment as a reproducible sequence rather than a polished clinical claim.",
+  "role": "I built the data preparation, augmentation, training, and evaluation flow and preserved the notebook as the visible record of the experiment.",
   "featured": true,
   "displayOrder": 2,
   "coverImage": "/uploads/alzheimers/notebook-output-1.png",
@@ -44,14 +47,14 @@
     {
       "blockType": "sectionLead",
       "eyebrow": "Study frame",
-      "title": "A medical imaging study preserved in the form it was carried out",
-      "description": "The work stays close to its actual experimental form: a notebook-driven MRI classification study in Google Colab that moves from inspection and preprocessing to modeling and comparison.",
-      "context": "The notebook is not treated as an embarrassing precursor to a cleaner system. It is the primary record of the work."
+      "title": "A medical imaging study preserved as an experimental record",
+      "description": "The work stays close to its actual experimental form: a notebook-driven MRI classification study in Google Colab that moves from image inspection and preprocessing to model training and comparison.",
+      "context": "The notebook is treated as the primary record of the work because it preserves the order of decisions, not only the final result."
     },
     {
       "blockType": "figure",
       "eyebrow": "Data view",
-      "title": "Representative MRI slices remain part of the experimental record",
+      "title": "Representative MRI slices keep the data visible",
       "description": "The notebook includes direct visual inspection of MRI inputs. Keeping examples like these in the workflow matters because it ties preprocessing and model design back to the actual structure of the data rather than treating the dataset as an abstraction.",
       "media": "/uploads/alzheimers/notebook-output-1.png",
       "caption": "MRI sample montage extracted from the notebook output in the repository.",
@@ -60,9 +63,9 @@
     {
       "blockType": "proseSection",
       "eyebrow": "Problem framing",
-      "title": "The work is organized around staged classification rather than a single binary distinction",
+      "title": "The classification problem is staged, not simply binary",
       "description": "The classification target is more demanding than a simple healthy-versus-disease split.",
-      "markdown": "The study uses four classes: NonDemented, VeryMildDemented, MildDemented, and ModerateDemented. That framing introduces a more demanding classification problem than a simple healthy-versus-disease split, because the model has to distinguish not just presence but degree of progression.\n\nThe notebook reflects that framing at every stage. Data preparation, augmentation, and evaluation all sit inside a multi-class setup, and the later ensemble work is meaningful precisely because the task itself is not trivial.",
+      "markdown": "The study uses four classes: NonDemented, VeryMildDemented, MildDemented, and ModerateDemented. That framing matters because the model is not only asked to separate apparent disease from no disease. It is asked to distinguish degrees of progression that can be visually close and unevenly represented.\n\nThe notebook reflects that framing at each stage. Data preparation, augmentation, and evaluation sit inside a multi-class setup, and the later ensemble work only makes sense because a visible baseline has already been established. The value of the project is not a claim of clinical readiness. It is the preserved experimental sequence: what data was used, how images were prepared, how the model was trained, and how later comparison entered the workflow.",
       "layout": "narrow"
     },
     {
@@ -127,9 +130,9 @@
     {
       "blockType": "callout",
       "eyebrow": "Method",
-      "title": "The notebook is the record, not a placeholder for a future rewrite",
+      "title": "The notebook is the record of the study",
       "description": "Its value lies in preserving sequence and decision-making, not in pretending the work happened somewhere else.",
-      "markdown": "In this project, the notebook is not an intermediate artifact waiting to become a cleaner library. It is the most faithful representation of the work. It shows where the dataset is loaded from, how the images are augmented, how the convolutional model is trained, and how later comparison logic is layered in.\n\nThat visibility is important in medical and scientific contexts, where the most useful question is often not whether a result looks good in isolation, but whether the sequence of choices behind it can be examined with enough detail to judge the work responsibly."
+      "markdown": "In this project, the notebook is not treated as an intermediate artifact waiting to become a cleaner library. It is the most faithful representation of the work. It shows where the dataset is loaded, how the images are augmented, how the convolutional model is trained, and how later comparison logic is layered in.\n\nThat visibility is important in medical and scientific contexts. The useful question is not whether a result looks good in isolation, but whether the sequence of choices behind it can be examined with enough detail to judge the work responsibly."
     },
     {
       "blockType": "timeline",

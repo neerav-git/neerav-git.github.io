@@ -16,7 +16,7 @@ export default async function ArchivePage() {
         <section className="section-heading section-heading-wide page-mast">
           <div>
             <div className="panel-eyebrow">{pageIntro.label || '03'}</div>
-            <h1>{pageIntro.title || 'Research Archive'}</h1>
+            <h1>{pageIntro.title || 'Records'}</h1>
           </div>
           <div className="mast-side">
             {pageIntro.intro ? <p className="section-summary">{pageIntro.intro}</p> : null}

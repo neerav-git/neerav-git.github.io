@@ -84,6 +84,7 @@ export type SiteSettings = {
     homeLabel?: string
     projectsLabel?: string
     recommendationsLabel?: string
+    resumeLabel?: string
     writingLabel?: string
   }
   pageIntros?: {
@@ -91,6 +92,7 @@ export type SiteSettings = {
     archive?: PageIntro
     projects?: PageIntro
     recommendations?: PageIntro
+    resume?: PageIntro
     writing?: PageIntro
   }
   siteTagline?: string
@@ -140,6 +142,9 @@ export type ProjectRecord = {
   }
   links?: LinkItem[]
   pageSections?: ContentBlock[]
+  problem?: string
+  approach?: string
+  output?: string
   relatedArchiveSlugs?: string[]
   relatedArticleSlugs?: string[]
   role?: string

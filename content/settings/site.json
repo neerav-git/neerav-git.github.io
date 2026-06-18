@@ -1,7 +1,7 @@
 {
   "siteTitle": "Neerav Chaudhary",
-  "siteTagline": "Research systems, applied machine learning, and technical writing on method and evaluation.",
-  "footerLine": "Work across research infrastructure, medical imaging, and model evaluation.",
+  "siteTagline": "Research software, applied machine learning, and technical notes.",
+  "footerLine": "A public record of research systems, notebook studies, supporting records, and careful technical writing.",
   "contactEmail": "neerav.ch@icloud.com",
   "socialLinks": [
     {
@@ -15,42 +15,48 @@
   ],
   "navigation": {
     "homeLabel": "Home",
-    "projectsLabel": "Projects",
-    "writingLabel": "Writing",
-    "archiveLabel": "Archive",
+    "projectsLabel": "Work",
+    "writingLabel": "Notes",
+    "archiveLabel": "Records",
     "aboutLabel": "About",
-    "recommendationsLabel": "Letters"
+    "recommendationsLabel": "References",
+    "resumeLabel": "Resume"
   },
   "pageIntros": {
     "projects": {
       "label": "01",
       "title": "Projects",
-      "intro": "Projects include software systems, machine-learning studies, and implementation work shaped by research goals, technical constraints, and careful attention to how results are produced."
+      "intro": "The main work collected here includes a research software platform and a notebook-based medical imaging study. Each entry is framed around the problem being addressed, the approach taken, and the artifact that remains available for inspection."
     },
     "writing": {
       "label": "02",
       "title": "Writing",
-      "intro": "Writing focuses on method, evaluation, system design, and the practical questions that arise when technical work needs to be clear, inspectable, and durable."
+      "intro": "Essays and project notes that explain design choices, evaluation concerns, implementation constraints, and the reasoning behind the work."
     },
     "archive": {
       "label": "03",
-      "title": "Research Archive",
-      "intro": "The archive gathers workflow diagrams, notebook records, technical references, and other materials that extend the main project pages without interrupting them."
+      "title": "Records",
+      "intro": "Workflow diagrams, notebook records, screenshots, and technical references that support the project pages without making the homepage carry every artifact."
     },
     "about": {
       "label": "04",
       "title": "About",
-      "intro": "Background, ongoing areas of work, and the technical interests that connect the projects collected here."
+      "intro": "Background, working style, and the technical interests that connect the projects collected here."
     },
     "recommendations": {
+      "label": "06",
+      "title": "References",
+      "intro": "Formal letters and supporting documents can be kept here when needed. They stay secondary to the work and writing records."
+    },
+    "resume": {
       "label": "05",
-      "title": "Letters",
-      "intro": "Letters and reference material are available here for readers who need formal documentation."
+      "title": "Resume",
+      "intro": "A concise PDF summary for readers who need a conventional professional overview."
     }
   },
   "about": {
-    "lead": "I work on research systems, applied machine learning, and technical writing that keeps method and evaluation visible.",
-    "biographyMarkdown": "My interests sit between software systems and research practice. I am drawn to projects where technical work benefits from stronger continuity: environments that preserve context across reading and analysis, model pipelines that make assumptions and evaluation easier to inspect, and writing that records not only outcomes but the reasoning that produced them.\n\nMuch of my recent work has focused on research infrastructure, evidence-aware interfaces, and machine-learning studies in scientific and healthcare settings. Across those areas, I care about clarity, traceability, and the discipline required to keep results tied to source material, implementation details, and the limits of the underlying method.",
-    "currentFocusMarkdown": "## Current focus\n\n- research workflows that connect literature review, evidence capture, and statistical analysis\n- applied machine learning in medical and scientific settings, especially where evaluation matters as much as model performance\n- technical writing that explains decisions, tradeoffs, and experimental results with precision\n- systems that make it easier to revisit work later without losing the context in which it was done"
+    "lead": "I work on research software, applied machine learning, and technical writing where the process matters as much as the final artifact.",
+    "biographyMarkdown": "My work sits between software systems and research practice. I am interested in tools that help technical work remain inspectable: research environments that preserve context across reading and analysis, model pipelines that make assumptions and evaluation visible, and written records that explain why decisions were made rather than only presenting the result.\n\nThe projects collected here are deliberately modest in tone. Refract is a research workspace built around durable sessions, source-linked evidence, and analysis surfaces. The Alzheimer MRI study is a notebook-first machine-learning project where the value is the visible sequence of data inspection, preprocessing, training, and evaluation. The writing exists to make those choices easier to examine later.",
+    "currentFocusMarkdown": "## Working interests\n\n- research workflows that connect source material, saved evidence, comparison, and statistical analysis\n- applied machine learning in medical and scientific contexts, especially where evaluation and limitations need to stay visible\n- interfaces that reduce the distance between a result and the evidence or data that produced it\n- technical writing that explains tradeoffs without making the work sound more complete than it is"
   }
 }
