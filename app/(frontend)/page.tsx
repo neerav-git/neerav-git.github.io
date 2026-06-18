@@ -28,8 +28,10 @@ export default async function HomePage() {
           <div className="hero-grid editorial-hero-grid">
             <div className="hero-copy-column">
               <div className="panel-eyebrow">{home?.heroEyebrow || 'Research systems · writing · long-form work'}</div>
-              <h1>{home?.heroTitle || 'A public record of projects, research, and careful technical work.'}</h1>
-              {home?.heroBody ? <p className="hero-copy">{home.heroBody}</p> : null}
+              <div className="hero-intro-stack">
+                <h1>{home?.heroTitle || 'A public record of projects, research, and careful technical work.'}</h1>
+                {home?.heroBody ? <p className="hero-copy">{home.heroBody}</p> : null}
+              </div>
               {Array.isArray(home?.heroLinks) && home.heroLinks.length ? (
                 <div className="hero-route-list">
                   {home.heroLinks.map((link, index) =>
@@ -47,6 +49,10 @@ export default async function HomePage() {
                 <a href="#home-writing">Writing</a>
                 <a href="#home-archive">Archive</a>
               </div>
+              <a className="hero-scroll-cue" href="#home-projects">
+                <span>Scroll to featured work</span>
+                <strong>01</strong>
+              </a>
             </div>
 
             <aside className="hero-sidecar">
@@ -134,6 +140,10 @@ export default async function HomePage() {
 
             {supportingProjects.length ? (
               <div className="project-support-stack">
+                <div className="project-support-header">
+                  <div className="panel-eyebrow">Also in focus</div>
+                  <p>A second project entry with a different research texture: notebook-driven experimentation, dataset handling, and evaluation notes.</p>
+                </div>
                 {supportingProjects.map((project) => (
                   <EditableRegion
                     className="feature-card project-support-card"
