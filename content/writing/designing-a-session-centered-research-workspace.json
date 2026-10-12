@@ -42,7 +42,7 @@
       "blockType": "figure",
       "eyebrow": "Structure",
       "title": "The session is the object that carries the work forward",
-      "description": "In Refract, the research session holds the goal, the active source material, the saved evidence, and the record of analysis. That decision provides a stable frame across reading, synthesis, and statistics.",
+      "description": "In Refract, the research session stores the goal, active sources, saved evidence, and analysis history in one record.",
       "media": "/uploads/refract/workflow-overview.png",
       "caption": "Workflow overview from the Refract repository README.",
       "layout": "wide"
@@ -50,7 +50,7 @@
     {
       "blockType": "callout",
       "eyebrow": "Design choice",
-      "title": "A session is more useful than a conversation log",
+      "title": "The session stores the full research record",
       "description": "The difference is architectural, not rhetorical.",
       "markdown": "A conversation log remembers turns. A research session stores the goal, relevant papers, extracted evidence, comparisons, datasets, and statistical results.\n\nA generated answer can be checked against the session state that produced it. A model result remains linked to its supporting dataset and analysis run. The application records how those pieces connect."
     },
@@ -58,8 +58,8 @@
       "blockType": "proseSection",
       "eyebrow": "Reader",
       "title": "Reading has to remain close to the source material",
-      "description": "The reading layer should not be treated as disposable preprocessing before conversation begins.",
-      "markdown": "The reading layer is not treated as a preprocessing step before conversation begins. It remains a first-class surface where highlights, notes, and passage-level evidence stay tied to the document itself.",
+      "description": "Reading stays connected to the document and its source passages.",
+      "markdown": "The reader keeps highlights, notes, and passage-level evidence tied to the document. Later answers and comparisons can point back to the exact source material used.",
       "layout": "narrow"
     },
     {
@@ -97,7 +97,7 @@
         {
           "label": "01",
           "title": "Read with source fidelity",
-          "body": "Documents, passages, and notes establish the initial evidence frame."
+          "body": "Documents, passages, and notes establish the initial evidence record."
         },
         {
           "label": "02",
@@ -112,7 +112,7 @@
         {
           "label": "04",
           "title": "Analyze without starting over",
-          "body": "Datasets, profiles, audits, and model results stay inside the same research frame."
+          "body": "Datasets, profiles, audits, and model results stay attached to the same session record."
         },
         {
           "label": "05",
@@ -132,7 +132,7 @@
     {
       "blockType": "figure",
       "eyebrow": "Statistics",
-      "title": "Analysis outputs remain part of the same research frame",
+      "title": "Analysis outputs remain attached to the research record",
       "description": "The statistical workspace uses the session's evidence, assumptions, datasets, and prior results.",
       "media": "/uploads/refract/stats-workspace.png",
       "caption": "Stats workspace from the repository README.",

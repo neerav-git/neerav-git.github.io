@@ -72,7 +72,7 @@
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Study frame",
+      "eyebrow": "Study design",
       "title": "A medical imaging study preserved as an experimental record",
       "description": "The work stays close to its actual experimental form: a notebook-driven MRI classification study in Google Colab that moves from image inspection and preprocessing to model training and comparison.",
       "context": "The notebook is the primary record because it preserves each decision from data inspection through final evaluation."
@@ -179,7 +179,7 @@
         {
           "label": "03",
           "title": "Train the baseline CNN",
-          "body": "The core convolutional model establishes the initial performance frame for the classification task."
+          "body": "The core convolutional model establishes the initial accuracy result for the four-class task."
         },
         {
           "label": "04",

@@ -30,7 +30,7 @@
       "blockType": "insightGrid",
       "eyebrow": "System reading",
       "title": "The architecture answers four practical questions",
-      "description": "The point of the record is less about naming components than about explaining how responsibilities are divided.",
+      "description": "The diagram shows which component owns each interface, service, storage, and retrieval responsibility.",
       "items": [
         {
           "label": "Interface",

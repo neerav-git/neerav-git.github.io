@@ -71,7 +71,7 @@
       "eyebrow": "Failure mode",
       "title": "Fluency creates a dangerous kind of confidence",
       "description": "The system can sound coherent long before it is actually dependable.",
-      "markdown": "The most important failure in these settings is rarely clumsy wording. The real risk is persuasive language that outruns its evidence. A model can produce a coherent explanation, a plausible summary, or a seemingly careful recommendation while still making unsupported or overstated claims.\n\nThat is why evaluation has to move closer to the center of the product. The system needs to know what evidence is in frame, what the claim is allowed to rely on, and where uncertainty should remain explicit.",
+      "markdown": "The most important failure in these settings is rarely clumsy wording. The real risk is persuasive language that outruns its evidence. A model can produce a coherent explanation, a plausible summary, or a seemingly careful recommendation while still making unsupported or overstated claims.\n\nEvaluation belongs at the center of the product. The system needs to record the available evidence, constrain each claim to that evidence, and keep uncertainty explicit.",
       "layout": "narrow"
     },
     {
@@ -85,7 +85,7 @@
       "blockType": "proseSection",
       "eyebrow": "Practical standard",
       "title": "Grounding should be treated as part of the output",
-      "description": "It should not appear only as an optional citation layer bolted on after the answer is written.",
+      "description": "Every answer should preserve the link between each claim and its supporting source.",
       "markdown": "A reliable life-science system should build the connection between response and evidence into its normal workflow. It should preserve source material, surface supporting excerpts, constrain generalization, and record how a conclusion was formed.\n\nThese controls give reviewers a practical way to check the system's output and define where it should stop.",
       "layout": "narrow"
     },

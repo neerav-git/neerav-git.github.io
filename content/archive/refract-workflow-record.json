@@ -31,7 +31,7 @@
       "eyebrow": "How to read it",
       "title": "The workflow can be read in two directions",
       "description": "Both readings matter because they show different aspects of the same design.",
-      "markdown": "From top to bottom, the diagram explains how the session acts as the frame that keeps the work coherent. The research goal, the papers, the saved evidence, and the later analysis all remain parts of the same ongoing object.\n\nFrom left to right, the diagram distinguishes literature work from quantitative analysis while still showing where they reconnect. That distinction is important because the point of the system is not to collapse those activities into one surface. It is to keep them separate enough to be usable while still preserving the shared context that makes later interpretation possible.",
+      "markdown": "From top to bottom, the diagram shows one session record holding the research goal, papers, saved evidence, datasets, and analysis history.\n\nFrom left to right, the diagram separates literature work from quantitative analysis and marks the points where they exchange source context and results.",
       "layout": "narrow"
     },
     {
@@ -39,7 +39,7 @@
       "eyebrow": "Why preserve it",
       "title": "This is the fastest route into the project",
       "description": "The artifact matters because it exposes the architectural intention without requiring a full code-level reading first.",
-      "markdown": "A diagram like this is useful because it clarifies the logic of the system before implementation details take over. It explains where reading happens, where analysis happens, and why both need to remain within the same research frame. For someone trying to understand the project quickly, this artifact is one of the fastest ways to see what the application is designed to hold together."
+      "markdown": "The diagram identifies where reading happens, where analysis happens, which session data each stage consumes, and which artifacts each stage produces."
     }
   ]
 }

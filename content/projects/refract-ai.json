@@ -75,7 +75,7 @@
       "eyebrow": "Core workflow",
       "title": "A research workspace for keeping evidence and analysis together",
       "description": "Refract starts from a practical observation: research work becomes fragile when papers, notes, comparison tables, datasets, and model outputs are scattered across separate tools.",
-      "context": "The session is the central object. It holds the research goal, source material, saved evidence, comparisons, uploaded datasets, and statistical runs in one durable frame."
+      "context": "The session is the central record. It stores the research goal, source material, saved evidence, comparisons, uploaded datasets, and statistical runs."
     },
     {
       "blockType": "proseSection",
@@ -89,7 +89,7 @@
       "blockType": "figure",
       "eyebrow": "Workflow",
       "title": "The session connects the literature and analysis tracks",
-      "description": "The workflow diagram from the repository README captures the core structure of the product. Literature ingestion, reading, and comparison occupy one side of the system; dataset upload, profiling, audit, and modeling occupy the other. Both feed the same session and the same interpretation layer.",
+      "description": "The workflow diagram connects two tracks: literature ingestion, reading, and comparison; then dataset upload, profiling, audit, and modeling. Both write to the same session record, so generated interpretations retain their sources and analysis inputs.",
       "media": "/uploads/refract/workflow-overview.png",
       "caption": "Workflow overview from the Refract repository README.",
       "layout": "wide"
@@ -151,7 +151,7 @@
     {
       "blockType": "callout",
       "eyebrow": "Interpretation",
-      "title": "A session is more useful than a conversation log",
+      "title": "The session stores the full research record",
       "description": "A research session stores the goal, sources, saved evidence, comparisons, and statistical results.",
       "markdown": "A research session holds the goal of the work, the relevant papers, extracted evidence, comparisons, and statistical results. This shared state gives later interpretation a complete record of the material and analysis used to reach it."
     },
@@ -159,7 +159,7 @@
       "blockType": "figure",
       "eyebrow": "Stats",
       "title": "Statistical interpretation is presented with its surrounding evidence",
-      "description": "The statistical workspace provides a structured layer for profiling, auditing, modeling, and interpreting results inside the same research frame as the supporting literature.",
+      "description": "The statistical workspace profiles data, audits quality, compares models, and keeps each result linked to the supporting literature.",
       "media": "/uploads/refract/stats-workspace.png",
       "caption": "Stats workspace from the repository README.",
       "layout": "wide"
@@ -172,8 +172,8 @@
       "items": [
         {
           "label": "01",
-          "title": "Ingest and frame the session",
-          "body": "A research goal, source set, and initial working context establish the frame for the rest of the work."
+          "title": "Define the goal and source set",
+          "body": "Record the research goal, selected sources, and initial assumptions before analysis begins."
         },
         {
           "label": "02",

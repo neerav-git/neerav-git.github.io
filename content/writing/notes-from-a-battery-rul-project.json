@@ -32,7 +32,7 @@
     },
     {
       "blockType": "figure",
-      "eyebrow": "Degradation frame",
+      "eyebrow": "Degradation mechanisms",
       "title": "A battery score sits on top of several overlapping failure pathways",
       "description": "The diagram shows how capacity loss, power loss, and mechanism-level changes interact over time and affect a remaining-useful-life estimate.",
       "media": "/uploads/supporting/lithium-ion-degradation-map.jpg",
@@ -41,7 +41,7 @@
     },
     {
       "blockType": "insightGrid",
-      "eyebrow": "Audit frame",
+      "eyebrow": "Evaluation checklist",
       "title": "The problem can be decomposed into a few hard questions",
       "description": "These are the checks I would want to pass before taking a result seriously.",
       "items": [
@@ -79,7 +79,7 @@
       "blockType": "callout",
       "eyebrow": "Conclusion",
       "title": "Trust comes from the audit trail",
-      "description": "A less dramatic but defensible result is usually worth more than a score that cannot survive questioning.",
+      "description": "A defensible result survives review of its chronology, features, baseline, and operational use.",
       "markdown": "A useful RUL result remains defensible after reviewers inspect data handling, feature design, and evaluation logic. The score should identify what each signal represents, when it becomes available, and how it informs a maintenance decision.\n\nChronology, feature provenance, and operational meaning determine whether the reported number deserves trust. Any failure in those checks requires another experiment and a narrower claim."
     }
   ]
