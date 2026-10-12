@@ -1,0 +1,48 @@
+{
+  "title": "Homeward",
+  "slug": "homeward",
+  "cardEyebrow": "Healthcare coordination",
+  "dateLabel": "Working prototype · 2026",
+  "status": "tested-prototype",
+  "primaryCategory": "product-system",
+  "secondaryCategories": ["healthcare"],
+  "summary": "A source-grounded hospital discharge assistant that coordinates patient tasks, caregiver follow-up, specialist routing, and human approval.",
+  "landingDeck": "Homeward turns a discharge packet into an agent-supported recovery workflow with source retrieval, specialist routing, approval, and retry states.",
+  "landingHighlights": [
+    "Turns a dense discharge packet into a patient-centered recovery view.",
+    "Routes source search and specialist work while preserving human review and escalation.",
+    "Shows source provenance, reviewer approval, activity history, and safe retry states on screen."
+  ],
+  "portfolioKeywords": [
+    { "kind": "industry", "label": "HealthTech" },
+    { "kind": "system", "label": "Source-Grounded RAG" },
+    { "kind": "system", "label": "Agentic Routing" },
+    { "kind": "evaluation", "label": "Failure Recovery" },
+    { "kind": "stack", "label": "Next.js" },
+    { "kind": "stack", "label": "TypeScript" }
+  ],
+  "problem": "Discharge plans arrive when patients and caregivers are tired, anxious, and responsible for coordinating medications, appointments, warning signs, and follow-up care.",
+  "approach": "Homeward combines document-grounded retrieval, task routing, specialist workflows, source provenance, and explicit human review around one fictional patient journey.",
+  "output": "A tested prototype with a ten-scene journey, source-search flows, approval and recovery states, and recorded mechanical evidence.",
+  "methodology": {
+    "evaluation": "Deterministic ten-scene scenario tests cover retrieval, routing, approval, retry, and visible recovery states using fictional discharge material.",
+    "boundary": "The evidence establishes tested prototype behavior only. It does not establish clinical correctness, provider reliability, or production integration.",
+    "standards": [
+      "Human approval",
+      "Source provenance",
+      "Failure-state testing",
+      "Safe escalation"
+    ]
+  },
+  "role": "I designed and built the product flow, grounded assistance, agent routing, and evidence-backed reviewer experience.",
+  "featured": true,
+  "displayOrder": 2,
+  "coverImage": { "url": "/uploads/homeward/recovery-overview.png", "alt": "Homeward recovery overview for a patient discharge journey" },
+  "technologies": [{ "value": "Next.js" }, { "value": "TypeScript" }, { "value": "Multi-agent routing" }, { "value": "Source retrieval" }],
+  "links": [{ "label": "Repository", "url": "https://github.com/pruhnav/homeward", "description": "Public Homeward codebase, product walkthrough, and test results." }],
+  "pageSections": [
+    { "blockType": "sectionLead", "eyebrow": "Patient journey", "title": "Discharge support organized around the next safe step", "description": "Homeward presents recovery tasks, source-grounded help, approvals, and follow-up activity in one patient and caregiver timeline." },
+    { "blockType": "figure", "eyebrow": "Product overview", "title": "The recovery view keeps the plan legible", "media": { "url": "/uploads/homeward/recovery-overview.png", "alt": "Homeward recovery overview" }, "caption": "A fictional patient journey used to test source search, specialist routing, review, and recovery states.", "layout": "wide" },
+    { "blockType": "callout", "eyebrow": "Evidence boundary", "title": "Tested product behavior, not clinical deployment", "markdown": "The prototype and deterministic evaluations demonstrate the product flow and failure handling with fictional source material. They do not establish clinical correctness, provider reliability, or production integration." }
+  ]
+}

@@ -3,7 +3,7 @@
   "slug": "what-reliable-should-mean-for-llms-in-life-sciences",
   "category": "Essay",
   "publishDate": "2026-06-10T00:00:00.000Z",
-  "excerpt": "In scientific and regulated settings, reliability is less about polished prose and more about whether claims remain traceable to evidence, scope, and method.",
+  "excerpt": "Reliable life-science answers need bounded claims, source-linked evidence, explicit uncertainty, and repeatable evaluation.",
   "coverImage": "/uploads/refract/system-architecture.png",
   "featured": true,
   "links": [
@@ -35,7 +35,7 @@
       "eyebrow": "Problem",
       "title": "Reliability is not a style attribute",
       "description": "The hardest failure is not awkward wording. It is unsupported confidence.",
-      "markdown": "In life sciences and other regulated domains, a response does not become reliable because it sounds measured or technically literate. Reliability has to be earned through constraint: bounded claims, visible evidence, and language that remains proportionate to what the source material actually supports.\n\nThis shifts the design problem. The question is not only how to make a model answer well, but how to build a system in which the answer can be checked, narrowed, and tied back to the material that justified it.",
+      "markdown": "In life sciences and other regulated domains, reliability requires bounded claims, visible evidence, and language proportionate to the source material.\n\nThe surrounding system must let a reviewer check the answer, narrow its scope, and trace it back to the material that supports it.",
       "layout": "narrow"
     },
     {
@@ -52,12 +52,12 @@
         {
           "label": "Constraint",
           "title": "The claim has to stay inside its scope",
-          "body": "Useful systems stop where the available evidence stops instead of expanding into persuasive extrapolation."
+          "body": "Useful systems limit each claim to the scope supported by available evidence."
         },
         {
           "label": "Uncertainty",
           "title": "The limits have to remain visible",
-          "body": "A technically serious answer preserves unresolved ambiguity rather than smoothing it away."
+          "body": "A technically serious answer states unresolved ambiguity explicitly."
         },
         {
           "label": "Audit",
@@ -78,15 +78,15 @@
       "blockType": "callout",
       "eyebrow": "Repository lesson",
       "title": "Evidence needs a durable place in the workflow",
-      "description": "What Refract gets right at the architectural level is that documents, saved evidence, and later analysis are kept in one session frame instead of being scattered across separate tools.",
-      "markdown": "The Refract repository is useful here not because it solves reliability in the abstract, but because it treats context preservation as part of the product. Reading, evidence capture, comparison, and later analysis remain attached to the same working session. That reduces the distance between a claim and the material meant to justify it.\n\nIn practice, that kind of continuity is more valuable than many louder promises about scientific reasoning. Reliability improves when the system makes inspection easier before it tries to make generation more ambitious."
+      "description": "Refract keeps documents, saved evidence, comparisons, and later analysis in one session record.",
+      "markdown": "Refract treats context preservation as a product requirement. Reading, evidence capture, comparison, and later analysis remain attached to the same working session, keeping each claim close to the source material meant to justify it.\n\nReliability improves when the system makes sources, transformations, and limits easy to inspect."
     },
     {
       "blockType": "proseSection",
       "eyebrow": "Practical standard",
       "title": "Grounding should be treated as part of the output",
       "description": "It should not appear only as an optional citation layer bolted on after the answer is written.",
-      "markdown": "A reliable system in life sciences should not present grounding as an optional add-on. The connection between response and evidence should be built into the normal use of the tool. That includes preserving source material, surfacing supporting excerpts, constraining generalization, and making it possible to revisit how a conclusion was formed.\n\nThis is less dramatic than promises of autonomous scientific reasoning, but it is much more useful. In technical domains, progress often comes from making a system more inspectable before trying to make it more expansive.",
+      "markdown": "A reliable life-science system should build the connection between response and evidence into its normal workflow. It should preserve source material, surface supporting excerpts, constrain generalization, and record how a conclusion was formed.\n\nThese controls give reviewers a practical way to check the system's output and define where it should stop.",
       "layout": "narrow"
     },
     {
@@ -94,7 +94,7 @@
       "eyebrow": "Conclusion",
       "title": "The more useful system is usually the more restrained one",
       "description": "That is an honest tradeoff, not a marketing compromise.",
-      "markdown": "A trustworthy system in life sciences may feel less impressive than one that speaks with total confidence. That is acceptable. The better goal is a system that can show why it is saying something, what it is relying on, and where its answer should stop.\n\nThere is also an honest limitation to acknowledge. A workflow can preserve evidence, scope, and provenance and still fall short of domain adequacy if the underlying data, validation logic, or scientific framing are weak. Reliability is therefore not solved by interface design alone. But interfaces that preserve the conditions for checking are still a better starting point than interfaces that hide them.",
+      "markdown": "A trustworthy life-science system shows why it produced a claim, which evidence supports it, and where the answer stops.\n\nEvidence, scope, and provenance cannot compensate for weak data, validation, or scientific framing. The interface must preserve the information reviewers need to check those foundations.",
       "layout": "narrow"
     }
   ]

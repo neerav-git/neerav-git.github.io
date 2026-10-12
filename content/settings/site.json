@@ -1,7 +1,7 @@
 {
   "siteTitle": "Neerav Chaudhary",
-  "siteTagline": "Research software, applied machine learning, and technical notes.",
-  "footerLine": "A public record of research systems, notebook studies, supporting records, and careful technical writing.",
+  "siteTagline": "AI engineering across voice, agentic, research, and interactive systems.",
+  "footerLine": "A working record of products, studies, decisions, and the evidence behind them.",
   "contactEmail": "neerav.ch@icloud.com",
   "socialLinks": [
     {
@@ -15,7 +15,7 @@
   ],
   "navigation": {
     "homeLabel": "Home",
-    "projectsLabel": "Work",
+    "projectsLabel": "Products",
     "writingLabel": "Notes",
     "archiveLabel": "Records",
     "aboutLabel": "About",
@@ -25,8 +25,8 @@
   "pageIntros": {
     "projects": {
       "label": "01",
-      "title": "Projects",
-      "intro": "The main work collected here includes a research software platform and a notebook-based medical imaging study. Each entry is framed around the problem being addressed, the approach taken, and the artifact that remains available for inspection."
+      "title": "Products & Systems",
+      "intro": "Voice AI, agentic workflows, source-grounded research, predictive maintenance, healthcare coordination, medical imaging, and creative 3D systems. Each case shows the industry, system pattern, evaluation method, and stack."
     },
     "writing": {
       "label": "02",
@@ -41,7 +41,7 @@
     "about": {
       "label": "04",
       "title": "About",
-      "intro": "Background, working style, and the technical interests that connect the projects collected here."
+      "intro": "An AI engineer and Engineering Management graduate focused on human-centered automation, controlled workflow execution, and measurable product behavior."
     },
     "recommendations": {
       "label": "06",
@@ -51,12 +51,12 @@
     "resume": {
       "label": "05",
       "title": "Resume",
-      "intro": "A concise PDF summary for readers who need a conventional professional overview."
+      "intro": "Experience across voice agents, agentic automation, RAG, predictive modeling, computer vision, evaluation, and product design."
     }
   },
   "about": {
-    "lead": "I work on research software, applied machine learning, and technical writing where the process matters as much as the final artifact.",
-    "biographyMarkdown": "My work sits between software systems and research practice. I am interested in tools that help technical work remain inspectable: research environments that preserve context across reading and analysis, model pipelines that make assumptions and evaluation visible, and written records that explain why decisions were made rather than only presenting the result.\n\nThe projects collected here are deliberately modest in tone. Refract is a research workspace built around durable sessions, source-linked evidence, and analysis surfaces. The Alzheimer MRI study is a notebook-first machine-learning project where the value is the visible sequence of data inspection, preprocessing, training, and evaluation. The writing exists to make those choices easier to examine later.",
-    "currentFocusMarkdown": "## Working interests\n\n- research workflows that connect source material, saved evidence, comparison, and statistical analysis\n- applied machine learning in medical and scientific contexts, especially where evaluation and limitations need to stay visible\n- interfaces that reduce the distance between a result and the evidence or data that produced it\n- technical writing that explains tradeoffs without making the work sound more complete than it is"
+    "lead": "I build conversational and agentic systems that help people resolve blockers, complete controlled actions, and work safely with connected tools and data.",
+    "biographyMarkdown": "My work combines voice interfaces, agentic automation, retrieval, product design, and human-in-the-loop controls. Relay applies those patterns to People Operations workflows. Refract connects RAG, interactive paper learning, battery analysis, and predictive-maintenance validation. My medical-imaging research uses computer vision and CNN ensembles with measured error analysis. Birb Hangout extends the same systems mindset into game design, interaction design, 3D annotation, and creative harness engineering.",
+    "currentFocusMarkdown": "## Working focus\n\n- voice agents and conversational workflows with structured function calling\n- agentic systems with authentication, confirmation, idempotency, and audit logs\n- RAG, predictive modeling, computer vision, model evaluation, and error analysis\n- human-centered automation, rapid prototyping, game interaction, and creative tooling"
   }
 }

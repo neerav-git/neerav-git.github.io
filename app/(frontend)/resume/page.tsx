@@ -64,9 +64,9 @@ export default async function ResumePage() {
           <section className="entry-rail-panel">
             <div className="panel-eyebrow">What this covers</div>
             <div className="resume-signal-list">
-              <p>Research software and evidence-aware interfaces.</p>
-              <p>Applied machine learning studies with visible evaluation.</p>
-              <p>Technical writing on method, constraints, and system design.</p>
+              <p>Voice agents, structured function calling, and controlled agentic workflows.</p>
+              <p>RAG, predictive modeling, computer vision, evaluation, and error analysis.</p>
+              <p>Product design, People Operations automation, and creative systems engineering.</p>
             </div>
           </section>
 

@@ -1,29 +1,41 @@
 {
-  "heroEyebrow": "Research software · applied ML · technical notes",
-  "heroTitle": "Research software and applied machine-learning studies.",
-  "heroBody": "A compact record of projects, notebooks, screenshots, and notes. The emphasis is on what was built, what problem it addressed, and what evidence or artifact remains available to inspect.",
-  "heroImage": "/uploads/refract/workflow-overview.png",
+  "heroEyebrow": "Product systems · applied AI · evaluation",
+  "heroTitle": "AI engineering across voice, agentic, research, and interactive systems.",
+  "heroBody": "Selected work spans People Operations automation, source-grounded research, predictive maintenance, healthcare coordination, medical imaging, and creative 3D systems. Each case shows the interface, control model, evaluation, and stack.",
+  "heroImage": "/uploads/relay/workspace-and-guide.png",
   "heroLinks": [
     {
-      "label": "Refract",
-      "url": "/projects/refract-ai/",
-      "description": "Research software for reading papers, saving evidence, comparing sources, and keeping analysis inside one working session."
+      "label": "Relay",
+      "url": "/projects/relay/",
+      "description": "Voice-first employee services with grounded answers, guided navigation, confirmation-gated actions, and visible evaluation."
     },
     {
-      "label": "Alzheimer MRI study",
-      "url": "/projects/alzheimers-disease-research/",
-      "description": "A notebook-based MRI classification study with visible data inspection, preprocessing, CNN training, and comparison."
+      "label": "Products & Systems",
+      "url": "/#products-and-systems",
+      "description": "Relay, Refract, Homeward, and Birb Hangout."
     },
     {
-      "label": "Reliability essay",
-      "url": "/writing/what-reliable-should-mean-for-llms-in-life-sciences/",
-      "description": "A method note on evidence, scope, and inspection in scientific LLM workflows."
+      "label": "ML & AI Studies",
+      "url": "/#ml-ai-studies",
+      "description": "The Alzheimer MRI study and the evaluation questions behind Refract."
     }
   ],
-  "featuredProjectsHeading": "Projects",
+  "featuredProjectsHeading": "Products & Systems",
   "featuredProjectSlugs": [
+    "relay",
     "refract-ai",
-    "alzheimers-disease-research"
+    "homeward",
+    "birb-hangout"
+  ],
+  "productProjectSlugs": [
+    "relay",
+    "refract-ai",
+    "homeward",
+    "birb-hangout"
+  ],
+  "studyProjectSlugs": [
+    "alzheimers-disease-research",
+    "refract-ai"
   ],
   "featuredWritingHeading": "Writing",
   "featuredArticleSlugs": [
@@ -44,8 +56,8 @@
     {
       "blockType": "markdownSection",
       "eyebrow": "Working principles",
-      "title": "Common thread",
-      "markdown": "The projects differ in format, but they share a concern with traceability. Refract asks how research software can keep reading, evidence, comparison, and analysis from breaking into disconnected tools. The Alzheimer MRI study asks how a notebook can preserve the experimental sequence of a medical imaging workflow. The writing records the design and evaluation questions behind those artifacts."
+      "title": "What the work shows",
+      "markdown": "Refract keeps papers, saved evidence, comparison, and analysis in one research session. The Alzheimer MRI study records data inspection, preprocessing, training, and evaluation in one notebook. The writing documents the design and evaluation decisions behind both projects."
     },
     {
       "blockType": "links",

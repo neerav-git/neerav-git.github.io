@@ -4,10 +4,36 @@
   "cardEyebrow": "Medical Imaging Research",
   "dateLabel": "Notebook-based study",
   "status": "published-work",
-  "summary": "A Google Colab MRI classification study that keeps image inspection, preprocessing, staged labels, CNN training, and comparison visible in the notebook record.",
+  "primaryCategory": "ml-ai-study",
+  "secondaryCategories": ["healthcare", "machine-learning"],
+  "summary": "A medical-imaging study using Python, OpenCV, and CNN ensembles to classify dementia severity and quantify brain atrophy from MRI scans.",
+  "landingDeck": "A four-class MRI study that improved dementia-severity classification from 78% to 85% through CNN ensemble comparison and error analysis.",
+  "landingHighlights": [
+    "Inspects representative MRI slices before preprocessing and training.",
+    "Trains a CNN across four disease-stage labels with the data split recorded in the notebook.",
+    "Compares CNN ensembles and model errors, improving measured classification accuracy from 78% to 85%."
+  ],
+  "portfolioKeywords": [
+    { "kind": "industry", "label": "HealthTech" },
+    { "kind": "system", "label": "Computer Vision" },
+    { "kind": "system", "label": "CNN Ensembles" },
+    { "kind": "evaluation", "label": "85% Accuracy" },
+    { "kind": "stack", "label": "TensorFlow" },
+    { "kind": "stack", "label": "Python + OpenCV" }
+  ],
   "problem": "Medical imaging experiments can become difficult to judge when the final score is separated from the images, preprocessing choices, label structure, and evaluation path.",
   "approach": "The notebook keeps the study sequence visible: MRI inspection, image resizing, augmentation, four-class labeling, CNN training, and ensemble-oriented comparison.",
-  "output": "A repository-backed Colab notebook and supporting image outputs that show the experiment as a reproducible sequence rather than a polished clinical claim.",
+  "output": "A repository-backed Colab notebook and supporting image outputs that record the experiment as a reproducible sequence. It is a research study, not a clinical system.",
+  "methodology": {
+    "evaluation": "Four-class CNN baseline and ensemble models use an 80/10/10 split and are compared with held-out classification accuracy and recorded error analysis.",
+    "boundary": "The study is an educational research experiment. It does not establish clinical validity, diagnostic performance, or readiness for patient care.",
+    "standards": [
+      "Held-out test set",
+      "Explicit class labels",
+      "Error analysis",
+      "Reproducible notebook"
+    ]
+  },
   "role": "I built the data preparation, augmentation, training, and evaluation flow and preserved the notebook as the visible record of the experiment.",
   "featured": true,
   "displayOrder": 2,
@@ -49,13 +75,13 @@
       "eyebrow": "Study frame",
       "title": "A medical imaging study preserved as an experimental record",
       "description": "The work stays close to its actual experimental form: a notebook-driven MRI classification study in Google Colab that moves from image inspection and preprocessing to model training and comparison.",
-      "context": "The notebook is treated as the primary record of the work because it preserves the order of decisions, not only the final result."
+      "context": "The notebook is the primary record because it preserves each decision from data inspection through final evaluation."
     },
     {
       "blockType": "figure",
       "eyebrow": "Data view",
       "title": "Representative MRI slices keep the data visible",
-      "description": "The notebook includes direct visual inspection of MRI inputs. Keeping examples like these in the workflow matters because it ties preprocessing and model design back to the actual structure of the data rather than treating the dataset as an abstraction.",
+      "description": "The notebook displays representative MRI inputs before preprocessing, keeping resizing and model decisions tied to the image data.",
       "media": "/uploads/alzheimers/notebook-output-1.png",
       "caption": "MRI sample montage extracted from the notebook output in the repository.",
       "layout": "wide"
@@ -63,9 +89,9 @@
     {
       "blockType": "proseSection",
       "eyebrow": "Problem framing",
-      "title": "The classification problem is staged, not simply binary",
+      "title": "The model predicts four disease-stage labels",
       "description": "The classification target is more demanding than a simple healthy-versus-disease split.",
-      "markdown": "The study uses four classes: NonDemented, VeryMildDemented, MildDemented, and ModerateDemented. That framing matters because the model is not only asked to separate apparent disease from no disease. It is asked to distinguish degrees of progression that can be visually close and unevenly represented.\n\nThe notebook reflects that framing at each stage. Data preparation, augmentation, and evaluation sit inside a multi-class setup, and the later ensemble work only makes sense because a visible baseline has already been established. The value of the project is not a claim of clinical readiness. It is the preserved experimental sequence: what data was used, how images were prepared, how the model was trained, and how later comparison entered the workflow.",
+      "markdown": "The study uses four classes: NonDemented, VeryMildDemented, MildDemented, and ModerateDemented. The model must distinguish progression levels that can be visually close and unevenly represented.\n\nThe notebook carries this four-class setup through data preparation, augmentation, training, and evaluation. Ensemble comparison follows the recorded CNN baseline. The project is a reproducible experiment record; it does not claim clinical readiness.",
       "layout": "narrow"
     },
     {
@@ -98,8 +124,8 @@
     {
       "blockType": "insightGrid",
       "eyebrow": "Why the format matters",
-      "title": "Notebook-first work retains useful forms of visibility",
-      "description": "In this study, inspectability is part of the value rather than a sign of incompleteness.",
+      "title": "The notebook exposes inputs, methods, and outputs",
+      "description": "The notebook exposes the inputs, transformations, training steps, and evaluation outputs used in the study.",
       "items": [
         {
           "label": "Data",
@@ -109,12 +135,12 @@
         {
           "label": "Method",
           "title": "Pipeline decisions stay local",
-          "body": "Loading paths, resizing, augmentation, training, and evaluation appear in one continuous environment instead of being scattered across scripts."
+          "body": "Loading paths, resizing, augmentation, training, and evaluation appear in one continuous notebook."
         },
         {
           "label": "Interpretation",
           "title": "Comparisons can be read in sequence",
-          "body": "Later ensemble or comparison logic is easier to judge when it appears as an extension of earlier notebook steps rather than as an isolated result."
+          "body": "Ensemble and comparison logic follows the recorded preprocessing and CNN baseline steps."
         }
       ]
     },
@@ -122,7 +148,7 @@
       "blockType": "figure",
       "eyebrow": "Preprocessing",
       "title": "Single-slice inspection helps keep the pipeline concrete",
-      "description": "Notebook-based work is often criticized for being less polished than packaged code, but it has one important advantage: the data remains visible. Images like this make preprocessing decisions easier to inspect and discuss.",
+      "description": "The visible image data makes preprocessing decisions easier to inspect and discuss.",
       "media": "/uploads/alzheimers/notebook-output-2.png",
       "caption": "Single MRI slice extracted from the repository notebook output.",
       "layout": "split"
@@ -131,19 +157,19 @@
       "blockType": "callout",
       "eyebrow": "Method",
       "title": "The notebook is the record of the study",
-      "description": "Its value lies in preserving sequence and decision-making, not in pretending the work happened somewhere else.",
-      "markdown": "In this project, the notebook is not treated as an intermediate artifact waiting to become a cleaner library. It is the most faithful representation of the work. It shows where the dataset is loaded, how the images are augmented, how the convolutional model is trained, and how later comparison logic is layered in.\n\nThat visibility is important in medical and scientific contexts. The useful question is not whether a result looks good in isolation, but whether the sequence of choices behind it can be examined with enough detail to judge the work responsibly."
+      "description": "The notebook preserves the experiment sequence and the decisions made at each stage.",
+      "markdown": "The notebook shows where the dataset is loaded, how the images are augmented, how the convolutional model is trained, and how the ensemble comparison is added.\n\nThis visibility matters in medical and scientific work because reviewers need to inspect the full path from input data to reported result."
     },
     {
       "blockType": "timeline",
       "eyebrow": "Experimental flow",
       "title": "How the study progresses",
-      "description": "The notebook format makes each stage legible in order rather than compressing everything into a final result.",
+      "description": "The notebook records data inspection, preprocessing, training, and evaluation in execution order.",
       "items": [
         {
           "label": "01",
           "title": "Load and inspect MRI inputs",
-          "body": "The first step is not training but looking at the images closely enough to understand what the data actually contains."
+          "body": "Inspect representative MRI inputs before training to verify the image data and class structure."
         },
         {
           "label": "02",
@@ -158,15 +184,15 @@
         {
           "label": "04",
           "title": "Extend into comparison and ensemble logic",
-          "body": "Later evaluation becomes meaningful because it grows directly out of the earlier pipeline rather than replacing it."
+          "body": "Later evaluation uses the same preprocessing and baseline pipeline recorded earlier in the notebook."
         }
       ]
     },
     {
       "blockType": "figure",
       "eyebrow": "Evaluation context",
-      "title": "The project is best understood as a visible sequence of experiments",
-      "description": "The later portions of the notebook move beyond a single model result and into comparison. That transition is where the study becomes more interesting, because it reveals how performance was interrogated rather than simply reported.",
+      "title": "The notebook records a sequence of model experiments",
+      "description": "The later notebook cells compare the baseline with ensemble results and show how performance was evaluated.",
       "media": "/uploads/alzheimers/notebook-output-3.png",
       "caption": "Additional MRI output extracted from the notebook record.",
       "layout": "split"
@@ -175,8 +201,8 @@
       "blockType": "proseSection",
       "eyebrow": "Scope",
       "title": "What this study demonstrates",
-      "description": "The contribution is methodological transparency rather than a claim of production or clinical readiness.",
-      "markdown": "This work demonstrates a practical medical imaging workflow built under notebook-first conditions: dataset preparation, convolutional modeling, staged classification, and comparison-oriented evaluation in a single reproducible file. It is not presented as a clinical system or a polished deployment target. Its value lies in the transparency of the experimental process and in the way it captures model development in a form that can still be reviewed, rerun, and extended.",
+      "description": "The contribution is a reproducible experimental method. The work is not a production or clinical system.",
+      "markdown": "This work records a practical medical-imaging workflow in one reproducible file: dataset preparation, convolutional modeling, four-class prediction, and ensemble evaluation. Reviewers can inspect, rerun, and extend each stage. The study does not establish clinical validity or deployment readiness.",
       "layout": "narrow"
     }
   ],

@@ -6,10 +6,12 @@ import { ContentBlocks } from '@/components/ContentBlocks'
 import { EditableRegion } from '@/components/EditableRegion'
 import { EntrySectionMap } from '@/components/EntrySectionMap'
 import { MarkdownArticle } from '@/components/MarkdownArticle'
+import { ProjectMethodology } from '@/components/ProjectMethodology'
 import { ProjectProof } from '@/components/ProjectProof'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { adminLinks } from '@/lib/admin'
 import { getProjectBySlug, getProjects } from '@/lib/content'
+import { getProjectStatus } from '@/lib/projectStatus'
 
 type ProjectPageProps = {
   params: Promise<{
@@ -34,6 +36,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   const gallery = Array.isArray(project.gallery) ? project.gallery : []
   const repoTopics = Array.isArray(project.github?.repoTopics) ? project.github.repoTopics : []
+  const maturity = getProjectStatus(project.status)
 
   return (
     <EditableRegion editHref={adminLinks.project(project.slug)} editLabel={project.title || 'project'}>
@@ -55,6 +58,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 <img alt={getUploadAlt(project.coverImage)} src={getUploadUrl(project.coverImage) || ''} />
               </div>
             ) : null}
+
+            <ProjectMethodology project={project} />
 
             <ContentBlocks blocks={project.pageSections} />
 
@@ -90,7 +95,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               <section className="entry-rail-panel">
                 <div className="panel-eyebrow">Summary</div>
                 <div className="entry-summary-stack">
-                  <p>{project.status ? `Status: ${project.status.replace(/-/g, ' ')}` : 'Repository-backed project record.'}</p>
+                  <p><strong>{maturity.label}.</strong> {maturity.definition}</p>
+                  <a className="text-link" href="#methodology">Read the methodology ↓</a>
                   <div className="tag-row">
                     {project.technologies.map((technology, index) =>
                       technology?.value ? <span key={`${technology.value}-${index}`}>{technology.value}</span> : null

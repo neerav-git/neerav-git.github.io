@@ -1,0 +1,48 @@
+{
+  "title": "Birb Hangout",
+  "slug": "birb-hangout",
+  "cardEyebrow": "Game design & creative tooling",
+  "dateLabel": "In development · 2026",
+  "status": "active-development",
+  "primaryCategory": "product-system",
+  "secondaryCategories": ["multiplayer"],
+  "summary": "A multiplayer 3D game and creative-engineering environment for expressive character interaction, spatial annotation, and repeatable visual review.",
+  "landingDeck": "Birb Hangout combines game design, realtime multiplayer interaction, 3D annotation, and purpose-built harnesses for reviewing creative work.",
+  "landingHighlights": [
+    "Designs character motion, seating, proximity, room objects, and media as one social interaction system.",
+    "Builds focused harnesses for animation, camera, interaction, and visual-reference review during creative development.",
+    "Uses 3D annotations and separate motion, interaction, multiplayer, and deployment checks to make review specific and repeatable."
+  ],
+  "portfolioKeywords": [
+    { "kind": "industry", "label": "Game Design" },
+    { "kind": "system", "label": "Harness Engineering" },
+    { "kind": "system", "label": "3D Annotation" },
+    { "kind": "system", "label": "Interaction Design" },
+    { "kind": "evaluation", "label": "Visual & Motion QA" },
+    { "kind": "stack", "label": "Three.js + Colyseus" }
+  ],
+  "problem": "Online hangouts often make presence feel abstract; the product asks how a small shared world can communicate attention, mood, and activity without becoming a dashboard.",
+  "approach": "A Three.js client renders the lounge and characters, a Colyseus room server synchronizes shared state, and focused harnesses isolate creative tasks for review.",
+  "output": "An actively developed multiplayer web game with room lifecycle, synchronized interaction systems, expressive avatar work, and a growing visual evidence archive.",
+  "methodology": {
+    "evaluation": "Focused harnesses isolate motion, camera, seating, proximity, multiplayer state, and deployment behavior; scripted checks and visual review remain separate evidence layers.",
+    "boundary": "Mechanical checks do not prove final animation quality, production-scale concurrency, or consistent browser media behavior. Those remain separate review gates.",
+    "standards": [
+      "Interaction-state tests",
+      "Realtime state checks",
+      "Visual review",
+      "Deployment smoke tests"
+    ]
+  },
+  "role": "I lead the game design, interaction design, realtime architecture, harness engineering, 3D review workflow, character direction, and deployment decisions.",
+  "featured": true,
+  "displayOrder": 3,
+  "coverImage": { "url": "/uploads/birb/lounge.png", "alt": "Birb Lounge interior with the player character in the shared room" },
+  "technologies": [{ "value": "Three.js" }, { "value": "React" }, { "value": "Colyseus" }, { "value": "WebSockets" }, { "value": "Blender" }],
+  "links": [],
+  "pageSections": [
+    { "blockType": "sectionLead", "eyebrow": "Product world", "title": "A shared room built around presence and expressive interaction", "description": "The room, character motion, seating, proximity, and shared objects work together to show who is present and what they are doing." },
+    { "blockType": "figure", "eyebrow": "Lounge", "title": "The room is the social interface", "media": { "url": "/uploads/birb/lounge.png", "alt": "Birb Lounge shared room" }, "caption": "A verified in-product lounge capture used as the current portfolio reference.", "layout": "wide" },
+    { "blockType": "callout", "eyebrow": "Current state", "title": "An active product with explicit evidence boundaries", "markdown": "Realtime room behavior, interaction slices, and deployment constraints are evaluated independently. Visual or mechanical checks are not presented as proof of owner-accepted animation quality, real-world scale, or every browser media behavior." }
+  ]
+}

@@ -3,7 +3,7 @@
   "slug": "notes-from-a-battery-rul-project",
   "category": "Project writeup",
   "publishDate": "2026-01-15T00:00:00.000Z",
-  "excerpt": "In battery remaining-useful-life work, a strong score only matters if the feature story, time structure, and evaluation protocol remain believable under scrutiny.",
+  "excerpt": "A battery remaining-useful-life score needs a chronological split, deployable input features, a baseline, and an evaluation tied to maintenance decisions.",
   "coverImage": "/uploads/supporting/lithium-ion-degradation-map.jpg",
   "featured": true,
   "links": [
@@ -27,14 +27,14 @@
       "eyebrow": "Problem",
       "title": "Why RUL work is easy to flatter accidentally",
       "description": "Battery degradation data can contain strong structure even before the model does anything interesting.",
-      "markdown": "In remaining-useful-life prediction, a very high score can be impressive or misleading, sometimes both. The first question worth asking is not whether the model performed well in a narrow numerical sense, but whether the path to that performance reflects a credible understanding of the problem.\n\nBattery data has unusually strong built-in structure: capacity fades gradually, internal resistance shifts over long horizons, and many derived variables echo the same underlying degradation process. That makes the field attractive for modeling, but it also makes it easy to overstate what a model has learned. If the split leaks later-cycle information backward, if smoothed variables erase the local behavior that matters operationally, or if the features only make sense after offline preprocessing, the result may look excellent while still failing the real deployment question.",
+      "markdown": "A remaining-useful-life score is credible only when the evaluation matches the maintenance decision the model is meant to support.\n\nBattery data has unusually strong built-in structure: capacity fades gradually, internal resistance shifts over long horizons, and many derived variables echo the same degradation process. This structure can inflate performance when a split leaks later-cycle information backward, smoothing erases operationally important behavior, or features depend on unavailable future processing.",
       "layout": "narrow"
     },
     {
       "blockType": "figure",
       "eyebrow": "Degradation frame",
       "title": "A battery score sits on top of several overlapping failure pathways",
-      "description": "Even a compact diagram of lithium-ion degradation is enough to show why simple performance claims deserve inspection. Capacity loss, power loss, and mechanism-level changes interact over time rather than reducing cleanly to one variable.",
+      "description": "The diagram shows how capacity loss, power loss, and mechanism-level changes interact over time and affect a remaining-useful-life estimate.",
       "media": "/uploads/supporting/lithium-ion-degradation-map.jpg",
       "caption": "Degradation-pathway overview from Wikimedia Commons.",
       "layout": "split"
@@ -72,7 +72,7 @@
       "eyebrow": "Approach",
       "title": "Feature honesty is as important as algorithm choice",
       "description": "The less glamorous part of the work is often the more decisive one.",
-      "markdown": "A feature can be predictive and still be misleading. If it encodes future information, smuggles target structure through preprocessing, or only makes sense inside the training slice, then its apparent usefulness does not translate into a trustworthy model.\n\nThe practical work in projects like this is often less glamorous than model selection. It involves checking what each feature really means, how it would be available in deployment, and whether the resulting explanation of performance lines up with the physical system under study. In battery work, that means asking whether the predictor captures a signal a monitoring system could actually observe in time, whether smoothing has hidden the events that carry warning value, and whether the train-test split respects the chronology of degradation rather than merely distributing examples evenly.",
+      "markdown": "A feature can be predictive and still be misleading. If it encodes future information, smuggles target structure through preprocessing, or only makes sense inside the training slice, then its apparent usefulness does not translate into a trustworthy model.\n\nFeature review means checking what each variable represents, when it becomes available, and whether its relationship to performance matches the physical system. In battery work, a predictor should use a signal the monitoring system can observe at prediction time. Smoothing should preserve warning events, and the train-test split should follow the chronology of degradation.",
       "layout": "narrow"
     },
     {
@@ -80,7 +80,7 @@
       "eyebrow": "Conclusion",
       "title": "Trust comes from the audit trail",
       "description": "A less dramatic but defensible result is usually worth more than a score that cannot survive questioning.",
-      "markdown": "The most useful outcome of a strong RUL project is not a headline metric in isolation. It is a result that remains defensible after the data handling, feature design, and evaluation logic have been examined. The score should be explainable in terms of what the signals represent, when they become available, and how the model would be used by someone making maintenance decisions.\n\nThat kind of result usually looks less magical and more credible, which is exactly what good engineering work should produce. If the strongest claim survives a careful audit of chronology, feature provenance, and operational meaning, then the number has earned some trust. If it does not, the right response is not celebration but revision."
+      "markdown": "A useful RUL result remains defensible after reviewers inspect data handling, feature design, and evaluation logic. The score should identify what each signal represents, when it becomes available, and how it informs a maintenance decision.\n\nChronology, feature provenance, and operational meaning determine whether the reported number deserves trust. Any failure in those checks requires another experiment and a narrower claim."
     }
   ]
 }

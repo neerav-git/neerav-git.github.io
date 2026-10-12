@@ -18,6 +18,7 @@ export function SiteChrome({ children, settings }: SiteChromeProps) {
   const navItems = [
     { href: '/', label: navigation.homeLabel || 'Home' },
     { href: '/projects', label: navigation.projectsLabel || 'Work' },
+    { href: '/#ml-ai-studies', label: 'ML & AI Studies' },
     { href: '/writing', label: navigation.writingLabel || 'Writing' },
     { href: '/archive', label: navigation.archiveLabel || 'Archive' },
     { href: '/about', label: navigation.aboutLabel || 'About' },
@@ -56,7 +57,7 @@ export function SiteChrome({ children, settings }: SiteChromeProps) {
         <footer className="site-footer">
           <div>
             <div className="panel-eyebrow">Site</div>
-            <p>{settings?.footerLine || 'Built as a living archive rather than a resume.'}</p>
+            <p>{settings?.footerLine || 'Products, studies, decisions, and verification records.'}</p>
           </div>
 
           <div>

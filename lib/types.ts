@@ -112,8 +112,21 @@ export type HomeContent = {
   heroImage?: Asset | null
   heroLinks?: LinkItem[]
   heroTitle?: string
+  productProjectSlugs?: string[]
+  studyProjectSlugs?: string[]
   modules?: ContentBlock[]
   recommendationsNote?: string
+}
+
+export type PortfolioKeyword = {
+  kind: 'industry' | 'system' | 'evaluation' | 'stack'
+  label: string
+}
+
+export type ProjectMethodology = {
+  boundary?: string
+  evaluation?: string
+  standards?: string[]
 }
 
 export type ProjectRecord = {
@@ -124,6 +137,15 @@ export type ProjectRecord = {
   displayOrder?: number
   featured?: boolean
   gallery?: Asset[]
+  landingDeck?: string
+  landingHighlights?: string[]
+  methodology?: ProjectMethodology
+  primaryCategory?: 'product-system' | 'ml-ai-study'
+  portfolioKeywords?: PortfolioKeyword[]
+  secondaryCategories?: Array<
+    'research-system' | 'evaluation' | 'voice-ai' | 'healthcare' | 'multiplayer' | 'machine-learning'
+  >
+  thumbnailImage?: Asset | null
   github?: {
     branch?: string
     importedReadmeMarkdown?: string

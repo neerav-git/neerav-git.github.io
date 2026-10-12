@@ -169,6 +169,16 @@ export async function getHomePageData() {
       home.featuredProjectSlugs,
       projects.filter((project) => project.featured).slice(0, 3),
     ),
+    productProjects: pickBySlugOrder(
+      projects,
+      home.productProjectSlugs,
+      projects.filter((project) => project.primaryCategory === 'product-system'),
+    ),
+    studyProjects: pickBySlugOrder(
+      projects,
+      home.studyProjectSlugs,
+      projects.filter((project) => project.primaryCategory === 'ml-ai-study'),
+    ),
     home,
     projects,
     settings,

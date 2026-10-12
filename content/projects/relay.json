@@ -1,0 +1,151 @@
+{
+  "title": "Relay",
+  "slug": "relay",
+  "cardEyebrow": "Voice-first employee services",
+  "dateLabel": "Built and evaluated · 2026",
+  "status": "evaluated-candidate",
+  "primaryCategory": "product-system",
+  "secondaryCategories": ["voice-ai", "evaluation"],
+  "summary": "A voice-first People Operations portal that connects employee questions to grounded records, controlled actions, and verified workflow results.",
+  "landingDeck": "Relay combines voice and text assistance with seven employee workflows across onboarding, tasks, learning, documents, equipment, payroll, benefits, and support.",
+  "landingHighlights": [
+    "Uses structured function calling to retrieve authenticated records and prepare employee actions.",
+    "Applies role-based access, employee confirmation, idempotency, and append-only audit logs to consequential workflows.",
+    "Evaluates task success, voice usefulness, tool accuracy, safety, groundedness, latency, interruption handling, and recovery."
+  ],
+  "portfolioKeywords": [
+    { "kind": "industry", "label": "People Operations" },
+    { "kind": "system", "label": "Voice AI" },
+    { "kind": "system", "label": "Agentic Workflows" },
+    { "kind": "evaluation", "label": "E2E Evaluation" },
+    { "kind": "stack", "label": "Deepgram" },
+    { "kind": "stack", "label": "TypeScript" }
+  ],
+  "problem": "Employee-service portals make people translate a human question into the right system, record, owner, form, and next action before they can get help.",
+  "approach": "Relay combines a familiar employee workspace with a Deepgram-powered conversational guide. Typed records, semantic navigation, a small capability registry, explicit confirmation, idempotency, verification, and evidence logs keep conversation tied to visible product state.",
+  "output": "A working React and Fastify product with text and voice interaction, five registered employee-owned workflows, current Relay-branded proof media, and a dedicated evaluation page built from retained run evidence.",
+  "methodology": {
+    "evaluation": "Versioned text, held-out paraphrase, voice, tool-call, safety, groundedness, latency, interruption, and recovery suites retain run counts and denominators.",
+    "boundary": "The employee data and enterprise integrations are simulated. Evaluation establishes prototype behavior, not production deployment or employer-system connectivity.",
+    "standards": [
+      "OWASP LLM Top 10",
+      "Role-based access",
+      "Idempotent writes",
+      "Postcondition checks"
+    ]
+  },
+  "role": "I designed and built the product experience, workflow architecture, evaluation system, and test-driven iteration process.",
+  "featured": true,
+  "displayOrder": 0,
+  "coverImage": {
+    "url": "/uploads/relay/workspace-and-guide.png",
+    "alt": "Relay employee workspace with Relay Guide open beside Maya Patel's onboarding records"
+  },
+  "thumbnailImage": {
+    "url": "/uploads/relay/workspace-and-guide.png",
+    "alt": "Relay employee workspace and conversational guide"
+  },
+  "technologies": [
+    { "value": "React 19" },
+    { "value": "TypeScript" },
+    { "value": "Fastify" },
+    { "value": "Deepgram Voice Agent" },
+    { "value": "Playwright" },
+    { "value": "Vitest" }
+  ],
+  "links": [],
+  "gallery": [
+    { "url": "/uploads/relay/grounded-answer.png", "alt": "Relay answers what is next using Maya's current withholding records" },
+    { "url": "/uploads/relay/action-prepared.png", "alt": "Relay prepares a VPN support request with confirmation controls" },
+    { "url": "/uploads/relay/action-confirmed.png", "alt": "Relay shows the confirmed IT Support case and its stable case id" }
+  ],
+  "pageSections": [
+    {
+      "blockType": "sectionLead",
+      "eyebrow": "Core workflow",
+      "title": "Conversation becomes useful when it changes what the employee can see and do",
+      "description": "Relay starts with a familiar employee workspace, then adds a conversational layer that can explain the current state, open the exact object, prepare an action, wait for confirmation, and verify the result.",
+      "context": "Northstar Analytics is the fictional employer and all records are synthetic. Relay is the product and assistant brand."
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Read and navigate",
+      "title": "A grounded answer names the record, owner, deadline, and action",
+      "description": "When Maya asks what is next, Relay reads her current employee-scoped records and cites the relevant task details.",
+      "media": { "url": "/uploads/relay/grounded-answer.png", "alt": "Relay Guide gives a grounded answer about withholding forms with status, owner, deadline, and next action" },
+      "caption": "Relay identifies the Federal and California withholding forms, their Not started state, Maya's responsibility, today's deadline, and the next employee action.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "timeline",
+      "eyebrow": "Conversation-to-action lifecycle",
+      "title": "The model proposes; the application controls the action",
+      "description": "Read and navigation requests can complete directly. State-changing requests move through a separate review and verification path.",
+      "items": [
+        { "label": "01", "title": "Discover", "body": "Resolve the signed-in employee and read current scoped records." },
+        { "label": "02", "title": "Ground", "body": "Connect the request to a typed record, route, responsible party, and safe next step." },
+        { "label": "03", "title": "Prepare", "body": "Inspect the registered capability and render the proposed action in the workspace." },
+        { "label": "04", "title": "Confirm", "body": "Wait for the employee to inspect and explicitly confirm the visible proposal." },
+        { "label": "05", "title": "Execute and verify", "body": "Run with an idempotency key, re-read state, and only report success when the result is present." }
+      ]
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Confirmation-gated workflow",
+      "title": "A VPN issue becomes a reviewable IT Support request",
+      "description": "Relay routes the issue, preserves the employee's details, and presents the proposed write before anything changes.",
+      "media": { "url": "/uploads/relay/action-prepared.png", "alt": "Relay prepares an IT Support request for a VPN problem and waits for confirmation" },
+      "caption": "The employee can inspect the destination, summary, and details, then confirm or cancel the action.",
+      "layout": "split"
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Visible result",
+      "title": "The completed action returns to the workspace as a verified record",
+      "description": "After confirmation, Relay re-reads the case collection and shows the stable case id, responsible team, and current status.",
+      "media": { "url": "/uploads/relay/action-confirmed.png", "alt": "Relay confirms the newly created VPN case with stable id and IT Support ownership" },
+      "caption": "The new case appears in Help & Support with the same stable id shown in Relay's response.",
+      "layout": "split"
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Current evaluation",
+      "title": "The evaluation page shows how product quality was measured",
+      "items": [
+        { "value": "93.6%", "label": "Task success after the fix pass", "context": "103/110 conversations fully correct; up from 70.3% (26/37)." },
+        { "value": "92.9%", "label": "Held-out generalization", "context": "39/42 reworded requests not used during development." },
+        { "value": "31/34", "label": "Useful spoken answers", "context": "Owner-recorded voice requests; 24 were fully right." },
+        { "value": "24/24", "label": "Spoken end-to-end turns", "context": "Every checked turn passed through the real voice path across all seven workflows." },
+        { "value": "87%", "label": "Answer quality", "context": "87/100 replies were helpful on all four reviewed criteria." },
+        { "value": "186/187", "label": "Correct record reached", "context": "99.5% eventual tool-call record accuracy." },
+        { "value": "0", "label": "Unsafe actions", "context": "Across 21 OWASP LLM Top 10 red-team runs." },
+        { "value": "1,035/1,035", "label": "Facts supported", "context": "Dates, times, names, ids, and amounts checked against tool results." }
+      ]
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Evaluation surface",
+      "title": "One page connects task success, voice, tools, safety, groundedness, latency, and fixes",
+      "description": "The in-product Agent evaluation route reads from the retained evaluation snapshot and preserves numerators, intervals, workflow breakdowns, and the product changes the evidence drove.",
+      "media": { "url": "/uploads/relay/evaluation-dashboard.png", "alt": "Relay Agent evaluation page with task success, voice, tool-call, safety, and groundedness measures" },
+      "caption": "Current evaluation snapshot: 252 live conversations, 764 agent turns, 1,271 tool calls, 57 recorded voice sessions, and 1,035 facts checked.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "System boundaries",
+      "title": "Conversation, policy, and state stay separate",
+      "items": [
+        { "label": "Conversation", "title": "Deepgram handles the realtime turn", "body": "Nova-3 speech recognition, agent reasoning and function selection, and Flux speech synthesis provide the voice interaction layer." },
+        { "label": "Application", "title": "Relay owns identity and capability policy", "body": "The server resolves employee scope, validates semantic targets, inspects capabilities, and rejects client-supplied authority." },
+        { "label": "Evidence", "title": "Final state, not fluent text, decides success", "body": "The evaluator checks the page, focused record, confirmation card, calendar, and server records for every workflow turn." }
+      ]
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Implementation boundary",
+      "title": "What is connected today",
+      "markdown": "Relay's portal, typed records, navigation, confirmation-gated capabilities, in-session workflow state, evaluation runs, and Deepgram conversation layer are implemented. The employer and employee records are fictional. Calendar behavior is a Relay demo surface, and the project does not claim live SAP, Oracle, Outlook, Google Calendar, payroll, or case-management integration."
+    }
+  ]
+}

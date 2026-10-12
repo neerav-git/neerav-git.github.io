@@ -132,6 +132,26 @@ collections:
             multiple: true
             required: false
             hint: "Ordered list of project entries shown on the homepage."
+          - label: Products and Systems Order
+            name: productProjectSlugs
+            widget: relation
+            collection: projects
+            search_fields: [title, slug]
+            display_fields: [title, slug]
+            value_field: slug
+            multiple: true
+            required: false
+            hint: "Ordered product rail and dossier list for the primary homepage desk."
+          - label: ML and AI Studies Order
+            name: studyProjectSlugs
+            widget: relation
+            collection: projects
+            search_fields: [title, slug]
+            display_fields: [title, slug]
+            value_field: slug
+            multiple: true
+            required: false
+            hint: "Ordered study desk. Refract may appear here as a bridge to its canonical product page."
           - { label: Featured Writing Heading, name: featuredWritingHeading, widget: string, required: false, hint: "Section heading above the homepage writing list." }
           - label: Featured Writing Entries
             name: featuredArticleSlugs
@@ -247,14 +267,62 @@ collections:
       - { label: Slug, name: slug, widget: string, hint: "Used in the project URL." }
       - { label: Card Eyebrow, name: cardEyebrow, widget: string, required: false, hint: "Small label shown above the project title on cards and headers." }
       - { label: Date Label, name: dateLabel, widget: string, required: false, hint: "Short date or status label shown with the project." }
+      - label: Primary Category
+        name: primaryCategory
+        widget: select
+        required: false
+        options:
+          - { label: Product System, value: product-system }
+          - { label: ML and AI Study, value: ml-ai-study }
+      - label: Secondary Categories
+        name: secondaryCategories
+        widget: select
+        multiple: true
+        required: false
+        options: [research-system, evaluation, voice-ai, healthcare, multiplayer, machine-learning]
       - { label: Summary, name: summary, widget: text, hint: "Used on both the project card and the detail page header." }
+      - { label: Landing Deck, name: landingDeck, widget: text, required: false, hint: "One product-first sentence used in the homepage rail and dossier." }
+      - label: Landing Highlights
+        name: landingHighlights
+        widget: list
+        required: false
+        field: { label: Highlight, name: value, widget: string }
+      - label: Portfolio Keywords
+        name: portfolioKeywords
+        widget: list
+        required: false
+        max: 6
+        hint: "Up to six concise recruiter-facing signals shown below homepage thumbnails."
+        fields:
+          - label: Kind
+            name: kind
+            widget: select
+            options:
+              - { label: Industry, value: industry }
+              - { label: System, value: system }
+              - { label: Evaluation, value: evaluation }
+              - { label: Stack, value: stack }
+          - { label: Keyword, name: label, widget: string }
       - { label: Problem, name: problem, widget: text, required: false, hint: "Concrete problem shown in project cards and detail headers." }
       - { label: Approach, name: approach, widget: text, required: false, hint: "Concrete approach shown in project cards and detail headers." }
       - { label: Output, name: output, widget: text, required: false, hint: "Concrete artifact or result shown in project cards and detail headers." }
+      - label: Methodology
+        name: methodology
+        widget: object
+        required: false
+        fields:
+          - { label: Validation, name: evaluation, widget: text, required: false, hint: "How performance, quality, or behavior was tested." }
+          - { label: Current Limit, name: boundary, widget: text, required: false, hint: "What the current evidence does not establish." }
+          - label: Standards and Controls
+            name: standards
+            widget: list
+            required: false
+            field: { label: Standard or Control, name: value, widget: string }
       - { label: Role, name: role, widget: string, required: false, hint: "Optional role line shown near the top of the detail page." }
       - { label: Featured, name: featured, widget: boolean, required: false, default: false, hint: "Fallback flag for homepage featuring if no explicit home selection is set." }
       - { label: Display Order, name: displayOrder, widget: number, required: false, value_type: int, hint: "Controls ordering on the projects index page." }
       - { label: Cover Image, name: coverImage, widget: image, required: false, hint: "Large image shown on the project detail page." }
+      - { label: Thumbnail Image, name: thumbnailImage, widget: image, required: false, hint: "Optional crop used by the homepage product rail." }
       - label: Gallery
         name: gallery
         widget: list

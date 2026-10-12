@@ -24,7 +24,7 @@
       "eyebrow": "Record",
       "title": "A technical view of the application boundaries",
       "description": "This diagram exists to make the system legible at the service and storage level. It shows how application state, uploaded documents, retrieval, and analysis outputs are separated without breaking the continuity of the session model.",
-      "context": "The preview image is enough for visual reference, so the accompanying text stays focused on interpretation rather than repeating the diagram."
+      "context": "The preview provides the visual reference; the accompanying text explains how state moves between the shown components."
     },
     {
       "blockType": "insightGrid",
@@ -50,16 +50,16 @@
         {
           "label": "Interpretation",
           "title": "What keeps the parts from drifting apart?",
-          "body": "The shared research session is the seam that allows these layers to stay coordinated instead of becoming separate tools."
+          "body": "The shared research session coordinates document, evidence, comparison, and analysis state across these layers."
         }
       ]
     },
     {
       "blockType": "callout",
       "eyebrow": "Interpretation",
-      "title": "The important seam is the shared research state",
+      "title": "Shared research state coordinates the system",
       "description": "The diagram can look broader than the implemented product if it is read too aspirationally.",
-      "markdown": "A diagram can make a system look more complicated than it is, or it can reveal what actually matters. In this case, the most important seam is not simply that the app has a frontend and a backend. It is that the research state must remain coherent across document operations, evidence capture, comparison logic, and later statistical work. That is the requirement the architecture has to satisfy.\n\nAt the same time, an architecture view should not be mistaken for proof of maturity. It explains design intent and system boundaries, but it does not replace the need to inspect how fully those intentions have been realized in the working product."
+      "markdown": "The architecture must keep research state coherent across document operations, evidence capture, comparison logic, and statistical work. The shared session supplies that state to the frontend, backend services, storage, and retrieval layers.\n\nThe diagram explains design intent and system boundaries. Working product screens and evaluation records provide separate evidence for implementation maturity."
     }
   ]
 }

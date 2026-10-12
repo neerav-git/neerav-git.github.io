@@ -45,7 +45,7 @@
         {
           "label": "02",
           "title": "Image inspection and preprocessing",
-          "body": "Representative MRI slices, resizing decisions, and augmentation logic remain visible rather than being abstracted away."
+          "body": "The notebook shows representative MRI slices, resizing decisions, and augmentation logic."
         },
         {
           "label": "03",
@@ -55,7 +55,7 @@
         {
           "label": "04",
           "title": "Evaluation and comparison",
-          "body": "Later ensemble and comparison work can be read as an extension of the earlier pipeline rather than as a detached result."
+          "body": "Later ensemble and comparison work uses the preprocessing and baseline pipeline recorded earlier."
         }
       ]
     },
