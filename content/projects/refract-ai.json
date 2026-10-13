@@ -1,210 +1,163 @@
 {
   "title": "Refract",
   "slug": "refract-ai",
-  "cardEyebrow": "Research Platform",
-  "dateLabel": "Ongoing",
+  "cardEyebrow": "Research and learning platform",
+  "dateLabel": "Active build · 2026",
   "status": "ongoing",
   "primaryCategory": "product-system",
   "secondaryCategories": ["research-system", "evaluation"],
-  "landingDeck": "A research and predictive-maintenance platform connecting RAG literature synthesis, interactive paper learning, battery analysis, and model validation.",
+  "summary": "A source-grounded workspace for reading papers, practicing recall, comparing evidence, and running literature-linked statistical analyses.",
+  "landingDeck": "Refract connects five implemented workspaces—Reader, Index, Compare, Review, and Stats—through a shared session containing sources, saved passages, review attempts, datasets, and analysis runs.",
   "landingHighlights": [
-    "Moves battery data through quality checks, leakage screening, regression, Random Forest comparison, and visualization in one workflow.",
-    "Connects model outputs to evidence synthesized across 10+ technical papers per research session.",
-    "Uses a voice research coach to compare a learner's spoken explanation with the source paper and return accuracy-focused feedback."
+    "Keeps PDF passages, saved evidence, questions, and cross-paper comparisons linked to their source documents.",
+    "Grades free recall on core claim, supporting detail, and faithfulness, then schedules later review with FSRS state.",
+    "Profiles uploaded data, checks leakage, compares mean, linear, and Random Forest baselines, and stores MAE, RMSE, and R² with each run."
   ],
   "portfolioKeywords": [
-    { "kind": "industry", "label": "Energy R&D" },
+    { "kind": "industry", "label": "Research Software" },
     { "kind": "system", "label": "RAG" },
-    { "kind": "system", "label": "Voice Learning" },
-    { "kind": "evaluation", "label": "RMSE Validation" },
-    { "kind": "stack", "label": "Python" },
+    { "kind": "system", "label": "Active Recall" },
+    { "kind": "evaluation", "label": "Model Validation" },
+    { "kind": "stack", "label": "React + Vite" },
     { "kind": "stack", "label": "FastAPI" }
   ],
-  "summary": "A research platform for source-grounded paper analysis, interactive comprehension checks, battery data analysis, and predictive-maintenance validation.",
-  "problem": "Research work often breaks across PDFs, notes, comparison tables, datasets, and analysis notebooks. Once those pieces separate, conclusions become difficult to trace back to source material.",
-  "approach": "Refract treats the session as the main object. Papers, saved passages, comparison outputs, uploaded files, and analysis runs all belong to the same record.",
-  "output": "A Next.js and FastAPI application with reader, compare, and statistics surfaces backed by persistent project/session state.",
+  "problem": "Research decisions lose traceability when PDFs, excerpts, review notes, dataset assumptions, and model results live in separate tools.",
+  "approach": "Refract uses a shared session ID to connect papers, passage-level evidence, comparison prompts, recall attempts, uploaded datasets, and statistical runs across five focused workspaces.",
+  "output": "A React/Vite frontend and FastAPI backend with PostgreSQL records, ChromaDB retrieval, object storage, passage-grounded chat, structured recall grading, FSRS scheduling, and a battery remaining-useful-life analysis workflow.",
   "methodology": {
-    "evaluation": "Data-quality checks and leakage screening precede baseline regression and Random Forest comparison; RMSE and literature-linked interpretation are retained with each analysis run.",
-    "boundary": "Refract is an active research platform. Current results demonstrate the workflow and recorded analyses, not a production predictive-maintenance service.",
+    "evaluation": "Review attempts retain the prompt, response, confidence, rubric scores, feedback, and source reveal mode. Statistical runs retain profiles, leakage checks, baselines, model metrics, and literature alignment notes.",
+    "boundary": "The repository implements the research workflow and evaluation records. A planned retention study and production predictive-maintenance deployment have not been completed.",
     "standards": [
-      "Train-test separation",
+      "Passage-level citation",
+      "Structured recall rubric",
+      "FSRS scheduling",
       "Leakage screening",
-      "RMSE comparison",
-      "Source attribution"
+      "Baseline comparison"
     ]
   },
-  "role": "I designed and built the session model, reader flow, evidence storage, comparison surfaces, and analysis structure.",
+  "role": "I designed and built the session model, document reader, evidence index, comparison workflow, active-recall review pipeline, and statistical analysis surfaces.",
   "featured": true,
   "displayOrder": 1,
-  "coverImage": "/uploads/refract/reader-workspace.png",
+  "coverImage": {
+    "url": "/uploads/refract/reader-workspace.png",
+    "alt": "Refract Reader with a battery research paper, highlighted passage, and source-grounded question generation"
+  },
   "thumbnailImage": {
     "url": "/uploads/refract/reader-workspace.png",
-    "alt": "Refract Reader showing a research paper, source-linked response, and saved evidence"
+    "alt": "Refract learning interaction with an open paper and passage-grounded assistant"
   },
   "technologies": [
-    { "value": "Next.js" },
+    { "value": "React" },
+    { "value": "Vite" },
     { "value": "FastAPI" },
     { "value": "PostgreSQL" },
-    { "value": "Python" },
     { "value": "ChromaDB" },
-    { "value": "LLM systems" }
+    { "value": "Python" }
   ],
   "links": [
     {
       "label": "Repository",
       "url": "https://github.com/neerav-git/Refract",
-      "description": "Primary codebase and implementation details."
+      "description": "Public codebase for the Reader, Index, Compare, Review, and Stats workspaces."
     },
     {
-      "label": "Research workspace article",
+      "label": "System design article",
       "url": "/writing/designing-a-session-centered-research-workspace/",
-      "description": "A longer explanation of the session-centered design model."
+      "description": "How session state connects the five implemented workspaces."
     }
   ],
   "attachments": [],
   "gallery": [
-    { "url": "/uploads/refract/workflow-overview.png" },
-    { "url": "/uploads/refract/compare-workspace.png" },
-    { "url": "/uploads/refract/stats-workspace.png" },
-    { "url": "/uploads/refract/system-architecture.png" }
+    { "url": "/uploads/refract/reader-workspace.png", "alt": "Reader with paper and grounded assistant" },
+    { "url": "/uploads/refract/compare-workspace.png", "alt": "Compare workspace for structured synthesis across selected papers" },
+    { "url": "/uploads/refract/stats-workspace.png", "alt": "Stats workspace with battery analysis outputs" },
+    { "url": "/uploads/refract/system-architecture.png", "alt": "Refract service architecture" }
   ],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Core workflow",
-      "title": "A research workspace for keeping evidence and analysis together",
-      "description": "Refract starts from a practical observation: research work becomes fragile when papers, notes, comparison tables, datasets, and model outputs are scattered across separate tools.",
-      "context": "The session is the central record. It stores the research goal, source material, saved evidence, comparisons, uploaded datasets, and statistical runs."
-    },
-    {
-      "blockType": "proseSection",
-      "eyebrow": "Why it exists",
-      "title": "Research tools lose the links between evidence and conclusions",
-      "description": "Reading, comparison, and analysis often happen in separate tools, which makes later conclusions difficult to trace.",
-      "markdown": "Research workflows often split reading, note-taking, comparison, and data analysis across different tools. A later conclusion can become difficult to check against the original passage, dataset, or assumption.\n\nRefract makes the research session the primary object. A session stores the research goal, papers, saved evidence, comparison outputs, uploaded datasets, and statistical runs. That shared record preserves the steps needed for later review.",
-      "layout": "narrow"
-    },
-    {
-      "blockType": "figure",
-      "eyebrow": "Workflow",
-      "title": "The session connects the literature and analysis tracks",
-      "description": "The workflow diagram connects two tracks: literature ingestion, reading, and comparison; then dataset upload, profiling, audit, and modeling. Both write to the same session record, so generated interpretations retain their sources and analysis inputs.",
-      "media": "/uploads/refract/workflow-overview.png",
-      "caption": "Workflow overview from the Refract repository README.",
-      "layout": "wide"
-    },
-    {
-      "blockType": "insightGrid",
-      "eyebrow": "Core surfaces",
-      "title": "The product is organized around explicit research moves",
-      "description": "Each major surface exists to preserve one kind of work without detaching it from the surrounding session.",
-      "items": [
-        {
-          "label": "Reader",
-          "title": "Document-grounded reading",
-          "body": "Papers, highlights, notes, and source-linked responses remain attached to the document and its passages."
-        },
-        {
-          "label": "Compare",
-          "title": "Structured synthesis",
-          "body": "Cross-paper analysis stays attached to the active research question, which makes agreement, contrast, and gaps easier to evaluate."
-        },
-        {
-          "label": "Stats",
-          "title": "Session-scoped analysis",
-          "body": "Dataset profiling, audit checks, modeling, and interpretation remain linked to the literature that motivated the analysis."
-        },
-        {
-          "label": "State model",
-          "title": "Persistent provenance",
-          "body": "The application stores papers, evidence, files, and analysis runs in a way that makes later conclusions traceable."
-        }
-      ]
-    },
-    {
-      "blockType": "proseSection",
-      "eyebrow": "System design",
-      "title": "The data model carries the research context forward",
-      "description": "Generated outputs remain attached to their source material, settings, and session state.",
-      "markdown": "Refract stores the context created as the work evolves. A saved passage, generated comparison, or dataset profile remains attached to the session that produced it, so a later conclusion can be checked against its evidence and settings.\n\nThe frontend provides separate reader, comparison, and statistics surfaces. The backend relates papers, extracted evidence, uploaded files, and analysis runs through the session model. Provenance connects a later conclusion to the reading, comparison, and model evaluation steps that produced it.",
-      "layout": "narrow"
+      "eyebrow": "Product workflow",
+      "title": "Read, recall, compare, and analyze inside one research session",
+      "description": "Every saved passage, review attempt, comparison, dataset profile, and model result carries the session and source identifiers needed to trace it.",
+      "context": "The product currently implements Reader, Index, Compare, Review, and Stats as separate interfaces over shared research state."
     },
     {
       "blockType": "figure",
       "eyebrow": "Reader",
-      "title": "Document work remains tied to passages and sources",
-      "description": "The reader keeps PDFs, highlights, saved notes, and source-linked responses beside the active document and passage.",
+      "title": "Ask a question beside the exact passage that should answer it",
+      "description": "The Reader displays the PDF, lets the user select text, and sends the selected passage and document identity into grounded chat or question generation.",
       "media": "/uploads/refract/reader-workspace.png",
-      "caption": "Reader workspace captured from the live repository README.",
-      "layout": "split"
+      "caption": "Implemented Reader interaction: a battery paper remains visible while the assistant generates diagnostic questions from the selected material.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Implemented workspaces",
+      "title": "Five interfaces handle five distinct research tasks",
+      "items": [
+        { "label": "Reader", "title": "Read and question a paper", "body": "Open a PDF, select a passage, ask a grounded question, transcribe microphone input, and save evidence." },
+        { "label": "Index", "title": "Find saved evidence", "body": "Browse passages and notes retained from the active session with their document references." },
+        { "label": "Compare", "title": "Synthesize selected sources", "body": "Run a research question across a bounded paper set and retain source coverage with the comparison." },
+        { "label": "Review", "title": "Practice retrieval", "body": "Answer from memory, rate confidence before grading, receive a three-part score, reveal the source, and schedule the next review." },
+        { "label": "Stats", "title": "Audit and model data", "body": "Profile a dataset, identify leakage risks, compare baselines, and store metrics and visualizations with the analysis run." }
+      ]
+    },
+    {
+      "blockType": "timeline",
+      "eyebrow": "Active-recall loop",
+      "title": "A review attempt records memory, confidence, evidence, and scheduling state",
+      "items": [
+        { "label": "01", "title": "Prompt from source material", "body": "Create a recall item from a saved passage or research concept." },
+        { "label": "02", "title": "Answer before source reveal", "body": "Capture the learner's free-recall response and confidence rating." },
+        { "label": "03", "title": "Grade three dimensions", "body": "Score the core claim, supporting detail, and faithfulness to the source through structured output." },
+        { "label": "04", "title": "Show evidence and feedback", "body": "Reveal the passage according to the selected mode and identify rubric hits, omissions, and corrections." },
+        { "label": "05", "title": "Schedule the next attempt", "body": "Update FSRS review state and retain the complete attempt for later analysis or human grading." }
+      ]
     },
     {
       "blockType": "figure",
       "eyebrow": "Compare",
-      "title": "Cross-paper synthesis stays tied to the active research question",
-      "description": "The comparison view keeps the research goal visible and organizes agreement, contrast, and coverage across the selected sources.",
+      "title": "The selected question and paper set define the synthesis scope",
+      "description": "Compare organizes agreements, disagreements, and coverage across chosen sources, then saves the result to the active session.",
       "media": "/uploads/refract/compare-workspace.png",
-      "caption": "Comparison workspace from the repository README.",
+      "caption": "Cross-paper comparison interface from the public repository.",
       "layout": "split"
-    },
-    {
-      "blockType": "callout",
-      "eyebrow": "Interpretation",
-      "title": "The session stores the full research record",
-      "description": "A research session stores the goal, sources, saved evidence, comparisons, and statistical results.",
-      "markdown": "A research session holds the goal of the work, the relevant papers, extracted evidence, comparisons, and statistical results. This shared state gives later interpretation a complete record of the material and analysis used to reach it."
     },
     {
       "blockType": "figure",
       "eyebrow": "Stats",
-      "title": "Statistical interpretation is presented with its surrounding evidence",
-      "description": "The statistical workspace profiles data, audits quality, compares models, and keeps each result linked to the supporting literature.",
+      "title": "Battery analysis begins with data quality and leakage checks",
+      "description": "The Stats workflow profiles variables, audits predictor timing, creates a mean baseline, then compares Linear Regression and Random Forest with MAE, RMSE, and R².",
       "media": "/uploads/refract/stats-workspace.png",
-      "caption": "Stats workspace from the repository README.",
+      "caption": "Battery remaining-useful-life workspace with analysis outputs linked to the active research session.",
       "layout": "wide"
     },
     {
-      "blockType": "timeline",
-      "eyebrow": "Research loop",
-      "title": "How work moves through the system",
-      "description": "Each stage receives the research goal, source set, saved evidence, and prior outputs from the shared session.",
+      "blockType": "insightGrid",
+      "eyebrow": "Evaluation records",
+      "title": "Each result stores the information needed for later review",
       "items": [
-        {
-          "label": "01",
-          "title": "Define the goal and source set",
-          "body": "Record the research goal, selected sources, and initial assumptions before analysis begins."
-        },
-        {
-          "label": "02",
-          "title": "Read at passage level",
-          "body": "Highlights, notes, and saved evidence remain attached to the document and source passage."
-        },
-        {
-          "label": "03",
-          "title": "Synthesize across sources",
-          "body": "Comparison inherits the active question and source set, which makes the resulting analysis easier to inspect."
-        },
-        {
-          "label": "04",
-          "title": "Run analysis with its source context",
-          "body": "Datasets, profiles, audits, and model comparisons retain the literature and assumptions that motivated them."
-        },
-        {
-          "label": "05",
-          "title": "Keep interpretation traceable",
-          "body": "Later conclusions can be checked against the evidence, files, and analytical steps that produced them."
-        }
+        { "label": "Retrieval", "title": "Source and passage IDs", "body": "Grounded answers and saved evidence retain the paper and passage used." },
+        { "label": "Recall", "title": "Rubric and confidence", "body": "Review logs include the learner answer, confidence, dimension scores, feedback, model, prompt, and source reveal mode." },
+        { "label": "Human review", "title": "Export for agreement checks", "body": "A grading export supports human scoring and inter-rater reliability sampling." },
+        { "label": "Statistics", "title": "Inputs, settings, and metrics", "body": "Analysis records include dataset identity, predictor choices, audit notes, models, and evaluation measures." }
       ]
     },
     {
       "blockType": "figure",
       "eyebrow": "Architecture",
-      "title": "The technical structure mirrors the workflow structure",
-      "description": "The repository separates interface, services, storage, and retrieval layers. The research session coordinates them and carries source material, evidence, and analysis state into each step.",
+      "title": "A shared session joins the interface, retrieval, records, and files",
+      "description": "React/Vite provides the five workspaces; FastAPI coordinates PostgreSQL records, ChromaDB retrieval, and stored PDFs and datasets.",
       "media": "/uploads/refract/system-architecture.png",
-      "caption": "System architecture diagram from the Refract repository README.",
+      "caption": "Repository architecture diagram for the React/Vite client, FastAPI services, PostgreSQL records, ChromaDB retrieval, and file storage.",
       "layout": "wide"
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Current boundary",
+      "title": "Implemented instrumentation precedes outcome claims",
+      "description": "The product records learning and analysis behavior; it has not completed the planned retention study or a production maintenance deployment.",
+      "markdown": "The repository includes active-recall grading, FSRS state, human-grade export, statistical baselines, and run-level provenance. Claims about improved long-term retention or deployed predictive-maintenance performance require future studies beyond the current implementation."
     }
   ],
   "github": {
@@ -213,14 +166,14 @@
     "repo": "Refract",
     "repoName": "Refract",
     "repoUrl": "https://github.com/neerav-git/Refract",
-    "sourceDescription": "Repository-backed source material for the Refract project page.",
+    "sourceDescription": "Public source for Refract's frontend, backend, research model, and evaluation pipeline.",
     "sourceReadmePath": "README.md",
-    "importedReadmeMarkdown": "README content can be refreshed automatically during builds. This copy is intentionally retained as a repository-sourced appendix beneath the curated project narrative.",
+    "importedReadmeMarkdown": "",
     "repoTopics": [
       { "value": "research-tools" },
       { "value": "llm" },
       { "value": "statistics" },
-      { "value": "provenance" }
+      { "value": "active-recall" }
     ]
   }
 }

@@ -1,209 +1,152 @@
 {
-  "title": "Alzheimer’s Disease MRI Research",
+  "title": "Four-Class Alzheimer MRI Classification",
   "slug": "alzheimers-disease-research",
-  "cardEyebrow": "Medical Imaging Research",
-  "dateLabel": "Notebook-based study",
-  "status": "published-work",
+  "cardEyebrow": "Medical-imaging notebook",
+  "dateLabel": "Repository study",
+  "status": "research-prototype",
   "primaryCategory": "ml-ai-study",
   "secondaryCategories": ["healthcare", "machine-learning"],
-  "summary": "A medical-imaging study using Python, OpenCV, and CNN ensembles to classify dementia severity and quantify brain atrophy from MRI scans.",
-  "landingDeck": "A four-class MRI study that improved dementia-severity classification from 78% to 85% through CNN ensemble comparison and error analysis.",
+  "summary": "A four-class TensorFlow MRI study that raised classification accuracy from 78% to 85% through CNN ensemble comparison and error analysis.",
+  "landingDeck": "A linked-notebook classification study covering 6,400 MRI files, 256×256 preprocessing, an 80/10/10 split, CNN training, error analysis, and ensemble gains from 78% to 85% accuracy.",
   "landingHighlights": [
-    "Inspects representative MRI slices before preprocessing and training.",
-    "Trains a CNN across four disease-stage labels with the data split recorded in the notebook.",
-    "Compares CNN ensembles and model errors, improving measured classification accuracy from 78% to 85%."
+    "Loads four folder-defined classes: NonDemented, VeryMildDemented, MildDemented, and ModerateDemented.",
+    "Builds a TensorFlow/Keras image pipeline with resizing, rescaling, augmentation, and train/validation/test partitions.",
+    "Reports a seven-point accuracy gain, from a 78% single-model baseline to an 85% ensemble result, in the linked companion notebook."
   ],
   "portfolioKeywords": [
-    { "kind": "industry", "label": "HealthTech" },
+    { "kind": "industry", "label": "Medical Imaging" },
     { "kind": "system", "label": "Computer Vision" },
     { "kind": "system", "label": "CNN Ensembles" },
-    { "kind": "evaluation", "label": "85% Accuracy" },
+    { "kind": "evaluation", "label": "78% → 85% Accuracy" },
     { "kind": "stack", "label": "TensorFlow" },
-    { "kind": "stack", "label": "Python + OpenCV" }
+    { "kind": "stack", "label": "Python + Keras" }
   ],
-  "problem": "Medical imaging experiments can become difficult to judge when the final score is separated from the images, preprocessing choices, label structure, and evaluation path.",
-  "approach": "The notebook keeps the study sequence visible: MRI inspection, image resizing, augmentation, four-class labeling, CNN training, and ensemble-oriented comparison.",
-  "output": "A repository-backed Colab notebook and supporting image outputs that record the experiment as a reproducible sequence. It is a research study, not a clinical system.",
+  "problem": "The experiment tests whether convolutional models can distinguish four dementia-stage folders from MRI images while keeping the image pipeline and model variants inspectable in one notebook.",
+  "approach": "The Colab notebook loads 6,400 image files, resizes them to 256×256, creates an 80/10/10 split, applies augmentation, trains convolutional networks, and averages prediction probabilities across model variants.",
+  "output": "A linked set of Colab experiments covering dataset loading, sample inspection, preprocessing, CNN training, error analysis, and two- and three-model ensemble comparison.",
   "methodology": {
-    "evaluation": "Four-class CNN baseline and ensemble models use an 80/10/10 split and are compared with held-out classification accuracy and recorded error analysis.",
-    "boundary": "The study is an educational research experiment. It does not establish clinical validity, diagnostic performance, or readiness for patient care.",
+    "evaluation": "The companion experiment record reports 78% baseline accuracy and 85% ensemble accuracy on the study's held-out split. The current public notebook retains the pipeline and ensemble code, while its saved model.evaluate outputs are incomplete.",
+    "boundary": "The dataset is referenced through an external Google Drive path. Subject-level separation, class counts by partition, external validation, and clinical review are not established by the repository.",
     "standards": [
-      "Held-out test set",
+      "Held-out test partition",
       "Explicit class labels",
-      "Error analysis",
-      "Reproducible notebook"
+      "Visible preprocessing",
+      "Reproducibility audit"
     ]
   },
-  "role": "I built the data preparation, augmentation, training, and evaluation flow and preserved the notebook as the visible record of the experiment.",
+  "role": "I built the data-loading, preprocessing, augmentation, CNN, and ensemble experiments recorded in the notebook.",
   "featured": true,
-  "displayOrder": 2,
-  "coverImage": "/uploads/alzheimers/notebook-output-1.png",
+  "displayOrder": 5,
+  "coverImage": {
+    "url": "/uploads/alzheimers/notebook-output-1.png",
+    "alt": "Notebook montage showing MRI samples from all four classification folders"
+  },
+  "thumbnailImage": {
+    "url": "/uploads/alzheimers/notebook-output-1.png",
+    "alt": "Four-class MRI sample montage from the notebook"
+  },
   "technologies": [
     { "value": "TensorFlow" },
     { "value": "Keras" },
     { "value": "Google Colab" },
     { "value": "MRI imaging" },
-    { "value": "Computer vision" },
-    { "value": "Ensemble learning" }
+    { "value": "CNN ensembles" }
   ],
   "links": [
     {
       "label": "Repository",
       "url": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
-      "description": "Source repository with README and notebook."
+      "description": "Public README and committed notebook."
     },
     {
       "label": "Open in Colab",
       "url": "https://colab.research.google.com/github/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning/blob/main/AZclassification5%28wide%29.ipynb",
-      "description": "Notebook entry point in Google Colab."
+      "description": "Open the notebook in Google Colab."
     },
     {
-      "label": "Notebook archive record",
+      "label": "Notebook evidence record",
       "url": "/archive/alzheimers-notebook-record/",
-      "description": "Supporting notes on the notebook, dataset assumptions, and evaluation flow."
+      "description": "Repository audit of the data pipeline, model variants, and saved outputs."
+    },
+    {
+      "label": "Published MRI research",
+      "url": "/projects/brain-atrophy-computer-vision/",
+      "description": "Separate IEEE paper on longitudinal brain-atrophy measurement."
     }
   ],
   "attachments": [],
   "gallery": [
-    { "url": "/uploads/alzheimers/notebook-output-1.png" },
-    { "url": "/uploads/alzheimers/notebook-output-2.png" },
-    { "url": "/uploads/alzheimers/notebook-output-3.png" }
+    { "url": "/uploads/alzheimers/notebook-output-1.png", "alt": "MRI samples labeled with the four dataset classes" },
+    { "url": "/uploads/alzheimers/notebook-output-2.png", "alt": "Single MRI image displayed by the notebook" },
+    { "url": "/uploads/alzheimers/notebook-output-4.png", "alt": "CNN model architecture exported from the notebook" }
   ],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Study design",
-      "title": "A medical imaging study preserved as an experimental record",
-      "description": "The work stays close to its actual experimental form: a notebook-driven MRI classification study in Google Colab that moves from image inspection and preprocessing to model training and comparison.",
-      "context": "The notebook is the primary record because it preserves each decision from data inspection through final evaluation."
+      "eyebrow": "Repository study",
+      "title": "A four-class CNN experiment recorded in one Colab notebook",
+      "description": "The notebook shows the path from folder-based MRI labels through preprocessing, CNN training, and ensemble prediction.",
+      "context": "This repository is documented separately from the 2022 IEEE brain-atrophy paper because it addresses a different task."
     },
     {
       "blockType": "figure",
-      "eyebrow": "Data view",
-      "title": "Representative MRI slices keep the data visible",
-      "description": "The notebook displays representative MRI inputs before preprocessing, keeping resizing and model decisions tied to the image data.",
+      "eyebrow": "Input data",
+      "title": "The notebook displays examples from every class before training",
+      "description": "The montage exposes visual variation across NonDemented, VeryMildDemented, MildDemented, and ModerateDemented folders.",
       "media": "/uploads/alzheimers/notebook-output-1.png",
-      "caption": "MRI sample montage extracted from the notebook output in the repository.",
+      "caption": "Four-class sample montage saved in the committed notebook output.",
       "layout": "wide"
     },
     {
-      "blockType": "proseSection",
-      "eyebrow": "Problem framing",
-      "title": "The model predicts four disease-stage labels",
-      "description": "The classification target is more demanding than a simple healthy-versus-disease split.",
-      "markdown": "The study uses four classes: NonDemented, VeryMildDemented, MildDemented, and ModerateDemented. The model must distinguish progression levels that can be visually close and unevenly represented.\n\nThe notebook carries this four-class setup through data preparation, augmentation, training, and evaluation. Ensemble comparison follows the recorded CNN baseline. The project is a reproducible experiment record; it does not claim clinical readiness.",
-      "layout": "narrow"
-    },
-    {
       "blockType": "metrics",
-      "eyebrow": "Pipeline",
-      "title": "Key experimental choices",
+      "eyebrow": "Recorded configuration",
+      "title": "What the repository establishes",
       "items": [
-        {
-          "value": "4",
-          "label": "Classification labels",
-          "context": "NonDemented, VeryMildDemented, MildDemented, and ModerateDemented."
-        },
-        {
-          "value": "256×256",
-          "label": "Image sizing",
-          "context": "The notebook resizes images before model training."
-        },
-        {
-          "value": "80/10/10",
-          "label": "Data split",
-          "context": "Training, validation, and test partitions described in the repository README."
-        },
-        {
-          "value": "CNN + ensemble",
-          "label": "Modeling approach",
-          "context": "A baseline convolutional model is extended with simple ensemble comparison."
-        }
+        { "value": "6,400", "label": "Image files discovered", "context": "Count printed by the committed notebook before dataset construction." },
+        { "value": "4", "label": "Folder labels", "context": "NonDemented, VeryMildDemented, MildDemented, and ModerateDemented." },
+        { "value": "256×256", "label": "Training image size", "context": "Images are resized before batching and augmentation." },
+        { "value": "80/10/10", "label": "Declared split", "context": "Training, validation, and test proportions described by the repository." },
+        { "value": "78% → 85%", "label": "Reported accuracy", "context": "Single-model baseline and ensemble result recorded in the linked companion notebook." }
       ]
-    },
-    {
-      "blockType": "insightGrid",
-      "eyebrow": "Why the format matters",
-      "title": "The notebook exposes inputs, methods, and outputs",
-      "description": "The notebook exposes the inputs, transformations, training steps, and evaluation outputs used in the study.",
-      "items": [
-        {
-          "label": "Data",
-          "title": "Images remain visible",
-          "body": "Representative MRI slices stay inside the experimental record, which keeps preprocessing and modeling grounded in the data itself."
-        },
-        {
-          "label": "Method",
-          "title": "Pipeline decisions stay local",
-          "body": "Loading paths, resizing, augmentation, training, and evaluation appear in one continuous notebook."
-        },
-        {
-          "label": "Interpretation",
-          "title": "Comparisons can be read in sequence",
-          "body": "Ensemble and comparison logic follows the recorded preprocessing and CNN baseline steps."
-        }
-      ]
-    },
-    {
-      "blockType": "figure",
-      "eyebrow": "Preprocessing",
-      "title": "Single-slice inspection helps keep the pipeline concrete",
-      "description": "The visible image data makes preprocessing decisions easier to inspect and discuss.",
-      "media": "/uploads/alzheimers/notebook-output-2.png",
-      "caption": "Single MRI slice extracted from the repository notebook output.",
-      "layout": "split"
-    },
-    {
-      "blockType": "callout",
-      "eyebrow": "Method",
-      "title": "The notebook is the record of the study",
-      "description": "The notebook preserves the experiment sequence and the decisions made at each stage.",
-      "markdown": "The notebook shows where the dataset is loaded, how the images are augmented, how the convolutional model is trained, and how the ensemble comparison is added.\n\nThis visibility matters in medical and scientific work because reviewers need to inspect the full path from input data to reported result."
     },
     {
       "blockType": "timeline",
-      "eyebrow": "Experimental flow",
-      "title": "How the study progresses",
-      "description": "The notebook records data inspection, preprocessing, training, and evaluation in execution order.",
+      "eyebrow": "Notebook execution",
+      "title": "The experiment proceeds from data inspection to ensemble prediction",
       "items": [
-        {
-          "label": "01",
-          "title": "Load and inspect MRI inputs",
-          "body": "Inspect representative MRI inputs before training to verify the image data and class structure."
-        },
-        {
-          "label": "02",
-          "title": "Prepare and augment the dataset",
-          "body": "Resizing, partitioning, and augmentation decisions are made in the open, with the implications visible alongside the code."
-        },
-        {
-          "label": "03",
-          "title": "Train the baseline CNN",
-          "body": "The core convolutional model establishes the initial accuracy result for the four-class task."
-        },
-        {
-          "label": "04",
-          "title": "Extend into comparison and ensemble logic",
-          "body": "Later evaluation uses the same preprocessing and baseline pipeline recorded earlier in the notebook."
-        }
+        { "label": "01", "title": "Load and inspect", "body": "Mount the external dataset, discover image files, read folder labels, and display representative scans." },
+        { "label": "02", "title": "Prepare batches", "body": "Resize images, rescale pixel values, apply augmentation, and create training, validation, and test datasets." },
+        { "label": "03", "title": "Train CNN variants", "body": "Define convolutional networks in Keras and train each variant on the same four-class task." },
+        { "label": "04", "title": "Average probabilities", "body": "Combine predictions from two models, three models, and a draft weighted ensemble before selecting a class." },
+        { "label": "05", "title": "Inspect evidence gaps", "body": "Check which outputs are saved in the repository before making a public performance claim." }
       ]
     },
     {
       "blockType": "figure",
-      "eyebrow": "Evaluation context",
-      "title": "The notebook records a sequence of model experiments",
-      "description": "The later notebook cells compare the baseline with ensemble results and show how performance was evaluated.",
-      "media": "/uploads/alzheimers/notebook-output-3.png",
-      "caption": "Additional MRI output extracted from the notebook record.",
-      "layout": "split"
+      "eyebrow": "Model structure",
+      "title": "The architecture export makes the convolutional pipeline inspectable",
+      "description": "The saved graph shows the sequence of input, augmentation, convolution, pooling, dropout, and classification layers.",
+      "media": "/uploads/alzheimers/notebook-output-4.png",
+      "caption": "Model architecture image stored with the portfolio source material.",
+      "layout": "wide"
     },
     {
-      "blockType": "proseSection",
-      "eyebrow": "Scope",
-      "title": "What this study demonstrates",
-      "description": "The contribution is a reproducible experimental method. The work is not a production or clinical system.",
-      "markdown": "This work records a practical medical-imaging workflow in one reproducible file: dataset preparation, convolutional modeling, four-class prediction, and ensemble evaluation. Reviewers can inspect, rerun, and extend each stage. The study does not establish clinical validity or deployment readiness.",
-      "layout": "narrow"
+      "blockType": "insightGrid",
+      "eyebrow": "Repository audit",
+      "title": "Implemented code and validated results are reported separately",
+      "items": [
+        { "label": "Implemented", "title": "Four-class image pipeline", "body": "Dataset loading, resizing, augmentation, CNN definitions, training calls, and ensemble prediction code are present." },
+        { "label": "Recorded", "title": "Qualitative image outputs", "body": "The committed notebook retains sample images and a model architecture visualization." },
+        { "label": "Result", "title": "Seven-point accuracy gain", "body": "The linked companion notebook reports improvement from a 78% baseline to an 85% ensemble result." },
+        { "label": "Next validation", "title": "Subject-level and external testing", "body": "A stronger study would document patient-level partitions, per-class metrics, confusion matrices, scanner diversity, and an external dataset." }
+      ]
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Claim standard",
+      "title": "The result and its storage history are stated together",
+      "description": "The 78% baseline and 85% ensemble result belong to the linked companion notebook; the current public notebook retains the matching pipeline and ensemble implementation.",
+      "markdown": "The research record spans linked Colab notebooks. The companion notebook reports the seven-point improvement. The public repository shows the four-class pipeline, model variants, and ensemble code. The case study attributes each claim to the file that carries it."
     }
   ],
   "github": {
@@ -212,9 +155,9 @@
     "repo": "Alzheimer-s-Disease-Detection-Ensemble-Learning",
     "repoName": "Alzheimer-s-Disease-Detection-Ensemble-Learning",
     "repoUrl": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
-    "sourceDescription": "Repository-backed source material for the Alzheimer’s disease MRI research project page.",
+    "sourceDescription": "Public source for the four-class MRI classification notebook.",
     "sourceReadmePath": "README.md",
-    "importedReadmeMarkdown": "README content can be refreshed automatically during builds. This copy is intentionally retained as a repository-sourced appendix beneath the curated project narrative.",
+    "importedReadmeMarkdown": "",
     "repoTopics": [
       { "value": "medical-imaging" },
       { "value": "alzheimers" },

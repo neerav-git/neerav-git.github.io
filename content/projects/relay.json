@@ -7,7 +7,7 @@
   "primaryCategory": "product-system",
   "secondaryCategories": ["voice-ai", "evaluation"],
   "summary": "A voice-first People Operations portal that connects employee questions to grounded records, controlled actions, and verified workflow results.",
-  "landingDeck": "Relay combines voice and text assistance with seven employee workflows across onboarding, tasks, learning, documents, equipment, payroll, benefits, and support.",
+  "landingDeck": "Relay combines voice and text assistance with seven workflow families covering onboarding, employee support, meetings, department routing, pay and benefits, learning reminders, and calendar scheduling.",
   "landingHighlights": [
     "Uses structured function calling to retrieve authenticated records and prepare employee actions.",
     "Applies role-based access, employee confirmation, idempotency, and append-only audit logs to consequential workflows.",
@@ -23,10 +23,10 @@
   ],
   "problem": "Employee-service portals make people translate a human question into the right system, record, owner, form, and next action before they can get help.",
   "approach": "Relay combines a familiar employee workspace with a Deepgram-powered conversational guide. Typed records, semantic navigation, a small capability registry, explicit confirmation, idempotency, verification, and evidence logs keep conversation tied to visible product state.",
-  "output": "A working React and Fastify product with text and voice interaction, five registered employee-owned workflows, current Relay-branded proof media, and a dedicated evaluation page built from retained run evidence.",
+  "output": "A React and Fastify product with text and live Deepgram voice interaction, seven evaluated workflow families, confirmation-gated actions, retained run artifacts, and an in-product evaluation page.",
   "methodology": {
     "evaluation": "Versioned text, held-out paraphrase, voice, tool-call, safety, groundedness, latency, interruption, and recovery suites retain run counts and denominators.",
-    "boundary": "The employee data and enterprise integrations are simulated. Evaluation establishes prototype behavior, not production deployment or employer-system connectivity.",
+    "boundary": "Current tests use fictional employee data and demo calendar, payroll, benefits, and case-management services. Production employer integrations remain open.",
     "standards": [
       "OWASP LLM Top 10",
       "Role-based access",
@@ -63,8 +63,8 @@
     {
       "blockType": "sectionLead",
       "eyebrow": "Core workflow",
-      "title": "Conversation becomes useful when it changes what the employee can see and do",
-      "description": "Relay starts with a familiar employee workspace, then adds a conversational layer that can explain the current state, open the exact object, prepare an action, wait for confirmation, and verify the result.",
+      "title": "Relay turns employee questions into verified workflow results",
+      "description": "The assistant reads employee-scoped records, opens the exact task or document, prepares registered actions, requests confirmation, and verifies the resulting application state.",
       "context": "Northstar Analytics is the fictional employer and all records are synthetic. Relay is the product and assistant brand."
     },
     {
@@ -93,7 +93,7 @@
       "blockType": "figure",
       "eyebrow": "Confirmation-gated workflow",
       "title": "A VPN issue becomes a reviewable IT Support request",
-      "description": "Relay routes the issue, preserves the employee's details, and presents the proposed write before anything changes.",
+      "description": "Relay routes the issue, carries the employee's details into the request, and displays the proposed write before execution.",
       "media": { "url": "/uploads/relay/action-prepared.png", "alt": "Relay prepares an IT Support request for a VPN problem and waits for confirmation" },
       "caption": "The employee can inspect the destination, summary, and details, then confirm or cancel the action.",
       "layout": "split"
@@ -114,19 +114,19 @@
       "items": [
         { "value": "93.6%", "label": "Task success after the fix pass", "context": "103/110 conversations fully correct; up from 70.3% (26/37)." },
         { "value": "92.9%", "label": "Held-out generalization", "context": "39/42 reworded requests not used during development." },
-        { "value": "31/34", "label": "Useful spoken answers", "context": "Owner-recorded voice requests; 24 were fully right." },
+        { "value": "31/34", "label": "Spoken answers meeting review criteria", "context": "Owner-recorded voice requests; 24 were fully right." },
         { "value": "24/24", "label": "Spoken end-to-end turns", "context": "Every checked turn passed through the real voice path across all seven workflows." },
         { "value": "87%", "label": "Answer quality", "context": "87/100 replies were helpful on all four reviewed criteria." },
         { "value": "186/187", "label": "Correct record reached", "context": "99.5% eventual tool-call record accuracy." },
-        { "value": "0", "label": "Unsafe actions", "context": "Across 21 OWASP LLM Top 10 red-team runs." },
-        { "value": "1,035/1,035", "label": "Facts supported", "context": "Dates, times, names, ids, and amounts checked against tool results." }
+        { "value": "0", "label": "Executed writes in red-team runs", "context": "Twenty-one OWASP LLM Top 10 cases also produced zero action proposals, unsafe reply content, or forbidden tool calls; four earlier runs exposed sensitive values in tool arguments before an input-redaction fix." },
+        { "value": "1,035", "label": "Facts reviewed", "context": "Automated checks flagged five dates, times, names, ids, or amounts; manual review found no unsupported facts." }
       ]
     },
     {
       "blockType": "figure",
       "eyebrow": "Evaluation surface",
       "title": "One page connects task success, voice, tools, safety, groundedness, latency, and fixes",
-      "description": "The in-product Agent evaluation route reads from the retained evaluation snapshot and preserves numerators, intervals, workflow breakdowns, and the product changes the evidence drove.",
+      "description": "The in-product Agent evaluation route displays numerators, denominators, intervals, workflow breakdowns, failure categories, and the fixes made after each evaluation pass.",
       "media": { "url": "/uploads/relay/evaluation-dashboard.png", "alt": "Relay Agent evaluation page with task success, voice, tool-call, safety, and groundedness measures" },
       "caption": "Current evaluation snapshot: 252 live conversations, 764 agent turns, 1,271 tool calls, 57 recorded voice sessions, and 1,035 facts checked.",
       "layout": "wide"
@@ -136,16 +136,16 @@
       "eyebrow": "System boundaries",
       "title": "Conversation, policy, and state stay separate",
       "items": [
-        { "label": "Conversation", "title": "Deepgram handles the realtime turn", "body": "Nova-3 speech recognition, agent reasoning and function selection, and Flux speech synthesis provide the voice interaction layer." },
+        { "label": "Conversation", "title": "Deepgram handles the realtime turn", "body": "Nova-3 transcribes speech, the agent selects functions, and Flux synthesizes the spoken response." },
         { "label": "Application", "title": "Relay owns identity and capability policy", "body": "The server resolves employee scope, validates semantic targets, inspects capabilities, and rejects client-supplied authority." },
-        { "label": "Evidence", "title": "Final state, not fluent text, decides success", "body": "The evaluator checks the page, focused record, confirmation card, calendar, and server records for every workflow turn." }
+        { "label": "Evidence", "title": "Verified application state decides success", "body": "The evaluator checks the page, focused record, confirmation card, calendar, and server records for every workflow turn." }
       ]
     },
     {
       "blockType": "callout",
       "eyebrow": "Implementation boundary",
-      "title": "What is connected today",
-      "markdown": "Relay's portal, typed records, navigation, confirmation-gated capabilities, in-session workflow state, evaluation runs, and Deepgram conversation layer are implemented. The employer and employee records are fictional. Calendar behavior is a Relay demo surface, and the project does not claim live SAP, Oracle, Outlook, Google Calendar, payroll, or case-management integration."
+      "title": "Implemented services and current integration scope",
+      "markdown": "The implementation includes the employee portal, typed records, semantic navigation, confirmation-gated capabilities, in-session workflow state, evaluation runs, and Deepgram voice interaction.\n\nTests use fictional employer and employee records plus demo calendar, payroll, benefits, and case-management services. SAP, Oracle, Outlook, Google Calendar, and employer production systems remain integration targets."
     }
   ]
 }

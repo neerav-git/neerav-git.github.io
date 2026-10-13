@@ -1,124 +1,96 @@
 {
-  "title": "Making a medical-imaging notebook auditable",
+  "title": "Inside the four-class Alzheimer MRI study",
   "slug": "notebook-first-medical-ml-is-still-real-research",
-  "category": "Research note",
+  "category": "Methods note",
   "publishDate": "2026-06-08T00:00:00.000Z",
-  "excerpt": "The Colab notebook records MRI inspection, preprocessing, CNN training, and ensemble evaluation in execution order.",
-  "coverImage": "/uploads/supporting/brain-axial-t2.jpg",
+  "excerpt": "How 6,400 MRI files move through resizing, augmentation, CNN training, error analysis, and ensemble evaluation.",
+  "coverImage": "/uploads/alzheimers/notebook-output-1.png",
   "featured": false,
   "links": [
     {
-      "label": "Alzheimer MRI project",
+      "label": "MRI classification project",
       "url": "/projects/alzheimers-disease-research/",
-      "description": "Project page for the MRI classification study."
+      "description": "Complete case study and evidence boundary."
     },
     {
       "label": "Repository",
       "url": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
-      "description": "Notebook-first source repository for the study."
+      "description": "Public notebook, README, and saved image outputs."
     },
     {
       "label": "Open in Colab",
       "url": "https://colab.research.google.com/github/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning/blob/main/AZclassification5%28wide%29.ipynb",
-      "description": "Notebook entry point in Google Colab."
+      "description": "Run the current public notebook in Google Colab."
     }
   ],
   "attachments": [],
-  "relatedProjectSlugs": [
-    "alzheimers-disease-research"
-  ],
+  "relatedProjectSlugs": ["alzheimers-disease-research"],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Claim",
-      "title": "A notebook can expose the complete machine-learning study",
-      "description": "The Alzheimer MRI Colab notebook preserves the actual order of the work: loading data, inspecting images, building a TensorFlow pipeline, training a CNN, and comparing later variants.",
-      "context": "That sequence makes each experimental decision easier to inspect."
+      "eyebrow": "Experiment",
+      "title": "Four MRI folders define one multiclass prediction task",
+      "description": "The study predicts NonDemented, VeryMildDemented, MildDemented, or ModerateDemented from a brain MRI image.",
+      "context": "Linked Colab experiments report a gain from 78% baseline accuracy to 85% after ensemble comparison and error analysis."
     },
     {
-      "blockType": "proseSection",
-      "eyebrow": "Problem",
-      "title": "The experiment stays legible from input to evaluation",
-      "description": "The notebook records the work in execution order.",
-      "markdown": "The notebook preserves data loading, visual inspection, preprocessing, model definition, training, evaluation, and the first comparison experiments.\n\nA reviewer can follow the study from MRI input inspection through dataset partitioning, augmentation, TensorFlow model definition, and ensemble comparison without reconstructing the process from separate artifacts.",
-      "layout": "narrow"
+      "blockType": "figure",
+      "eyebrow": "Input inspection",
+      "title": "Sample images expose variation inside each label",
+      "description": "The notebook displays scans from every folder before augmentation or training begins.",
+      "media": "/uploads/alzheimers/notebook-output-1.png",
+      "caption": "Saved output showing examples from all four dataset folders.",
+      "layout": "wide"
     },
     {
       "blockType": "timeline",
-      "eyebrow": "Repository flow",
-      "title": "What the notebook actually contains",
-      "description": "The repository README describes a fairly direct experimental sequence, and that sequence is exactly what makes the artifact useful.",
+      "eyebrow": "Pipeline",
+      "title": "The notebook executes five concrete stages",
       "items": [
-        {
-          "label": "01",
-          "title": "Load MRI data from Google Drive",
-          "body": "The repository begins with visible data access and dataset construction steps."
-        },
-        {
-          "label": "02",
-          "title": "Build the TensorFlow pipeline",
-          "body": "Resizing, rescaling, augmentation, and train-validation-test partitioning are visible parts of the workflow."
-        },
-        {
-          "label": "03",
-          "title": "Train a baseline CNN",
-          "body": "The initial CNN establishes a recorded baseline for the four-class task."
-        },
-        {
-          "label": "04",
-          "title": "Evaluate held-out predictions",
-          "body": "The project shows how the model is judged, which matters as much as the architecture itself."
-        },
-        {
-          "label": "05",
-          "title": "Compare against ensemble variants",
-          "body": "Later comparison uses the visible CNN baseline and the same data pipeline."
-        }
+        { "label": "01", "title": "Discover 6,400 files", "body": "Mount Google Drive, enumerate MRI images, and map each parent folder to a class label." },
+        { "label": "02", "title": "Create 256×256 batches", "body": "Resize and rescale each image, then allocate training, validation, and test partitions using the declared 80/10/10 split." },
+        { "label": "03", "title": "Augment training images", "body": "Apply randomized image transformations inside the training pipeline to increase input variation." },
+        { "label": "04", "title": "Train CNN variants", "body": "Run convolution, pooling, dropout, and dense classification layers against the same four labels." },
+        { "label": "05", "title": "Average model probabilities", "body": "Compare single-model predictions with two-model, three-model, and draft weighted ensembles." }
+      ]
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Reported result",
+      "title": "Ensemble comparison produced a seven-point gain",
+      "items": [
+        { "value": "78%", "label": "Baseline accuracy", "context": "Single-model result recorded in the linked companion experiment." },
+        { "value": "85%", "label": "Ensemble accuracy", "context": "Best reported result after model comparison and error analysis." },
+        { "value": "+7 pts", "label": "Absolute improvement", "context": "Difference between the recorded baseline and ensemble accuracy." },
+        { "value": "4", "label": "Predicted classes", "context": "Folder labels spanning non-demented through moderate dementia." }
       ]
     },
     {
       "blockType": "figure",
-      "eyebrow": "Data visibility",
-      "title": "The input images remain part of the argument",
-      "description": "Representative MRI samples keep preprocessing and modeling decisions tied to the structure of the source data.",
-      "media": "/uploads/alzheimers/notebook-output-1.png",
-      "caption": "MRI sample montage drawn from the notebook output.",
-      "layout": "split"
+      "eyebrow": "Architecture",
+      "title": "The saved graph shows the model path from input to class probabilities",
+      "description": "The exported Keras graph identifies augmentation, convolution, pooling, dropout, and final classification layers.",
+      "media": "/uploads/alzheimers/notebook-output-4.png",
+      "caption": "CNN architecture exported from the experiment notebook.",
+      "layout": "wide"
     },
     {
       "blockType": "insightGrid",
-      "eyebrow": "Why it matters",
-      "title": "The notebook stays informative for four different reasons",
-      "description": "The notebook runs the study and preserves the data, preprocessing, training, and evaluation decisions used to produce it.",
+      "eyebrow": "Validation requirements",
+      "title": "Four additions would strengthen the next study",
       "items": [
-        {
-          "label": "Problem",
-          "title": "The classification target is explicit",
-          "body": "The study predicts four disease-stage labels: NonDemented, VeryMildDemented, MildDemented, and ModerateDemented."
-        },
-        {
-          "label": "Approach",
-          "title": "The workflow records each experimental step",
-          "body": "Experimentation, preprocessing, training, and evaluation all live in one visible document."
-        },
-        {
-          "label": "Tools",
-          "title": "The stack fits the stated goal",
-          "body": "Google Colab, TensorFlow, and Keras support the study's exploratory model-building workflow. The artifact is not a production deployment."
-        },
-        {
-          "label": "Result",
-          "title": "Later comparison has a visible baseline",
-          "body": "Ensemble extensions can be judged against the earlier CNN workflow because the intermediate steps are not hidden."
-        }
+        { "label": "Partitioning", "title": "Split by patient identity", "body": "Document subject identifiers and keep every scan from one person in a single partition." },
+        { "label": "Class performance", "title": "Report each stage separately", "body": "Add per-class precision, recall, F1, and a confusion matrix alongside overall accuracy." },
+        { "label": "Stability", "title": "Repeat the training runs", "body": "Report variation across seeds and model initializations for the baseline and ensemble." },
+        { "label": "Generalization", "title": "Evaluate an external cohort", "body": "Test images from another scanner, site, or dataset and document the resulting performance change." }
       ]
     },
     {
       "blockType": "callout",
-      "eyebrow": "Scope",
-      "title": "What the artifact supports, and what it does not",
-      "description": "This is not a clinical product, and it should not be presented as one.",
-      "markdown": "The repository preserves the experimental sequence needed for technical review. A reader can see what data is loaded, how the TensorFlow pipeline is assembled, how the convolutional baseline is trained, and where comparison extensions enter the study.\n\nThe artifact does not provide the guarantees of a broader benchmark, formal study protocol, or production-grade training package. Its value is a faithful record of how the experiment was carried out and where its scope ends."
+      "eyebrow": "Source note",
+      "title": "The research record spans linked Colab files",
+      "description": "The companion notebook carries the 78% and 85% results; the public repository carries the matching preprocessing, CNN, and ensemble implementation.",
+      "markdown": "The current public notebook has incomplete saved outputs for its model.evaluate cells. The linked companion experiment retains the reported baseline and ensemble scores. The case study cites the result with that storage history attached."
     }
   ]
 }

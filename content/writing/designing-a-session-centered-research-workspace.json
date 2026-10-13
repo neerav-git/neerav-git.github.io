@@ -1,150 +1,96 @@
 {
-  "title": "Designing a session-centered research workspace",
+  "title": "How Refract connects reading, recall, and analysis",
   "slug": "designing-a-session-centered-research-workspace",
-  "category": "Research systems",
+  "category": "System design",
   "publishDate": "2026-06-12T00:00:00.000Z",
-  "excerpt": "Refract stores the research goal, papers, saved passages, comparisons, datasets, and analysis runs in one persistent session.",
+  "excerpt": "A shared session ID connects papers, passages, review attempts, datasets, and model runs across five implemented workspaces.",
   "coverImage": "/uploads/refract/reader-workspace.png",
   "featured": true,
   "links": [
     {
-      "label": "Refract project",
+      "label": "Refract case study",
       "url": "/projects/refract-ai/",
-      "description": "Project page with screenshots, architecture, and implementation details."
+      "description": "Product screens, implementation details, and evaluation boundaries."
     },
     {
       "label": "Repository",
       "url": "https://github.com/neerav-git/Refract",
-      "description": "Source repository for the application."
+      "description": "Frontend, backend, data model, and research documentation."
     }
   ],
   "attachments": [],
-  "relatedProjectSlugs": [
-    "refract-ai"
-  ],
+  "relatedProjectSlugs": ["refract-ai"],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Product decision",
-      "title": "Most research tools lose continuity at exactly the wrong point",
-      "description": "The failure is not usually the local quality of each tool. It is the missing connection between stages once the work becomes cumulative.",
-      "context": "Reading, note capture, comparison, and quantitative analysis often happen in isolation even when the resulting conclusions depend on one another."
-    },
-    {
-      "blockType": "proseSection",
-      "eyebrow": "Problem",
-      "title": "Why separation becomes a reliability problem",
-      "description": "Once conclusions depend on multiple papers, excerpts, assumptions, and model results, disconnected tooling becomes more than an inconvenience.",
-      "markdown": "A familiar weakness in research software is that each phase of the work is handled in isolation. Reading happens in one environment, note capture in another, comparison in a third, and quantitative analysis somewhere else again. The interfaces may be individually effective, but the overall process becomes difficult to trust because the connections between those stages are not preserved.\n\nThat gap matters most when the work becomes cumulative. Once conclusions depend on several papers, saved excerpts, dataset assumptions, and model results, it is no longer enough to have good local tools. The system also needs a durable way to keep context attached to the work as it develops.",
-      "layout": "narrow"
+      "eyebrow": "System design",
+      "title": "One session ID joins five research workspaces",
+      "description": "Reader, Index, Compare, Review, and Stats write distinct records that share the research goal, selected sources, and session identifier.",
+      "context": "The data model connects a final claim to the passage, review attempt, dataset, or analysis run that produced it."
     },
     {
       "blockType": "figure",
-      "eyebrow": "Structure",
-      "title": "The session is the object that carries the work forward",
-      "description": "In Refract, the research session stores the goal, active sources, saved evidence, and analysis history in one record.",
-      "media": "/uploads/refract/workflow-overview.png",
-      "caption": "Workflow overview from the Refract repository README.",
+      "eyebrow": "Reader",
+      "title": "Passage selection drives grounded questions and saved evidence",
+      "description": "The user reads a PDF, selects text, asks a question, and saves the relevant excerpt with its paper and page reference.",
+      "media": "/uploads/refract/reader-workspace.png",
+      "caption": "Reader view with the paper and passage-grounded assistant visible together.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Data model",
+      "title": "Each workspace writes a defined record",
+      "items": [
+        { "label": "Reader", "title": "Passages and answers", "body": "Document ID, page location, selected text, prompt, response, and saved evidence." },
+        { "label": "Compare", "title": "Question and source set", "body": "Research question, selected papers, synthesis output, and citation coverage." },
+        { "label": "Review", "title": "Recall attempt", "body": "Prompt, learner answer, confidence, rubric scores, feedback, source reveal mode, and FSRS state." },
+        { "label": "Stats", "title": "Analysis run", "body": "Dataset identity, profile, audit findings, predictors, model settings, metrics, charts, and interpretation notes." }
+      ]
+    },
+    {
+      "blockType": "timeline",
+      "eyebrow": "Research sequence",
+      "title": "The same sources support reading, retrieval practice, synthesis, and modeling",
+      "items": [
+        { "label": "01", "title": "Create a session", "body": "Set the research goal and attach the relevant papers." },
+        { "label": "02", "title": "Read and save passages", "body": "Select exact text, ask grounded questions, and store evidence with page references." },
+        { "label": "03", "title": "Practice recall", "body": "Answer before source reveal, score three dimensions, and schedule the next review with FSRS." },
+        { "label": "04", "title": "Compare selected papers", "body": "Run one question across a bounded source set and store agreements, differences, and coverage." },
+        { "label": "05", "title": "Analyze a dataset", "body": "Profile variables, audit leakage, compare baselines, and attach model metrics to the session." }
+      ]
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Compare",
+      "title": "A bounded paper set makes synthesis traceable",
+      "description": "The Compare workspace receives the selected question and papers, then records which sources contribute to the result.",
+      "media": "/uploads/refract/compare-workspace.png",
+      "caption": "Cross-paper comparison interface from the public repository.",
+      "layout": "split"
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Review",
+      "title": "Retrieval practice produces analyzable learning data",
+      "description": "A review attempt includes the learner response, self-rated confidence, grading output, revealed source, and scheduling update.",
+      "markdown": "Refract scores the core claim, reference details, and faithfulness through structured model output. It records rubric hits, omissions, feedback, model name, prompt version, and source reveal mode. A human-grade export supports agreement checks against sampled attempts.\n\nFSRS state schedules the next attempt. The planned retention study remains separate from the implemented instrumentation."
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Stats",
+      "title": "Analysis records include predictors, audit decisions, and metrics",
+      "description": "Battery remaining-useful-life runs record column profiles, leakage findings, baseline results, Linear Regression, Random Forest, MAE, RMSE, R², and literature alignment notes.",
+      "media": "/uploads/refract/stats-workspace.png",
+      "caption": "Stats interface for the battery analysis workflow.",
       "layout": "wide"
     },
     {
       "blockType": "callout",
-      "eyebrow": "Design choice",
-      "title": "The session stores the full research record",
-      "description": "The difference is architectural, not rhetorical.",
-      "markdown": "A conversation log remembers turns. A research session stores the goal, relevant papers, extracted evidence, comparisons, datasets, and statistical results.\n\nA generated answer can be checked against the session state that produced it. A model result remains linked to its supporting dataset and analysis run. The application records how those pieces connect."
-    },
-    {
-      "blockType": "proseSection",
-      "eyebrow": "Reader",
-      "title": "Reading has to remain close to the source material",
-      "description": "Reading stays connected to the document and its source passages.",
-      "markdown": "The reader keeps highlights, notes, and passage-level evidence tied to the document. Later answers and comparisons can point back to the exact source material used.",
-      "layout": "narrow"
-    },
-    {
-      "blockType": "figure",
-      "eyebrow": "Reader",
-      "title": "Reading remains anchored to the source material",
-      "description": "The interface keeps notes, highlights, and passage-level evidence beside the source document.",
-      "media": "/uploads/refract/reader-workspace.png",
-      "caption": "Reader workspace from the live project README.",
-      "layout": "split"
-    },
-    {
-      "blockType": "proseSection",
-      "eyebrow": "Synthesis",
-      "title": "Comparison becomes stronger when it inherits the active question",
-      "description": "Comparison becomes generic when the application loses the active question, source set, or saved evidence.",
-      "markdown": "Cross-paper synthesis weakens when the application loses the active sources, research goal, or passages already selected as evidence. The output becomes difficult to evaluate.\n\nA session-centered design keeps the current question explicit and the paper set bounded. The resulting comparison stays linked to the ongoing research record.",
-      "layout": "narrow"
-    },
-    {
-      "blockType": "figure",
-      "eyebrow": "Comparison",
-      "title": "Structured synthesis is easier to evaluate than isolated answers",
-      "description": "A comparison surface can organize agreement, contrast, gaps, and coverage across a group of papers while preserving the specific question that motivated the analysis.",
-      "media": "/uploads/refract/compare-workspace.png",
-      "caption": "Comparison workspace from the repository README.",
-      "layout": "split"
-    },
-    {
-      "blockType": "timeline",
-      "eyebrow": "Research loop",
-      "title": "Continuity has to survive the whole workflow",
-      "description": "The session carries the research goal, sources, evidence, and prior outputs into each stage.",
-      "items": [
-        {
-          "label": "01",
-          "title": "Read with source fidelity",
-          "body": "Documents, passages, and notes establish the initial evidence record."
-        },
-        {
-          "label": "02",
-          "title": "Save evidence in context",
-          "body": "Relevant excerpts stay attached to the research question, source, and session."
-        },
-        {
-          "label": "03",
-          "title": "Compare with bounded scope",
-          "body": "Synthesis remains specific because the source set and active question remain visible."
-        },
-        {
-          "label": "04",
-          "title": "Analyze without starting over",
-          "body": "Datasets, profiles, audits, and model results stay attached to the same session record."
-        },
-        {
-          "label": "05",
-          "title": "Keep interpretation traceable",
-          "body": "Later conclusions can still be checked against the conditions that made them relevant."
-        }
-      ]
-    },
-    {
-      "blockType": "proseSection",
-      "eyebrow": "Analysis",
-      "title": "Quantitative work benefits from the same continuity",
-      "description": "Statistical analysis needs the literature, assumptions, and research question that motivated it.",
-      "markdown": "Datasets, profile reports, audit checks, and model outputs need the research context that motivated them. A session-centered design stores the analysis beside the literature, assumptions, and questions that shaped it.\n\nA later reader can review the result together with the analytical setting in which it became relevant.",
-      "layout": "narrow"
-    },
-    {
-      "blockType": "figure",
-      "eyebrow": "Statistics",
-      "title": "Analysis outputs remain attached to the research record",
-      "description": "The statistical workspace uses the session's evidence, assumptions, datasets, and prior results.",
-      "media": "/uploads/refract/stats-workspace.png",
-      "caption": "Stats workspace from the repository README.",
-      "layout": "wide"
-    },
-    {
-      "blockType": "proseSection",
-      "eyebrow": "Conclusion",
-      "title": "Context preservation is an engineering decision",
-      "description": "Continuity affects interfaces, state, storage, and interpretation all at once.",
-      "markdown": "Context preservation affects how state is modeled, how interfaces are separated, how evidence is stored, and how outputs are interpreted. Refract implements that requirement through a session model shared by its reader, comparison, and statistics surfaces. The resulting record keeps evidence, assumptions, and analytical outputs available for later review.",
-      "layout": "narrow"
+      "eyebrow": "Engineering consequence",
+      "title": "Traceability depends on IDs and stored records",
+      "description": "The interface can expose provenance because the backend stores the links explicitly.",
+      "markdown": "PostgreSQL records relational data for sessions, papers, evidence, reviews, and analyses. ChromaDB indexes document chunks for retrieval. File storage holds PDFs and datasets. FastAPI routes validate operations across those stores, while the React/Vite client presents the five task-specific workspaces."
     }
   ]
 }

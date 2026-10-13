@@ -51,14 +51,14 @@ export default async function ArchiveDetailPage({ params }: ArchiveDetailPagePro
 
           <aside className="entry-rail">
             <section className="entry-rail-panel">
-              <div className="panel-eyebrow">Record context</div>
+              <div className="panel-eyebrow">Evidence details</div>
               <div className="entry-summary-stack">
                 {item.dateLabel ? <p>{item.dateLabel}</p> : null}
                 {item.itemType ? <p>{item.itemType}</p> : null}
               </div>
             </section>
 
-            <ArtifactList attachments={item.attachments} links={item.links} title="Artifacts" />
+            <ArtifactList attachments={item.attachments} links={item.links} title="Related work" />
             <EntrySectionMap blocks={item.pageSections} />
           </aside>
         </div>

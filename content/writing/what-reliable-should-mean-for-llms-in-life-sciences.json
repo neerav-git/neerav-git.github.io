@@ -1,101 +1,86 @@
 {
-  "title": "What reliable should mean for LLMs in life sciences",
+  "title": "Engineering source-grounded LLM workflows for research",
   "slug": "what-reliable-should-mean-for-llms-in-life-sciences",
-  "category": "Essay",
+  "category": "Applied AI",
   "publishDate": "2026-06-10T00:00:00.000Z",
-  "excerpt": "Reliable life-science answers need bounded claims, source-linked evidence, explicit uncertainty, and repeatable evaluation.",
-  "coverImage": "/uploads/refract/system-architecture.png",
+  "excerpt": "Concrete controls for source selection, passage citation, structured grading, uncertainty, and repeatable evaluation in research software.",
+  "coverImage": "/uploads/refract/reader-workspace.png",
   "featured": true,
   "links": [
     {
-      "label": "Refract project",
+      "label": "Refract case study",
       "url": "/projects/refract-ai/",
-      "description": "Project page for a system built around evidence-aware interpretation."
+      "description": "Implemented Reader, Compare, Review, and Stats workflows."
     },
     {
       "label": "Refract repository",
       "url": "https://github.com/neerav-git/Refract",
-      "description": "Repository source for the research workflow discussed here."
+      "description": "Source for retrieval, grading, provenance, and export behavior."
     }
   ],
   "attachments": [],
-  "relatedProjectSlugs": [
-    "refract-ai"
-  ],
+  "relatedProjectSlugs": ["refract-ai"],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Position",
-      "title": "Reliability in life sciences is a systems property, not a tone of voice",
-      "description": "A response does not become reliable because it sounds careful. It becomes more reliable when the surrounding system constrains what can be claimed, preserves the evidence in scope, and makes later checking possible.",
-      "context": "That is why the discussion has to move away from stylistic fluency and toward architecture, provenance, and evaluation."
+      "eyebrow": "Applied AI",
+      "title": "A grounded answer needs a traceable source path",
+      "description": "The system must record the selected documents, retrieved passages, prompt, model output, and evaluation result for each consequential research interaction.",
+      "context": "Refract implements these controls for paper questions, cross-paper synthesis, and active-recall grading."
     },
     {
-      "blockType": "proseSection",
-      "eyebrow": "Problem",
-      "title": "Reliability is not a style attribute",
-      "description": "The hardest failure is not awkward wording. It is unsupported confidence.",
-      "markdown": "In life sciences and other regulated domains, reliability requires bounded claims, visible evidence, and language proportionate to the source material.\n\nThe surrounding system must let a reviewer check the answer, narrow its scope, and trace it back to the material that supports it.",
-      "layout": "narrow"
+      "blockType": "figure",
+      "eyebrow": "Grounded interaction",
+      "title": "Keep the source visible while the model responds",
+      "description": "The Reader places the PDF, selected passage, and assistant response in one workspace and saves the paper and page reference with the evidence.",
+      "media": "/uploads/refract/reader-workspace.png",
+      "caption": "Passage-grounded question generation inside the Refract Reader.",
+      "layout": "wide"
     },
     {
       "blockType": "insightGrid",
-      "eyebrow": "What the system has to do",
-      "title": "A more serious definition of reliability has four parts",
-      "description": "These are not interface flourishes. They are operational requirements.",
+      "eyebrow": "Control model",
+      "title": "Four records make an LLM result reviewable",
       "items": [
-        {
-          "label": "Evidence",
-          "title": "The source material has to remain present",
-          "body": "If the answer cannot be read against the documents, passages, or records that support it, later review becomes speculative."
-        },
-        {
-          "label": "Constraint",
-          "title": "The claim has to stay inside its scope",
-          "body": "Useful systems limit each claim to the scope supported by available evidence."
-        },
-        {
-          "label": "Uncertainty",
-          "title": "The limits have to remain visible",
-          "body": "A technically serious answer states unresolved ambiguity explicitly."
-        },
-        {
-          "label": "Audit",
-          "title": "The result has to be testable afterward",
-          "body": "Reliability is not established at generation time alone. It has to survive inspection and comparison."
-        }
+        { "label": "Scope", "title": "Selected source set", "body": "Record the papers and research question supplied to retrieval or synthesis." },
+        { "label": "Evidence", "title": "Passage and page references", "body": "Store the exact excerpts used for the answer and keep their document identifiers." },
+        { "label": "Generation", "title": "Prompt and model version", "body": "Retain the instructions, model name, structured schema, and generated result." },
+        { "label": "Evaluation", "title": "Rubric and reviewer output", "body": "Record dimension scores, rubric hits, omissions, feedback, and any sampled human grade." }
       ]
     },
     {
       "blockType": "proseSection",
-      "eyebrow": "Failure mode",
-      "title": "Fluency creates a dangerous kind of confidence",
-      "description": "The system can sound coherent long before it is actually dependable.",
-      "markdown": "The most important failure in these settings is rarely clumsy wording. The real risk is persuasive language that outruns its evidence. A model can produce a coherent explanation, a plausible summary, or a seemingly careful recommendation while still making unsupported or overstated claims.\n\nEvaluation belongs at the center of the product. The system needs to record the available evidence, constrain each claim to that evidence, and keep uncertainty explicit.",
-      "layout": "narrow"
+      "eyebrow": "Retrieval",
+      "title": "The source set constrains the answer before generation",
+      "description": "A session identifies the active papers and question before document chunks enter retrieval.",
+      "markdown": "Refract indexes document chunks in ChromaDB and keeps paper records in PostgreSQL. Reader questions begin from the active document or selected passage. Compare begins from a chosen paper set and research question.\n\nThese inputs define the material available to the model and allow the final output to list its coverage. Missing evidence becomes visible as missing coverage instead of being hidden inside fluent prose."
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Active recall",
+      "title": "Structured grading separates three kinds of error",
+      "description": "Free-recall answers are scored on the core claim, reference details, and faithfulness to the source.",
+      "markdown": "The grader returns structured fields for rubric hits, missing points, corrective feedback, and dimension scores. Refract also records the learner's confidence before source reveal.\n\nHuman-grade export supports inter-rater checks on a sample of attempts. Model name, prompt version, reveal mode, and source reference remain attached to each row so disagreements can be investigated."
+    },
+    {
+      "blockType": "timeline",
+      "eyebrow": "Evaluation loop",
+      "title": "A model change should pass the same recorded cases",
+      "items": [
+        { "label": "01", "title": "Freeze the case inputs", "body": "Keep the research question, selected sources, expected points, and rubric version stable." },
+        { "label": "02", "title": "Run the candidate", "body": "Record the model, prompt, retrieved passages, structured output, and latency." },
+        { "label": "03", "title": "Compare dimensions", "body": "Measure core-claim coverage, reference-detail coverage, faithfulness, and reviewer agreement separately." },
+        { "label": "04", "title": "Inspect failures", "body": "Review unsupported statements, missed evidence, retrieval gaps, and rubric disagreement by category." },
+        { "label": "05", "title": "Release with a bounded claim", "body": "Describe the tested cases, observed result, and untested populations or workflows."
+        }
+      ]
     },
     {
       "blockType": "callout",
-      "eyebrow": "Repository lesson",
-      "title": "Evidence needs a durable place in the workflow",
-      "description": "Refract keeps documents, saved evidence, comparisons, and later analysis in one session record.",
-      "markdown": "Refract treats context preservation as a product requirement. Reading, evidence capture, comparison, and later analysis remain attached to the same working session, keeping each claim close to the source material meant to justify it.\n\nReliability improves when the system makes sources, transformations, and limits easy to inspect."
-    },
-    {
-      "blockType": "proseSection",
-      "eyebrow": "Practical standard",
-      "title": "Grounding should be treated as part of the output",
-      "description": "Every answer should preserve the link between each claim and its supporting source.",
-      "markdown": "A reliable life-science system should build the connection between response and evidence into its normal workflow. It should preserve source material, surface supporting excerpts, constrain generalization, and record how a conclusion was formed.\n\nThese controls give reviewers a practical way to check the system's output and define where it should stop.",
-      "layout": "narrow"
-    },
-    {
-      "blockType": "proseSection",
-      "eyebrow": "Conclusion",
-      "title": "The more useful system is usually the more restrained one",
-      "description": "That is an honest tradeoff, not a marketing compromise.",
-      "markdown": "A trustworthy life-science system shows why it produced a claim, which evidence supports it, and where the answer stops.\n\nEvidence, scope, and provenance cannot compensate for weak data, validation, or scientific framing. The interface must preserve the information reviewers need to check those foundations.",
-      "layout": "narrow"
+      "eyebrow": "Current evidence",
+      "title": "Refract implements the measurement path",
+      "description": "The repository contains passage references, structured recall grading, version fields, FSRS state, and human-grade export.",
+      "markdown": "Those records support technical evaluation of model behavior. Claims about improved retention or scientific decision quality require a completed user study with a registered protocol, comparison condition, and analyzed outcomes."
     }
   ]
 }

@@ -77,7 +77,7 @@ export default async function ResumePage() {
                 Projects
               </Link>
               <Link className="resource-item" href="/writing/">
-                Writing
+                Methods
               </Link>
               <Link className="resource-item" href="/about/">
                 About
@@ -93,7 +93,7 @@ export default async function ResumePage() {
             <div className="panel-eyebrow">References</div>
             <h2>References</h2>
             <p className="section-summary">
-              Formal letters can be added here when needed. This section stays secondary to the work itself.
+              Published recommendation letters and professional reference documents appear here.
             </p>
           </div>
 
@@ -126,8 +126,8 @@ export default async function ResumePage() {
           ) : (
             <article className="stacked-item quiet-card">
               <div>
-                <strong>No references published yet</strong>
-                <p>Recommendation PDFs can be added later through the admin studio without changing the page structure.</p>
+                <strong>Reference letters are available on request</strong>
+                <p>Contact Neerav for the appropriate professional reference.</p>
               </div>
               <span>Optional</span>
             </article>

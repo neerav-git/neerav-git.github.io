@@ -1,46 +1,46 @@
 {
-  "title": "Alzheimer MRI notebook record",
+  "title": "Alzheimer MRI experiment notebook",
   "slug": "alzheimers-notebook-record",
-  "itemType": "Notebook record",
-  "dateLabel": "Google Colab study",
-  "summary": "Notebook outputs and technical notes from the Alzheimer’s disease MRI study, including representative images and experimental context.",
+  "itemType": "Experiment notebook",
+  "dateLabel": "TensorFlow / Google Colab",
+  "summary": "The linked Colab experiments covering MRI inspection, augmentation, CNN training, error analysis, and the reported improvement from 78% to 85% accuracy.",
   "previewImage": "/uploads/alzheimers/notebook-output-1.png",
   "links": [
     {
       "label": "Project page",
       "url": "/projects/alzheimers-disease-research/",
-      "description": "Main project narrative."
+      "description": "Study design, measured result, and evaluation scope."
     },
     {
       "label": "Open in Colab",
       "url": "https://colab.research.google.com/github/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning/blob/main/AZclassification5%28wide%29.ipynb",
-      "description": "Notebook entry point."
+      "description": "Run and inspect the experiment in Google Colab."
     },
     {
       "label": "Repository",
       "url": "https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning",
-      "description": "Source repository."
+      "description": "Notebook source and repository documentation."
     }
   ],
   "attachments": [],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Record",
-      "title": "The notebook is the primary research document",
-      "description": "This archive entry exists because the Alzheimer study is most honestly represented by the notebook itself. The code, the image inspection, the preprocessing choices, and the movement into model comparison all live in the same artifact.",
-      "context": "The preview image already shows the visual character of the notebook output, so the rest of the record concentrates on what the artifact preserves."
+      "eyebrow": "Executable study",
+      "title": "One notebook contains the complete experiment path",
+      "description": "The Colab file contains data access, MRI inspection, preprocessing, augmentation, CNN training, prediction review, and ensemble comparison.",
+      "context": "Images, code, intermediate outputs, and evaluation cells appear in execution order."
     },
     {
       "blockType": "timeline",
-      "eyebrow": "What it preserves",
+      "eyebrow": "Experiment sequence",
       "title": "The notebook captures the experiment in sequence",
-      "description": "That sequence is the main reason the record belongs in the archive.",
+      "description": "Each stage exposes the inputs and decisions used by the next stage.",
       "items": [
         {
           "label": "01",
           "title": "Data access and setup",
-          "body": "The artifact shows where the dataset comes from and how the working environment is established."
+          "body": "The notebook mounts Google Drive, locates the image folders, and constructs the dataset pipeline."
         },
         {
           "label": "02",
@@ -50,7 +50,7 @@
         {
           "label": "03",
           "title": "Model construction and training",
-          "body": "The notebook preserves the exact path from prepared images into CNN training."
+          "body": "The model cells show the convolutional architecture, training configuration, and learning curves."
         },
         {
           "label": "04",
@@ -61,10 +61,10 @@
     },
     {
       "blockType": "callout",
-      "eyebrow": "Why archive it",
-      "title": "The value is methodological transparency",
-      "description": "The record is useful because it keeps the texture of the work visible, not because it pretends to be a polished production system.",
-      "markdown": "The project page presents the overall study, but the notebook record preserves the texture of the work: how the images are inspected, how the workflow is staged, and how the experiment evolves from data handling to model comparison. Keeping this artifact close to the project makes the work easier to review because the technical sequence remains visible.\n\nThe honest limitation is that a notebook record does not provide the same guarantees as a broader benchmark suite, formal study protocol, or deployment-ready package. What it does provide is a faithful account of how the experiment was actually carried out."
+      "eyebrow": "Technical review",
+      "title": "The notebook exposes data, model, and evaluation decisions",
+      "description": "The companion notebook reports a 78% single-model baseline and an 85% ensemble result; the public notebook retains the matching pipeline and ensemble code.",
+      "markdown": "The linked research record documents 256×256 image resizing, rescaling, augmentation, an 80/10/10 partition, a four-class CNN baseline, error analysis, and averaging ensembles built from saved models. The companion notebook carries the 78% and 85% evaluation outputs.\n\nA broader validation would add subject-level split verification, repeated runs, class-wise metrics, external data, and scanner-diversity analysis."
     }
   ]
 }

@@ -1,45 +1,45 @@
 {
-  "title": "Refract workflow overview",
+  "title": "Refract research workflow",
   "slug": "refract-workflow-record",
   "itemType": "Workflow diagram",
   "dateLabel": "Current repository",
-  "summary": "A visual summary of how Refract connects document work, saved evidence, and statistical analysis inside the same research session.",
+  "summary": "A session-level workflow connecting paper ingestion, source-linked evidence, cross-paper comparison, dataset audit, modeling, and interpretation.",
   "previewImage": "/uploads/refract/workflow-overview.png",
   "links": [
     {
       "label": "Refract project page",
       "url": "/projects/refract-ai/",
-      "description": "Main project narrative and system overview."
+      "description": "Product workflow, screenshots, methodology, and evaluation."
     },
     {
       "label": "Repository",
       "url": "https://github.com/neerav-git/Refract",
-      "description": "Source repository for the workflow diagram."
+      "description": "Implementation source and workflow diagram."
     }
   ],
   "attachments": [],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Record",
-      "title": "A compact explanation of the operating model",
-      "description": "This diagram is useful because it shows the project before implementation detail takes over. The session is the coordinating object; literature work and statistical work branch outward from it and reconnect through interpretation.",
-      "context": "The image already appears at the top of the record. The purpose of the text below is to explain how to read it, not to restage it at full size."
+      "eyebrow": "Workflow map",
+      "title": "One session connects literature review and quantitative analysis",
+      "description": "Papers, saved passages, comparison outputs, uploaded datasets, audit results, and model runs share the same session ID.",
+      "context": "The diagram marks each input, operation, and output across the literature and analysis tracks."
     },
     {
       "blockType": "proseSection",
       "eyebrow": "How to read it",
-      "title": "The workflow can be read in two directions",
-      "description": "Both readings matter because they show different aspects of the same design.",
-      "markdown": "From top to bottom, the diagram shows one session record holding the research goal, papers, saved evidence, datasets, and analysis history.\n\nFrom left to right, the diagram separates literature work from quantitative analysis and marks the points where they exchange source context and results.",
+      "title": "The workflow has two connected tracks",
+      "description": "The literature track produces cited evidence; the analysis track produces audited datasets, model comparisons, and interpreted results.",
+      "markdown": "The literature track ingests papers, supports passage-level reading, saves cited evidence, and compares claims across selected sources.\n\nThe analysis track uploads a dataset, profiles columns, checks data quality and leakage risk, compares models, and stores the resulting metrics. The session ID connects each result to the research goal and selected sources.",
       "layout": "narrow"
     },
     {
       "blockType": "callout",
-      "eyebrow": "Why preserve it",
-      "title": "This is the fastest route into the project",
-      "description": "The artifact matters because it exposes the architectural intention without requiring a full code-level reading first.",
-      "markdown": "The diagram identifies where reading happens, where analysis happens, which session data each stage consumes, and which artifacts each stage produces."
+      "eyebrow": "Handoffs",
+      "title": "Each stage declares its inputs and outputs",
+      "description": "The workflow identifies the records passed between reading, comparison, audit, modeling, and interpretation.",
+      "markdown": "Reader outputs include highlights, notes, and cited passages. Compare consumes the selected papers and research goal. Stats consumes the uploaded dataset and stores profiles, audit checks, baseline results, model comparisons, and interpretation notes."
     }
   ]
 }

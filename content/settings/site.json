@@ -16,8 +16,8 @@
   "navigation": {
     "homeLabel": "Home",
     "projectsLabel": "Products",
-    "writingLabel": "Notes",
-    "archiveLabel": "Records",
+    "writingLabel": "Methods",
+    "archiveLabel": "Evidence",
     "aboutLabel": "About",
     "recommendationsLabel": "References",
     "resumeLabel": "Resume"
@@ -30,13 +30,13 @@
     },
     "writing": {
       "label": "02",
-      "title": "Writing",
-      "intro": "Essays and project notes that explain design choices, evaluation concerns, implementation constraints, and the reasoning behind the work."
+      "title": "Methods",
+      "intro": "Technical write-ups on active recall, source-grounded LLM workflows, MRI classification, and battery model evaluation."
     },
     "archive": {
       "label": "03",
-      "title": "Records",
-      "intro": "Workflow diagrams, notebook records, screenshots, and technical references that support the project pages without making the homepage carry every artifact."
+      "title": "Evidence",
+      "intro": "Publication details, repository audits, architecture diagrams, workflow maps, and experiment records tied to the case studies."
     },
     "about": {
       "label": "04",
@@ -46,7 +46,7 @@
     "recommendations": {
       "label": "06",
       "title": "References",
-      "intro": "Formal letters and supporting documents can be kept here when needed. They stay secondary to the work and writing records."
+      "intro": "Professional references and formal letters connected to Neerav’s engineering work."
     },
     "resume": {
       "label": "05",
@@ -57,6 +57,6 @@
   "about": {
     "lead": "I build conversational and agentic systems that help people resolve blockers, complete controlled actions, and work safely with connected tools and data.",
     "biographyMarkdown": "My work combines voice interfaces, agentic automation, retrieval, product design, and human-in-the-loop controls. Relay applies those patterns to People Operations workflows. Refract connects RAG, interactive paper learning, battery analysis, and predictive-maintenance validation. My medical-imaging research uses computer vision and CNN ensembles with measured error analysis. Birb Hangout extends the same systems mindset into game design, interaction design, 3D annotation, and creative harness engineering.",
-    "currentFocusMarkdown": "## Working focus\n\n- voice agents and conversational workflows with structured function calling\n- agentic systems with authentication, confirmation, idempotency, and audit logs\n- RAG, predictive modeling, computer vision, model evaluation, and error analysis\n- human-centered automation, rapid prototyping, game interaction, and creative tooling"
+    "currentFocusMarkdown": "## Current focus\n\n- voice agents and conversational workflows with structured function calling\n- agentic systems with authentication, confirmation, idempotency, and audit logs\n- RAG, predictive modeling, computer vision, model evaluation, and error analysis\n- human-centered automation, rapid prototyping, game interaction, and creative tooling"
   }
 }

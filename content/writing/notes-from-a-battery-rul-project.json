@@ -1,86 +1,83 @@
 {
-  "title": "Notes from a battery RUL project",
+  "title": "Evaluating a battery remaining-useful-life model",
   "slug": "notes-from-a-battery-rul-project",
-  "category": "Project writeup",
+  "category": "Methods note",
   "publishDate": "2026-01-15T00:00:00.000Z",
-  "excerpt": "A battery remaining-useful-life score needs a chronological split, deployable input features, a baseline, and an evaluation tied to maintenance decisions.",
-  "coverImage": "/uploads/supporting/lithium-ion-degradation-map.jpg",
+  "excerpt": "A practical evaluation sequence for temporal splits, predictor timing, leakage checks, baselines, and maintenance-facing error measures.",
+  "coverImage": "/uploads/refract/stats-workspace.png",
   "featured": true,
   "links": [
     {
+      "label": "Refract case study",
+      "url": "/projects/refract-ai/",
+      "description": "Implemented Stats workflow and run-level records."
+    },
+    {
+      "label": "Refract repository",
+      "url": "https://github.com/neerav-git/Refract",
+      "description": "Profiling, audit, baseline, and regression implementation."
+    },
+    {
       "label": "Battery degradation modeling survey",
       "url": "https://arxiv.org/abs/2112.02037",
-      "description": "A broader technical reference on how degradation mechanisms are modeled in lithium-ion systems."
+      "description": "Technical survey of lithium-ion degradation modeling."
     }
   ],
   "attachments": [],
+  "relatedProjectSlugs": ["refract-ai"],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Working note",
-      "title": "A strong RUL score deserves suspicion before celebration",
-      "description": "This note is preserved as a methodological reflection on what deserves scrutiny in a remaining-useful-life pipeline, especially when a result looks unusually strong.",
-      "context": "The central concern is credibility: whether the path to a strong metric still makes sense once leakage, feature provenance, and evaluation design are examined closely."
+      "eyebrow": "Model evaluation",
+      "title": "Predict remaining life using information available at prediction time",
+      "description": "A battery model needs chronological testing, deployable predictors, leakage screening, a simple baseline, and error measures tied to maintenance decisions.",
+      "context": "Refract's Stats workflow implements this sequence for its primary battery remaining-useful-life demonstration."
     },
     {
-      "blockType": "proseSection",
-      "eyebrow": "Problem",
-      "title": "Why RUL work is easy to flatter accidentally",
-      "description": "Battery degradation data can contain strong structure even before the model does anything interesting.",
-      "markdown": "A remaining-useful-life score is credible only when the evaluation matches the maintenance decision the model is meant to support.\n\nBattery data has unusually strong built-in structure: capacity fades gradually, internal resistance shifts over long horizons, and many derived variables echo the same degradation process. This structure can inflate performance when a split leaks later-cycle information backward, smoothing erases operationally important behavior, or features depend on unavailable future processing.",
-      "layout": "narrow"
-    },
-    {
-      "blockType": "figure",
-      "eyebrow": "Degradation mechanisms",
-      "title": "A battery score sits on top of several overlapping failure pathways",
-      "description": "The diagram shows how capacity loss, power loss, and mechanism-level changes interact over time and affect a remaining-useful-life estimate.",
-      "media": "/uploads/supporting/lithium-ion-degradation-map.jpg",
-      "caption": "Degradation-pathway overview from Wikimedia Commons.",
-      "layout": "split"
-    },
-    {
-      "blockType": "insightGrid",
-      "eyebrow": "Evaluation checklist",
-      "title": "The problem can be decomposed into a few hard questions",
-      "description": "These are the checks I would want to pass before taking a result seriously.",
+      "blockType": "timeline",
+      "eyebrow": "Evaluation sequence",
+      "title": "Five checks precede model selection",
       "items": [
-        {
-          "label": "Temporal order",
-          "title": "Does the split respect degradation over time?",
-          "body": "If the train-test split ignores sequence, the model may receive information that would never be available when the prediction is actually needed."
-        },
-        {
-          "label": "Feature story",
-          "title": "Do the predictors have a believable origin?",
-          "body": "A variable can be highly predictive and still be unusable if it smuggles future information or depends on preprocessing unavailable in deployment."
-        },
-        {
-          "label": "Evaluation",
-          "title": "Does the score answer the right operational question?",
-          "body": "A metric only becomes meaningful once it is tied to the split strategy, baseline, and actual prediction task."
-        },
-        {
-          "label": "Interpretation",
-          "title": "Can the model's performance be explained coherently?",
-          "body": "A result is more convincing when the story behind the predictors still fits the physical system being modeled."
-        }
+        { "label": "01", "title": "Profile each column", "body": "Measure missingness, ranges, distributions, and relationships before assigning predictors or targets." },
+        { "label": "02", "title": "Audit predictor timing", "body": "Identify when each signal becomes available and remove variables that contain future-cycle or target-derived information." },
+        { "label": "03", "title": "Respect chronology", "body": "Train on earlier observations and evaluate on later observations that resemble the deployment decision." },
+        { "label": "04", "title": "Establish a mean baseline", "body": "Measure how much error a constant prediction produces before adding model complexity." },
+        { "label": "05", "title": "Compare models", "body": "Evaluate Linear Regression and Random Forest with the same split, predictors, and MAE, RMSE, and R² calculations." }
       ]
     },
     {
+      "blockType": "insightGrid",
+      "eyebrow": "Leakage audit",
+      "title": "Every predictor needs a deployment-time explanation",
+      "items": [
+        { "label": "Availability", "title": "When is the value known?", "body": "A maintenance model can use signals observed before the prediction timestamp." },
+        { "label": "Derivation", "title": "How was it calculated?", "body": "Target-derived summaries and transformations using future cycles leak answer information into training." },
+        { "label": "Sequence", "title": "Which records precede the test case?", "body": "Random row splits can place later-cycle information in the training set for an earlier prediction." },
+        { "label": "Physical meaning", "title": "Why should the signal matter?", "body": "Capacity, resistance, current, time, and cycle variables need a coherent link to degradation behavior." }
+      ]
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Implemented workspace",
+      "title": "The Stats interface stores the audit beside the model result",
+      "description": "The run record includes the dataset profile, predictor notes, baseline, regression outputs, charts, and literature alignment notes.",
+      "media": "/uploads/refract/stats-workspace.png",
+      "caption": "Refract Stats workspace for battery analysis.",
+      "layout": "wide"
+    },
+    {
       "blockType": "proseSection",
-      "eyebrow": "Approach",
-      "title": "Feature honesty is as important as algorithm choice",
-      "description": "The less glamorous part of the work is often the more decisive one.",
-      "markdown": "A feature can be predictive and still be misleading. If it encodes future information, smuggles target structure through preprocessing, or only makes sense inside the training slice, then its apparent usefulness does not translate into a trustworthy model.\n\nFeature review means checking what each variable represents, when it becomes available, and whether its relationship to performance matches the physical system. In battery work, a predictor should use a signal the monitoring system can observe at prediction time. Smoothing should preserve warning events, and the train-test split should follow the chronology of degradation.",
-      "layout": "narrow"
+      "eyebrow": "Metrics",
+      "title": "MAE, RMSE, and R² answer different questions",
+      "description": "The model comparison stores all three measures for each run.",
+      "markdown": "MAE gives the average absolute prediction error in the target unit. RMSE gives larger misses more weight, which matters when a late maintenance prediction carries higher cost. R² describes variance explained relative to a constant baseline.\n\nThe score table must retain the split, target, predictors, and model settings. A metric without those fields cannot be reproduced or interpreted operationally."
     },
     {
       "blockType": "callout",
-      "eyebrow": "Conclusion",
-      "title": "Trust comes from the audit trail",
-      "description": "A defensible result survives review of its chronology, features, baseline, and operational use.",
-      "markdown": "A useful RUL result remains defensible after reviewers inspect data handling, feature design, and evaluation logic. The score should identify what each signal represents, when it becomes available, and how it informs a maintenance decision.\n\nChronology, feature provenance, and operational meaning determine whether the reported number deserves trust. Any failure in those checks requires another experiment and a narrower claim."
+      "eyebrow": "Decision rule",
+      "title": "Select the model only after the audit passes",
+      "description": "A lower error is actionable when the split matches deployment, predictors exist at prediction time, and the comparison beats a declared baseline.",
+      "markdown": "Refract records the audit findings with the run so a result can be rejected for leakage or predictor timing even when its headline score is strong. Production maintenance performance still requires prospective data from the target equipment and operating conditions."
     }
   ]
 }

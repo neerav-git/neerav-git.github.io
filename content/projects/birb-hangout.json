@@ -21,12 +21,12 @@
     { "kind": "evaluation", "label": "Visual & Motion QA" },
     { "kind": "stack", "label": "Three.js + Colyseus" }
   ],
-  "problem": "Online hangouts often make presence feel abstract; the product asks how a small shared world can communicate attention, mood, and activity without becoming a dashboard.",
+  "problem": "A shared 3D room needs to communicate presence, attention, mood, and activity through character behavior and spatial interaction.",
   "approach": "A Three.js client renders the lounge and characters, a Colyseus room server synchronizes shared state, and focused harnesses isolate creative tasks for review.",
-  "output": "An actively developed multiplayer web game with room lifecycle, synchronized interaction systems, expressive avatar work, and a growing visual evidence archive.",
+  "output": "An actively developed React Three Fiber and Colyseus game with synchronized room state, diegetic social activities, consent-gated interactions, frame-level animation diagnostics, and world-space visual annotations.",
   "methodology": {
-    "evaluation": "Focused harnesses isolate motion, camera, seating, proximity, multiplayer state, and deployment behavior; scripted checks and visual review remain separate evidence layers.",
-    "boundary": "Mechanical checks do not prove final animation quality, production-scale concurrency, or consistent browser media behavior. Those remain separate review gates.",
+    "evaluation": "Animation Lab captures paired baseline/candidate frames and speed, acceleration, and jerk traces. Dream Studio and Rig Studio store annotated PNGs, strokes, comments, camera pose, and world position. Scripted checks cover interaction and multiplayer transitions.",
+    "boundary": "Current evidence covers local and deployed interaction slices, multiplayer state checks, and visual review. Large-scale concurrency and cross-browser media validation remain open.",
     "standards": [
       "Interaction-state tests",
       "Realtime state checks",
@@ -41,8 +41,50 @@
   "technologies": [{ "value": "Three.js" }, { "value": "React" }, { "value": "Colyseus" }, { "value": "WebSockets" }, { "value": "Blender" }],
   "links": [],
   "pageSections": [
-    { "blockType": "sectionLead", "eyebrow": "Product world", "title": "A shared room built around presence and expressive interaction", "description": "The room, character motion, seating, proximity, and shared objects work together to show who is present and what they are doing." },
-    { "blockType": "figure", "eyebrow": "Lounge", "title": "The room is the social interface", "media": { "url": "/uploads/birb/lounge.png", "alt": "Birb Lounge shared room" }, "caption": "A verified in-product lounge capture used as the current portfolio reference.", "layout": "wide" },
-    { "blockType": "callout", "eyebrow": "Current state", "title": "An active product with explicit evidence boundaries", "markdown": "Realtime room behavior, interaction slices, and deployment constraints are evaluated independently. Visual or mechanical checks are not presented as proof of owner-accepted animation quality, real-world scale, or every browser media behavior." }
+    {
+      "blockType": "sectionLead",
+      "eyebrow": "Game design",
+      "title": "The room, character, and interaction states form one social system",
+      "description": "Movement, seating, proximity, emotes, shared objects, and media playback communicate what each player is doing inside the lounge.",
+      "context": "The design treats character motion and room affordances as gameplay communication, with each state reviewed in isolation before multiplayer integration."
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Lounge",
+      "title": "The 3D room carries the social interaction",
+      "description": "Camera framing, walkable space, seats, screens, and character placement establish the interaction area.",
+      "media": { "url": "/uploads/birb/lounge.png", "alt": "Birb Lounge shared room" },
+      "caption": "Current in-product lounge capture used for composition and interaction review.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Creative engineering",
+      "title": "Purpose-built tools make visual decisions testable",
+      "items": [
+        { "label": "Animation Lab", "title": "Compare motion candidates", "body": "Persistent captures pair baseline and candidate frames with speed, acceleration, jerk, negative controls, and a NEEDS_HUMAN state for subjective review." },
+        { "label": "3D annotation", "title": "Attach feedback to scene geometry", "body": "Dream Studio and Rig Studio save an annotated PNG, strokes, comments, camera pose, and world position selected from geometry." },
+        { "label": "Interaction design", "title": "Enforce consent and proximity", "body": "The hug flow checks availability and distance, supports accept, reject, and expiry, stages synchronized start on the server, and cleans up on disconnect." },
+        { "label": "Realtime sync", "title": "Share authoritative room state", "body": "Colyseus rooms synchronize presence, movement, seating, and interaction events across clients." }
+      ]
+    },
+    {
+      "blockType": "timeline",
+      "eyebrow": "Review loop",
+      "title": "Creative changes move through four checks",
+      "items": [
+        { "label": "01", "title": "Isolate", "body": "Load the animation, camera, or interaction in a focused harness." },
+        { "label": "02", "title": "Annotate", "body": "Pause on a frame, draw the problem, add a comment, and store the camera and world-space anchor needed to reproduce the view." },
+        { "label": "03", "title": "Integrate", "body": "Move the approved slice into the lounge and connect it to player and room state." },
+        { "label": "04", "title": "Verify", "body": "Run motion, interaction, multiplayer, deployment, and visual checks as separate test groups." }
+      ]
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Current evaluation",
+      "title": "Mechanical and visual checks answer different questions",
+      "description": "Scripted tests verify state transitions and synchronization; visual review evaluates motion quality, composition, and character continuity.",
+      "markdown": "Current evidence covers focused interaction slices, room-state synchronization, deployment smoke tests, and captured visual reviews. Large-scale concurrency and cross-browser media validation remain open engineering work."
+    }
   ]
 }

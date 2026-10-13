@@ -21,7 +21,7 @@ export function ProjectMethodology({ project }: ProjectMethodologyProps) {
       <header className="project-methodology-header">
         <div>
           <div className="panel-eyebrow">Methodology at a glance</div>
-          <h2>How the work was built and judged</h2>
+          <h2>Method, evaluation, result, and scope</h2>
         </div>
         {project.methodology?.standards?.length ? (
           <ul aria-label="Methods and engineering controls" className="method-standard-list">

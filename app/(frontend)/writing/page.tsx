@@ -36,7 +36,7 @@ export default async function WritingPage() {
           </div>
           <div className="mast-side">
             {pageIntro.intro ? <p className="section-summary">{pageIntro.intro}</p> : null}
-            <span className="count-pill">{articles.length} entries</span>
+            <span className="count-pill">{articles.length} technical notes</span>
           </div>
         </section>
       </EditableRegion>
@@ -53,7 +53,7 @@ export default async function WritingPage() {
                 <h2>{leadArticle.title}</h2>
                 <p className="lead-story-copy">{leadArticle.excerpt}</p>
                 <Link className="primary-button" href={`/writing/${leadArticle.slug}`}>
-                  Read Entry
+                  Read method
                 </Link>
               </div>
 

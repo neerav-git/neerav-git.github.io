@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/sync-github.mjs",
+    "prebuild": "npm run audit:copy && node scripts/sync-github.mjs",
     "build": "next build",
+    "audit:copy": "node scripts/audit-copy.mjs",
     "start": "next start",
     "lint": "next lint",
     "sync:github": "node scripts/sync-github.mjs"

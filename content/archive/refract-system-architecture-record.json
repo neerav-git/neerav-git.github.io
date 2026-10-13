@@ -1,30 +1,30 @@
 {
-  "title": "Refract system architecture record",
+  "title": "Refract system architecture",
   "slug": "refract-system-architecture-record",
   "itemType": "Architecture diagram",
   "dateLabel": "Current repository",
-  "summary": "A supporting architecture view of the Refract implementation across the frontend, backend, database, vector store, and file storage layers.",
+  "summary": "Frontend, FastAPI services, PostgreSQL state, ChromaDB retrieval, and file storage connected through the research-session model.",
   "previewImage": "/uploads/refract/system-architecture.png",
   "links": [
     {
       "label": "Refract project page",
       "url": "/projects/refract-ai/",
-      "description": "Main project narrative."
+      "description": "Product workflow, screenshots, methodology, and evaluation."
     },
     {
       "label": "Repository",
       "url": "https://github.com/neerav-git/Refract",
-      "description": "Source repository for the architecture diagram."
+      "description": "Implementation source and architecture diagram."
     }
   ],
   "attachments": [],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Record",
-      "title": "A technical view of the application boundaries",
-      "description": "This diagram exists to make the system legible at the service and storage level. It shows how application state, uploaded documents, retrieval, and analysis outputs are separated without breaking the continuity of the session model.",
-      "context": "The preview provides the visual reference; the accompanying text explains how state moves between the shown components."
+      "eyebrow": "System map",
+      "title": "Five components share one research-session identifier",
+      "description": "The diagram maps the React interface, FastAPI endpoints, PostgreSQL records, ChromaDB vectors, and stored files used by each research session.",
+      "context": "Session IDs connect uploaded papers, extracted passages, saved evidence, datasets, and analysis runs."
     },
     {
       "blockType": "insightGrid",
@@ -35,31 +35,31 @@
         {
           "label": "Interface",
           "title": "Where does the research interaction happen?",
-          "body": "The frontend holds the surfaces where reading, evidence capture, comparison, and analysis are actually used."
+          "body": "The React interface provides Reader, Index, Compare, Review, and Stats workspaces."
         },
         {
           "label": "Workflow",
           "title": "Where is application logic coordinated?",
-          "body": "The backend handles the service layer that connects uploaded material, session state, and later analytical operations."
+          "body": "FastAPI endpoints coordinate PDF ingestion, retrieval, saved evidence, comparisons, datasets, and analysis runs."
         },
         {
           "label": "Persistence",
           "title": "What kinds of state need to survive?",
-          "body": "Relational state, stored files, and retrieval-specific context all have to remain available across the life of the session."
+          "body": "PostgreSQL stores relational state, object storage holds uploaded files, and ChromaDB indexes document chunks for retrieval."
         },
         {
-          "label": "Interpretation",
-          "title": "What keeps the parts from drifting apart?",
-          "body": "The shared research session coordinates document, evidence, comparison, and analysis state across these layers."
+          "label": "Session model",
+          "title": "How are records connected?",
+          "body": "A shared session identifier associates papers, evidence, files, comparisons, and model outputs."
         }
       ]
     },
     {
       "blockType": "callout",
-      "eyebrow": "Interpretation",
-      "title": "Shared research state coordinates the system",
-      "description": "The diagram can look broader than the implemented product if it is read too aspirationally.",
-      "markdown": "The architecture must keep research state coherent across document operations, evidence capture, comparison logic, and statistical work. The shared session supplies that state to the frontend, backend services, storage, and retrieval layers.\n\nThe diagram explains design intent and system boundaries. Working product screens and evaluation records provide separate evidence for implementation maturity."
+      "eyebrow": "Implemented responsibilities",
+      "title": "The architecture follows the product workflow",
+      "description": "Reader, comparison, and statistics screens each read and write session-scoped data.",
+      "markdown": "The frontend selects the active session and presents each workspace. FastAPI routes validate requests and coordinate services. PostgreSQL stores structured relationships, ChromaDB retrieves document passages, and file storage retains uploaded papers and datasets.\n\nProduct screenshots demonstrate the implemented workspaces. Repository code and recorded analysis runs provide implementation evidence for the service and storage responsibilities shown here."
     }
   ]
 }

@@ -3,6 +3,7 @@ node_modules
 .env
 .vercel
 out
+*.tsbuildinfo
 portfolio.db
 .DS_Store
 portfolio.db

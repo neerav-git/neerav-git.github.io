@@ -51,7 +51,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
 
           <aside className="entry-rail">
             <section className="entry-rail-panel">
-              <div className="panel-eyebrow">Reading frame</div>
+              <div className="panel-eyebrow">Publication details</div>
               <div className="entry-summary-stack">
                 {article.publishDate ? <p>{new Date(article.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p> : null}
                 {article.category ? <p>{article.category}</p> : null}

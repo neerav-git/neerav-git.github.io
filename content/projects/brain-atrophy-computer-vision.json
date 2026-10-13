@@ -1,0 +1,121 @@
+{
+  "title": "Brain Atrophy Analysis in Dementia",
+  "slug": "brain-atrophy-computer-vision",
+  "cardEyebrow": "Published medical-imaging research",
+  "dateLabel": "IEEE ICRITO · 2022",
+  "status": "peer-reviewed-publication",
+  "primaryCategory": "ml-ai-study",
+  "secondaryCategories": ["healthcare", "computer-vision"],
+  "summary": "A published computer-vision study that analyzes longitudinal MRI images to quantify structural brain changes associated with dementia.",
+  "landingDeck": "Published at IEEE ICRITO 2022, the study applies image processing to longitudinal MRI scans to measure brain atrophy and examine structural change over time.",
+  "landingHighlights": [
+    "Frames dementia analysis as measurement of longitudinal structural change in MRI data.",
+    "Uses Python and OpenCV image-processing steps to extract quantitative atrophy indicators.",
+    "Separates the publication record from the later four-class TensorFlow classification notebook."
+  ],
+  "portfolioKeywords": [
+    { "kind": "industry", "label": "Medical Imaging" },
+    { "kind": "system", "label": "Computer Vision" },
+    { "kind": "system", "label": "Longitudinal MRI" },
+    { "kind": "evaluation", "label": "Published Study" },
+    { "kind": "stack", "label": "Python" },
+    { "kind": "stack", "label": "OpenCV" }
+  ],
+  "problem": "Dementia progression appears as structural change across MRI scans taken over time. The research question was how image processing could turn those scans into repeatable measurements of brain atrophy.",
+  "approach": "The study applies a computer-vision pipeline to longitudinal MRI images, extracts structural measurements, and compares change across scans to characterize atrophy associated with dementia.",
+  "output": "A peer-reviewed five-page paper published in the proceedings of the 2022 10th International Conference on Reliability, Infocom Technologies and Optimization (ICRITO), pages 1234–1238.",
+  "methodology": {
+    "evaluation": "The publication reports the image-processing workflow and its measurements on longitudinal MRI data. The paper is the source for its experimental details and findings.",
+    "boundary": "Current evidence covers retrospective image analysis reported in the paper. Prospective diagnostic performance and patient-care use require separate clinical validation.",
+    "standards": [
+      "Longitudinal image analysis",
+      "Quantitative image measurement",
+      "Peer-reviewed publication",
+      "Reproducible preprocessing"
+    ]
+  },
+  "role": "I co-authored the study and built the Python/OpenCV image-processing pipeline used to quantify structural change in the MRI scans.",
+  "featured": true,
+  "displayOrder": 4,
+  "coverImage": {
+    "url": "/uploads/alzheimers/brain-atrophy-publication.svg",
+    "alt": "Longitudinal MRI method graphic for the published brain atrophy study"
+  },
+  "thumbnailImage": {
+    "url": "/uploads/alzheimers/brain-atrophy-publication.svg",
+    "alt": "Longitudinal MRI brain atrophy analysis workflow"
+  },
+  "technologies": [
+    { "value": "Python" },
+    { "value": "OpenCV" },
+    { "value": "MRI imaging" },
+    { "value": "Computer vision" },
+    { "value": "Longitudinal analysis" }
+  ],
+  "links": [
+    {
+      "label": "IEEE DOI",
+      "url": "https://doi.org/10.1109/ICRITO56286.2022.9964994",
+      "description": "Publication record for Analyzing Brain Atrophy in Dementia Using Computer Vision."
+    },
+    {
+      "label": "Publication record",
+      "url": "/archive/alzheimers-disease-ieee-record/",
+      "description": "Citation, contribution, and scope of the peer-reviewed paper."
+    },
+    {
+      "label": "Separate MRI classification study",
+      "url": "/projects/alzheimers-disease-research/",
+      "description": "Later four-class TensorFlow notebook documented as a distinct experiment."
+    }
+  ],
+  "gallery": [
+    { "url": "/uploads/alzheimers/brain-atrophy-publication.svg", "alt": "Longitudinal MRI analysis workflow for the IEEE publication" }
+  ],
+  "pageSections": [
+    {
+      "blockType": "sectionLead",
+      "eyebrow": "Published study",
+      "title": "Measuring structural brain change across longitudinal MRI scans",
+      "description": "The study uses computer-vision methods to quantify atrophy visible across MRI images collected over time.",
+      "context": "Neerav Chaudhary and Sourabh Singh Verma published the paper at IEEE ICRITO in 2022."
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Research question",
+      "title": "Turn visual change into a quantitative signal",
+      "description": "Longitudinal scans show how anatomy changes between imaging sessions.",
+      "markdown": "The project examines brain atrophy as a measurable change across MRI scans. Its computer-vision pipeline prepares the images, isolates structural information, and derives measurements that can be compared over time.\n\nThe published analysis defines the research claims. A prospective diagnostic product would require a separate clinical study and patient-care validation.",
+      "layout": "narrow"
+    },
+    {
+      "blockType": "timeline",
+      "eyebrow": "Method",
+      "title": "From MRI inputs to atrophy measurements",
+      "items": [
+        { "label": "01", "title": "Prepare the scans", "body": "Load longitudinal MRI images and apply consistent preprocessing before measurement." },
+        { "label": "02", "title": "Extract structural information", "body": "Use image-processing operations to identify anatomy needed for the atrophy analysis." },
+        { "label": "03", "title": "Quantify change", "body": "Calculate structural measurements that can be compared across scans." },
+        { "label": "04", "title": "Interpret the result", "body": "Relate the measured change to brain atrophy in the study population described by the paper." }
+      ]
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Publication",
+      "title": "Peer-reviewed conference record",
+      "items": [
+        { "value": "2022", "label": "Publication year", "context": "10th International Conference on Reliability, Infocom Technologies and Optimization." },
+        { "value": "1234–1238", "label": "Proceedings pages", "context": "Five-page paper in the ICRITO proceedings." },
+        { "value": "2", "label": "Authors", "context": "Neerav Chaudhary and Sourabh Singh Verma." },
+        { "value": "10.1109/ICRITO56286.2022.9964994", "label": "DOI", "context": "Persistent IEEE publication identifier." }
+      ]
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Evidence boundary",
+      "title": "The publication and classification notebook are separate studies",
+      "description": "The paper covers longitudinal atrophy measurement. The later repository covers four-class image classification.",
+      "markdown": "The four-class TensorFlow notebook uses folder labels and CNN ensembles to predict dementia stage from images. It is documented on its own project page because its data pipeline, model task, and repository evidence differ from the published brain-atrophy study."
+    }
+  ]
+}

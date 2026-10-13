@@ -63,9 +63,9 @@ export default async function RecommendationsPage() {
         <EditableRegion editHref="/admin/#/collections/recommendations" editLabel="letters collection" mode="card">
           <article className="stacked-item quiet-card">
             <div>
-              <strong>No references published yet</strong>
-              <p>Formal letters and reference documents can be added here later. The resume now has its own page.</p>
-              <small>This section remains intentionally compact and secondary to the main work record.</small>
+              <strong>Reference letters are available on request</strong>
+              <p>Use the resume page for the current professional summary, project history, and contact details.</p>
+              <small>Published reference documents will appear on this page.</small>
             </div>
             <Link href="/resume/">Resume</Link>
           </article>

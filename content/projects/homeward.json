@@ -2,7 +2,7 @@
   "title": "Homeward",
   "slug": "homeward",
   "cardEyebrow": "Healthcare coordination",
-  "dateLabel": "Working prototype · 2026",
+  "dateLabel": "Evaluated prototype · 2026",
   "status": "tested-prototype",
   "primaryCategory": "product-system",
   "secondaryCategories": ["healthcare"],
@@ -10,7 +10,7 @@
   "landingDeck": "Homeward turns a discharge packet into an agent-supported recovery workflow with source retrieval, specialist routing, approval, and retry states.",
   "landingHighlights": [
     "Turns a dense discharge packet into a patient-centered recovery view.",
-    "Routes source search and specialist work while preserving human review and escalation.",
+    "Routes source search and specialist tasks through explicit human review and escalation.",
     "Shows source provenance, reviewer approval, activity history, and safe retry states on screen."
   ],
   "portfolioKeywords": [
@@ -23,10 +23,10 @@
   ],
   "problem": "Discharge plans arrive when patients and caregivers are tired, anxious, and responsible for coordinating medications, appointments, warning signs, and follow-up care.",
   "approach": "Homeward combines document-grounded retrieval, task routing, specialist workflows, source provenance, and explicit human review around one fictional patient journey.",
-  "output": "A tested prototype with a ten-scene journey, source-search flows, approval and recovery states, and recorded mechanical evidence.",
+  "output": "A team-built prototype with source search, four bounded specialist roles, approval and recovery states, 59 Node tests, four DOM journeys, and 32 deterministic evaluation cases at the assessed commit.",
   "methodology": {
-    "evaluation": "Deterministic ten-scene scenario tests cover retrieval, routing, approval, retry, and visible recovery states using fictional discharge material.",
-    "boundary": "The evidence establishes tested prototype behavior only. It does not establish clinical correctness, provider reliability, or production integration.",
+    "evaluation": "At assessed commit eaf86d9, 59 Node tests, four DOM journeys, and 32/32 deterministic cases cover retrieval, routing, approval, retry, stale revisions, duplicate execution, and visible recovery states.",
+    "boundary": "Tests use fictional discharge material and synthetic Synthea history. A recorded live-agent attempt returned HTTP 401 before an answer, so live-agent reliability, clinical validation, and production integrations remain unverified.",
     "standards": [
       "Human approval",
       "Source provenance",
@@ -34,15 +34,59 @@
       "Safe escalation"
     ]
   },
-  "role": "I designed and built the product flow, grounded assistance, agent routing, and evidence-backed reviewer experience.",
+  "role": "Four-person hackathon project. The repository assigns work across data/retrieval, agent/tools, product experience, and reliability/presentation; this case study reports the combined product and its verified behavior.",
   "featured": true,
   "displayOrder": 2,
   "coverImage": { "url": "/uploads/homeward/recovery-overview.png", "alt": "Homeward recovery overview for a patient discharge journey" },
   "technologies": [{ "value": "Next.js" }, { "value": "TypeScript" }, { "value": "Multi-agent routing" }, { "value": "Source retrieval" }],
   "links": [{ "label": "Repository", "url": "https://github.com/pruhnav/homeward", "description": "Public Homeward codebase, product walkthrough, and test results." }],
   "pageSections": [
-    { "blockType": "sectionLead", "eyebrow": "Patient journey", "title": "Discharge support organized around the next safe step", "description": "Homeward presents recovery tasks, source-grounded help, approvals, and follow-up activity in one patient and caregiver timeline." },
-    { "blockType": "figure", "eyebrow": "Product overview", "title": "The recovery view keeps the plan legible", "media": { "url": "/uploads/homeward/recovery-overview.png", "alt": "Homeward recovery overview" }, "caption": "A fictional patient journey used to test source search, specialist routing, review, and recovery states.", "layout": "wide" },
-    { "blockType": "callout", "eyebrow": "Evidence boundary", "title": "Tested product behavior, not clinical deployment", "markdown": "The prototype and deterministic evaluations demonstrate the product flow and failure handling with fictional source material. They do not establish clinical correctness, provider reliability, or production integration." }
+    {
+      "blockType": "sectionLead",
+      "eyebrow": "Patient journey",
+      "title": "A discharge packet becomes a coordinated recovery plan",
+      "description": "Homeward organizes medications, appointments, warning signs, caregiver tasks, source-linked answers, and approval requests in one timeline.",
+      "context": "The prototype uses fictional discharge instructions and synthetic Synthea history to exercise successful actions, review states, and recoverable failures."
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Recovery overview",
+      "title": "Patients and caregivers can see the next task, owner, and source",
+      "description": "The primary view groups discharge tasks by urgency and shows the patient, caregiver, or care-team responsibility attached to each item.",
+      "media": { "url": "/uploads/homeward/recovery-overview.png", "alt": "Homeward recovery overview" },
+      "caption": "Fictional discharge journey used for deterministic product tests.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "timeline",
+      "eyebrow": "Agent workflow",
+      "title": "How a discharge question reaches an approved action",
+      "description": "The orchestration flow separates retrieval, specialist work, patient-facing output, and approval.",
+      "items": [
+        { "label": "01", "title": "Read the discharge source", "body": "Retrieve the relevant instruction, medication, appointment, or warning sign from the patient packet." },
+        { "label": "02", "title": "Route the task", "body": "Send the request to the specialist workflow responsible for scheduling, medication, education, or follow-up." },
+        { "label": "03", "title": "Show the source and proposal", "body": "Display the cited instruction, proposed action, responsible person, and current status." },
+        { "label": "04", "title": "Request human approval", "body": "Hold consequential actions until the patient, caregiver, or reviewer confirms the proposal." },
+        { "label": "05", "title": "Complete or recover", "body": "Record the completed step or expose a retry and escalation path when a dependency fails." }
+      ]
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Safety controls",
+      "title": "Four controls keep the workflow reviewable",
+      "items": [
+        { "label": "Grounding", "title": "Answers cite discharge material", "body": "Patient-facing guidance points to the source instruction used by the workflow." },
+        { "label": "Routing", "title": "Specialists have bounded responsibilities", "body": "Each task type reaches a defined workflow with an explicit handoff." },
+        { "label": "Approval", "title": "Consequential actions wait", "body": "A reviewer sees the proposed change before execution." },
+        { "label": "Recovery", "title": "Failures remain visible", "body": "Retry and escalation states identify the failed dependency and next action." }
+      ]
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Evaluation",
+      "title": "59 tests, four DOM journeys, and 32 deterministic cases verify the prototype",
+      "description": "The assessed commit covers source retrieval, specialist routing, approvals, stale revisions, duplicate execution, activity history, retry, and visible recovery.",
+      "markdown": "The deterministic suite passed 32/32 cases at assessed commit eaf86d9. A separate live-agent trial failed authentication with HTTP 401 before producing an answer, so the portfolio treats live-model reliability as unresolved. All patient data and discharge materials are fictional; clinical review and production integrations have not been completed."
+    }
   ]
 }

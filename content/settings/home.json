@@ -34,8 +34,8 @@
     "birb-hangout"
   ],
   "studyProjectSlugs": [
-    "alzheimers-disease-research",
-    "refract-ai"
+    "brain-atrophy-computer-vision",
+    "alzheimers-disease-research"
   ],
   "featuredWritingHeading": "Writing",
   "featuredArticleSlugs": [
@@ -44,20 +44,20 @@
     "notebook-first-medical-ml-is-still-real-research",
     "notes-from-a-battery-rul-project"
   ],
-  "featuredArchiveHeading": "Records",
+  "featuredArchiveHeading": "Methods & evidence",
   "featuredArchiveSlugs": [
     "refract-system-architecture-record",
     "refract-workflow-record",
     "alzheimers-notebook-record",
     "alzheimers-disease-ieee-record"
   ],
-  "recommendationsNote": "Resume and formal references are available as supporting material.",
+  "recommendationsNote": "Resume and formal references are available on their dedicated pages.",
   "modules": [
     {
       "blockType": "markdownSection",
-      "eyebrow": "Working principles",
-      "title": "What the work shows",
-      "markdown": "Refract keeps papers, saved evidence, comparison, and analysis in one research session. The Alzheimer MRI study records data inspection, preprocessing, training, and evaluation in one notebook. The writing documents the design and evaluation decisions behind both projects."
+      "eyebrow": "Engineering focus",
+      "title": "What each case study covers",
+      "markdown": "The product case studies show shipped interfaces, workflow controls, evaluation results, and current integration limits. The ML studies cover a published brain-atrophy analysis and a separate four-class MRI classification notebook, with each claim tied to its own source."
     },
     {
       "blockType": "links",
@@ -66,12 +66,12 @@
         {
           "label": "Refract",
           "url": "/projects/refract-ai/",
-          "description": "Start here for the main software system and its session-centered workflow."
+          "description": "Read how the Reader, Index, Compare, Review, and Stats workspaces share sources, evidence, datasets, and analysis runs."
         },
         {
           "label": "Alzheimer's disease MRI research",
           "url": "/projects/alzheimers-disease-research/",
-          "description": "Use this for the notebook-based machine-learning study and supporting image outputs."
+          "description": "Inspect the four-class TensorFlow pipeline, saved notebook outputs, and the evaluation evidence still missing from the repository."
         },
         {
           "label": "Resume",

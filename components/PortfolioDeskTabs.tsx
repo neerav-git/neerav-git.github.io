@@ -56,7 +56,7 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
         >
           <span>01</span>
           <strong>Products &amp; Systems</strong>
-          <small>4 working products</small>
+          <small>{productProjects.length} working products</small>
         </button>
         <button
           aria-controls="studies-panel"
@@ -69,7 +69,7 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
         >
           <span>02</span>
           <strong>ML &amp; AI Studies</strong>
-          <small>Methods and evaluation</small>
+          <small>{studyProjects.length} research studies</small>
         </button>
       </div>
 

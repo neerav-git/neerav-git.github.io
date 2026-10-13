@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { EditableRegion } from '@/components/EditableRegion'
 import { ProjectProof } from '@/components/ProjectProof'
+import { ProjectKeywords } from '@/components/ProjectKeywords'
 import { adminLinks } from '@/lib/admin'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { getProjects, getSiteSettings } from '@/lib/content'
@@ -23,7 +24,7 @@ export default async function ProjectsPage() {
           </div>
           <div className="mast-side">
             {pageIntro.intro ? <p className="section-summary">{pageIntro.intro}</p> : null}
-            <span className="count-pill">{projects.length} records</span>
+            <span className="count-pill">{projects.length} case studies</span>
           </div>
         </section>
       </EditableRegion>
@@ -49,7 +50,7 @@ export default async function ProjectsPage() {
                 ) : null}
                 <div className="spotlight-actions">
                   <Link className="primary-button" href={`/projects/${leadProject.slug}`}>
-                    Read Project
+                    View case study
                   </Link>
                 </div>
               </div>
@@ -87,6 +88,7 @@ export default async function ProjectsPage() {
                 <div className="card-meta">
                   {project.cardEyebrow || 'Project'} {project.dateLabel ? `· ${project.dateLabel}` : ''}
                 </div>
+                <ProjectKeywords keywords={project.portfolioKeywords} />
                 <h3>{project.title}</h3>
                 <p>{project.summary}</p>
                 <ProjectProof compact project={project} />

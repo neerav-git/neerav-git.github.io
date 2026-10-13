@@ -8,7 +8,7 @@ const projectStatus = {
     label: 'Active build',
   },
   'tested-prototype': {
-    definition: 'The primary journey and failure states have deterministic test evidence; the product is not deployed in care.',
+    definition: 'The primary journey and failure states have deterministic test evidence; clinical deployment remains outside the prototype scope.',
     label: 'Tested prototype',
   },
   'active-development': {
@@ -16,8 +16,16 @@ const projectStatus = {
     label: 'Active development',
   },
   'published-work': {
-    definition: 'The repository and notebook preserve the completed experiment; it is not a clinical system.',
-    label: 'Completed study',
+    definition: 'The linked notebooks document the completed experiment and its reported evaluation.',
+    label: 'Research study',
+  },
+  'peer-reviewed-publication': {
+    definition: 'The research method and findings were published in peer-reviewed conference proceedings.',
+    label: 'Peer-reviewed paper',
+  },
+  'research-prototype': {
+    definition: 'The repository implements the experiment; linked research records supply the reported evaluation result.',
+    label: 'Research prototype',
   },
 } as const
 
@@ -27,7 +35,7 @@ export function getProjectStatus(status?: string) {
   }
 
   return {
-    definition: 'The case study states its current evidence and implementation boundary.',
+    definition: 'The case study identifies its implementation, evidence, result, and current limit.',
     label: status?.replace(/-/g, ' ') || 'Case study',
   }
 }

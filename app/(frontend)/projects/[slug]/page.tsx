@@ -5,7 +5,6 @@ import { ArtifactList } from '@/components/ArtifactList'
 import { ContentBlocks } from '@/components/ContentBlocks'
 import { EditableRegion } from '@/components/EditableRegion'
 import { EntrySectionMap } from '@/components/EntrySectionMap'
-import { MarkdownArticle } from '@/components/MarkdownArticle'
 import { ProjectMethodology } from '@/components/ProjectMethodology'
 import { ProjectProof } from '@/components/ProjectProof'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
@@ -62,20 +61,6 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             <ProjectMethodology project={project} />
 
             <ContentBlocks blocks={project.pageSections} />
-
-            {project.github?.importedReadmeMarkdown ? (
-              <section className="content-section appendix-section repo-appendix-section">
-                <div className="panel-eyebrow">Repository source</div>
-                <h2>README appendix</h2>
-                <p className="section-summary">
-                  The curated project page above is the main reading path. The imported README is kept as source context for readers who want to compare the portfolio narrative with the repository record.
-                </p>
-                <details className="repo-readme-details">
-                  <summary>Open imported README</summary>
-                  <MarkdownArticle markdown={project.github.importedReadmeMarkdown} />
-                </details>
-              </section>
-            ) : null}
 
             {gallery.length ? (
               <section className="gallery-grid">
