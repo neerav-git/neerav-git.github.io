@@ -1,5 +1,5 @@
 {
-  "title": "How Refract connects reading, recall, and analysis",
+  "title": "Designing one research session across reading, recall, and analysis",
   "slug": "designing-a-session-centered-research-workspace",
   "category": "System design",
   "publishDate": "2026-06-12T00:00:00.000Z",
@@ -53,11 +53,11 @@
       "eyebrow": "Research sequence",
       "title": "The same sources support reading, retrieval practice, synthesis, and modeling",
       "items": [
-        { "label": "01", "title": "Create a session", "body": "Set the research goal and attach the relevant papers." },
-        { "label": "02", "title": "Read and save passages", "body": "Select exact text, ask grounded questions, and store evidence with page references." },
-        { "label": "03", "title": "Practice recall", "body": "Answer before source reveal, score three dimensions, and schedule the next review with FSRS." },
-        { "label": "04", "title": "Compare selected papers", "body": "Run one question across a bounded source set and store agreements, differences, and coverage." },
-        { "label": "05", "title": "Analyze a dataset", "body": "Profile variables, audit leakage, compare baselines, and attach model metrics to the session." }
+        { "label": "Create", "title": "Create a session", "body": "Set the research goal and attach the relevant papers." },
+        { "label": "Read", "title": "Read and save passages", "body": "Select exact text, ask grounded questions, and store evidence with page references." },
+        { "label": "Recall", "title": "Practice recall", "body": "Answer before source reveal, score three dimensions, and schedule the next review with FSRS." },
+        { "label": "Compare", "title": "Compare selected papers", "body": "Run one question across a bounded source set and store agreements, differences, and coverage." },
+        { "label": "Analyze", "title": "Analyze a dataset", "body": "Profile variables, audit leakage, compare baselines, and attach model metrics to the session." }
       ]
     },
     {

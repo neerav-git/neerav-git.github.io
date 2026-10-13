@@ -1,90 +1,211 @@
 {
   "title": "Birb Hangout",
   "slug": "birb-hangout",
-  "cardEyebrow": "Game design & creative tooling",
-  "dateLabel": "In development · 2026",
+  "cardEyebrow": "Realtime social world and 3D evaluation",
+  "dateLabel": "Built and evolving · 2026",
   "status": "active-development",
   "primaryCategory": "product-system",
   "secondaryCategories": ["multiplayer"],
-  "summary": "A multiplayer 3D game and creative-engineering environment for expressive character interaction, spatial annotation, and repeatable visual review.",
-  "landingDeck": "Birb Hangout combines game design, realtime multiplayer interaction, 3D annotation, and purpose-built harnesses for reviewing creative work.",
+  "summary": "A browser-based 3D place where distant friends inhabit the same room, share music and video, read, play, rest, and fly together - supported by purpose-built tools for evaluating character motion and spatial design.",
+  "landingDeck": "Birb Hangout turns remote connection into low-pressure co-presence. The lounge keeps people, activities, and shared objects visible in one world while a deliberately mixed realtime architecture synchronizes each behavior at the level it actually needs.",
   "landingHighlights": [
-    "Designs character motion, seating, proximity, room objects, and media as one social interaction system.",
-    "Builds focused harnesses for animation, camera, interaction, and visual-reference review during creative development.",
-    "Uses 3D annotations and separate motion, interaction, multiplayer, and deployment checks to make review specific and repeatable."
+    "Combines private invite-code rooms, persistent identity, customizable birds, shared media, reading, trivia, voice, consent-based social interaction, rest, and a seeded multiplayer flight world.",
+    "Matches each behavior to an appropriate synchronization model: durable room schemas, transient flight relays, peer-to-peer audio, authoritative media intent, and timestamp-driven ceremonies.",
+    "Turns subjective 3D feedback into reproducible evidence through specialist studios, exact-time capture, spatial annotation, blind semantic review, negative controls, and owner-controlled acceptance."
   ],
   "portfolioKeywords": [
-    { "kind": "industry", "label": "Game Design" },
-    { "kind": "system", "label": "Harness Engineering" },
-    { "kind": "system", "label": "3D Annotation" },
-    { "kind": "system", "label": "Interaction Design" },
-    { "kind": "evaluation", "label": "Visual & Motion QA" },
-    { "kind": "stack", "label": "Three.js + Colyseus" }
+    { "kind": "industry", "label": "Social Product Design" },
+    { "kind": "system", "label": "Realtime Multiplayer" },
+    { "kind": "system", "label": "Human-in-the-Loop 3D QA" },
+    { "kind": "system", "label": "Procedural Worldbuilding" },
+    { "kind": "evaluation", "label": "Visual Evidence" },
+    { "kind": "stack", "label": "React Three Fiber + Colyseus" }
   ],
-  "problem": "A shared 3D room needs to communicate presence, attention, mood, and activity through character behavior and spatial interaction.",
-  "approach": "A Three.js client renders the lounge and characters, a Colyseus room server synchronizes shared state, and focused harnesses isolate creative tasks for review.",
-  "output": "An actively developed React Three Fiber and Colyseus game with synchronized room state, diegetic social activities, consent-gated interactions, frame-level animation diagnostics, and world-space visual annotations.",
+  "problem": "Most remote social products ask people either to keep a conversation going or to commit to the same game. That leaves little room for the quieter, parallel rituals that make physical presence comfortable: reading while someone chooses music, resting near a friend, noticing what others are doing, or joining an activity without taking over the room.",
+  "approach": "Birb Hangout models the lounge itself as the interface. Players appear as expressive birds, approach visible objects, and move between shared and private activities without leaving the common space. The implementation combines authoritative room state, behavior-specific realtime protocols, procedural flight and terrain, and a rigorous creative-engineering workflow for testing how motion and spatial interactions actually read.",
+  "output": "A TypeScript social-world system spanning a React 18 and React Three Fiber client, Colyseus room server, typed shared protocol, persistence and upload controls, diegetic media and reading experiences, synchronized social interactions, a shared Dream flight world, specialist 3D studios, spatial annotation, and reproducible visual-review tooling.",
   "methodology": {
-    "evaluation": "Animation Lab captures paired baseline/candidate frames and speed, acceleration, and jerk traces. Dream Studio and Rig Studio store annotated PNGs, strokes, comments, camera pose, and world position. Scripted checks cover interaction and multiplayer transitions.",
-    "boundary": "Current evidence covers local and deployed interaction slices, multiplayer state checks, and visual review. Large-scale concurrency and cross-browser media validation remain open.",
+    "evaluation": "The project separates mechanical evidence from visual judgment. Recorded work includes instrumentation of twelve original animation clips, preregistered failure predictions, baseline/candidate/ablation comparisons, exact-time and orbit captures, blind-first semantic review, hash-chained candidate safeguards, specialist studio probes, interaction and multiplayer checks, and owner acceptance as the final authority for subjective quality.",
+    "boundary": "The implemented product and evaluation system are supported by source, recorded checks, and a live single-service deployment; population-scale usage, high-concurrency capacity, and universal visual acceptance are separate validation questions.",
     "standards": [
-      "Interaction-state tests",
-      "Realtime state checks",
-      "Visual review",
-      "Deployment smoke tests"
+      "Behavior-specific synchronization",
+      "Reference-led visual direction",
+      "Reproducible camera and scene state",
+      "Negative controls and ablations",
+      "Human acceptance authority"
     ]
   },
-  "role": "I lead the game design, interaction design, realtime architecture, harness engineering, 3D review workflow, character direction, and deployment decisions.",
+  "role": "I created and built Birb Hangout, defining its product direction, social experience, realtime architecture, visual language, and evaluation methodology. I designed the player journeys; built and integrated the client, server, shared protocol, activities, Dream, procedural landscape, persistence, deployment, and safety controls; directed character and interaction quality; and developed the studios, spatial annotation, candidate harnesses, and evidence process used to evaluate the work.",
   "featured": true,
   "displayOrder": 3,
-  "coverImage": { "url": "/uploads/birb/lounge.png", "alt": "Birb Lounge interior with the player character in the shared room" },
-  "technologies": [{ "value": "Three.js" }, { "value": "React" }, { "value": "Colyseus" }, { "value": "WebSockets" }, { "value": "Blender" }],
-  "links": [],
+  "coverImage": { "url": "/uploads/birb/lounge.png", "alt": "Birb Hangout lounge with a player bird inside the shared 3D room" },
+  "technologies": [
+    { "value": "React 18" },
+    { "value": "React Three Fiber" },
+    { "value": "Colyseus" },
+    { "value": "Rapier" },
+    { "value": "TypeScript" },
+    { "value": "Blender" }
+  ],
+  "links": [
+    {
+      "label": "Live product story",
+      "url": "https://birb-hangout-about.onrender.com/",
+      "description": "The public Birb Hangout experience, product rationale, and development story."
+    },
+    {
+      "label": "Repository",
+      "url": "https://github.com/neerav-git/birb-hangout",
+      "description": "The TypeScript client, server, shared protocol, studios, tests, and research records."
+    }
+  ],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Game design",
-      "title": "The room, character, and interaction states form one social system",
-      "description": "Movement, seating, proximity, emotes, shared objects, and media playback communicate what each player is doing inside the lounge.",
-      "context": "The design treats character motion and room affordances as gameplay communication, with each state reviewed in isolation before multiplayer integration."
+      "eyebrow": "Product outcome",
+      "title": "A shared digital place where being together does not require doing the same thing",
+      "description": "Friends enter a private 3D lounge as birds, remain aware of one another, and move naturally among conversation, shared media, reading, trivia, affectionate gestures, quiet rest, and cooperative flight.",
+      "context": "The product is designed around co-presence: each activity adds something legible to the room instead of replacing the room with another disconnected interface."
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Experience design",
+      "title": "Activities are visible rituals that invite participation without demanding it",
+      "markdown": "The lounge uses familiar spatial objects - a record cabinet, turntable, television, sofa, fireplace cushions, bookshelf, photo frame, light switches, and trivia screen - to communicate what is possible and what another person is doing. A bird carries a selected record sleeve to the turntable. A reader holds an open book while another player remains visible across the room. A sleeping bird stays physically present by the fire.\n\nThis diegetic approach makes intention observable through action and location. One person can read while another explores; someone else can sit nearby, join the media experience, offer a hug, or start a game. Focused overlays handle setup such as entering a video or choosing a title, then return the activity to the world.\n\nThe result is a product for both active and quiet moods. It gives distant friends and family a digital equivalent of sharing a room: company is the central reward, while the world provides enough structure to make that company easy to inhabit."
     },
     {
       "blockType": "figure",
-      "eyebrow": "Lounge",
-      "title": "The 3D room carries the social interaction",
-      "description": "Camera framing, walkable space, seats, screens, and character placement establish the interaction area.",
-      "media": { "url": "/uploads/birb/lounge.png", "alt": "Birb Lounge shared room" },
-      "caption": "Current in-product lounge capture used for composition and interaction review.",
+      "eyebrow": "The lounge",
+      "title": "The room is both interface and social context",
+      "description": "Walkable space, seats, screens, shelves, lighting, props, and character placement keep people and activities mutually visible.",
+      "media": { "url": "/uploads/birb/lounge.png", "alt": "Shared Birb Hangout lounge with seating, media, fireplace, shelves, and player bird" },
+      "caption": "The world lets players notice, approach, and join activity through the room itself.",
       "layout": "wide"
     },
     {
-      "blockType": "insightGrid",
-      "eyebrow": "Creative engineering",
-      "title": "Purpose-built tools make visual decisions testable",
+      "blockType": "timeline",
+      "eyebrow": "Room journey",
+      "title": "A private room remains coherent from invitation through reconnection",
+      "description": "Identity, ownership, occupancy, and shared state are first-class product behaviors.",
       "items": [
-        { "label": "Animation Lab", "title": "Compare motion candidates", "body": "Persistent captures pair baseline and candidate frames with speed, acceleration, jerk, negative controls, and a NEEDS_HUMAN state for subjective review." },
-        { "label": "3D annotation", "title": "Attach feedback to scene geometry", "body": "Dream Studio and Rig Studio save an annotated PNG, strokes, comments, camera pose, and world position selected from geometry." },
-        { "label": "Interaction design", "title": "Enforce consent and proximity", "body": "The hug flow checks availability and distance, supports accept, reject, and expiry, stages synchronized start on the server, and cleans up on disconnect." },
-        { "label": "Realtime sync", "title": "Share authoritative room state", "body": "Colyseus rooms synchronize presence, movement, seating, and interaction events across clients." }
+        { "label": "Create", "title": "Open a private room and shape a bird", "body": "Choose a name and appearance, receive a short code in the room URL, and establish a locally stored owner token without requiring an account." },
+        { "label": "Invite", "title": "Bring a friend into the same room", "body": "The code resolves an existing Colyseus room; invalid codes are rejected instead of silently creating a duplicate world where friends cannot see each other." },
+        { "label": "Rejoin", "title": "Recover the same identity after refresh", "body": "A stable browser client identity reclaims the live bird and the owner token restores host authority, preventing duplicate avatars and unnecessary account friction." },
+        { "label": "Share", "title": "Synchronize the facts the room must agree on", "body": "Presence, position, pose, seating, avatar, lights, photos, records, shelves, media, fireplace, games, and Dream membership travel through typed shared state." },
+        { "label": "Persist", "title": "Carry the room beyond one connection", "body": "A storage abstraction supports local disk in development and S3-compatible room records and private photo assets when configured." }
       ]
     },
     {
-      "blockType": "timeline",
-      "eyebrow": "Review loop",
-      "title": "Creative changes move through four checks",
+      "blockType": "insightGrid",
+      "eyebrow": "Shared activities",
+      "title": "Media, reading, games, and ambience are engineered as social objects",
       "items": [
-        { "label": "01", "title": "Isolate", "body": "Load the animation, camera, or interaction in a focused harness." },
-        { "label": "02", "title": "Annotate", "body": "Pause on a frame, draw the problem, add a comment, and store the camera and world-space anchor needed to reproduce the view." },
-        { "label": "03", "title": "Integrate", "body": "Move the approved slice into the lounge and connect it to player and room state." },
-        { "label": "04", "title": "Verify", "body": "Run motion, interaction, multiplayer, deployment, and visual checks as separate test groups." }
+        { "label": "Music and video", "title": "One room-owned media experience", "body": "A shared cabinet, carried record sleeve, turntable, television, authoritative media intent, host token, and real playhead correction keep the physical ritual and browser player aligned." },
+        { "label": "Reading", "title": "Private pages, socially visible presence", "body": "PDF pages and a bounded EPUB 2/3 pipeline render crisp local reading while a separate animated book actor remains attached to the bird for everyone else in the room." },
+        { "label": "Trivia", "title": "A synchronized result becomes theatre", "body": "The server protects the answer key and broadcasts one ceremony start time; each browser derives the reveal, cards, camera movement, and ejection beats from elapsed time." },
+        { "label": "Photos and ambience", "title": "Room memory and atmosphere", "body": "Private photo assets, lighting, switches, fireplace state, and synthesized crackle make the shared space feel owned and lived in without reducing it to a content feed." }
+      ]
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Realtime architecture",
+      "title": "Each behavior uses a synchronization model matched to its social invariant",
+      "description": "The system is intentionally mixed instead of forcing every interaction into one universal state model.",
+      "items": [
+        { "label": "Durable room facts", "title": "Typed authoritative schemas", "body": "Colyseus schemas and room records hold the shared facts that must survive and remain consistent across players." },
+        { "label": "Flight", "title": "Compact transient relays", "body": "High-rate Dream motion travels as validated packets with bounded reconstruction, keeping the durable room snapshot compact and lounge-only clients quiet." },
+        { "label": "Voice", "title": "Peer-to-peer media", "body": "The server relays WebRTC signaling but never carries audio; spatial gain communicates distance while keeping a faraway friend audible." },
+        { "label": "Ceremonies and gestures", "title": "Shared time and staged protocols", "body": "Trivia uses one authoritative timestamp, while hugs use a server-owned request, readiness, synchronized start, cancellation, expiry, and cleanup lifecycle." }
+      ]
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Consent and social safety",
+      "title": "A hug is a private request and synchronized agreement, not a broadcast emote",
+      "markdown": "The initiator approaches a nearby bird and sends a private request. The server checks identity, distance, availability, request rate, pair cooldown, and expiry before the recipient sees an accept-or-reject prompt. If accepted, the server computes complementary positions and facing, waits until both clients report ready, and starts one synchronized clip. Movement, timeout, cancellation, completion, or disconnection releases both participants.\n\nThe three-context smoke specification checks that the offer and consent prompt remain private while the accepted action becomes visible to the room. The feature includes the complete multiplayer lifecycle: proximity, consent, staging, synchronization, privacy, interruption, and cleanup."
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "The Dream",
+      "title": "Rest by the fire opens into a shared, physics-driven flight world",
+      "markdown": "A bird can settle on a fireside cushion, choose a sleeping posture, remain visible in the lounge, and follow a private three-breath sequence into the Dream. Breathing, stars, camera treatment, and background loading progress together while the lounge body stays asleep. The server authorizes entry only for an eligible napping player, owns one active Dream per room, creates the shared nonzero world seed, and tracks membership.\n\nInside the Dream, each browser advances its bird through a fixed-step six-degree-of-freedom model. Pitch, roll, wing shape, and discrete flaps feed lift, induced and parasitic drag, gravity, momentum, and coordinated turns. Diving converts altitude into speed; pulling out redirects speed into climb; banking reduces vertical lift. Keyboard, touch, gamepad, and scripted probes resolve to the same control structure.\n\nRemote clients reconstruct a partner from compact motion packets using bounded extrapolation and correction against the same seeded world. The architecture keeps local flight immediate and gives each remote bird a coherent trajectory through the landscape."
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Procedural landscape",
+      "title": "Public elevation data becomes a repeatable world built for browser-scale flight",
+      "description": "The Dream starts from USGS 3DEP elevation and extends it with deterministic systems whose visual and performance consequences can be inspected independently.",
+      "items": [
+        { "label": "Terrain", "title": "A measured flight-scale range", "body": "A 900-metre elevation window is processed and extended into an approximately 3.8-by-8.8-kilometre environment." },
+        { "label": "Structure", "title": "Seeded rivers, banks, islands, and shore", "body": "Repeatable builders create major landforms and landmarks so captures, multiplayer navigation, and visual comparisons can return to the same world." },
+        { "label": "Ecology", "title": "Ground color and planted geometry agree", "body": "A normalized six-part cover budget drives canopy, shrub, herb, grass, rock, and soil, avoiding terrain that looks forested without containing a forest." },
+        { "label": "Performance", "title": "Detail is concentrated where it earns attention", "body": "Species variation, level of detail, culling, tiling, and concentrated detail pockets deliver distinct silhouettes and discovery at a browser-compatible workload." }
+      ]
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Creative-engineering methodology",
+      "title": "Subjective 3D quality is treated as an observable result with human authority",
+      "markdown": "The project gives typechecks, transport tests, telemetry, and human visual judgment distinct jobs. High-risk visual work starts from references, keeps baseline and rejected candidates available, records the camera and scene state, and requires owner sign-off. One clearly defective frame can veto a candidate; broad acceptance requires evidence across the meaningful views and motion.\n\nInstrumentation of the original twelve animation clips found roughly 1.3-to-1.5-world-unit boundary jumps in every clip, dead holds in six, and missing anticipation in nine. An instrumented hug experiment preregistered eight likely failures and observed seven. Those findings redirected the work from guessed tuning toward measured mechanisms and showed that earlier gates had been testing the wrong construct.\n\nThe resulting harness applies frame-keyed changes to an allowlisted set of rig controls, supports linear, cubic-Hermite, and hold interpolation, captures exact frames and telemetry, and restores the baseline atomically. Candidate rounds require mechanistically different variants, an ablation, registered metrics, negative controls, and retained rejection history. Blind-first semantic review asks an unprimed observer what action appears to happen before revealing the intended action, exposing mechanically valid sequences that still communicate the wrong event."
+    },
+    {
+      "blockType": "timeline",
+      "eyebrow": "Visual review system",
+      "title": "A vague visual comment becomes a reproducible engineering artifact",
+      "items": [
+        { "label": "Isolate", "title": "Open the smallest truthful studio", "body": "Birb, Interaction, Room, Rig, Dream, and Landscape studios import production components, pose functions, builders, and cameras behind development-only routes." },
+        { "label": "Observe", "title": "Pause at the meaningful frame and viewpoint", "body": "Exact-time capture, named action-axis cameras, orbit views, frame strips, and telemetry sidecars record what was actually seen." },
+        { "label": "Annotate", "title": "Attach the note to scene geometry", "body": "An 11-by-11 raycast grid votes among geometry-derived subjects and stores ambiguity, hit rate, camera pose, scene state, likely subject, alternate hits, and world and subject-local coordinates." },
+        { "label": "Compare", "title": "Reopen the same view across candidates", "body": "The saved instruction restores camera and state so baseline, candidate, ablation, and later recapture answer the same visual question." },
+        { "label": "Decide", "title": "Keep acceptance with the owner", "body": "Hash-chained safeguards constrain write sets and transition authority, independent observations carry open defects forward, and uncertain subjective judgment returns to the owner for a decision." }
+      ]
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Recorded evidence",
+      "title": "The project records both product breadth and improvements to its evaluation process",
+      "description": "These figures are repository inventory or commit-scoped recorded results. They establish the depth of the evaluation surface and the specific checks completed in the recorded phases.",
+      "items": [
+        { "value": "12", "label": "Original animation clips instrumented", "context": "All twelve showed a recorded 1.3-1.5 world-unit boundary jump; six contained dead holds and nine lacked anticipation." },
+        { "value": "7/8", "label": "Preregistered failures observed", "context": "The instrumented hug experiment confirmed seven predicted failure modes and redirected the methodology from cosmetic tuning to causal mechanisms." },
+        { "value": "34/34", "label": "Candidate self-test groups", "context": "The recorded semantic-review remediation passed all candidate self-test groups after the earlier workflow exposed misleading evidence." },
+        { "value": "9/9", "label": "Focused browser checks", "context": "The same recorded Phase 2 remediation passed the focused browser suite before owner closure." },
+        { "value": "60", "label": "Playwright smoke-spec files", "context": "The current source inventory contains 199 top-level test declarations across rooms, media, reading, voice, hugs, Dream flight, studios, mobile behavior, persistence, and safety boundaries." }
+      ]
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Service engineering",
+      "title": "The deployment is treated as a shared service, not an unconstrained local demo",
+      "items": [
+        { "label": "Build and origin", "title": "One deployable client-server system", "body": "The production Docker image builds the client, server, and shared package, then serves the compiled experience from the same origin to reduce deployment and CORS complexity." },
+        { "label": "Uploads", "title": "Bounded private photo processing", "body": "Live-room bearer tokens, file and pixel ceilings, autorotation, resizing, WebP re-encoding, and room quotas constrain user-supplied images before storage." },
+        { "label": "Traffic", "title": "Typed and rate-bounded inputs", "body": "Production room budgets, keyed network hashes, payload caps, validated message types, and invalid-message counts limit accidental and abusive load." },
+        { "label": "Persistence", "title": "Replaceable room and asset storage", "body": "A shared abstraction supports local development and S3-compatible records and assets while keeping persistence separate from realtime room logic." }
+      ]
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Impact",
+      "title": "Birb Hangout advances both the social experience and the way complex 3D work is built",
+      "items": [
+        { "label": "Distant friends and family", "title": "More ways to be together", "body": "People can talk, play, watch, read, rest, or explore without requiring constant conversation or identical attention." },
+        { "label": "Interaction designers", "title": "Activities advertise themselves in the world", "body": "Visible objects, carried props, poses, ceremonies, and proximity make participation legible without turning the product into a stack of panels." },
+        { "label": "Realtime engineers", "title": "State representation follows behavior", "body": "The architecture demonstrates when to use durable schemas, transient relays, local simulation, peer media, shared timestamps, or staged server authority." },
+        { "label": "AI-assisted creative teams", "title": "Visual feedback becomes actionable evidence", "body": "Studios and spatial notes replace ambiguous direction with a reopenable camera, frame, object, coordinate, scene state, comparison, and acceptance record." }
       ]
     },
     {
       "blockType": "callout",
-      "eyebrow": "Current evaluation",
-      "title": "Mechanical and visual checks answer different questions",
-      "description": "Scripted tests verify state transitions and synchronization; visual review evaluates motion quality, composition, and character continuity.",
-      "markdown": "Current evidence covers focused interaction slices, room-state synchronization, deployment smoke tests, and captured visual reviews. Large-scale concurrency and cross-browser media validation remain open engineering work."
+      "eyebrow": "My contribution",
+      "title": "I created the product, integrated the system, and designed how its visual quality is judged",
+      "markdown": "I created Birb Hangout's co-presence premise and experience direction; designed the room, activities, social interactions, Dream, and world; built and integrated the React Three Fiber client, Colyseus server, shared protocol, persistence, media, reading, audio, trivia, flight, terrain, deployment, and service safeguards; directed character and interaction quality; and created the specialist studios, capture systems, spatial annotation, candidate safeguards, and human-controlled evaluation process."
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Evaluated scope",
+      "title": "A playable social world and a rigorous platform for continuing its development",
+      "markdown": "Birb Hangout implements the private-room journey, persistent identity, shared activities, expressive and consent-based interaction, peer voice, room persistence, the Dream flight system, procedural terrain, development studios, reproducible capture, spatial annotation, and evidence-led candidate review.\n\nThe live deployment demonstrates the integrated product on a single service. The next operational studies cover larger concurrency, broader browser and media conditions, and population-level social outcomes."
     }
   ]
 }

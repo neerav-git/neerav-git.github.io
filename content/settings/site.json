@@ -1,7 +1,7 @@
 {
   "siteTitle": "Neerav Chaudhary",
-  "siteTagline": "AI engineering across voice, agentic, research, and interactive systems.",
-  "footerLine": "Product case studies with interfaces, methods, evaluations, and implementation evidence.",
+  "siteTagline": "AI products and research systems for employee support, healthcare, scientific work, and shared virtual spaces.",
+  "footerLine": "Products, methods, measured results, and the source records behind them.",
   "contactEmail": "neerav.ch@icloud.com",
   "socialLinks": [
     {
@@ -24,39 +24,39 @@
   },
   "pageIntros": {
     "projects": {
-      "label": "01",
+      "label": "Selected work",
       "title": "Products & Systems",
-      "intro": "Voice AI, agentic workflows, source-grounded research, predictive maintenance, healthcare coordination, medical imaging, and creative 3D systems. Each case shows the industry, system pattern, evaluation method, and stack."
+      "intro": "Four implemented products and two medical-imaging studies. Each dossier explains the problem, built workflow, engineering method, differentiating decisions, evaluation, and achieved result."
     },
     "writing": {
-      "label": "02",
-      "title": "Methods",
-      "intro": "Technical write-ups on active recall, source-grounded LLM workflows, MRI classification, and battery model evaluation."
+      "label": "Technical notes",
+      "title": "Engineering methods",
+      "intro": "Four implementation notes explain how I structure research sessions, ground LLM outputs in selected sources, evaluate MRI ensembles, and test battery-life models against temporal leakage and maintenance needs."
     },
     "archive": {
-      "label": "03",
-      "title": "Evidence",
-      "intro": "Publication details, repository audits, architecture diagrams, workflow maps, and experiment records tied to the case studies."
+      "label": "Evidence library",
+      "title": "Evidence & source records",
+      "intro": "The peer-reviewed MRI paper, the 6,400-image TensorFlow notebook, and Refract's architecture and workflow diagrams provide direct records for the methods and results described in the case studies."
     },
     "about": {
-      "label": "04",
+      "label": "Profile",
       "title": "About",
-      "intro": "An AI engineer and Engineering Management graduate focused on human-centered automation, controlled workflow execution, and measurable product behavior."
+      "intro": "I design and build AI products that combine product direction, full-stack implementation, controlled automation, and evidence-led evaluation."
     },
     "recommendations": {
-      "label": "06",
+      "label": "Professional references",
       "title": "References",
       "intro": "Professional references and formal letters connected to Neerav’s engineering work."
     },
     "resume": {
-      "label": "05",
+      "label": "Professional record",
       "title": "Resume",
-      "intro": "Experience across voice agents, agentic automation, RAG, predictive modeling, computer vision, evaluation, and product design."
+      "intro": "Work includes Relay's employee-service workflows, Refract's research workspace, Homeward's discharge coordination, and two medical-imaging studies."
     }
   },
   "about": {
-    "lead": "I build conversational and agentic systems that help people resolve blockers, complete controlled actions, and work safely with connected tools and data.",
-    "biographyMarkdown": "My work combines voice interfaces, agentic automation, retrieval, product design, and human-in-the-loop controls. Relay applies those patterns to People Operations workflows. Refract connects RAG, interactive paper learning, battery analysis, and predictive-maintenance validation. My medical-imaging research uses computer vision and CNN ensembles with measured error analysis. Birb Hangout extends the same systems mindset into game design, interaction design, 3D annotation, and creative harness engineering.",
-    "currentFocusMarkdown": "## Current focus\n\n- voice agents and conversational workflows with structured function calling\n- agentic systems with authentication, confirmation, idempotency, and audit logs\n- RAG, predictive modeling, computer vision, model evaluation, and error analysis\n- human-centered automation, rapid prototyping, game interaction, and creative tooling"
+    "lead": "I take AI products from an ambiguous workflow problem to an implemented interface, controlled system behavior, and a result that can be inspected and evaluated.",
+    "biographyMarkdown": "My work spans product design, frontend and backend engineering, applied machine learning, system integration, and evaluation. I define the user journey and workflow boundaries, decide which actions belong to the interface or the agent, build the surrounding data and service contracts, and create evidence that shows what the system completed.\n\nAcross these systems, inputs, actions, and outcomes remain visible. Relay connects an employee question to authenticated records, the exact portal surface, confirmation-gated actions, and a verified application state. Refract connects papers, passages, comparisons, recall attempts, datasets, analysis decisions, and model runs through one persisted research session. Homeward turns discharge records into source-linked recovery tasks and coordinated review. Birb Hangout combines realtime rooms, synchronized media, reading, voice, games, consent-based social interaction, flight, and specialist 3D evaluation tools inside one shared world.\n\nI also conduct applied ML research. The work here includes a peer-reviewed OpenCV method that converts MRI intensity regions into an interpretable atrophy score and a separate four-class TensorFlow experiment that improved held-out accuracy from 78% to 85% through probability-level ensembling.",
+    "currentFocusMarkdown": "## What I built\n\n- **Relay:** a voice-first employee-service workspace evaluated across seven multi-turn workflow families, with 103/110 post-fix development conversations and 39/42 held-out rewordings completed.\n- **Refract:** five connected research workspaces for close reading, evidence capture, cross-paper synthesis, source-grounded recall, dataset auditing, and baseline modeling.\n- **Homeward:** the product direction, patient journey, interface, backend, synthetic data strategy, source-linked discharge workflow, specialist-agent architecture, controls, tests, and comprehensive documentation.\n- **Birb Hangout:** the product direction and complete client-server social world, including private rooms, customizable characters, shared media, reading, voice, trivia, consent-based interaction, Dream flight, procedural terrain, persistence, deployment controls, and visual-evaluation studios.\n- **Medical imaging:** a peer-reviewed 2,198-image atrophy-measurement study and a 6,400-image four-class CNN ensemble experiment.\n\n## How I work\n\n1. Define the exact human task, decision, and desired application state.\n2. Design the smallest coherent product journey that can complete the work.\n3. Keep sources, permissions, confirmations, and state transitions explicit.\n4. Build the interface, service contracts, persistence, and evaluation path as one system.\n5. Record the result with scenarios, metrics, artifacts, and visual review that another person can inspect.\n\nThis approach creates operating products with clear responsibility, observable behavior, and a practical path for improving performance."
   }
 }

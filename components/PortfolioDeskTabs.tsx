@@ -2,14 +2,12 @@
 
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { type KeyboardEvent, useEffect, useRef, useState } from 'react'
 
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import type { ProjectRecord } from '@/lib/types'
 
-import { ProjectDossier } from './ProjectDossier'
-import { ProjectKeywords } from './ProjectKeywords'
-import { ProjectRail } from './ProjectRail'
+import { ProductShowcase } from './ProductShowcase'
 
 type PortfolioDeskTabsProps = {
   productProjects: ProjectRecord[]
@@ -25,6 +23,7 @@ const deskHash: Record<Desk, string> = {
 
 export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioDeskTabsProps) {
   const [activeDesk, setActiveDesk] = useState<Desk>('products')
+  const tabRefs = useRef<Record<Desk, HTMLButtonElement | null>>({ products: null, studies: null })
 
   useEffect(() => {
     function syncDeskToHash() {
@@ -37,9 +36,24 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
     return () => window.removeEventListener('hashchange', syncDeskToHash)
   }, [])
 
-  function selectDesk(desk: Desk) {
+  function selectDesk(desk: Desk, moveFocus = false) {
     setActiveDesk(desk)
     window.history.replaceState(null, '', deskHash[desk])
+    if (moveFocus) tabRefs.current[desk]?.focus()
+  }
+
+  function handleDeskKeyDown(event: KeyboardEvent<HTMLButtonElement>, desk: Desk) {
+    const desks: Desk[] = ['products', 'studies']
+    const index = desks.indexOf(desk)
+    let nextDesk = desk
+    if (event.key === 'ArrowRight') nextDesk = desks[(index + 1) % desks.length]
+    else if (event.key === 'ArrowLeft') nextDesk = desks[(index - 1 + desks.length) % desks.length]
+    else if (event.key === 'Home') nextDesk = desks[0]
+    else if (event.key === 'End') nextDesk = desks[desks.length - 1]
+    else return
+
+    event.preventDefault()
+    selectDesk(nextDesk, true)
   }
 
   return (
@@ -51,10 +65,12 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
           className="portfolio-tab"
           id="products-tab"
           onClick={() => selectDesk('products')}
+          onKeyDown={(event) => handleDeskKeyDown(event, 'products')}
+          ref={(element) => { tabRefs.current.products = element }}
           role="tab"
+          tabIndex={activeDesk === 'products' ? 0 : -1}
           type="button"
         >
-          <span>01</span>
           <strong>Products &amp; Systems</strong>
           <small>{productProjects.length} working products</small>
         </button>
@@ -64,10 +80,12 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
           className="portfolio-tab"
           id="studies-tab"
           onClick={() => selectDesk('studies')}
+          onKeyDown={(event) => handleDeskKeyDown(event, 'studies')}
+          ref={(element) => { tabRefs.current.studies = element }}
           role="tab"
+          tabIndex={activeDesk === 'studies' ? 0 : -1}
           type="button"
         >
-          <span>02</span>
           <strong>ML &amp; AI Studies</strong>
           <small>{studyProjects.length} research studies</small>
         </button>
@@ -82,17 +100,11 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
         tabIndex={0}
       >
         <div className="desk-heading">
-          <div><span>01</span><div><div className="panel-eyebrow">Products</div><h2>Working interfaces and systems</h2></div></div>
-          <p>Open a product to see the interface, the user flow, the system decisions, and the checks used to verify it.</p>
+          <div><div className="panel-eyebrow">Products</div><h2>Four systems built around real workflows</h2></div>
+          <p>Select a product to see its working interface, core outcome, leading evidence, and complete engineering dossier.</p>
         </div>
 
-        <ProjectRail projects={productProjects} />
-
-        <div className="dossier-stack">
-          {productProjects.map((project, index) => (
-            <ProjectDossier featured={index === 0} key={project.slug} project={project} />
-          ))}
-        </div>
+        <ProductShowcase projects={productProjects} />
       </div>
 
       <div
@@ -104,12 +116,12 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
         tabIndex={0}
       >
         <div className="desk-heading">
-          <div><span>02</span><div><div className="panel-eyebrow">Studies</div><h2>Methods, models, and evaluation</h2></div></div>
-          <p>These studies show the data, experimental steps, evaluation method, and limits of each result.</p>
+          <div><div className="panel-eyebrow">Studies</div><h2>Two distinct medical-imaging contributions</h2></div>
+          <p>One peer-reviewed OpenCV study turns MRI intensity regions into an interpretable atrophy score; the other builds and evaluates a four-class TensorFlow ensemble across 6,400 images.</p>
         </div>
 
         <div className="study-project-grid">
-          {studyProjects.map((project, index) => {
+          {studyProjects.map((project) => {
             const image = getUploadUrl(project.coverImage)
             return (
               <Link className="study-project-card" href={`/projects/${project.slug}/`} key={project.slug}>
@@ -118,10 +130,8 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
                     <img alt={getUploadAlt(project.coverImage)} src={image} />
                   </div>
                 ) : null}
-                <ProjectKeywords keywords={project.portfolioKeywords} />
                 <div className="study-project-copy">
                   <div className="study-project-meta">
-                    <span>{String(index + 1).padStart(2, '0')}</span>
                     <span>{project.cardEyebrow || 'ML & AI study'}</span>
                   </div>
                   <h3>{project.title}</h3>

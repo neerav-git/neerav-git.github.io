@@ -20,7 +20,7 @@ export default async function RecommendationsPage() {
       <EditableRegion editHref={adminLinks.lettersPage} editLabel="letters page intro">
         <section className="section-heading subdued-heading page-mast">
           <div>
-            <div className="panel-eyebrow">{pageIntro.label || '06'}</div>
+            <div className="panel-eyebrow">{pageIntro.label || 'Professional references'}</div>
             <h1>{pageIntro.title || 'References'}</h1>
           </div>
           <div className="mast-side">

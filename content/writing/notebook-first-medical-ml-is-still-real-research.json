@@ -47,11 +47,11 @@
       "eyebrow": "Pipeline",
       "title": "The notebook executes five concrete stages",
       "items": [
-        { "label": "01", "title": "Discover 6,400 files", "body": "Mount Google Drive, enumerate MRI images, and map each parent folder to a class label." },
-        { "label": "02", "title": "Create 256×256 batches", "body": "Resize and rescale each image, then allocate training, validation, and test partitions using the declared 80/10/10 split." },
-        { "label": "03", "title": "Augment training images", "body": "Apply randomized image transformations inside the training pipeline to increase input variation." },
-        { "label": "04", "title": "Train CNN variants", "body": "Run convolution, pooling, dropout, and dense classification layers against the same four labels." },
-        { "label": "05", "title": "Average model probabilities", "body": "Compare single-model predictions with two-model, three-model, and draft weighted ensembles." }
+        { "label": "Discover", "title": "Discover 6,400 files", "body": "Mount Google Drive, enumerate MRI images, and map each parent folder to a class label." },
+        { "label": "Batch", "title": "Create 256×256 batches", "body": "Resize and rescale each image, then allocate training, validation, and test partitions using the declared 80/10/10 split." },
+        { "label": "Augment", "title": "Augment training images", "body": "Apply randomized image transformations inside the training pipeline to increase input variation." },
+        { "label": "Train", "title": "Train CNN variants", "body": "Run convolution, pooling, dropout, and dense classification layers against the same four labels." },
+        { "label": "Ensemble", "title": "Average model probabilities", "body": "Compare single-model predictions with two-model, three-model, and draft weighted ensembles." }
       ]
     },
     {

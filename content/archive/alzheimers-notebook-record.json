@@ -3,7 +3,7 @@
   "slug": "alzheimers-notebook-record",
   "itemType": "Experiment notebook",
   "dateLabel": "TensorFlow / Google Colab",
-  "summary": "The linked Colab experiments covering MRI inspection, augmentation, CNN training, error analysis, and the reported improvement from 78% to 85% accuracy.",
+  "summary": "The executable record for the 6,400-image TensorFlow study: four-class ingestion, training-only augmentation, 2.11-million- and 491,524-parameter CNNs, reusable inference, image-level error review, checkpoint fusion, and the reported improvement from 78% to 85% accuracy.",
   "previewImage": "/uploads/alzheimers/notebook-output-1.png",
   "links": [
     {
@@ -38,22 +38,22 @@
       "description": "Each stage exposes the inputs and decisions used by the next stage.",
       "items": [
         {
-          "label": "01",
+          "label": "Setup",
           "title": "Data access and setup",
           "body": "The notebook mounts Google Drive, locates the image folders, and constructs the dataset pipeline."
         },
         {
-          "label": "02",
+          "label": "Prepare",
           "title": "Image inspection and preprocessing",
           "body": "The notebook shows representative MRI slices, resizing decisions, and augmentation logic."
         },
         {
-          "label": "03",
+          "label": "Train",
           "title": "Model construction and training",
           "body": "The model cells show the convolutional architecture, training configuration, and learning curves."
         },
         {
-          "label": "04",
+          "label": "Evaluate",
           "title": "Evaluation and comparison",
           "body": "Later ensemble and comparison work uses the preprocessing and baseline pipeline recorded earlier."
         }

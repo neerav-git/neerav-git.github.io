@@ -67,11 +67,11 @@
       "eyebrow": "Evaluation loop",
       "title": "A model change should pass the same recorded cases",
       "items": [
-        { "label": "01", "title": "Freeze the case inputs", "body": "Keep the research question, selected sources, expected points, and rubric version stable." },
-        { "label": "02", "title": "Run the candidate", "body": "Record the model, prompt, retrieved passages, structured output, and latency." },
-        { "label": "03", "title": "Compare dimensions", "body": "Measure core-claim coverage, reference-detail coverage, faithfulness, and reviewer agreement separately." },
-        { "label": "04", "title": "Inspect failures", "body": "Review unsupported statements, missed evidence, retrieval gaps, and rubric disagreement by category." },
-        { "label": "05", "title": "Release with a bounded claim", "body": "Describe the tested cases, observed result, and untested populations or workflows."
+        { "label": "Freeze", "title": "Freeze the case inputs", "body": "Keep the research question, selected sources, expected points, and rubric version stable." },
+        { "label": "Run", "title": "Run the candidate", "body": "Record the model, prompt, retrieved passages, structured output, and latency." },
+        { "label": "Compare", "title": "Compare dimensions", "body": "Measure core-claim coverage, reference-detail coverage, faithfulness, and reviewer agreement separately." },
+        { "label": "Inspect", "title": "Inspect failures", "body": "Review unsupported statements, missed evidence, retrieval gaps, and rubric disagreement by category." },
+        { "label": "Release", "title": "Release with a bounded claim", "body": "Describe the tested cases, observed result, and untested populations or workflows."
         }
       ]
     },

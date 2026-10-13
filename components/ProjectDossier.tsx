@@ -31,14 +31,14 @@ export function ProjectDossier({ featured = false, project }: ProjectDossierProp
         <div className="product-dossier-copy">
           <p className="product-dossier-deck">{project.landingDeck || project.summary}</p>
           {capabilities.length ? (
-            <ol className="dossier-capabilities">
+            <ul className="dossier-capabilities">
               {capabilities.map((item, index) => (
                 <li key={`${project.slug}-${index}`}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <span aria-hidden="true" className="dossier-capability-marker" />
                   <p>{item}</p>
                 </li>
               ))}
-            </ol>
+            </ul>
           ) : null}
           {project.methodology?.evaluation ? (
             <div className="dossier-validation">

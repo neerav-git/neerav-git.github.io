@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { notFound } from 'next/navigation'
 
 import { ArtifactList } from '@/components/ArtifactList'
@@ -7,6 +8,7 @@ import { EntrySectionMap } from '@/components/EntrySectionMap'
 import { adminLinks } from '@/lib/admin'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { getArticleBySlug, getArticles } from '@/lib/content'
+import { normalizeContentMedia } from '@/lib/mediaDeduplication'
 
 type ArticlePageProps = {
   params: Promise<{
@@ -29,27 +31,20 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
     notFound()
   }
 
+  const coverUrl = getUploadUrl(article.coverImage)
+  const normalizedMedia = normalizeContentMedia(article.pageSections, coverUrl ? [coverUrl] : [])
+
   return (
     <EditableRegion editHref={adminLinks.article(article.slug)} editLabel={article.title || 'article'}>
       <article className="detail-page detail-entry">
-        <div className="entry-layout">
-          <div className="entry-main">
-            <div className="detail-header detail-mast">
-              <div className="panel-eyebrow">{article.category || 'Writing'}</div>
-              <h1>{article.title}</h1>
-              <p className="hero-copy">{article.excerpt}</p>
-            </div>
-
-            {article.coverImage && getUploadUrl(article.coverImage) ? (
-              <div className="cover-frame detail-cover">
-                <img alt={getUploadAlt(article.coverImage)} src={getUploadUrl(article.coverImage) || ''} />
-              </div>
-            ) : null}
-
-            <ContentBlocks blocks={article.pageSections} />
+        <div className="detail-overview">
+          <div className="detail-header detail-mast">
+            <div className="panel-eyebrow">{article.category || 'Writing'}</div>
+            <h1>{article.title}</h1>
+            <p className="hero-copy">{article.excerpt}</p>
           </div>
 
-          <aside className="entry-rail">
+          <aside className="detail-overview-aside">
             <section className="entry-rail-panel">
               <div className="panel-eyebrow">Publication details</div>
               <div className="entry-summary-stack">
@@ -59,9 +54,17 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
             </section>
 
             <ArtifactList attachments={article.attachments} links={article.links} title="References and files" />
-            <EntrySectionMap blocks={article.pageSections} />
           </aside>
         </div>
+
+        {article.coverImage && getUploadUrl(article.coverImage) ? (
+          <div className="cover-frame detail-cover">
+            <img alt={getUploadAlt(article.coverImage)} src={getUploadUrl(article.coverImage) || ''} />
+          </div>
+        ) : null}
+
+        <EntrySectionMap blocks={normalizedMedia.blocks} />
+        <ContentBlocks blocks={normalizedMedia.blocks} />
       </article>
     </EditableRegion>
   )

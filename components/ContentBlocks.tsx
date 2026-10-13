@@ -142,7 +142,7 @@ export function ContentBlocks({ blocks }: ContentBlocksProps) {
                         const entry = asContentItem(item)
                         return (
                           <article className="timeline-item" key={`${key}-${itemIndex}`}>
-                            <div className="timeline-marker">{entry.label || String(itemIndex + 1).padStart(2, '0')}</div>
+                            <div className="timeline-marker" aria-hidden={!entry.label}>{entry.label || '•'}</div>
                             <div className="timeline-copy">
                               {entry.title ? <h3>{entry.title}</h3> : null}
                               {entry.body ? <p>{entry.body}</p> : null}

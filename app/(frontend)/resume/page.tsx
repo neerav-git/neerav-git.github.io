@@ -23,7 +23,7 @@ export default async function ResumePage() {
       <EditableRegion editHref={adminLinks.resumePage} editLabel="resume page intro">
         <section className="section-heading section-heading-wide page-mast resume-mast">
           <div>
-            <div className="panel-eyebrow">{pageIntro.label || '05'}</div>
+            <div className="panel-eyebrow">{pageIntro.label || 'Professional record'}</div>
             <h1>{pageIntro.title || 'Resume'}</h1>
           </div>
           <div className="mast-side">
@@ -64,9 +64,10 @@ export default async function ResumePage() {
           <section className="entry-rail-panel">
             <div className="panel-eyebrow">What this covers</div>
             <div className="resume-signal-list">
-              <p>Voice agents, structured function calling, and controlled agentic workflows.</p>
-              <p>RAG, predictive modeling, computer vision, evaluation, and error analysis.</p>
-              <p>Product design, People Operations automation, and creative systems engineering.</p>
+              <p>Relay: employee questions, authenticated records, confirmed actions, and retained evaluation runs.</p>
+              <p>Refract: source-linked reading, recall, comparison, and documented data analysis.</p>
+              <p>Homeward: discharge instructions converted into tasks that remain subject to human review.</p>
+              <p>Medical imaging: a published longitudinal MRI analysis and a separate four-class classification notebook.</p>
             </div>
           </section>
 

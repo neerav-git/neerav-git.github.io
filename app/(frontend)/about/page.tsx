@@ -16,7 +16,7 @@ export default async function AboutPage() {
     <EditableRegion editHref={adminLinks.site} editLabel="about page">
       <div className="page-flow">
         <section className="section-heading">
-          <div className="panel-eyebrow">{pageIntro.label || '05'}</div>
+          <div className="panel-eyebrow">{pageIntro.label || 'Profile'}</div>
           <h1>{pageIntro.title || 'About'}</h1>
           {about.lead ? <p className="section-summary">{about.lead}</p> : null}
         </section>
@@ -30,7 +30,7 @@ export default async function AboutPage() {
                 Resume
               </Link>
               <Link className="secondary-button" href="/projects/">
-                Projects
+                View products
               </Link>
             </div>
           </div>

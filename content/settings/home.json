@@ -1,7 +1,7 @@
 {
-  "heroEyebrow": "Product systems · applied AI · evaluation",
-  "heroTitle": "AI engineering across voice, agentic, research, and interactive systems.",
-  "heroBody": "Selected work spans People Operations automation, source-grounded research, predictive maintenance, healthcare coordination, medical imaging, and creative 3D systems. Each case shows the interface, control model, evaluation, and stack.",
+  "heroEyebrow": "Product design · engineering · evaluation",
+  "heroTitle": "I design and build AI products that turn complex work into clear, verifiable outcomes.",
+  "heroBody": "Relay completes employee-service workflows from grounded answer to confirmed action. Refract keeps papers, citations, comparisons, datasets, and model results connected inside one research session. Homeward converts discharge records into source-linked recovery tasks. Birb Hangout gives distant friends a shared 3D room for music, video, reading, games, rest, and flight. The medical-imaging studies add peer-reviewed atrophy measurement and a four-class CNN ensemble result.",
   "heroImage": "/uploads/relay/workspace-and-guide.png",
   "heroLinks": [
     {
@@ -17,7 +17,7 @@
     {
       "label": "ML & AI Studies",
       "url": "/#ml-ai-studies",
-      "description": "The Alzheimer MRI study and the evaluation questions behind Refract."
+      "description": "A peer-reviewed OpenCV atrophy method and a four-class TensorFlow ensemble experiment."
     }
   ],
   "featuredProjectsHeading": "Products & Systems",
@@ -56,8 +56,8 @@
     {
       "blockType": "markdownSection",
       "eyebrow": "Engineering focus",
-      "title": "What each case study covers",
-      "markdown": "The product case studies show shipped interfaces, workflow controls, evaluation results, and current integration limits. The ML studies cover a published brain-atrophy analysis and a separate four-class MRI classification notebook, with each claim tied to its own source."
+      "title": "What the portfolio demonstrates",
+      "markdown": "The product dossiers explain the interface, system architecture, implemented workflow, evaluation method, and resulting improvement behind each build. The ML studies document two distinct achievements: a peer-reviewed OpenCV method for measuring brain atrophy and a four-class TensorFlow experiment that improved held-out accuracy through probability-level ensembling."
     },
     {
       "blockType": "links",
@@ -71,7 +71,7 @@
         {
           "label": "Alzheimer's disease MRI research",
           "url": "/projects/alzheimers-disease-research/",
-          "description": "Inspect the four-class TensorFlow pipeline, saved notebook outputs, and the evaluation evidence still missing from the repository."
+          "description": "Inspect the 6,400-image TensorFlow pipeline, independently saved CNNs, image-level review tools, and the reported 78% to 85% ensemble improvement."
         },
         {
           "label": "Resume",

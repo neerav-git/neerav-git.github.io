@@ -1,56 +1,57 @@
 {
   "title": "Brain Atrophy Analysis in Dementia",
   "slug": "brain-atrophy-computer-vision",
-  "cardEyebrow": "Published medical-imaging research",
+  "cardEyebrow": "Interpretable MRI atrophy measurement",
   "dateLabel": "IEEE ICRITO · 2022",
   "status": "peer-reviewed-publication",
   "primaryCategory": "ml-ai-study",
   "secondaryCategories": ["healthcare", "computer-vision"],
-  "summary": "A published computer-vision study that analyzes longitudinal MRI images to quantify structural brain changes associated with dementia.",
-  "landingDeck": "Published at IEEE ICRITO 2022, the study applies image processing to longitudinal MRI scans to measure brain atrophy and examine structural change over time.",
+  "summary": "A peer-reviewed computer-vision study that converts T1-weighted MRI scans into an interpretable tissue-loss ratio, derives cohort reference bounds, and improves crop-based classification accuracy from 66% to 71% by focusing the analysis on the hippocampal region.",
+  "landingDeck": "Published in the IEEE ICRITO 2022 proceedings, the research operationalizes visible signs of cerebral atrophy as explicit OpenCV measurements. The resulting pipeline converts color masks into an auditable score, compares that score with reference bounds derived from 2,198 ADNI images, and tests how anatomical focus changes classification performance.",
   "landingHighlights": [
-    "Frames dementia analysis as measurement of longitudinal structural change in MRI data.",
-    "Uses Python and OpenCV image-processing steps to extract quantitative atrophy indicators.",
-    "Separates the publication record from the later four-class TensorFlow classification notebook."
+    "Analyzes 2,198 ADNI T1-weighted MRI images: 1,172 CDR 0 images and 1,026 images spanning CDR 0.5–2.",
+    "Defines the interpretable dem ratio as dark-region density divided by combined white- and grey-region density, connecting every score to visible pixel counts.",
+    "Raises reported classification accuracy from 66% with the default crop to 71% with a hippocampal crop, a five-percentage-point improvement."
   ],
   "portfolioKeywords": [
     { "kind": "industry", "label": "Medical Imaging" },
-    { "kind": "system", "label": "Computer Vision" },
-    { "kind": "system", "label": "Longitudinal MRI" },
-    { "kind": "evaluation", "label": "Published Study" },
+    { "kind": "system", "label": "Interpretable Computer Vision" },
+    { "kind": "system", "label": "MRI Atrophy" },
+    { "kind": "evaluation", "label": "66% → 71% Accuracy" },
     { "kind": "stack", "label": "Python" },
     { "kind": "stack", "label": "OpenCV" }
   ],
-  "problem": "Dementia progression appears as structural change across MRI scans taken over time. The research question was how image processing could turn those scans into repeatable measurements of brain atrophy.",
-  "approach": "The study applies a computer-vision pipeline to longitudinal MRI images, extracts structural measurements, and compares change across scans to characterize atrophy associated with dementia.",
-  "output": "A peer-reviewed five-page paper published in the proceedings of the 2022 10th International Conference on Reliability, Infocom Technologies and Optimization (ICRITO), pages 1234–1238.",
+  "problem": "Manual tracing and segmentation can make brain-atrophy measurement expert-intensive, time-consuming, and difficult to reproduce across large MRI collections. The study asks whether visible tissue loss, ventricular expansion, and sulcal widening can be translated into a repeatable image-level score that supports consistent comparison.",
+  "approach": "The pipeline creates binary masks for black, white, and grey intensity regions; calculates their pixel densities; and computes dem = b / (w + g), where dark space acts as a proxy for cerebrospinal-fluid and open-space patterns and white-plus-grey pixels represent visible tissue. Group means define lower and upper reference bounds, while a controlled crop experiment tests the value of focusing on the hippocampal region.",
+  "output": "A peer-reviewed five-page IEEE conference paper, a Python/OpenCV measurement method, cohort-derived decision bounds, a three-region interpretation rule, a longitudinal atrophy-rate equation, and a reported crop-based classification improvement from 66% to 71%.",
   "methodology": {
-    "evaluation": "The publication reports the image-processing workflow and its measurements on longitudinal MRI data. The paper is the source for its experimental details and findings.",
-    "boundary": "Current evidence covers retrospective image analysis reported in the paper. Prospective diagnostic performance and patient-care use require separate clinical validation.",
+    "evaluation": "The paper evaluates the method on 2,198 ADNI T1-weighted MRI images divided into 1,172 CDR 0 images and 1,026 CDR 0.5–2 images. It reports dem_low = 0.41, dem_high = 0.83, a worked mildly demented example at dem = 0.60, and accuracy of 66% for the default crop versus 71% for the hippocampal crop.",
+    "boundary": "The publication establishes retrospective image-level evidence for the proposed measurement and crop comparison. A clinical validation program would add patient-level cohort design, scanner-diverse external data, diagnostic operating characteristics, and clinical review.",
     "standards": [
-      "Longitudinal image analysis",
-      "Quantitative image measurement",
-      "Peer-reviewed publication",
-      "Reproducible preprocessing"
+      "Explicit pixel-mask definitions",
+      "Auditable measurement equation",
+      "Cohort-derived reference bounds",
+      "Controlled crop comparison",
+      "Peer-reviewed publication"
     ]
   },
-  "role": "I co-authored the study and built the Python/OpenCV image-processing pipeline used to quantify structural change in the MRI scans.",
+  "role": "I co-authored the paper and built the repeatable Python/OpenCV pipeline that converts MRI intensity regions into quantitative tissue-loss measurements, reference bounds, crop comparisons, and an atrophy-rate method.",
   "featured": true,
   "displayOrder": 4,
   "coverImage": {
     "url": "/uploads/alzheimers/brain-atrophy-publication.svg",
-    "alt": "Longitudinal MRI method graphic for the published brain atrophy study"
+    "alt": "OpenCV workflow for measuring brain atrophy from MRI intensity regions"
   },
   "thumbnailImage": {
     "url": "/uploads/alzheimers/brain-atrophy-publication.svg",
-    "alt": "Longitudinal MRI brain atrophy analysis workflow"
+    "alt": "Interpretable MRI brain-atrophy measurement workflow"
   },
   "technologies": [
     { "value": "Python" },
     { "value": "OpenCV" },
-    { "value": "MRI imaging" },
+    { "value": "ADNI MRI" },
     { "value": "Computer vision" },
-    { "value": "Longitudinal analysis" }
+    { "value": "Image segmentation" }
   ],
   "links": [
     {
@@ -61,61 +62,144 @@
     {
       "label": "Publication record",
       "url": "/archive/alzheimers-disease-ieee-record/",
-      "description": "Citation, contribution, and scope of the peer-reviewed paper."
+      "description": "Citation, contribution, method, results, and evidence scope for the peer-reviewed paper."
     },
     {
       "label": "Separate MRI classification study",
       "url": "/projects/alzheimers-disease-research/",
-      "description": "Later four-class TensorFlow notebook documented as a distinct experiment."
+      "description": "A distinct four-class TensorFlow notebook and ensemble-learning experiment."
     }
   ],
   "gallery": [
-    { "url": "/uploads/alzheimers/brain-atrophy-publication.svg", "alt": "Longitudinal MRI analysis workflow for the IEEE publication" }
+    { "url": "/uploads/alzheimers/brain-atrophy-publication.svg", "alt": "MRI intensity masks, measurement equation, and cohort comparison workflow" }
   ],
   "pageSections": [
     {
       "blockType": "sectionLead",
-      "eyebrow": "Published study",
-      "title": "Measuring structural brain change across longitudinal MRI scans",
-      "description": "The study uses computer-vision methods to quantify atrophy visible across MRI images collected over time.",
-      "context": "Neerav Chaudhary and Sourabh Singh Verma published the paper at IEEE ICRITO in 2022."
+      "eyebrow": "Research outcome",
+      "title": "An anatomical hypothesis becomes an explicit, inspectable computer-vision measurement",
+      "description": "The study reduces each T1-weighted MRI image to three visible intensity regions, combines their pixel densities into a tissue-loss ratio, and tests that score against reference bounds derived from 2,198 ADNI images.",
+      "context": "Published in the IEEE ICRITO 2022 proceedings, the paper reports a five-percentage-point accuracy improvement when the analysis is focused on the hippocampal region."
     },
     {
       "blockType": "proseSection",
-      "eyebrow": "Research question",
-      "title": "Turn visual change into a quantitative signal",
-      "description": "Longitudinal scans show how anatomy changes between imaging sessions.",
-      "markdown": "The project examines brain atrophy as a measurable change across MRI scans. Its computer-vision pipeline prepares the images, isolates structural information, and derives measurements that can be compared over time.\n\nThe published analysis defines the research claims. A prospective diagnostic product would require a separate clinical study and patient-care validation.",
+      "eyebrow": "Research problem",
+      "title": "Make cerebral atrophy measurable without repeated expert tracing",
+      "description": "Dementia can appear in MRI as tissue loss, widened sulci, shrunken gyri, ventricular expansion, and hippocampal change.",
+      "markdown": "These patterns are clinically meaningful, yet large image collections make repeated manual tracing and segmentation expensive and difficult to standardize. The research therefore narrows a broad diagnostic challenge into a concrete measurement question: can visible tissue and open-space patterns be converted into a repeatable score for comparing MRI images?\n\nThe resulting method is deliberately transparent. It uses observable intensity regions, fixed thresholds, binary masks, pixel counts, and a published equation. Every score can be traced back through the calculation to the pixels that produced it, giving researchers an interpretable baseline for studying how anatomical focus and image preparation influence the signal.",
       "layout": "narrow"
     },
     {
-      "blockType": "timeline",
-      "eyebrow": "Method",
-      "title": "From MRI inputs to atrophy measurements",
+      "blockType": "metrics",
+      "eyebrow": "Study at a glance",
+      "title": "The paper connects cohort scale, interpretable bounds, and a measured crop improvement",
       "items": [
-        { "label": "01", "title": "Prepare the scans", "body": "Load longitudinal MRI images and apply consistent preprocessing before measurement." },
-        { "label": "02", "title": "Extract structural information", "body": "Use image-processing operations to identify anatomy needed for the atrophy analysis." },
-        { "label": "03", "title": "Quantify change", "body": "Calculate structural measurements that can be compared across scans." },
-        { "label": "04", "title": "Interpret the result", "body": "Relate the measured change to brain atrophy in the study population described by the paper." }
+        { "value": "2,198", "label": "ADNI MRI images", "context": "T1-weighted images used to derive and examine the proposed atrophy score." },
+        { "value": "1,172", "label": "CDR 0 images", "context": "Cognitively normal or non-demented reference group reported in Table I." },
+        { "value": "1,026", "label": "CDR 0.5–2 images", "context": "Cognitive-impairment and dementia group reported in Table I." },
+        { "value": "0.41 / 0.83", "label": "Lower and upper dem bounds", "context": "Group-average reference values used to interpret new image scores." },
+        { "value": "66% → 71%", "label": "Crop comparison accuracy", "context": "A five-percentage-point gain when the hippocampal crop replaces the default crop." }
       ]
     },
     {
-      "blockType": "metrics",
-      "eyebrow": "Publication",
-      "title": "Peer-reviewed conference record",
+      "blockType": "timeline",
+      "eyebrow": "End-to-end method",
+      "title": "Seven stages connect a labeled scan to an interpretable result",
       "items": [
-        { "value": "2022", "label": "Publication year", "context": "10th International Conference on Reliability, Infocom Technologies and Optimization." },
-        { "value": "1234–1238", "label": "Proceedings pages", "context": "Five-page paper in the ICRITO proceedings." },
-        { "value": "2", "label": "Authors", "context": "Neerav Chaudhary and Sourabh Singh Verma." },
-        { "value": "10.1109/ICRITO56286.2022.9964994", "label": "DOI", "context": "Persistent IEEE publication identifier." }
+        { "label": "Group", "title": "Organize images by clinical rating", "body": "Use ADNI T1-weighted MRI images grouped as CDR 0 and CDR 0.5–2 to establish the study cohorts." },
+        { "label": "Frame", "title": "Select the anatomical view", "body": "Run the measurement on the default crop and on a hippocampal crop so spatial focus becomes a controlled experimental variable." },
+        { "label": "Mask", "title": "Segment three intensity regions", "body": "Create binary masks for black, white, and the defined grey interval using fixed RGB values and ranges." },
+        { "label": "Count", "title": "Calculate region densities", "body": "Count selected pixels in each mask and convert those counts into percentages for the analyzed image area." },
+        { "label": "Score", "title": "Compute the dem ratio", "body": "Divide dark-region density by the combined white- and grey-region density to quantify open space relative to visible tissue." },
+        { "label": "Bound", "title": "Derive group reference values", "body": "Average scores within the labeled cohorts to establish lower and upper bounds for image-level interpretation." },
+        { "label": "Compare", "title": "Evaluate crop performance", "body": "Compare default and hippocampal crops through the same scoring workflow and record the classification accuracy of each." }
+      ]
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Measurement model",
+      "title": "Three visible image regions produce one auditable atrophy score",
+      "items": [
+        { "label": "Black · b", "title": "Dark space at RGB [0, 0, 0]", "body": "The numerator represents dark regions associated in the paper with cerebrospinal fluid, sulcal space, and ventricular expansion." },
+        { "label": "White · w", "title": "Bright tissue at RGB [255, 255, 255]", "body": "White pixels contribute to the visible-tissue denominator used to contextualize dark area." },
+        { "label": "Grey · g", "title": "Mid-range tissue from [70, 70, 70] to [190, 190, 190]", "body": "The thresholded grey interval captures additional visible tissue and joins white pixels in the denominator." },
+        { "label": "dem = b / (w + g)", "title": "Open space relative to visible tissue", "body": "A higher ratio indicates more dark area for the measured tissue area and therefore a higher atrophy likelihood under the study model." }
+      ]
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Interpretability",
+      "title": "The score keeps the anatomical reasoning and computation connected",
+      "markdown": "The method treats dark area as a proxy for cerebrospinal-fluid and open-space patterns that increase with ventricular expansion and sulcal widening. White and grey regions represent visible brain tissue. Dividing the first by the second creates a continuous value that can be plotted, averaged across a cohort, compared with reference bounds, or tracked across imaging sessions.\n\nIts simplicity is a technical advantage. A researcher can inspect the crop, review each mask, reproduce the pixel counts, recompute the ratio, and see how a change in framing affects the result. This makes preprocessing part of the scientific question and creates an explainable baseline against which more complex segmentation or learning systems can be compared."
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Decision framework",
+      "title": "Cohort averages define three regions of interpretation",
+      "description": "The paper derives a lower bound of 0.41 from the non-demented image group and an upper bound of 0.83 from the dementia image group.",
+      "items": [
+        { "label": "Below 0.41", "title": "Non-demented region", "body": "Scores below the lower cohort mean are assigned to the paper's non-demented region." },
+        { "label": "0.41–0.83", "title": "Intermediate region", "body": "Scores between the reference values represent varying likelihood based on proximity to either bound." },
+        { "label": "At or above 0.83", "title": "Dementia region", "body": "Scores reaching the upper cohort mean enter the paper's dementia region." },
+        { "label": "Worked example · 0.60", "title": "A result remains visible in context", "body": "The mildly demented example shown in the paper falls inside the intermediate interval, illustrating how the score and bounds are interpreted together." }
       ]
     },
     {
       "blockType": "callout",
-      "eyebrow": "Evidence boundary",
-      "title": "The publication and classification notebook are separate studies",
-      "description": "The paper covers longitudinal atrophy measurement. The later repository covers four-class image classification.",
-      "markdown": "The four-class TensorFlow notebook uses folder labels and CNN ensembles to predict dementia stage from images. It is documented on its own project page because its data pipeline, model task, and repository evidence differ from the published brain-atrophy study."
+      "eyebrow": "Controlled result",
+      "title": "Anatomical focus improved reported accuracy from 66% to 71%",
+      "markdown": "The same OpenCV measurement was evaluated with two image framings. The default crop achieved 66% classification accuracy; focusing the analysis on the hippocampal region achieved 71%. The five-percentage-point gain shows that spatial selection materially affects a handcrafted signal and that anatomically informed preprocessing can improve the usefulness of a simple, transparent measurement."
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "Longitudinal extension",
+      "title": "The same score supports measurement of change across imaging sessions",
+      "markdown": "The paper extends the image-level score with an atrophy-rate equation: subtract the initial dem value from the final dem value and divide by the time interval. This turns the static measurement into a method for comparing repeated MRI observations using a common unit.\n\nThat extension matters because dementia is progressive. A continuous, reproducible score creates a practical bridge from cross-sectional image analysis to future longitudinal studies that can ask how quickly structural change is occurring and how the rate differs across cohorts or interventions."
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Research rigor",
+      "title": "The study makes its assumptions, measurements, and comparison points visible",
+      "items": [
+        { "label": "Domain grounding", "title": "The image features follow known structural signs", "body": "The method is motivated by cortical thinning, sulcal widening, ventricular expansion, hippocampal loss, and related imaging literature." },
+        { "label": "Explicit computation", "title": "Thresholds and equations are published", "body": "The three color definitions, binary-mask procedure, dem equation, group-bound equations, and atrophy-rate equation are all stated in the paper." },
+        { "label": "Cohort anchoring", "title": "Interpretation uses observed group means", "body": "Lower and upper regions come from average scores in the labeled image groups, giving the rule a dataset-derived reference point." },
+        { "label": "Ablation-like comparison", "title": "The crop changes while the core method stays fixed", "body": "Default and hippocampal crops isolate the contribution of anatomical focus to reported classification performance." }
+      ]
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Impact",
+      "title": "The work provides a useful baseline for research, teaching, and reproducible imaging analysis",
+      "items": [
+        { "label": "Medical-imaging researchers", "title": "A transparent quantitative baseline", "body": "The score offers a fast, inspectable reference for comparing crops, segmentation choices, and more complex methods." },
+        { "label": "Longitudinal studies", "title": "A common measurement across time points", "body": "The atrophy-rate extension provides a simple structure for studying the direction and pace of image-level change." },
+        { "label": "Students and practitioners", "title": "An end-to-end example of interpretable feature engineering", "body": "The paper shows how clinical knowledge can guide thresholds, ratios, decision regions, and focused evaluation." },
+        { "label": "Research operations", "title": "Repeatable pixel measurement at collection scale", "body": "Automated masks and counts reduce repeated manual measurement work and make the same calculation available across thousands of images." }
+      ]
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "My contribution",
+      "title": "I built the measurement pipeline and co-authored the published study",
+      "markdown": "I translated the research question into a repeatable Python/OpenCV workflow: defining the intensity regions, generating masks, calculating pixel densities, formalizing the dem score, deriving cohort reference bounds, comparing default and hippocampal crops, and extending the measurement to change over time. I also co-authored the paper that explains the methodology, results, and research context."
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Publication record",
+      "title": "The method and findings appear in the IEEE ICRITO 2022 proceedings",
+      "items": [
+        { "value": "2022", "label": "Publication year", "context": "10th International Conference on Reliability, Infocom Technologies and Optimization." },
+        { "value": "1234–1238", "label": "Proceedings pages", "context": "Five-page peer-reviewed conference paper." },
+        { "value": "14", "label": "References", "context": "Research grounding across dementia, neuroanatomy, MRI segmentation, ADNI, and computer vision." },
+        { "value": "10.1109/ICRITO56286.2022.9964994", "label": "DOI", "context": "Persistent IEEE identifier for the publication." }
+      ]
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "Evaluated scope",
+      "title": "A peer-reviewed retrospective image-level measurement and crop study",
+      "markdown": "The paper establishes the method on 2,198 labeled ADNI MRI images and reports the score bounds, worked example, and default-versus-hippocampal crop result. The reported unit is images, and the published accuracy comparison is crop-based.\n\nA clinical validation program would extend the research with patient-level cohort design, scanner-diverse external data, sensitivity and specificity, calibration, prospective evaluation, and clinical review. The separate four-class TensorFlow notebook is documented on its own page so each study retains a clear method and evidence record."
     }
   ]
 }

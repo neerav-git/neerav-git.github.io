@@ -1,7 +1,7 @@
 'use client'
 
 /* eslint-disable @next/next/no-img-element */
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import type { ProjectRecord } from '@/lib/types'
@@ -14,21 +14,61 @@ type ProjectRailProps = {
 
 export function ProjectRail({ projects }: ProjectRailProps) {
   const railRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   function move(direction: -1 | 1) {
-    railRef.current?.scrollBy({
+    const rail = railRef.current
+    const nextIndex = Math.min(projects.length - 1, Math.max(0, activeIndex + direction))
+    const target = rail?.querySelector<HTMLElement>(`[data-project-index="${nextIndex}"]`)
+
+    if (!rail || !target) return
+    setActiveIndex(nextIndex)
+    rail.scrollTo({
       behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-      left: direction * Math.min(420, railRef.current.clientWidth * 0.78),
+      left: target.offsetLeft,
     })
   }
+
+  useEffect(() => {
+    const rail = railRef.current
+    if (!rail) return
+    const activeRail = rail
+
+    let frame = 0
+    function syncActiveCard() {
+      window.cancelAnimationFrame(frame)
+      frame = window.requestAnimationFrame(() => {
+        const cards = Array.from(activeRail.querySelectorAll<HTMLElement>('[data-project-index]'))
+        const nearest = cards.reduce(
+          (best, card, index) => {
+            const distance = Math.abs(card.offsetLeft - activeRail.scrollLeft)
+            return distance < best.distance ? { distance, index } : best
+          },
+          { distance: Number.POSITIVE_INFINITY, index: 0 }
+        )
+        setActiveIndex(nearest.index)
+      })
+    }
+
+    activeRail.addEventListener('scroll', syncActiveCard, { passive: true })
+    return () => {
+      activeRail.removeEventListener('scroll', syncActiveCard)
+      window.cancelAnimationFrame(frame)
+    }
+  }, [])
 
   return (
     <div className="product-index-shell">
       <div className="product-index-controls" aria-label="Product index controls">
-        <span>{String(projects.length).padStart(2, '0')} systems</span>
+        <div className="product-index-position" aria-live="polite">
+          <span>{activeIndex + 1} of {projects.length} systems</span>
+          <span className="product-index-progress" aria-hidden="true">
+            <i style={{ transform: `scaleX(${projects.length ? (activeIndex + 1) / projects.length : 0})` }} />
+          </span>
+        </div>
         <div>
-          <button aria-label="Previous product" onClick={() => move(-1)} type="button">←</button>
-          <button aria-label="Next product" onClick={() => move(1)} type="button">→</button>
+          <button aria-label="Previous product" disabled={activeIndex === 0} onClick={() => move(-1)} type="button">←</button>
+          <button aria-label="Next product" disabled={activeIndex === projects.length - 1} onClick={() => move(1)} type="button">→</button>
         </div>
       </div>
 
@@ -36,8 +76,13 @@ export function ProjectRail({ projects }: ProjectRailProps) {
         {projects.map((project, index) => {
           const image = getUploadUrl(project.thumbnailImage || project.coverImage)
           return (
-            <a className="product-index-card" href={`#project-${project.slug}`} key={project.slug}>
-              <div className="product-index-number">{String(index + 1).padStart(2, '0')}</div>
+            <a
+              aria-current={activeIndex === index ? 'true' : undefined}
+              className="product-index-card"
+              data-project-index={index}
+              href={`#project-${project.slug}`}
+              key={project.slug}
+            >
               {image ? (
                 <div className="product-index-media">
                   <img alt={getUploadAlt(project.thumbnailImage || project.coverImage)} src={image} />

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 
 import { EditModeControls } from '@/components/EditModeControls'
 import { EditableRegion } from '@/components/EditableRegion'
+import { PrimaryNavigation } from '@/components/PrimaryNavigation'
 import { adminLinks } from '@/lib/admin'
 import type { SiteSettings } from '@/lib/types'
 
@@ -18,15 +19,15 @@ export function SiteChrome({ children, settings }: SiteChromeProps) {
   const navItems = [
     { href: '/', label: navigation.homeLabel || 'Home' },
     { href: '/projects', label: navigation.projectsLabel || 'Work' },
-    { href: '/#ml-ai-studies', label: 'ML & AI Studies' },
     { href: '/writing', label: navigation.writingLabel || 'Writing' },
     { href: '/archive', label: navigation.archiveLabel || 'Archive' },
     { href: '/about', label: navigation.aboutLabel || 'About' },
-    { href: '/resume', label: navigation.resumeLabel || 'Resume' },
+    { href: '/resume', label: navigation.resumeLabel || 'Resume', resume: true },
   ]
 
   return (
     <div className="site-shell">
+      <a className="skip-link" href="#site-main">Skip to content</a>
       <EditableRegion editHref={adminLinks.site} editLabel="site header and navigation">
         <header className="site-header">
           <div className="brand-stack">
@@ -34,30 +35,24 @@ export function SiteChrome({ children, settings }: SiteChromeProps) {
               {settings?.siteTitle || 'Neerav Chaudhary'}
             </Link>
             <p className="brand-tagline">
-              {settings?.siteTagline || 'Projects, research, and long-form technical thinking.'}
+              {settings?.siteTagline || 'AI products, ML studies, and technical notes.'}
             </p>
           </div>
 
           <div className="header-right">
-            <nav className="top-nav" aria-label="Primary">
-              {navItems.map((item) => (
-                <Link className={item.href === '/resume' ? 'resume-nav-link' : undefined} href={item.href} key={item.href}>
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+            <PrimaryNavigation items={navItems} />
             <EditModeControls />
           </div>
         </header>
       </EditableRegion>
 
-      <main className="site-main">{children}</main>
+      <main className="site-main" id="site-main">{children}</main>
 
       <EditableRegion editHref={adminLinks.site} editLabel="footer and contact links">
         <footer className="site-footer">
           <div>
             <div className="panel-eyebrow">Site</div>
-            <p>{settings?.footerLine || 'Products, studies, decisions, and verification records.'}</p>
+            <p>{settings?.footerLine || 'Selected products, studies, and source records.'}</p>
           </div>
 
           <div>

@@ -7,7 +7,7 @@ type EntrySectionMapProps = {
   title?: string
 }
 
-export function EntrySectionMap({ blocks, maxItems = 6, title = 'Page sections' }: EntrySectionMapProps) {
+export function EntrySectionMap({ blocks, maxItems = 0, title = 'On this page' }: EntrySectionMapProps) {
   const sections = (blocks || [])
     .map((block, index) => ({ block, index }))
     .filter(({ block }) => typeof block.title === 'string' && block.title.trim())
@@ -18,17 +18,15 @@ export function EntrySectionMap({ blocks, maxItems = 6, title = 'Page sections' 
   }
 
   return (
-    <section className="entry-rail-panel">
-      <div className="panel-eyebrow">{title}</div>
+    <details className="entry-section-map">
+      <summary>{title}</summary>
       <nav className="section-map" aria-label={title}>
-        {visibleSections.map((block, index) => (
-          <a href={`#${getBlockAnchor(block.block, block.index)}`} key={`${block.block.title}-${block.index}`}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <strong>{block.block.title}</strong>
-          </a>
-        ))}
+          {visibleSections.map((block) => (
+            <a href={`#${getBlockAnchor(block.block, block.index)}`} key={`${block.block.title}-${block.index}`}>
+              <strong>{block.block.title}</strong>
+            </a>
+          ))}
       </nav>
-      {sections.length > visibleSections.length ? <p className="section-map-note">More sections continue below.</p> : null}
-    </section>
+    </details>
   )
 }

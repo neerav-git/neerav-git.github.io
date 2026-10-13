@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 import { EditableRegion } from '@/components/EditableRegion'
 import { adminLinks } from '@/lib/admin'
-import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { getArticles, getSiteSettings } from '@/lib/content'
 
 const monthFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' })
@@ -31,7 +30,7 @@ export default async function WritingPage() {
       <EditableRegion editHref={adminLinks.writingPage} editLabel="writing page intro">
         <section className="section-heading section-heading-wide page-mast">
           <div>
-            <div className="panel-eyebrow">{pageIntro.label || '02'}</div>
+            <div className="panel-eyebrow">{pageIntro.label || 'Technical notes'}</div>
             <h1>{pageIntro.title || 'Writing'}</h1>
           </div>
           <div className="mast-side">
@@ -43,8 +42,7 @@ export default async function WritingPage() {
 
       {leadArticle ? (
         <EditableRegion editHref={adminLinks.article(leadArticle.slug)} editLabel={leadArticle.title || 'lead article'}>
-          <article className="lead-story lead-story-wide">
-            <div className="lead-story-grid">
+          <article className="lead-story writing-lead-text">
               <div className="lead-story-stack">
                 <div className="lead-story-meta">
                   <span className="panel-eyebrow">{leadArticle.category || 'Writing'}</span>
@@ -56,13 +54,6 @@ export default async function WritingPage() {
                   Read method
                 </Link>
               </div>
-
-              {leadArticle.coverImage && getUploadUrl(leadArticle.coverImage) ? (
-                <div className="lead-story-media">
-                  <img alt={getUploadAlt(leadArticle.coverImage)} src={getUploadUrl(leadArticle.coverImage) || ''} />
-                </div>
-              ) : null}
-            </div>
           </article>
         </EditableRegion>
       ) : null}
@@ -77,11 +68,6 @@ export default async function WritingPage() {
             mode="card"
           >
             <Link className="writing-card-link" href={`/writing/${article.slug}`}>
-              {article.coverImage && getUploadUrl(article.coverImage) ? (
-                <div className="writing-card-media">
-                  <img alt={getUploadAlt(article.coverImage)} src={getUploadUrl(article.coverImage) || ''} />
-                </div>
-              ) : null}
               <div className="card-meta">
                 {article.category || 'Writing'} {formatPublishDate(article.publishDate) ? `· ${formatPublishDate(article.publishDate)}` : ''}
               </div>

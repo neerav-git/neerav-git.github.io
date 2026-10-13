@@ -6,10 +6,10 @@ type ProjectMethodologyProps = {
 
 export function ProjectMethodology({ project }: ProjectMethodologyProps) {
   const items = [
-    { label: 'Method', value: project.approach },
-    { label: 'Validation', value: project.methodology?.evaluation },
-    { label: 'Result', value: project.output },
-    { label: 'Current limit', value: project.methodology?.boundary },
+    { label: 'Build', value: project.approach },
+    { label: 'Evidence', value: project.methodology?.evaluation },
+    { label: 'Delivered', value: project.output },
+    { label: 'Scope', value: project.methodology?.boundary },
   ].filter((item) => item.value)
 
   if (!items.length) {
@@ -17,26 +17,23 @@ export function ProjectMethodology({ project }: ProjectMethodologyProps) {
   }
 
   return (
-    <section className="project-methodology" id="methodology">
-      <header className="project-methodology-header">
-        <div>
-          <div className="panel-eyebrow">Methodology at a glance</div>
-          <h2>Method, evaluation, result, and scope</h2>
-        </div>
+    <details className="project-methodology" id="methodology">
+      <summary>Build, evidence, and scope</summary>
+      <div className="project-methodology-body">
         {project.methodology?.standards?.length ? (
           <ul aria-label="Methods and engineering controls" className="method-standard-list">
             {project.methodology.standards.map((standard) => <li key={standard}>{standard}</li>)}
           </ul>
         ) : null}
-      </header>
-      <div className="project-methodology-grid">
-        {items.map((item) => (
-          <div key={item.label}>
-            <span>{item.label}</span>
-            <p>{item.value}</p>
-          </div>
-        ))}
+        <div className="project-methodology-grid">
+          {items.map((item) => (
+            <div key={item.label}>
+              <span>{item.label}</span>
+              <p>{item.value}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </section>
+    </details>
   )
 }

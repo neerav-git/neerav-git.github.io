@@ -1,19 +1,19 @@
 const projectStatus = {
   'evaluated-candidate': {
-    definition: 'Core workflows have recorded task, voice, tool, safety, groundedness, and recovery evaluations.',
-    label: 'Evaluated prototype',
+    definition: 'Core workflows have recorded task, voice, tool, safety, groundedness, recovery, and held-out evaluations.',
+    label: 'Evaluated product system',
   },
   ongoing: {
     definition: 'The core workflow is implemented; research, product refinement, and validation continue.',
     label: 'Active build',
   },
   'tested-prototype': {
-    definition: 'The primary journey and failure states have deterministic test evidence; clinical deployment remains outside the prototype scope.',
-    label: 'Tested prototype',
+    definition: 'Patient, care-team, agent-routing, approval, and failure-recovery journeys have recorded deterministic test evidence.',
+    label: 'Tested product system',
   },
   'active-development': {
-    definition: 'The playable system is under ongoing interaction, visual, multiplayer, and deployment review.',
-    label: 'Active development',
+    definition: 'The lounge, shared activities, Dream, realtime protocols, and creative-review system are implemented and continue through visual and deployment refinement.',
+    label: 'Playable social world',
   },
   'published-work': {
     definition: 'The linked notebooks document the completed experiment and its reported evaluation.',
@@ -24,8 +24,8 @@ const projectStatus = {
     label: 'Peer-reviewed paper',
   },
   'research-prototype': {
-    definition: 'The repository implements the experiment; linked research records supply the reported evaluation result.',
-    label: 'Research prototype',
+    definition: 'The repository implements the complete classification and ensemble workflow; linked experiment records supply the reported held-out result.',
+    label: 'Notebook research study',
   },
 } as const
 

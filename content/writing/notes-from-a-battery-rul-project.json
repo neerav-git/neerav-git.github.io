@@ -38,11 +38,11 @@
       "eyebrow": "Evaluation sequence",
       "title": "Five checks precede model selection",
       "items": [
-        { "label": "01", "title": "Profile each column", "body": "Measure missingness, ranges, distributions, and relationships before assigning predictors or targets." },
-        { "label": "02", "title": "Audit predictor timing", "body": "Identify when each signal becomes available and remove variables that contain future-cycle or target-derived information." },
-        { "label": "03", "title": "Respect chronology", "body": "Train on earlier observations and evaluate on later observations that resemble the deployment decision." },
-        { "label": "04", "title": "Establish a mean baseline", "body": "Measure how much error a constant prediction produces before adding model complexity." },
-        { "label": "05", "title": "Compare models", "body": "Evaluate Linear Regression and Random Forest with the same split, predictors, and MAE, RMSE, and R² calculations." }
+        { "label": "Profile", "title": "Profile each column", "body": "Measure missingness, ranges, distributions, and relationships before assigning predictors or targets." },
+        { "label": "Audit", "title": "Audit predictor timing", "body": "Identify when each signal becomes available and remove variables that contain future-cycle or target-derived information." },
+        { "label": "Split", "title": "Respect chronology", "body": "Train on earlier observations and evaluate on later observations that resemble the deployment decision." },
+        { "label": "Baseline", "title": "Establish a mean baseline", "body": "Measure how much error a constant prediction produces before adding model complexity." },
+        { "label": "Compare", "title": "Compare models", "body": "Evaluate Linear Regression and Random Forest with the same split, predictors, and MAE, RMSE, and R² calculations." }
       ]
     },
     {
