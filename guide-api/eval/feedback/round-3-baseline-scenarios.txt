@@ -1,0 +1,48 @@
+pass  overview        
+      "Neerav has built four complete products and two medical-imaging research studies, and here are the four products, one stop each."
+      tour project.relay → project.refract-ai → project.homeward → project.birb-hangout
+pass  relay-results   
+      "Relay's evaluation was run on 110 realistic multi-step conversations, and it completed the employee's request correctly 103 times. On 42 conversations worded in ways it had never seen, it succeeded 39 times, which shows "
+      show project.relay.methodology
+pass  paper           
+      "Neerav co-authored this peer-reviewed IEEE paper, "Analyzing Brain Atrophy in Dementia Using Computer Vision." He built the Python and OpenCV pipeline that turns each MRI scan into a simple tissue-loss score that anyone "
+      show project.brain-atrophy-computer-vision
+pass  hiring-imaging  
+      "Neerav is a strong fit for a medical imaging ML role. He co-authored a peer-reviewed MRI study, built a deep learning classification study, and built a patient-facing healthcare workflow, one stop each."
+      tour project.brain-atrophy-computer-vision.12-i-built-the → project.alzheimers-disease-research.10-probability-ensembling-improved → project.homeward.9-the-integrated-evidence | links link.resume.resume-pdf, link.contact.email, link.contact.linkedin
+pass  hiring-jd       
+      "Neerav fits this role closely. Here are four stops, each matching one requirement."
+      tour project.relay → project.relay.methodology → project.homeward → project.birb-hangout | links link.resume.resume-pdf, link.contact.email, link.contact.linkedin
+pass  contact         
+      "Neerav can be reached by email or through LinkedIn, and both links are in the panel below."
+      links link.contact.email, link.contact.linkedin
+pass  gap             
+      "Kubernetes isn't listed in his portfolio, but his closest experience is container and cloud deployment. He works with Docker and AWS, and Birb Hangout is a live, deployed multiplayer service with production-oriented shar"
+      show project.birb-hangout.12-the-deployment-uses | links link.contact.linkedin, link.contact.email
+pass  off-topic       
+      "This isn't something I can help with, since I only answer questions about Neerav's work, projects, and fit for a role. I'm happy to walk you through his four products or his research if that's useful."
+pass  general-q       
+      "I can't explain transformers in general, but I can walk you through how Neerav used them and related methods in his work, such as the LLM workflow he built at Deep Strat or the conversational guide in Relay. Would you li"
+pass  phone           
+      "The portfolio doesn't list a phone number for Neerav. The fastest route is email or LinkedIn, and both buttons are in the panel now."
+      links link.contact.email, link.contact.linkedin
+pass  follow-up       
+      "Here is Refract's build, evidence, and scope section."
+      show project.refract-ai.methodology
+pass  homeward-ownership 
+      "Neerav conceived and built Homeward end to end, which helps patients turn hospital discharge paperwork into a clear recovery plan. He designed the patient and care-team experience, the React interface, the Express and SQ"
+      show project.homeward.12-i-conceived-and
+pass  homeward-launch 
+      "Homeward isn't launched yet. It's an evaluated product that Neerav is still developing toward a public launch. The path to launch adds secure sign-in for patients and care teams, real discharge records, and clinical vali"
+      show project.homeward.methodology
+pass  tour            
+      ""
+      tour project.relay → project.refract-ai → project.homeward → project.brain-atrophy-computer-vision
+pass  cover-letter    
+      "I can't draft the cover letter itself, but Neerav's work maps directly to this role. Here are three stops, one per requirement."
+      tour project.relay.4-application-owned-controls → project.relay.methodology → project.homeward.4-four-roles-receive | links link.resume.resume-pdf, link.contact.email, link.contact.linkedin
+pass  is-it-real      
+      "They're real, implemented, and measured. Relay is a working employee-service app whose voice and text guide completed 103 of 110 realistic multi-step requests, and it made no unsafe changes across 21 attempts to trick it"
+      show project.relay.methodology
+
+16/16 scenarios passed
