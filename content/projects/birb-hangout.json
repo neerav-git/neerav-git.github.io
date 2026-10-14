@@ -63,7 +63,7 @@
     {
       "blockType": "sectionLead",
       "eyebrow": "Product outcome",
-      "title": "A shared digital place where being together does not require doing the same thing",
+      "title": "A shared digital place where friends can spend time together at their own pace",
       "description": "Friends enter a private 3D lounge as birds, remain aware of one another, and move naturally among conversation, shared media, reading, trivia, affectionate gestures, quiet rest, and cooperative flight.",
       "context": "The product is designed around co-presence: each activity adds something legible to the room instead of replacing the room with another disconnected interface."
     },
@@ -110,7 +110,7 @@
       "blockType": "insightGrid",
       "eyebrow": "Realtime architecture",
       "title": "Each behavior uses a synchronization model matched to its social invariant",
-      "description": "The system is intentionally mixed instead of forcing every interaction into one universal state model.",
+      "description": "The system matches each interaction to the synchronization model its social behavior requires.",
       "items": [
         { "label": "Durable room facts", "title": "Typed authoritative schemas", "body": "Colyseus schemas and room records hold the shared facts that must survive and remain consistent across players." },
         { "label": "Flight", "title": "Compact transient relays", "body": "High-rate Dream motion travels as validated packets with bounded reconstruction, keeping the durable room snapshot compact and lounge-only clients quiet." },
@@ -121,7 +121,7 @@
     {
       "blockType": "proseSection",
       "eyebrow": "Consent and social safety",
-      "title": "A hug is a private request and synchronized agreement, not a broadcast emote",
+      "title": "A hug is a private request and synchronized agreement",
       "markdown": "The initiator approaches a nearby bird and sends a private request. The server checks identity, distance, availability, request rate, pair cooldown, and expiry before the recipient sees an accept-or-reject prompt. If accepted, the server computes complementary positions and facing, waits until both clients report ready, and starts one synchronized clip. Movement, timeout, cancellation, completion, or disconnection releases both participants.\n\nThe three-context smoke specification checks that the offer and consent prompt remain private while the accepted action becomes visible to the room. The feature includes the complete multiplayer lifecycle: proximity, consent, staging, synchronization, privacy, interruption, and cleanup."
     },
     {
@@ -176,7 +176,7 @@
     {
       "blockType": "insightGrid",
       "eyebrow": "Service engineering",
-      "title": "The deployment is treated as a shared service, not an unconstrained local demo",
+      "title": "The deployment uses production-oriented shared-service controls",
       "items": [
         { "label": "Build and origin", "title": "One deployable client-server system", "body": "The production Docker image builds the client, server, and shared package, then serves the compiled experience from the same origin to reduce deployment and CORS complexity." },
         { "label": "Uploads", "title": "Bounded private photo processing", "body": "Live-room bearer tokens, file and pixel ceilings, autorotation, resizing, WebP re-encoding, and room quotas constrain user-supplied images before storage." },

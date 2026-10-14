@@ -1,10 +1,8 @@
 # Refract: session-centered research, recall, synthesis, and analysis
 
-## Record scope and evidence basis
+## Product and evidence context
 
-Refract is a research workspace that joins activities researchers normally perform in separate tools: close reading of papers, source-linked note capture, cross-paper synthesis, retrieval practice, dataset inspection, and statistical modeling. This record is based on the live local checkout at `/Users/neeravch/Desktop/pdf-workspace`, inspected on October 12, 2026. The branch was `main` at commit `003cac4` (`Add stats notebook groundwork and run flow`), one commit ahead of `origin/main`, with substantial preserved uncommitted work in the Stats and Compare layers. That distinction matters: the record describes what was directly visible in the current implementation, but it does not present the dirty checkout as a published release. The public repository is `https://github.com/neerav-git/Refract`.
-
-The evidence reviewed included the React interface, FastAPI routes, SQLAlchemy models, retrieval, grading, session, comparison, and statistical-analysis services; migrations; browser probes; stored evaluation reports; research and methodology notes; commit history; and the eight-page thesis-positioning PDF. Archived `code-export/` copies were excluded when determining the active implementation. No paid model calls or live external services were run for this review.
+Refract is a research workspace that joins activities researchers normally perform in separate tools: close reading of papers, source-linked note capture, cross-paper synthesis, retrieval practice, dataset inspection, and statistical modeling. The public repository and retained product evidence cover the React interface, FastAPI routes, SQLAlchemy models, retrieval, grading, session, comparison, and statistical-analysis services; migrations; browser probes; evaluation reports; research notes; and the thesis-positioning document.
 
 ## The problem: research loses continuity when its evidence and decisions are split apart
 
@@ -60,18 +58,18 @@ For researchers, the improvement is less reconstruction work and fewer undocumen
 
 ## Author role and attribution
 
-The repository history contains twelve commits, all attributed to Neerav identities, from the initial FastAPI/React/RAG scaffold through voice and selection, persistent indexing, FSRS grading, review UX, card-schema and deduplication repairs, ontology metadata, research sessions, comparison workspaces, and the Stats run flow. The code, research notes, and portfolio record support describing Neerav as the product designer and primary builder of the end-to-end system: session model, document reader, evidence index, comparison workflow, active-recall pipeline, and statistical workspace. Some generated reports identify OpenAI Codex as the document author, and the implementation contains model-assisted features; those should be represented as tooling and assistance, not as separate human teammates or as independent evidence that the software works.
+Neerav designed the research model and product workflow and built the end-to-end system: session model, document reader, evidence index, comparison workflow, active-recall pipeline, research exports, migration and repair paths, and statistical workspace. He also translated the literature review into testable product instrumentation and built the browser and backend evidence used to verify the workflow.
 
-## Concise claim ledger
+## Evidence summary
 
-### Measured or recorded results
+### Results with context
 
 - Historical stored UI evaluation: 9/9 checks passed, including formatted chat, five visible page-source badges, Index switching, adaptive concision, and no horizontal overflow at 1440 and 1024 pixels.
 - Historical stored multi-turn evaluation: 1/1 concision scenario passed; the follow-up response was shorter while retaining the required structure.
 - Deep-fix verification records: duplicate workflow 6/6 and recall-first workflow 8/8.
 - Thesis-positioning evidence reports an earlier Battery RUL notebook result of RMSE 25.61 and R-squared 0.993. This is a prior benchmark, not a freshly reproduced Refract result in this inspection.
 
-### Directly verified capabilities
+### Implemented capabilities
 
 - Five implemented workspaces share a persisted research-session layer: Reader, Index, Compare, Review, and Stats.
 - PDF ingestion, 512-token/50-overlap chunking, MiniLM embeddings, per-PDF top-five cosine retrieval, page-linked sources, and threshold-based fallback routing are implemented in active services.
@@ -79,7 +77,7 @@ The repository history contains twelve commits, all attributed to Neerav identit
 - Session-scoped dataset upload, profiling, leakage and redundancy audit, explicit step acceptance, mean/linear/Random Forest comparison, MAE/RMSE/R-squared output, feature-importance and coefficient records, visual artifact manifests, and review decisions are implemented.
 - Cross-paper comparison records source-set and framing fingerprints, asynchronous progress, stale/interrupted states, per-paper analyses, comparison axes, analytical insights, gaps, and guidance.
 
-### Interpretation supported by the evidence
+### What the evidence demonstrates
 
 - Refract's most defensible differentiator is not a single algorithm; it is the session-centered integration of research synthesis, active recall, and review-gated quantitative analysis with recoverable provenance.
 - The implementation reduces tool-switching and manual reconstruction because the artifact relationships are stored, not merely described in UI copy.

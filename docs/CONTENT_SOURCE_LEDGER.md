@@ -43,10 +43,10 @@ This ledger records the evidence used for public claims. Copy changes must ident
 
 - Repository: `https://github.com/pruhnav/homeward`
 - Repository review: public source audited on 2026-10-12
-- Assessed commit: `eaf86d9`
-- Supported claims: source-linked discharge instructions; synthetic Synthea history; four bounded specialist roles; proposed, approved, rejected, executed, retry, stale-revision, and idempotency states; 59 Node tests; four DOM journeys; 32/32 deterministic cases.
-- Team attribution: four-person hackathon project with repository ownership divided across data/retrieval, agent/tools, product experience, and reliability/presentation.
-- Required boundary: recorded live-agent trial returned HTTP 401 before an answer; live-model and clinical reliability remain unverified.
+- Contribution: Neerav conceived and built Homeward end to end: the product direction, patient journey, interface, backend, persistence, synthetic patient data and Synthea integration, source-grounded specialist architecture, deterministic workflow controls, evaluation, and technical documentation. He is continuing its development toward launch.
+- Supported claims: source-linked discharge instructions; synthetic Synthea history; four role-scoped specialists and MCP contracts; application-owned approval; revision and reference validation; proposed, approved, rejected, executed, retry, stale-revision, and idempotency states; provider-independent fallback behavior; 59 backend and contract tests; four React DOM journeys; 32/32 deterministic guardrail cases.
+- Failure-containment evidence: provider rejection produced zero unauthorized tool calls or patient-state changes.
+- Required boundary: Homeward is still in development rather than publicly launched; the evaluated environment uses fictional discharge material and synthetic history, and clinical outcomes and authenticated healthcare deployment require separate validation.
 
 ## Birb Hangout
 

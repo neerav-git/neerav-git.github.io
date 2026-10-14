@@ -1,6 +1,6 @@
 # Analyzing Brain Atrophy in Dementia Using Computer Vision
 
-## Record status and publication identity
+## Publication and study context
 
 This is a full-paper work record based on a complete reading and visual inspection of all five pages of the IEEE conference paper, including its two tables, seven figures, four equations, and fourteen references. It is evidence for a later portfolio copy pass, not public-site copy.
 
@@ -137,9 +137,9 @@ The fourteen references show that the work was situated at the intersection of d
 
 This reference structure is important to the work's credibility. The authors did not choose a color ratio arbitrarily: the ratio is motivated by visible structural features described in the literature, and the hippocampal crop is connected to an anatomical region already central to dementia research.
 
-## Claim ledger
+## Evidence summary
 
-### Measured and directly reported
+### Results with context
 
 - The analyzed dataset contained 2,198 ADNI T1-weighted MRI images: 1,172 CDR 0 images and 1,026 CDR 0.5-2 images.
 - The system generated black, white, and grey binary masks, calculated pixel percentages, and computed `dem = b / (w + g)`.
@@ -148,21 +148,21 @@ This reference structure is important to the work's credibility. The authors did
 - The reported accuracy was 66% for the default crop and 71% for the hippocampal crop.
 - The paper is a five-page, two-author IEEE ICRITO 2022 conference publication with DOI `10.1109/ICRITO56286.2022.9964994`.
 
-### Directly verified capability or contribution
+### Implemented capability and contribution
 
 - The workflow automates mask generation, pixel-density measurement, score calculation, and bound-based classification for MRI images.
 - The method preserves an intermediate/undetermined region between the group means rather than forcing every score into one of two confident classes.
 - The paper defines a longitudinal atrophy-rate calculation based on change in `dem` divided by elapsed time.
 - Neerav co-authored the paper and, according to his resume and the portfolio evidence ledger, built the repeatable Python/OpenCV preprocessing and quantification pipeline.
 
-### Supported interpretation
+### What the evidence demonstrates
 
 - The method is interpretable because its prediction signal is an explicit ratio of observable pixel categories.
 - The crop experiment indicates that anatomically targeted preprocessing can improve this particular handcrafted signal.
 - The system can reduce repeated manual measurement effort in a research workflow, although the size of the time saving was not measured.
 - The `dem` score is useful as a research feature or baseline, not established as a clinical biomarker.
 
-### Not established by the paper
+### Scope boundaries
 
 - A unique patient count, subject-level train/test split, external validation cohort, or prospective clinical study.
 - Sensitivity, specificity, precision, recall, F1, confidence intervals, statistical significance, or a confusion matrix.

@@ -86,9 +86,14 @@ def inline_markup(value: str) -> str:
         return f"@@TOKEN{len(tokens) - 1}@@"
 
     def link(match: re.Match[str]) -> str:
-        label = html.escape(ascii_text(match.group(1)))
+        raw_label = ascii_text(match.group(1))
+        code_label = len(raw_label) >= 2 and raw_label.startswith("`") and raw_label.endswith("`")
+        label = html.escape(raw_label[1:-1] if code_label else raw_label)
+        label_markup = f'<font name="Courier">{label}</font>' if code_label else label
         url = html.escape(match.group(2), quote=True)
-        return stash(f'<link href="{url}" color="#29483B"><u>{label}</u></link>')
+        if not re.match(r"^(?:https?://|mailto:)", match.group(2), flags=re.IGNORECASE):
+            return stash(label_markup)
+        return stash(f'<link href="{url}" color="#29483B"><u>{label_markup}</u></link>')
 
     value = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link, value)
     value = re.sub(
@@ -238,7 +243,7 @@ def draw_page(canvas, doc):
         canvas.setFont("Helvetica", 7.5)
         canvas.setFillColor(MUTED)
         canvas.drawString(18 * mm, height - 10.5 * mm, "PORTFOLIO WORK RECORDS")
-        canvas.drawRightString(width - 18 * mm, height - 10.5 * mm, "EVIDENCE BASE - 13 OCT 2026")
+        canvas.drawRightString(width - 18 * mm, height - 10.5 * mm, "PORTFOLIO EDITION - 14 OCT 2026")
         canvas.line(18 * mm, 13 * mm, width - 18 * mm, 13 * mm)
         canvas.drawString(18 * mm, 8.5 * mm, "Neerav Chaudhary")
         canvas.drawRightString(width - 18 * mm, 8.5 * mm, str(doc.page - 1))
@@ -402,7 +407,7 @@ def cover_story():
         ),
     )
     cover_meta = Paragraph(
-        "Repository research, product methodology, measured results, attribution, claim ledgers, and exact source maps<br/><br/>Prepared 13 October 2026",
+        "Product journeys, technical architecture, methodology, measured results, contribution, and source maps<br/><br/>Prepared 14 October 2026",
         ParagraphStyle(
             name="CoverMeta",
             fontName="Helvetica",
@@ -443,15 +448,15 @@ def build():
         pageTemplates=[template],
         title="Portfolio Work Records",
         author="Neerav Chaudhary",
-        subject="Evidence base for portfolio copy",
-        creator="Codex",
+        subject="Detailed records for six portfolio products and research projects",
+        creator="Neerav Chaudhary Portfolio",
     )
 
     story = cover_story()
     story.append(Paragraph("Contents", styles["TOCTitle"]))
     story.append(
         Paragraph(
-            "Seven source-grounded records, followed by claim ledgers and exact source maps. Page numbers exclude the cover.",
+            "A portfolio source index and six detailed work records with supporting source maps. Page numbers exclude the cover.",
             styles["Deck"],
         )
     )

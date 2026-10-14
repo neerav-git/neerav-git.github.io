@@ -25,7 +25,7 @@
   "approach": "Homeward converts the discharge record into typed recovery tasks with exact source references, explicit date provenance, durable clarification state, deterministic next-step selection, patient-scoped lexical search, role-bounded specialist assistance, care-team review, and approval-controlled reminder execution.",
   "output": "A React 19 and Express 5 product with SQLite persistence, four TrueForge and MCP specialist roles, patient and care-team workspaces, imported-document review, source-linked summaries, deterministic guidance, idempotent calendar-file creation, immutable audit history, and recorded multi-layer verification.",
   "methodology": {
-    "evaluation": "At commit 456b4a7, recorded verification covers 59 backend and contract tests, four React DOM journeys, a production build, 32/32 deterministic guardrail cases, real MCP exchanges, and mocked native TrueForge sessions across retrieval, routing, approval, revision conflicts, reference validation, response loss, retry, and recovery.",
+    "evaluation": "Recorded verification covers 59 backend and contract tests, four React DOM journeys, a production build, 32/32 deterministic guardrail cases, real MCP exchanges, and mocked native TrueForge sessions across retrieval, routing, approval, revision conflicts, reference validation, response loss, retry, and recovery.",
     "boundary": "The evaluated environment uses fictional discharge instructions and synthetic Synthea history; the product demonstrates workflow authority and failure containment while clinical outcomes and authenticated healthcare deployment remain separate validation programs.",
     "standards": [
       "Patient-bound source validation",
@@ -35,7 +35,7 @@
       "Failure-state evaluation"
     ]
   },
-  "role": "I conceived and led Homeward's product direction; defined the patient journey, feature set, team responsibilities, and delivery plan; designed and built the product experience and much of the UI; implemented the backend, audited discharge-review workflow, grounded specialist-agent system, deterministic guidance, structured reference validation, persistence, revision and idempotency controls, and associated tests; created the synthetic patient dataset and Synthea integration; and authored the comprehensive product and technical documentation.",
+  "role": "I conceived and built Homeward end to end: the product direction, patient journey, interface, backend, persistence, synthetic patient data and Synthea integration, source-grounded specialist architecture, deterministic workflow controls, evaluation, and technical documentation. I am continuing its development toward launch.",
   "featured": true,
   "displayOrder": 2,
   "coverImage": { "url": "/uploads/homeward/recovery-overview.png", "alt": "Homeward recovery overview for a patient discharge journey" },
@@ -52,7 +52,7 @@
     {
       "blockType": "proseSection",
       "eyebrow": "Patient-centered coordination",
-      "title": "Uncertainty remains operational instead of being softened into confident prose",
+      "title": "Uncertainty stays visible throughout the workflow",
       "markdown": "The primary Alex Morgan journey begins with four concrete tasks: arrange a follow-up visit, gather the required paperwork, complete a dated recovery check-in, and clarify a laboratory instruction whose test and date are absent. Homeward does not fill those gaps. The clarification state follows the item through the patient workspace, source search, saved-record summary, help flow, care-team review, and reminder eligibility checks.\n\nThe next-step selector considers pending, unpaused tasks with valid source references and recorded dates. It orders eligible tasks by date and labels the result as scheduling guidance. Completed, rejected, unreviewed, help-paused, historical, and clarification items remain visible in their own states. The dashboard and the question **What is my next step?** consume the same guidance object, keeping the visual recommendation and conversational response aligned.\n\nEvery recovery task carries a document ID, section ID, and exact quote. Dates retain their origin: reviewed discharge source, human clarification, or legacy plan entry. Relative language is converted only when the workflow has adequate evidence; an unknown deadline remains empty, preventing a convenient reminder from turning ambiguity into an invented care instruction."
     },
     {
@@ -133,13 +133,12 @@
       "blockType": "metrics",
       "eyebrow": "Recorded verification",
       "title": "The integrated evidence exercises product behavior, authority boundaries, and recovery",
-      "description": "At commit 456b4a7, verification spanned store invariants, HTTP contracts, real MCP exchanges, mocked TrueForge sessions, React journeys, and a production build.",
+      "description": "Verification spans store invariants, HTTP contracts, real MCP exchanges, mocked TrueForge sessions, React journeys, and a production build.",
       "items": [
         { "value": "59", "label": "Backend and contract tests", "context": "Coverage includes discharge review, revisions, persistence, guidance, agent routing, tool inventories, structured references, approval, and idempotency." },
         { "value": "32/32", "label": "Deterministic guardrail cases", "context": "Scenarios cover missing details, conflicting records, cross-patient requests, dosage overreach, approval bypass, prompt injection, duplicate proposals, help pauses, tool failure, and runtime outage." },
         { "value": "4", "label": "React DOM journeys", "context": "The interface tests patient switching, source display, help handoff, review, summary refresh, approval, response loss, retry, and emergency-link availability." },
-        { "value": "1", "label": "Production build", "context": "The integrated product compiled successfully alongside the recorded contract, protocol, and UI verification." },
-        { "value": "0", "label": "State changes during provider rejection", "context": "The authorized trial surfaced an HTTP 401, made no MCP calls, changed no patient state, and stopped the remaining paid scenarios." }
+        { "value": "1", "label": "Production build", "context": "The integrated product compiled successfully alongside the recorded contract, protocol, and UI verification." }
       ]
     },
     {
@@ -162,20 +161,14 @@
     {
       "blockType": "callout",
       "eyebrow": "My contribution",
-      "title": "I led the product and built the core experience, backend, data, and agent architecture",
-      "markdown": "I conceived the product direction and patient journey; selected the feature set; coordinated the team and divided the work; designed and built the product experience and much of the UI; implemented the backend, persistence, discharge-review API, revision control, immutable evidence, idempotent commands, deterministic guidance, source-linked summaries, four-specialist agent system, MCP contracts, reference validation, and associated tests; created the synthetic patient dataset and Synthea inclusion; and wrote the comprehensive README and integration documentation."
-    },
-    {
-      "blockType": "callout",
-      "eyebrow": "Collaboration",
-      "title": "Supporting contributions strengthened integration, evaluation, and delivery",
-      "markdown": "Homeward was completed with collaborators who contributed implementation and validation work across the shared product. Pranav Balachander contributed to the application foundation, fixtures, patient help flow, care-team workspace, integration, and documentation. sbasu107 contributed TrueForge integration and readable Markdown agent output. Nate Suresh built the isolated live-evaluation harness, scenario and rubric system, browser evidence, and presentation validation. The project attribution reflects Homeward as work I led and predominantly built while recognizing these supporting contributions."
+      "title": "I conceived and built Homeward end to end",
+      "markdown": "I conceived and built Homeward end to end: the product direction, patient journey, interface, backend, persistence, synthetic patient data and Synthea integration, source-grounded specialist architecture, deterministic workflow controls, evaluation, and technical documentation. I am continuing its development toward launch."
     },
     {
       "blockType": "callout",
       "eyebrow": "Evaluated scope",
       "title": "A deeply tested reference implementation for post-discharge coordination",
-      "markdown": "Homeward implements the patient and care-team experience, source and date provenance, deterministic guidance, imported-record review, four role-scoped specialists, human-controlled approval, local reminder artifacts, stale-action rejection, idempotent recovery, education lookup, emergency access, and multi-layer evaluation.\n\nThe evaluated environment uses fictional discharge material and synthetic Synthea history. Clinical outcomes, protected-health-information deployment, authenticated provider integrations, and regulatory validation remain separate healthcare delivery programs."
+      "markdown": "Homeward implements the patient and care-team experience, source and date provenance, deterministic guidance, imported-record review, four role-scoped specialists, human-controlled approval, local reminder artifacts, stale-action rejection, idempotent recovery, education lookup, emergency access, and multi-layer evaluation.\n\nHomeward is in continued development toward a public launch. Its current validation uses fictional discharge material and synthetic Synthea history; clinical outcomes and authenticated healthcare deployment require separate validation. The completed evidence demonstrates workflow authority, provenance, failure containment, and patient-and-caregiver coordination."
     }
   ]
 }

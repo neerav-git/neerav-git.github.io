@@ -94,11 +94,11 @@ The work does build on external technology and evaluation services: Deepgram sup
 
 ## Bounded scope
 
-The demonstrated organization and employee data are fictional. The case system, meeting calendar, reminders, outbox events, workflow state, and audit storage are application-owned and process-local. No production SAP, Oracle, payroll, ticketing, Google/Outlook calendar, email, or Slack account is asserted. The Slack area contains tested contracts rather than a claimed production workspace connection. The measured results describe the frozen scenarios, revisions, models, and run corpus in the saved snapshot; they are not population-wide employee-productivity findings. The current branch at inspection was `fix/agent-workflow-plan` at `394ea86`, with numerous untracked historical voice-run directories preserved; no paid service was launched and no checkout state was changed during this research pass.
+The demonstrated organization and employee data are fictional. The case system, meeting calendar, reminders, outbox events, workflow state, and audit storage are application-owned. Production HR, payroll, ticketing, calendar, email, and messaging providers connect through the capability seams but are not claimed as current integrations. The measured results describe the recorded scenarios, revisions, models, and run corpus rather than population-wide employee-productivity outcomes.
 
-## Claim ledger
+## Evidence summary
 
-### Measured results
+### Results with context
 
 - 103/110 post-fix development conversations completed correctly (93.6% [87.4%, 96.9%]); the earlier period was 26/37.
 - 39/42 held-out rewordings completed correctly (92.9% [81.0%, 97.5%]) with no measurable drop from development.
@@ -110,7 +110,7 @@ The demonstrated organization and employee data are fictional. The case system, 
 - Key-term prompting improved recall from 101/108 to 106/108 with no false insertions in 60 negative clips, but was not adopted because the result was not statistically conclusive.
 - The included usage sample reports $0.243 of Deepgram time per fully correct conversation.
 
-### Directly verified capabilities in source and saved artifacts
+### Implemented capabilities
 
 - Server-resolved employee scope; browser-supplied identity and authority are rejected by design.
 - Typed record retrieval, abstention, semantic route/record/anchor navigation, and visible postconditions.
@@ -118,7 +118,7 @@ The demonstrated organization and employee data are fictional. The case system, 
 - Text and voice share one application boundary; voice implements multi-turn continuity, playback drain, barge-in, reconnect, and session limits.
 - Outcome-based live runner, no-cost replay runner, held-out suite, safety suite, grounding and tool scoring, calibrated judge, key-term experiment, snapshot generation, and CI release gate.
 
-### Interpretation supported by the evidence
+### What the evidence demonstrates
 
 - Relay reduces employee-service fragmentation by letting an employee begin with intent while keeping the record and action visible in the same workspace.
 - The architecture is reusable because product-specific adapters plug into a shared confirmation, idempotency, evidence, and verification shell.

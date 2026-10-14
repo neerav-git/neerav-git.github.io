@@ -1,10 +1,10 @@
 # Four-class Alzheimer MRI classification: CNN experimentation and probability ensembles
 
-## Record scope and evidence basis
+## Study and evidence context
 
 This record describes the public repository [`neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning`](https://github.com/neerav-git/Alzheimer-s-Disease-Detection-Ensemble-Learning), inspected on October 12, 2026 at `main` commit `2bae1dd`. The repository contains one 100-cell Google Colab notebook, `AZclassification5(wide).ipynb`, and a README that explains how to supply the external image data and rerun the workflow. The notebook was created in April 2024; the README was expanded in May 2026. The full public commit history contains six commits, all attributed to Neerav identities.
 
-The evidence review covered every markdown and code cell, every retained text output and image output, all notebook revisions in Git history, the current README, and the portfolio's source ledger. No model training was rerun: the image dataset and saved Keras models live in Google Drive and are not committed, and recreating a 50- or 300-epoch GPU experiment would not be a proportionate documentation step. This record therefore distinguishes three kinds of evidence. Retained notebook outputs establish the data count, class names, batch partitions, model summaries, and visible MRI examples. Code establishes the implemented preprocessing, modeling, inference, and ensemble procedures. Performance statements are reported results whose provenance is named explicitly.
+Retained notebook outputs establish the data count, class names, batch partitions, model summaries, and visible MRI examples. The executable cells document the preprocessing, modeling, inference, and ensemble procedures. Performance statements retain their named provenance so the public notebook result and companion experiment remain distinct.
 
 This is a separate project from *Analyzing Brain Atrophy in Dementia Using Computer Vision*, the five-page IEEE ICRITO 2022 paper by Neerav Chaudhary and Sourabh Singh Verma. The paper studies longitudinal atrophy measurement with image processing; this repository studies four-class single-image classification with TensorFlow CNNs and prediction-level ensembles. Neither project's evidence should be used to fill gaps in the other.
 
@@ -69,9 +69,9 @@ The public history supports describing Neerav as the sole repository author and 
 
 The defensible role statement is: Neerav designed and implemented the notebook's data-loading, image-inspection, preprocessing, augmentation, CNN, inference, checkpoint-loading, and ensemble-comparison workflow, and later documented how to run it. The repository does not establish authorship of the underlying MRI dataset or clinical labels, and it does not identify a clinical collaborator. The separate IEEE atrophy paper has a second human author, Sourabh Singh Verma, but that team attribution belongs to the publication, not to this four-class repository.
 
-## Concise claim ledger
+## Evidence summary
 
-### Measured or recorded results
+### Results with context
 
 - The committed loader output reports 6,400 image files in four classes; the dataset produces 100 batches of 64 at 256×256×3.
 - Retained partition outputs show 80 training, 10 validation, and 10 test batches, corresponding to 5,120/640/640 images in this run.
@@ -79,14 +79,14 @@ The defensible role statement is: Neerav designed and implemented the notebook's
 - The public notebook records a “13%” accuracy jump for the three-model ensemble versus the original, without saved score outputs or a stated percentage-point/relative-percent convention.
 - The author-confirmed companion experiment record reports 78% baseline accuracy and 85% ensemble accuracy on its held-out split: +7 percentage points, approximately +9% relative. This result is not reproduced in the public notebook's retained outputs.
 
-### Directly verified capabilities
+### Implemented capabilities
 
 - Directory ingestion, four-class label discovery, MRI montage inspection, 256×256 resizing, `1/255` rescaling, and training-only augmentation are implemented.
 - An 80/10/10 dataset-partition function, cache/shuffle/prefetch pipeline, six-block CNN, softmax inference, confidence display, and architecture visualization are implemented.
 - The notebook loads three saved Keras models, constructs equal-average two- and three-model ensembles, compiles them, and calls evaluation on the test dataset.
 - A weighted-ensemble layer is prototyped; its current forward pass uses two of the three model outputs, so it is not evidence of a completed three-model weighted ensemble.
 
-### Interpretation supported by the evidence
+### What the evidence demonstrates
 
 - The work's strongest contribution is the connected experimental progression from raw folder data to reusable probability ensembles, not a novel convolution operator.
 - The reported ensemble gains are consistent with separately trained CNN variants contributing complementary errors, although diversity was not measured directly.

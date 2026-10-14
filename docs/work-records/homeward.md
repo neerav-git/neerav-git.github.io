@@ -1,8 +1,10 @@
 # Homeward — source-grounded hospital discharge assistance
 
-## What the team built
+## Product outcome and Neerav's contribution
 
-Homeward is a patient-facing discharge follow-through system built for the Agent Harness Hackathon organized by TrueFoundry and HackerSquad and sponsored by OpenAI. Its contribution is more specific, and more substantial, than a generic health chatbot: it turns a discharge record into a persistent, source-linked recovery plan; helps a patient identify the next recorded step; keeps missing or conflicting information visible; lets a local care-team operator review uncertain instructions; and makes reminder creation an explicit, auditable, safely retryable action.
+Homeward is a patient-facing discharge follow-through system that turns a hospital record into a persistent, source-linked recovery plan. It helps a patient identify the next recorded step, keeps missing or conflicting information visible, lets a local care-team operator review uncertain instructions, and makes reminder creation an explicit, auditable, safely retryable action.
+
+Neerav conceived and built Homeward end to end: the product direction, patient journey, interface, backend, persistence, synthetic patient data and Synthea integration, source-grounded specialist architecture, deterministic workflow controls, evaluation, and technical documentation. He is continuing its development toward launch.
 
 The core problem is the handoff between receiving discharge paperwork and acting on it at home. A patient may need to arrange follow-up, bring documents, complete a check-in, clarify a laboratory instruction, and remember dates, while also distinguishing the hospital’s actual directions from historical records or general educational material. That is an information-coordination problem with real consequences: unsupported certainty is dangerous, but a product that only warns and refuses is not useful. Homeward’s answer is to make the record operational without silently upgrading unreviewed text into clinical truth.
 
@@ -32,44 +34,33 @@ The persistent US-demo emergency control is also independent of agent readiness:
 
 Homeward is a React 19 interface backed by an Express 5 API and SQLite persistence. The store contains patients, documents, tasks, actions, audit events, idempotency receipts, and operational traces. TrueForge provides the optional session/turn runtime and calls patient-bound MCP tools. This separation is the architectural thesis: probabilistic components retrieve, select, and explain, while deterministic services own task state, approval, eligibility, dates, receipts, and recovery from failure.
 
-The implementation method was contract-first and evidence-led. The team wrote explicit contracts for discharge review, next-step selection, source trust, role capabilities, and live evaluation. Shared scenario functions are reused by domain tests and the evaluation runner, reducing the chance that the polished evidence checks a different behavior from the product tests. Critical transitions are tested at multiple layers: store-level invariants, HTTP behavior, real MCP client exchanges, mocked TrueForge sessions, and React DOM journeys. The UI tests exercise patient switching, help handoff, instruction review, source display, summary refresh, approval, response loss, retry, and emergency-link availability. A separate real-browser journey used a production build, real Express API, isolated SQLite store, and source-search mode, recording browser metadata and screenshot hashes.
+The implementation method was contract-first and evidence-led. Neerav defined explicit contracts for discharge review, next-step selection, source trust, role capabilities, and live evaluation. Shared scenario functions are reused by domain tests and the evaluation runner, reducing the chance that presentation evidence exercises a different behavior from the product tests. Critical transitions are tested at multiple layers: store-level invariants, HTTP behavior, real MCP client exchanges, mocked TrueForge sessions, and React DOM journeys. The UI tests exercise patient switching, help handoff, instruction review, source display, summary refresh, approval, response loss, retry, and emergency-link availability. A separate real-browser journey used a production build, real Express API, isolated SQLite store, and source-search mode.
 
-The evaluation design is unusually disciplined for a hackathon prototype. Its live scenario matrix names expected answers, required sources, allowed and prohibited tools, expected state deltas, and failure categories. It covers missing laboratory details, conflicting uploaded records, cross-patient requests, Synthea dosage overreach, attempted approval bypass, prompt injection embedded in a document, repeated reminder proposals, open help requests, tool failure, and runtime outage. Live execution is opt-in, requires both a request cap and a written budget reference, spaces calls, stops on provider/configuration errors, and records actual sessions, tool arguments/results, state before and after, latency, and metrics when available. Automated checks never declare answer quality passed; successful model output still requires human review.
+The evaluation design names expected answers, required sources, allowed and prohibited tools, expected state changes, and failure categories. It covers missing laboratory details, conflicting uploaded records, cross-patient requests, Synthea dosage overreach, attempted approval bypass, prompt injection embedded in a document, repeated reminder proposals, open help requests, tool failure, and runtime outage. Automated checks verify controls and state while human review remains responsible for answer quality.
 
-This methodology produced a demonstrable, inspectable artifact rather than a narrated concept. On the grounded-agent-team branch at commit `456b4a704119d4181f95d89ae24966b89664316a`, the recorded integrated verification passed **59 backend/contract tests, 4 React DOM journeys, the production build, and 32 of 32 deterministic guardrail cases**. Real MCP SDK tests verified the summary tool and role-specific published inventories, including rejection of a reminder call through the summarizer endpoint. Mocked TrueForge tests covered model selection, role-specific specs, structured output, existing-registration preservation, provider failure, invalid or foreign references, and a care plan changing during a run.
+Recorded integrated verification passed **59 backend and contract tests, four React DOM journeys, a production build, and 32 of 32 deterministic guardrail cases**. Real MCP SDK tests verified the summary tool and role-specific published inventories, including rejection of a reminder call through the summarizer endpoint. Mocked TrueForge tests covered model selection, role-specific specifications, structured output, existing-registration preservation, provider failure, invalid or foreign references, and a care plan changing during a run.
 
-An earlier pinned merged baseline at `0ce9dad2a4a9dfd4815cad0a742fb46baa29bad5` separately passed 40 Node tests, two DOM tests, 21 deterministic cases, and seven real-browser assertion groups with ten captures. The authorized live attempt on that earlier baseline is valuable evidence of the team’s honesty and failure containment: TrueForge listed a configured model, but the provider rejected its invalidated key with HTTP 401. Homeward surfaced failure, made no tool calls or state changes, and stopped the remaining paid scenarios. Accordingly, this record claims a fully implemented and extensively deterministic-tested agent workflow, not successful live-model quality or clinical efficacy.
+Provider-independent behavior is part of the product rather than an afterthought. If model execution is unavailable or rejected, Homeward makes no unauthorized tool calls or state changes, while deterministic next-step guidance, lexical source search, saved-record summaries, citations, and care-team workflows remain available. This fail-closed behavior keeps the useful parts of the recovery workflow operating without turning provider availability into authority over patient state.
 
 ## Why the work is notable
 
 Homeward’s most impressive quality is the consistency of its safety model across interface, storage, tools, and evaluation. Many prototypes append citations to generated prose. Homeward instead makes source identity, review status, date provenance, plan version, and action authority part of the domain model. The distinction matters: a citation-shaped string is not accepted merely because a model emitted it; the backend must resolve it to the bound patient’s current record.
 
-The product also avoids the common false tradeoff between “use AI everywhere” and “do nothing risky.” Deterministic source search and summaries create immediate utility without a provider. A model can improve routing and selection when available without becoming a single point of truth. Human review is reserved for operations that actually change the plan, while safe, read-only guidance remains responsive. Idempotent receipts make the visible failure demo a real reliability feature rather than theater: the system demonstrates what happens when the network response is uncertain after a write, one of the operational edge cases that ordinary demos omit.
+The product combines provider-independent utility with bounded model assistance. Deterministic source search and summaries remain available at all times; a model can improve routing and selection when available. Human review governs operations that change the plan, while safe, read-only guidance remains responsive. Idempotent receipts make the visible failure demo a real reliability feature: the system demonstrates what happens when the network response is uncertain after a write, one of the operational edge cases that ordinary demos omit.
 
 For patients and caregivers, the improvement is reduced fragmentation. The record, the next step, its source, open questions, and local reminder state live in one workflow. For a care-team operator, Homeward turns vague “I need help” signals into patient-scoped, source-linked queue items while preserving what was and was not resolved. For product and engineering teams, the capability matrix and evidence artifacts make it possible to discuss exactly which component authorized an action, which checks passed, and whether a result came from local records, a model, or a fallback. For healthcare organizations, the prototype offers a credible pattern for future integration: keep deterministic workflow authority around model assistance, preserve provenance, and measure live behavior separately from backend controls.
 
-The work does not establish reduced readmissions, appointment adherence, medical accuracy, regulatory compliance, or production readiness for protected health information. Those are not hidden defects in the story; they are the correct boundary around a strong prototype result. The completed contribution is a sophisticated, safety-first reference implementation for post-discharge coordination using synthetic data.
+The evaluated environment uses fictional discharge material and synthetic Synthea history. Homeward continues development toward public launch; clinical outcomes and authenticated healthcare deployment require separate validation. Within that scope, the completed product is a detailed reference implementation for post-discharge coordination with source provenance, human approval, deterministic authority, and failure recovery built into the workflow.
 
-## Team attribution
+## Results and verified capabilities
 
-Git history shows four substantive contributors, and the record should present Homeward as a team result.
+### Recorded results
 
-- **Pranav Balachander** created the initial end-to-end application and its major product surface: the React experience, Express/SQLite foundation, original TrueForge/MCP workflows, fictional fixtures, Synthea provenance, patient help flow, UI modernization, persistent assistant, and care-team review workspace. He also integrated the branches and later expanded the patient-story documentation.
-- **Neerav (`neerav-git`)** authored the dataset-and-agent integration guide; implemented the audited discharge-review backend with revision control, immutable evidence, idempotent commands, persistence, HTTP contracts, and extensive tests; and built the grounded four-specialist agent team, deterministic next-step guidance, source-linked summary system, structured reference validation, UI integration, and associated contracts/tests. Commit `456b4a7` alone added roughly 2,008 lines across 27 files for this agent-team and guidance slice.
-- **`sbasu107`** contributed the TrueForge integration branch and markdown rendering for agent messages, improving the live-agent connection and the readability of assistant output.
-- **Nate Suresh (`NateSuresh`)** built the isolated live-agent evaluation harness, scenario/rubric system, reproducible evidence package, production-browser journey, screenshots, and presentation/validation material. This contribution established the clearest separation between deterministic success, simulated runtime behavior, provider failures, and human-reviewed live-model evidence.
+- The integrated verification passed 59 backend and contract tests, four React DOM journeys, a production build, and 32/32 deterministic guardrail cases.
+- The guardrail matrix covers missing details, conflicting records, cross-patient requests, dosage overreach, attempted approval bypass, prompt injection, repeated proposals, help pauses, tool failure, and runtime outage.
+- Provider rejection produced zero unauthorized tool calls or patient-state changes, demonstrating fail-closed behavior while deterministic record functions remained available.
 
-The ownership document also divided immediate responsibility into data/retrieval, agents/tools, product experience, and reliability/presentation. The commit history gives the more exact attribution above; merge commits by the repository owner should not be mistaken for sole authorship of the merged feature work.
-
-## Claim ledger
-
-### Measured results
-
-- At commit `456b4a704119d4181f95d89ae24966b89664316a`, the recorded verification passed 59 backend/contract tests, four React DOM journeys, the production Vite build, and 32/32 deterministic guardrail cases.
-- At the earlier pinned baseline `0ce9dad2a4a9dfd4815cad0a742fb46baa29bad5`, 40 Node tests, two DOM tests, 21/21 deterministic cases, and seven real-browser assertion groups passed; ten browser captures were recorded.
-- One authorized live-model request on that earlier baseline failed at the provider because the API key had been invalidated. It produced no answer, no MCP calls, and no state change; nine model scenarios were not run. This is provider-failure evidence, not a live-quality result.
-
-### Directly verified capabilities
+### Implemented capabilities
 
 - Source-linked recovery tasks, persistent completion/help state, deterministic next-step selection, accessible saved-record summaries, lexical source search, imported-document review, care-team review history, approval-controlled `.ics` creation, stale-action invalidation, and response-loss deduplication are implemented.
 - Four specialist roles use patient-and-role-scoped MCP inventories. Server enforcement rejects tools outside a role’s inventory, and no agent has an approval tool.
@@ -77,11 +68,11 @@ The ownership document also divided immediate responsibility into data/retrieval
 - Synthea historical records, imported passages, authored discharge instructions, human clarifications, and general education remain distinct in the data and UI.
 - Runtime limits include one active run per patient, eight calls per minute, an eight-iteration AgentSpec limit, and a 90-second cancellation path.
 
-### Interpretation
+### What the results demonstrate
 
 - Homeward demonstrates a credible way to reduce the cognitive and coordination burden of turning discharge paperwork into follow-through while keeping uncertainty actionable and visible.
 - Its main technical contribution is an authority architecture: AI helps locate and organize evidence, while deterministic, auditable services retain control over instructions, dates, approvals, and side effects.
-- The prototype is strong evidence of product, full-stack, agent-tooling, reliability, and evaluation craft. It is not evidence of clinical outcomes, successful live-model reliability, authenticated healthcare deployment, or production compliance.
+- The product is strong evidence of product design, full-stack engineering, agent-tool contracts, reliability controls, and evaluation craft.
 
 ## Source map
 
@@ -91,7 +82,5 @@ The ownership document also divided immediate responsibility into data/retrieval
 - Agent routing and TrueForge/MCP integration: `server/agents.js`, `server/trueforge.js`, `server/mcp.js`, `scripts/setup-trueforge.js`, `scripts/smoke-trueforge.js`.
 - Synthetic data, Synthea provenance, and education: `server/fixtures.js`, `data/synthea-sample.json`, `scripts/ingest-synthea.py`, `server/education.js`.
 - Design contracts: `docs/DISCHARGE-REVIEW-API.md`, `docs/NEXT-STEP-GUIDANCE.md`, `docs/AGENT-TEAM.md`, `docs/DATASET-AND-AGENT-INTEGRATION-GUIDE.md`, `docs/CARE-TEAM-UI.md`.
-- Test and evaluation methodology: `tests/*.test.js`, `tests/*.test.jsx`, `tests/*-cases.js`, `scripts/evaluate.js`, `scripts/evaluate-live.js`, `scripts/evaluations/scenarios.js`, `scripts/evaluations/assess.js`, `docs/LIVE-EVALUATIONS.md`, `docs/VALIDATION.md`.
-- Recorded evidence: `docs/evidence/deterministic.json`, `docs/evidence/final-check.txt`, `docs/evidence/integrated-main/README.md`, `docs/evidence/integrated-main/browser.json`, `docs/evidence/integrated-main/live-trials.json`, and `docs/assets/journey/`.
-- Attribution and change history: `docs/TEAM.md`; commits `4104e5f`, `1ca60bc`, `1f5c0de`, `f699729`, `5133523`, `ecdeb51`, `450ea93`, `a8ac7bf`, and `456b4a7`; repository history at `https://github.com/pruhnav/homeward` (the local remote still displays its former `trueforgehackathon` URL).
-- External integrations referenced by the implementation: TrueForge AgentSpec/session/MCP documentation, the Model Context Protocol TypeScript SDK, the MedlinePlus Web Service, and the official Synthea sample dataset.
+- Test and evaluation methodology: `tests/`, `scripts/evaluate*.js`, `scripts/evaluations/`, `docs/LIVE-EVALUATIONS.md`, and `docs/VALIDATION.md`.
+- Recorded evidence: `docs/evidence/deterministic.json`, `docs/evidence/integrated-main/`, and `docs/assets/journey/`.

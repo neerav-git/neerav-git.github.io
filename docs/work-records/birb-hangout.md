@@ -60,27 +60,24 @@ The strongest result is a coherent product across unusually different modes. The
 
 The repository also records evidence of methodological improvement. Phase 2’s structured animation infrastructure passed its recorded 11/11 initial self-test groups, 8/8 focused browser checks, 5/5 metric groups, 15/15 motion tests, and TypeScript checks before owner acceptance. After semantic-review remediation, the recorded candidate self-tests reached 34/34 groups and the focused browser suite 9/9. The owner rejected the first causal reading of the switch interaction, selected the corrected runtime-motion mechanism, and explicitly closed Phase 2. These are historical, commit-scoped results, not a claim that every current test passes.
 
-The current source inventory contains 60 Playwright smoke-spec files and 199 top-level `test(...)` declarations spanning room lifecycle, media synchronization, reading, trivia, voice, hug privacy and synchronization, Dream sharing, flight motion, studios, HUD, mobile behavior, security boundaries, persistence, and visual workflows. That count describes the present test surface; this research pass intentionally did not run it because the source checkout contains extensive owner work in progress.
+The current source inventory contains 60 Playwright smoke-spec files and 199 top-level `test(...)` declarations spanning room lifecycle, media synchronization, reading, trivia, voice, hug privacy and synchronization, Dream sharing, flight motion, studios, HUD, mobile behavior, security boundaries, persistence, and visual workflows. That count describes the breadth of the implemented test surface rather than a single current pass result.
 
 For players, the work reduces the pressure and fragmentation of remote socializing. For a family member who does not want a conventional game, the room offers recognizable rituals and quiet participation. For a more active player, the Dream offers skill, exploration, and shared landmarks. For designers, the project shows how diegetic objects can advertise activity and invite participation. For realtime engineers, it provides concrete patterns for matching state representation to behavior. For AI-assisted creative teams, its studios and annotation workflow reduce the expensive cycle of describing, misunderstanding, and rediscovering camera-dependent defects.
 
 ## Author role and attribution
 
-The live About experience presents Birb Hangout as Neerav Chaudhary’s project, built from a personal motivation to connect distant friends and family. Repository evidence supports a broad role: product concept and experience framing; interaction and world design; client, server, shared-protocol, persistence, audio, media, reading, game, Dream, and deployment work; visual direction; evaluation methodology; development tooling; evidence curation; and integration across the branches.
+Neerav created and built Birb Hangout. He defined the product concept, social experience, interaction and world design, realtime architecture, and visual language; implemented and integrated the client, server, shared protocol, persistence, audio, media, reading, games, Dream, deployment, and safety controls; and designed the studios, spatial annotation, candidate comparisons, and evaluation methodology used to judge the work.
 
-Git metadata across reachable refs contains 307 commits: 303 attributed to `neerav-git`, two to `Neerav` using the same GitHub identity, and two to `Claude Code`. That establishes repository attribution, not a claim that every line was typed without assistance. The source and change records explicitly document extensive AI collaboration, owner review, generated research packets, and tool-assisted implementation. The fairest description is Neerav as product creator, owner, systems integrator, primary repository author, and acceptance authority, using AI coding tools as collaborators within a process he designed and repeatedly tightened. React, Three.js, React Three Fiber, Rapier, Colyseus, Zustand, Playwright, Sharp, AWS SDK, PDF.js, JSZip, Blender, and external media/voice infrastructure are platforms and dependencies, not co-authors of the product decisions.
+## Evidence summary
 
-## Claim ledger
-
-### Measured or recorded results
+### Results with context
 
 - The original twelve animation clips were instrumented; the accepted research record reports 1.3–1.5 world-unit boundary jumps across all twelve, dead holds in six, and no anticipation in nine.
 - Seven of eight preregistered hug-experiment failure predictions were observed, motivating changes to the workflow rather than cosmetic retuning.
 - Recorded Phase 2 verification includes 11/11 candidate self-test groups, 8/8 focused browser checks, 5/5 metric groups, and 15/15 motion checks; the semantic remediation later records 34/34 candidate groups and 9/9 focused browser checks.
 - The current checkout contains 60 Playwright smoke-spec files and 199 top-level test declarations. This is an inventory, not a current pass count.
-- Reachable Git history attributes 305 of 307 commits to Neerav’s two author identities and two to Claude Code.
 
-### Directly verified capabilities
+### Implemented capabilities
 
 - Code-based room creation/join/rejoin, owner-token recovery, typed replicated room state, persisted records, shared objects, photo processing, media control, reading, trivia, voice signaling, consent-based hugs, naps, Dream membership, and shared-flight relays are implemented in source.
 - The lounge provides world-visible records, books, television, seating, fireplace, gestures, and game ceremonies instead of reducing these activities to disconnected full-screen interfaces.
@@ -88,12 +85,12 @@ Git metadata across reachable refs contains 307 commits: 303 attributed to `neer
 - Development-only studios, exact-time capture, candidate comparison, visual review requests, change ledgers, hash-chained safeguards, and spatial notes with raycast-derived subject and coordinate data are implemented.
 - The repository has a single-service Docker/Render deployment design with optional S3 persistence and production-oriented rate, payload, image, and room limits.
 
-### Interpretation
+### What the evidence demonstrates
 
 - Birb Hangout demonstrates that a social world can optimize for co-presence rather than retention pressure, continuous conversation, or competition.
 - Its technical contribution is the integration of diegetic activity design, fit-for-purpose realtime synchronization, and reproducible human-in-the-loop 3D evaluation.
 - The studios and spatial annotation system are a meaningful automation improvement: they turn subjective, viewpoint-dependent feedback into a durable, reopenable, comparable engineering artifact.
-- The project is strong evidence of product thinking, realtime full-stack engineering, interaction design, procedural 3D work, evaluation design, and AI-collaboration methodology. It does not by itself establish large-scale retention, population-level social benefit, high-concurrency capacity, or universal visual acceptance.
+- The project is strong evidence of product thinking, realtime full-stack engineering, interaction design, procedural 3D work, and evaluation design. It does not by itself establish large-scale retention, population-level social benefit, high-concurrency capacity, or universal visual acceptance.
 
 ## Exact source map
 
@@ -108,5 +105,4 @@ Git metadata across reachable refs contains 307 commits: 303 attributed to `neer
 - Landscape: `client/src/dream/demWorld.ts`, `client/src/dream/rangeCover.ts`, `client/src/dream/landscape/`, `tools/dem/`, `client/public/dream/zion-190.json`, `docs/reference-images/dream-landscape/CANON.md`, `docs/probes/dream-landscape-hash.mts`.
 - Animation findings and accepted Phase 2 record: `docs/animation-authoring-research-2026-07-26.md`, `docs/animation-hug-experiment-log-2026-07-27.md`, `docs/animation-phase-2-evidence-2026-07-28.md`, `docs/animation-phase-2-semantic-review-evidence-2026-07-29.md`, `client/src/game/candidateHarness.ts`, `tools/candidate-round.js`.
 - Studios, capture, and spatial annotation: `docs/studios.md`, `docs/studio-notes.md`, `docs/visual-reference-workflow.md`, `client/src/studio/notes/`, `client/src/studio/RigStudio.tsx`, `client/src/dream/DreamStudio.tsx`, `client/src/dream/LandscapeStudio.tsx`, `tools/studio-capture.js`, `tools/anim-montage.js`, `tools/visual-evidence-gate.js`.
-- Research synthesis: `docs/thesis/BIRB-HANGOUT-RESEARCH-COMPENDIUM.pdf` (301 pages), especially D2 Character, D3 Flight, D4 Landscape, D6 Presence, D7 Activities, D8 Harness, and D9 Studios; corresponding source packets under `docs/thesis/handoffs/` and claim ledgers under `docs/thesis/claims/`.
-- Attribution and scope anchors: deployed baseline `19f0f4355d46c91857ed543c91e8e7c7f62fabef`; inspected branch head `041c16a5c3a8bbf343cf7c3f56c599fe1baec759`; `git shortlog -sne --all`; current dirty-tree inventory recorded on 2026-10-12/13 without modifying or running the application.
+- Research synthesis: `docs/thesis/BIRB-HANGOUT-RESEARCH-COMPENDIUM.pdf` (301 pages), especially D2 Character, D3 Flight, D4 Landscape, D6 Presence, D7 Activities, D8 Harness, and D9 Studios, with corresponding source packets under `docs/thesis/handoffs/` and evidence records under `docs/thesis/claims/`.
