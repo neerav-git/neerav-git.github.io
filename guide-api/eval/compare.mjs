@@ -107,7 +107,7 @@ gate('No run of 3+ technical terms on non-technical questions', !stacks.length, 
 
 // Style the round-2 answers did without: talking about the tour, announcing page moves, and contrast phrasing.
 const STYLE = {
-  'Tour talk ("three stops", "one stop each")': /\b(?:one|two|three|four|five|six|\d|next|first|last|final|each) stops?\b|\bstop each\b|\bstops? (?:show|cover|map|walk)/i,
+  'Tour talk ("three stops", "one stop each")': /\b(?:one|two|three|four|five|six|\d|next|first|last|final|each|the|these|those) stops?\b|\bstop each\b|\bhere (?:is|are|'s) (?:a |the )?(?:walkthrough|tour|stops)\b|\bstops? (?:show|cover|map|walk)/i,
   'Announced page moves ("I can show you", "let me show you")': /\bI'll show\b|\bI can show\b|\blet me show\b|\bI'm opening\b|\bI'll open\b|\bI'll take you\b/i,
   'Contrast phrasing ("rather than", "not just")': /\brather than\b|\bnot just\b|\binstead of\b|\bmore than a\b/i,
 }

@@ -508,12 +508,13 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       ? notice
       : phase === 'voiceLoading'
         ? voiceState.stage === 'downloading' && voiceState.progress < 1
-          ? `Getting the voice ready, ${Math.round(voiceState.progress * 100)}% (downloads once per browser). ${micReady ? 'Answers will be read aloud when it’s ready.' : 'The mic turns on when it’s ready.'}`
+          ? `Getting the voice ready (${Math.round(voiceState.progress * 100)}%). ${micReady ? 'Answers will be read aloud when it’s ready.' : 'The mic turns on when it’s ready.'}`
           : `Getting the voice ready. ${micReady ? 'Answers will be read aloud in a moment.' : 'The mic turns on in a moment.'}`
         : phase
           ? PHASE_COPY[phase]
           : ''
-  const statusLabel = status === 'touring' && tour ? `Tour · stop ${tour.index + 1} of ${tour.total}` : phase && phase !== 'notice' ? phaseText : ''
+  // The voice strip shows and announces what is happening; the header only adds the tour position, so nothing is said twice.
+  const statusLabel = status === 'touring' && tour ? `Tour · stop ${tour.index + 1} of ${tour.total}` : ''
 
   if (!open) {
     return (

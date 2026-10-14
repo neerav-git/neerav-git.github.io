@@ -1,0 +1,48 @@
+pass  overview        
+      "Neerav has built four complete products and two medical imaging studies. Relay is a voice AI agent for employees that answers from their own records and completes requests like support cases once they confirm. Refract is"
+      tour project.relay → project.refract-ai → project.homeward → project.brain-atrophy-computer-vision
+pass  relay-results   
+      "Relay's voice AI agent was tested in 110 realistic multi-step conversations and completed the employee's request correctly 103 times. On 42 conversations worded in ways it had never seen, it succeeded 39 times, which sho"
+      show project.relay.8-the-evaluation-program
+pass  paper           
+      "Here is the brain atrophy study, a peer-reviewed IEEE paper that Neerav co-authored with Sourabh Singh Verma. Neerav built the Python and OpenCV pipeline that turns each MRI scan into a tissue-loss score that anyone can "
+      show project.brain-atrophy-computer-vision | links link.brain-atrophy-computer-vision.ieee-doi
+pass  hiring-imaging  
+      "Neerav is a strong fit for a medical imaging ML role. He co-authored a peer-reviewed IEEE study that uses computer vision to measure brain tissue loss from MRI scans, and he built a complete deep learning study in which "
+      tour project.brain-atrophy-computer-vision → project.alzheimers-disease-research → project.homeward | links link.resume.resume-pdf, link.contact.email, link.contact.linkedin
+pass  hiring-jd       
+      "Neerav is a strong fit for this role. Relay is a voice AI agent that uses tool calling to finish employee requests, such as opening a support case, once the employee confirms, built in React, TypeScript, and Fastify. He "
+      tour project.relay.7-five-employee-actions → project.relay.8-the-evaluation-program → project.homeward.9-the-integrated-evidence → project.birb-hangout.12-the-deployment-uses | links link.resume.resume-pdf, link.contact.email, link.contact.linkedin
+pass  contact         
+      "Neerav can be reached by email or on LinkedIn, and both buttons are in the panel for you to open."
+      links link.contact.email, link.contact.linkedin
+pass  gap             
+      "The portfolio doesn't list Kubernetes, but Neerav has hands-on container and cloud deployment experience. Docker and AWS appear in his skills, and Birb Hangout runs as a live, single-service deployment with production-st"
+      show project.birb-hangout.12-the-deployment-uses | links link.contact.email, link.contact.linkedin
+pass  off-topic       
+      "This is a code-writing request outside Neerav's portfolio, so I can't write that script. I can tell you about Neerav's work instead, such as Relay, Refract, Homeward, Birb Hangout, or his IEEE brain-atrophy research."
+pass  general-q       
+      "I can only speak to Neerav's work, so I can't explain transformers in general. I can show how his projects use AI, such as Relay's voice agent or the Refract research tool."
+pass  phone           
+      "The portfolio doesn't list a phone number for Neerav. You can reach him by email or through LinkedIn, and both buttons are in the guide panel."
+      links link.contact.email, link.contact.linkedin
+pass  follow-up       
+      "The methodology section explains how Refract was validated. It records what each step needs for a researcher to check the work, including the paper and page behind every answer, the recall judgments learners make before "
+      show project.refract-ai.methodology
+pass  homeward-ownership 
+      "Neerav conceived and built Homeward end to end. It turns hospital discharge paperwork into a clear recovery plan, with the exact sentence from the papers behind every step, and it creates a reminder only after the patien"
+      show project.homeward.12-i-conceived-and
+pass  homeward-launch 
+      "No, Homeward isn't launched yet. Neerav is continuing its development toward a public launch. The path to launch adds secure sign-in for patients and care teams, real discharge records in place of the sample material use"
+      show project.homeward.methodology
+pass  tour            
+      "Neerav has built four complete products and two imaging studies, including a peer-reviewed IEEE paper. Relay, his voice AI agent for employees, completed 103 of 110 realistic multi-step conversations correctly, and it ha"
+      tour project.relay → project.refract-ai.methodology → project.brain-atrophy-computer-vision
+pass  cover-letter    
+      "I won't draft the letter itself, but Neerav maps closely to this role. Relay is an AI agent that uses tool calling to finish employee requests, like opening a support case, after the employee confirms. It's built in Reac"
+      tour project.relay.4-application-owned-controls → project.relay.8-the-evaluation-program → project.homeward.4-four-roles-receive | links link.resume.resume-pdf, link.contact.email, link.contact.linkedin
+pass  is-it-real      
+      "Yes, these are real. Neerav built four complete products, Relay, Refract, Homeward, and Birb Hangout, and measured each one. His brain-atrophy study is peer-reviewed IEEE research he co-authored with Sourabh Singh Verma."
+      show home.products
+
+16/16 scenarios passed
