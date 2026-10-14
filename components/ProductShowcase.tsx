@@ -63,6 +63,7 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
           <button
             aria-controls="active-product-panel"
             aria-selected={project.slug === activeProject.slug}
+            data-guide-mentions={project.title}
             id={`product-tab-${project.slug}`}
             key={project.slug}
             onClick={() => selectProduct(project.slug)}

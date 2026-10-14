@@ -73,9 +73,45 @@ export async function focusTarget(target: GuideTarget, navigate: (route: string)
     })
   }
   element.classList.add(importance === 'primary' ? PRIMARY : SUPPORTING)
+  if (importance === 'primary') resetTabs(element)
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   // On phones the guide is a bottom sheet, so targets go to the top of the screen where the sheet can't cover them.
   const toTop = window.innerWidth <= 720 || element.offsetHeight > window.innerHeight * 0.6
   element.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: toTop ? 'start' : 'center' })
   return true
+}
+
+function tabsIn(root: HTMLElement) {
+  return [...root.querySelectorAll<HTMLElement>('[role="tablist"]')].map((list) => [...list.querySelectorAll<HTMLElement>('[role="tab"]')])
+}
+
+function select(tab: HTMLElement | undefined) {
+  if (tab && tab.getAttribute('aria-selected') !== 'true') tab.click()
+}
+
+/** A highlighted section starts from its beginning: each of its tab sets returns to the first tab. */
+function resetTabs(root: HTMLElement) {
+  for (const tabs of tabsIn(root)) select(tabs[0])
+}
+
+/**
+ * Tabs inside the highlighted section follow the answer. Each tab lists the words that refer to it in
+ * data-guide-mentions; the tab mentioned earliest in `text` is selected. Called per sentence as it is spoken,
+ * or once with the whole answer when it is only shown as text.
+ */
+export function followAnswer(text: string) {
+  const root = document.querySelector<HTMLElement>(`.${PRIMARY}`)
+  if (!root || !text) return
+  for (const tabs of tabsIn(root)) {
+    let earliest: { tab: HTMLElement; at: number } | null = null
+    for (const tab of tabs) {
+      for (const word of (tab.dataset.guideMentions || '').split(',')) {
+        const term = word.trim()
+        if (!term) continue
+        const at = text.search(new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'))
+        if (at >= 0 && (!earliest || at < earliest.at)) earliest = { tab, at }
+      }
+    }
+    select(earliest?.tab)
+  }
 }

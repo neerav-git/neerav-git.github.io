@@ -56,7 +56,7 @@ export default {
     if (url.pathname !== '/chat' || request.method !== 'POST') return json({ error: 'not_found' }, 404, cors)
     if (!cors['access-control-allow-origin']) return json({ error: 'origin_not_allowed' }, 403, cors)
 
-    let body: { messages?: unknown; route?: unknown }
+    let body: { messages?: unknown; route?: unknown; spoken?: unknown }
     try {
       body = await request.json()
     } catch {
@@ -101,7 +101,7 @@ export default {
           await runMockTurn(knowledge, messages.at(-1)!.content, emit)
         } else {
           // The current page and earlier page moves travel with the visitor's messages, after the cached prefix.
-          const apiMessages = toApiMessages(messages, route)
+          const apiMessages = toApiMessages(messages, route, body.spoken === true)
           const { usage, offTopic } = await runGuideTurn({
             client: new Anthropic({ apiKey: env.ANTHROPIC_API_KEY, maxRetries: 1 }),
             model: env.MODEL || 'claude-haiku-5-5',

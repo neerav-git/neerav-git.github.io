@@ -6,6 +6,7 @@ import { DECLINE_FALLBACK, TOOLS, TurnState, type GuideAction } from './tools.ts
 
 export type GuideEvent =
   | { t: 'text'; d: string }
+  | { t: 'heard'; d: string }
   | { t: 'action'; action: GuideAction }
   | { t: 'done'; offTopic?: true }
   | { t: 'error'; code: string; message: string }
@@ -32,7 +33,7 @@ const SHOWN_NOTE = /\s*\(Shown on the page: ([^)]*)\)/g
  * The browser appends "(Shown on the page: ...)" to the guide's earlier answers. Left inside assistant turns,
  * the model copies that note into new answers and it gets spoken, so it moves to the next visitor turn as context.
  */
-export function toApiMessages(messages: Array<{ role: 'user' | 'assistant'; content: string }>, route: string): Anthropic.MessageParam[] {
+export function toApiMessages(messages: Array<{ role: 'user' | 'assistant'; content: string }>, route: string, spoken = false): Anthropic.MessageParam[] {
   let shown: string[] = []
   return messages.map((message, index) => {
     if (message.role === 'assistant') {
@@ -42,10 +43,57 @@ export function toApiMessages(messages: Array<{ role: 'user' | 'assistant'; cont
     const context: string[] = []
     if (shown.length) context.push(`[Your previous answer showed on the page: ${shown.join('; ')}]`)
     if (index === messages.length - 1) context.push(`[The visitor is currently on ${route}]`)
+    if (index === messages.length - 1 && spoken) context.push('[Asked by voice: this is the speech recognizer\'s transcript]')
     shown = []
     if (!context.length) return message
     return { role: 'user', content: [...context.map((text) => ({ type: 'text' as const, text })), { type: 'text' as const, text: message.content }] }
   })
+}
+
+const HEARD_OPEN = '<heard>'
+const HEARD_CLOSE = '</heard>'
+
+/**
+ * Spoken questions arrive as the browser misheard them ("What has need of built"). The model opens its reply with
+ * <heard>the question as the visitor most likely said it</heard>; this filter takes that line out of the spoken
+ * answer and hands it to the browser, which shows it in place of the raw transcript. Replies without it pass through.
+ */
+export class HeardFilter {
+  private buffer = ''
+  private settled = false
+  private readonly onHeard: (question: string) => void
+
+  constructor(onHeard: (question: string) => void) {
+    this.onHeard = onHeard
+  }
+
+  /** Returns the part of this delta that belongs to the answer. */
+  push(delta: string): string {
+    if (this.settled) return delta
+    this.buffer += delta
+    const text = this.buffer.trimStart()
+    if (text.length < HEARD_OPEN.length) return HEARD_OPEN.startsWith(text) ? '' : this.release()
+    if (!text.startsWith(HEARD_OPEN)) return this.release()
+    const end = text.indexOf(HEARD_CLOSE)
+    if (end < 0) return text.length > 400 ? this.release() : ''
+    const question = text.slice(HEARD_OPEN.length, end).trim()
+    if (question) this.onHeard(question)
+    this.settled = true
+    this.buffer = ''
+    return text.slice(end + HEARD_CLOSE.length).trimStart()
+  }
+
+  /** Anything still held back once the model stops writing. */
+  flush(): string {
+    return this.settled ? '' : this.release()
+  }
+
+  private release() {
+    this.settled = true
+    const text = this.buffer
+    this.buffer = ''
+    return text
+  }
 }
 
 export function needsPostToolResponse(spoken: string, allSucceeded: boolean) {
@@ -88,23 +136,28 @@ export async function runGuideTurn(options: {
   let lastText = ''
   let spoken = ''
   let acted = false
+  let separated = true
+  const heard = new HeardFilter((question) => emit({ t: 'heard', d: question }))
+  const say = (text: string) => {
+    if (!text) return
+    // Keep sentences apart across tool calls so the voice doesn't run them together.
+    if (!separated && lastText && !/\s$/.test(lastText)) emit({ t: 'text', d: ' ' })
+    separated = true
+    lastText = text
+    spoken += text
+    emit({ t: 'text', d: text })
+  }
 
   for (let iteration = 0; iteration < MAX_ITERATIONS; iteration++) {
     const stream = client.messages.stream(
       { model, max_tokens: MAX_TOKENS, output_config: { effort: 'low' }, tools: TOOLS, system, messages },
       { signal },
     )
-    let separated = iteration === 0
-    stream.on('text', (delta) => {
-      // Keep sentences apart across tool calls so the voice doesn't run them together.
-      if (!separated && lastText && !/\s$/.test(lastText)) emit({ t: 'text', d: ' ' })
-      separated = true
-      lastText = delta
-      spoken += delta
-      emit({ t: 'text', d: delta })
-    })
+    separated = iteration === 0
+    stream.on('text', (delta) => say(heard.push(delta)))
 
     const message = await stream.finalMessage()
+    say(heard.flush())
     usage.input += message.usage.input_tokens
     usage.output += message.usage.output_tokens
     usage.cacheRead += message.usage.cache_read_input_tokens ?? 0

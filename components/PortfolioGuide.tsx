@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { type FormEvent, type KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 import { GuideRequestError, streamGuideTurn, type GuideAction, type GuideTurn } from '@/lib/guide/api'
-import { clearHighlights, focusTarget, loadRegistry, type GuideRegistry } from '@/lib/guide/layer'
+import { clearHighlights, focusTarget, followAnswer, loadRegistry, type GuideRegistry } from '@/lib/guide/layer'
 import { playEarcon } from '@/lib/guide/earcons'
 import { canListen, listenOnce, prepareListening, type Listening, type ListenPhase } from '@/lib/guide/listen'
 import { GuideVoice, SentenceBuffer, type VoiceState } from '@/lib/guide/voice'
@@ -254,6 +254,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
               const end = step.narration.indexOf(part, searchFrom) + part.length
               searchFrom = end
               return voice().speak(part, () => {
+                followAnswer(part)
                 setPreparing(false)
                 updateTurn(turnId, (turn) => (turn.revealed === undefined ? turn : { ...turn, revealed: end >= step.narration.length ? undefined : Math.max(turn.revealed, end) }))
               })
@@ -274,7 +275,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
   )
 
   const send = useCallback(
-    async (raw: string) => {
+    async (raw: string, byVoice = false) => {
       const text = raw.trim()
       if (!text) return
       stopEverything()
@@ -304,6 +305,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         void voice().speak(sentence, () => {
           setPreparing(false)
           updateTurn(reply.id, (turn) => (turn.revealed === undefined ? turn : { ...turn, revealed: Math.max(turn.revealed, end) }))
+          followAnswer(sentence)
         })
       }
       const speakAll = (parts: string[]) => {
@@ -325,7 +327,8 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
           const target = registry?.targets.get(action.target)
           if (!target) return
           updateTurn(reply.id, (turn) => ({ ...turn, shown: [...(turn.shown || []), action.target] }))
-          void focusTarget(target, navigate, shownCount++ === 0 ? 'primary' : 'supporting')
+          // Tabs in the shown section follow the answer: per sentence while it is spoken, else by the first mention.
+          void focusTarget(target, navigate, shownCount++ === 0 ? 'primary' : 'supporting').then(() => spoken || followAnswer(full))
         } else if (action.type === 'links') {
           const valid = action.links.filter((id) => registry?.links.has(id))
           updateTurn(reply.id, (turn) => ({ ...turn, links: [...new Set([...(turn.links || []), ...valid])] }))
@@ -337,9 +340,11 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       try {
         await streamGuideTurn(
           apiUrl,
-          { messages: history, route: window.location.pathname },
+          { messages: history, route: window.location.pathname, spoken: byVoice },
           (event) => {
-            if (event.t === 'text') {
+            if (event.t === 'heard') {
+              if (byVoice) updateTurn(userTurn.id, (turn) => ({ ...turn, text: event.d }))
+            } else if (event.t === 'text') {
               full += event.d
               updateTurn(reply.id, (turn) => ({ ...turn, text: turn.text + event.d }))
               if (spoken) speakAll(sentences.push(event.d))
@@ -354,7 +359,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         if (spoken) {
           const rest = sentences.flush()
           if (rest) speakSentence(rest, full.length)
-        }
+        } else followAnswer(full)
         // Every tour opens by connecting the question to it; supply that sentence when the model left it out.
         const pending = tourSteps as TourStep[] | null
         if (pending?.length && !full.trim()) {
@@ -407,7 +412,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       listeningRef.current = null
       if (heard.text) {
         void playEarcon('heard')
-        void send(heard.text)
+        void send(heard.text, true)
       } else {
         setInterim('')
         setStatus('idle')

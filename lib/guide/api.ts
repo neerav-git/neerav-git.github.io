@@ -5,6 +5,8 @@ export type GuideAction =
 
 export type GuideEvent =
   | { t: 'text'; d: string }
+  /** A spoken question as the guide understood it, shown in place of the raw transcript. */
+  | { t: 'heard'; d: string }
   | { t: 'action'; action: GuideAction }
   | { t: 'done' }
   | { t: 'error'; code: string; message: string }
@@ -20,7 +22,7 @@ export class GuideRequestError extends Error {
 /** Sends one turn and calls onEvent for each line of the streamed NDJSON reply. */
 export async function streamGuideTurn(
   apiUrl: string,
-  body: { messages: GuideTurn[]; route: string },
+  body: { messages: GuideTurn[]; route: string; spoken?: boolean },
   onEvent: (event: GuideEvent) => void,
   signal: AbortSignal,
 ) {

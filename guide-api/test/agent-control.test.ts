@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import { needsPostToolResponse, toApiMessages } from '../src/agent.ts'
+import { HeardFilter, needsPostToolResponse, toApiMessages } from '../src/agent.ts'
 
 test('a successful action does not trigger a second model reply after text was spoken', () => {
   assert.equal(needsPostToolResponse('Relay completed the workflow.', true), false)
@@ -43,4 +43,32 @@ test('long guide turns are trimmed and oversized histories drop the oldest turns
   assert.equal(trimmed!.at(-1)!.content, 'latest question')
   assert.equal(trimmed![0].role, 'user')
   assert.equal(parseMessages([{ role: 'user', content: 'z'.repeat(8001) }]), null)
+})
+
+test('the heard line leaves the answer and reaches the browser separately, even split across deltas', () => {
+  const heard: string[] = []
+  const filter = new HeardFilter((question) => heard.push(question))
+  const out = ['<he', 'ard>What has Neer', 'av built?</heard>\n', 'Neerav has built ', 'four products.'].map((delta) => filter.push(delta)).join('') + filter.flush()
+  assert.deepEqual(heard, ['What has Neerav built?'])
+  assert.equal(out, 'Neerav has built four products.')
+})
+
+test('replies without a heard line pass through unchanged', () => {
+  const heard: string[] = []
+  const filter = new HeardFilter((question) => heard.push(question))
+  const out = ['<', 'b>Relay</b> is', ' a workspace.'].map((delta) => filter.push(delta)).join('') + filter.flush()
+  assert.deepEqual(heard, [])
+  assert.equal(out, '<b>Relay</b> is a workspace.')
+})
+
+test('voice questions are marked so the model restates what was heard', () => {
+  const api = toApiMessages([{ role: 'user', content: 'what has need of built' }], '/', true)
+  assert.deepEqual(api[0], {
+    role: 'user',
+    content: [
+      { type: 'text', text: '[The visitor is currently on /]' },
+      { type: 'text', text: "[Asked by voice: this is the speech recognizer's transcript]" },
+      { type: 'text', text: 'what has need of built' },
+    ],
+  })
 })

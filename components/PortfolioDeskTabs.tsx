@@ -63,6 +63,7 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
           aria-controls="products-panel"
           aria-selected={activeDesk === 'products'}
           className="portfolio-tab"
+          data-guide-mentions={['product', ...productProjects.map((project) => project.title)].join(',')}
           id="products-tab"
           onClick={() => selectDesk('products')}
           onKeyDown={(event) => handleDeskKeyDown(event, 'products')}
@@ -78,6 +79,7 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
           aria-controls="studies-panel"
           aria-selected={activeDesk === 'studies'}
           className="portfolio-tab"
+          data-guide-mentions="study,studies,imaging,MRI,IEEE,atrophy,Alzheimer,dementia"
           id="studies-tab"
           onClick={() => selectDesk('studies')}
           onKeyDown={(event) => handleDeskKeyDown(event, 'studies')}
