@@ -3588,6 +3588,125 @@ body::before {
   }
 }
 
+/* The mic glows softly at rest so visitors notice they can speak a question. */
+.guide-mic.is-inviting {
+  animation: guide-mic-invite 3.2s ease-in-out infinite;
+  border-color: rgba(216, 196, 155, 0.6);
+  color: var(--accent);
+}
+
+@keyframes guide-mic-invite {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(216, 196, 155, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(216, 196, 155, 0.22);
+  }
+}
+
+/* While the voice loads, the mic is visibly off and breathes slowly, so it reads as "almost ready", not broken. */
+.guide-mic.is-warming,
+.guide-mic.is-warming:disabled {
+  animation: guide-mic-warming 1.8s ease-in-out infinite;
+  cursor: progress;
+}
+
+@keyframes guide-mic-warming {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.guide-mic.is-unsupported {
+  cursor: help;
+  opacity: 0.45;
+}
+
+.guide-tour-card {
+  background: var(--accent-soft);
+  border: 1px solid rgba(216, 196, 155, 0.35);
+  border-radius: 12px;
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+}
+
+.guide-tour-card-title {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.guide-tour-card ol {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.guide-tour-card li {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.guide-tour-card li.is-current {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.guide-tour-card li.is-current::marker {
+  color: var(--accent);
+}
+
+.guide-tour-help {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.guide-step-hint {
+  color: var(--muted);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0;
+  margin-left: 8px;
+  text-transform: none;
+}
+
+.guide-typing {
+  animation: guide-typing 1.2s ease-in-out infinite;
+  color: var(--accent);
+  margin-left: 2px;
+}
+
+@keyframes guide-typing {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.guide-voice-strip.is-preparing .guide-voice-indicator i {
+  animation: guide-bar-think 1.2s ease-in-out infinite;
+}
+
+.guide-voice-strip.is-voiceLoading {
+  background: transparent;
+  color: var(--muted);
+}
+
+.guide-voice-strip.is-voiceLoading .guide-voice-indicator i {
+  animation: guide-bar-breathe 1.6s ease-in-out infinite;
+  background: var(--muted);
+}
+
 .guide-voice-strip {
   align-items: center;
   background: var(--accent-soft);
@@ -3695,6 +3814,9 @@ body::before {
 
 @media (prefers-reduced-motion: reduce) {
   .guide-mic.is-listening::after,
+  .guide-mic.is-inviting,
+  .guide-mic.is-warming,
+  .guide-typing,
   .guide-voice-indicator i {
     animation: none !important;
   }

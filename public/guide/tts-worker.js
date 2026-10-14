@@ -6,6 +6,7 @@ const MODEL_ID = 'onnx-community/Kokoro-82M-v1.0-ONNX'
 const VOICE = 'af_heart'
 
 let tts = null
+let loading = false
 let queue = Promise.resolve()
 
 async function hasWebGPU() {
@@ -16,33 +17,29 @@ async function hasWebGPU() {
   }
 }
 
-async function load() {
-  const files = new Map()
+async function load(forced) {
+  // Progress follows the model weights only: the small config files finish first and would read as 100% too early.
   const progress_callback = (event) => {
-    if (event.status !== 'progress' || !event.total) return
-    files.set(event.file, event)
-    let loaded = 0
-    let total = 0
-    for (const file of files.values()) {
-      loaded += file.loaded
-      total += file.total
-    }
-    self.postMessage({ type: 'progress', loaded, total })
+    if (event.status === 'progress' && event.total && /\.onnx$/.test(event.file)) self.postMessage({ type: 'progress', loaded: event.loaded, total: event.total })
   }
 
-  const attempts = (await hasWebGPU())
-    ? [{ device: 'webgpu', dtype: 'fp32' }, { device: 'wasm', dtype: 'q8' }]
-    : [{ device: 'wasm', dtype: 'q8' }]
+  const attempts = forced
+    ? [{ device: forced, dtype: forced === 'webgpu' ? 'fp32' : 'q8' }]
+    : (await hasWebGPU())
+      ? [{ device: 'webgpu', dtype: 'fp32' }, { device: 'wasm', dtype: 'q8' }]
+      : [{ device: 'wasm', dtype: 'q8' }]
 
   for (const attempt of attempts) {
     try {
-      files.clear()
+      self.postMessage({ type: 'stage', stage: 'downloading', ...attempt })
       tts = await KokoroTTS.from_pretrained(MODEL_ID, { ...attempt, progress_callback })
+      self.postMessage({ type: 'stage', stage: 'warming', ...attempt })
       // Warm the graph so the first real sentence starts quickly.
       await tts.generate('Hi.', { voice: VOICE })
       self.postMessage({ type: 'ready', ...attempt })
       return
     } catch (error) {
+      tts = null
       console.warn(`[guide voice] ${attempt.device}/${attempt.dtype} failed`, error)
     }
   }
@@ -51,7 +48,10 @@ async function load() {
 
 self.onmessage = ({ data }) => {
   if (data.type === 'load') {
-    if (!tts) load()
+    if (!tts && !loading) {
+      loading = true
+      load(data.device).finally(() => (loading = false))
+    }
     return
   }
   if (data.type === 'speak') {

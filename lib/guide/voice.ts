@@ -4,11 +4,17 @@
  * warmth +2 dB, presence +1.5 dB, air -1 dB, 6% room, broadcast compression, 180 ms between sentences.
  */
 export type VoiceStatus = 'off' | 'loading' | 'ready' | 'failed'
-/** `speaking` is true while a reply is audibly playing, so the panel can show it and offer Stop. */
-export type VoiceState = { status: VoiceStatus; progress: number; device: string | null; speaking: boolean }
+/**
+ * `speaking` is true while a reply is audibly playing, so the panel can show it and offer Stop.
+ * `stage` says what loading is doing: downloading the model weights (once per browser), then warming it up.
+ * `device` is set once the model has loaded, even while spoken answers are switched off.
+ */
+export type VoiceState = { status: VoiceStatus; progress: number; stage: 'downloading' | 'warming' | null; device: string | null; speaking: boolean }
 
 const SENTENCE_PAUSE_S = 0.18
 const ROOM = 0.06
+/** With no word from the worker for this long, loading has stalled (seen with some GPU drivers); retry on WASM. */
+const STALL_MS = 25_000
 
 type Synthesized = { samples: Float32Array; sampleRate: number } | null
 
@@ -23,7 +29,7 @@ function impulse(context: AudioContext, seconds = 1.6, decay = 3.2) {
 }
 
 export class GuideVoice {
-  state: VoiceState = { status: 'off', progress: 0, device: null, speaking: false }
+  state: VoiceState = { status: 'off', progress: 0, stage: null, device: null, speaking: false }
   private quiet: ReturnType<typeof setTimeout> | null = null
   private listeners = new Set<(state: VoiceState) => void>()
   private worker: Worker | null = null
@@ -35,6 +41,9 @@ export class GuideVoice {
   private chain: Promise<void> = Promise.resolve()
   private cursor = 0
   private sources = new Set<AudioBufferSourceNode>()
+  private attempt: string | null = null
+  private lastSignal = 0
+  private watchdog: ReturnType<typeof setInterval> | null = null
 
   subscribe(listener: (state: VoiceState) => void) {
     this.listeners.add(listener)
@@ -53,33 +62,112 @@ export class GuideVoice {
     return this.state.status === 'ready'
   }
 
+  /** Spoken answers are wanted: ready now, or loading and queued until it is. */
+  get on() {
+    return this.state.status === 'ready' || this.state.status === 'loading'
+  }
+
+  /** True when speech keeps pace with text (WebGPU), so text may be revealed sentence by sentence as it is spoken. */
+  get keepsPace() {
+    return this.ready && !this.state.device?.startsWith('wasm')
+  }
+
+  /** Download and warm the model in the background without turning spoken answers on, so the mic is ready at once. */
+  preload() {
+    if (!this.worker && this.state.status !== 'failed') this.startWorker()
+  }
+
   /** Call from a click or key press: browsers only start audio after a user gesture. */
   enable() {
     this.ensureAudio()
     void this.context?.resume()
-    if (this.worker) {
-      if (this.state.status === 'off') this.set({ status: this.state.device ? 'ready' : 'loading' })
-      return
-    }
-    this.set({ status: 'loading', progress: 0 })
-    this.worker = new Worker('/guide/tts-worker.js', { type: 'module' })
-    this.worker.onmessage = ({ data }) => {
+    if (this.state.status === 'failed') return
+    if (!this.worker) this.startWorker()
+    if (this.state.status === 'off') this.set({ status: this.state.device ? 'ready' : 'loading' })
+  }
+
+  disable() {
+    this.stop()
+    if (this.state.status !== 'failed') this.set({ status: 'off' })
+  }
+
+  /** Resolves true once the model has loaded (even while muted), or false if it cannot run in this browser. */
+  whenLoaded(): Promise<boolean> {
+    if (this.state.device || this.state.status === 'failed') return Promise.resolve(Boolean(this.state.device))
+    return new Promise((resolve) => {
+      const listener = (state: VoiceState) => {
+        if (!state.device && state.status !== 'failed') return
+        this.listeners.delete(listener)
+        resolve(Boolean(state.device))
+      }
+      this.listeners.add(listener)
+    })
+  }
+
+  /** Resolves true once the voice is ready, or false if it is switched off or fails first. */
+  private whenReady(): Promise<boolean> {
+    if (this.state.status !== 'loading') return Promise.resolve(this.ready)
+    return new Promise((resolve) => {
+      const listener = (state: VoiceState) => {
+        if (state.status === 'loading') return
+        this.listeners.delete(listener)
+        resolve(state.status === 'ready')
+      }
+      this.listeners.add(listener)
+    })
+  }
+
+  private startWorker(device?: 'wasm') {
+    this.worker?.terminate()
+    this.attempt = device ?? null
+    this.set({ progress: 0, stage: 'downloading' })
+    const worker = new Worker('/guide/tts-worker.js', { type: 'module' })
+    this.worker = worker
+    this.lastSignal = Date.now()
+    worker.onmessage = ({ data }) => {
+      this.lastSignal = Date.now()
       if (data.type === 'progress') this.set({ progress: data.total ? data.loaded / data.total : 0 })
-      else if (data.type === 'ready') this.set({ status: this.state.status === 'off' ? 'off' : 'ready', progress: 1, device: `${data.device} ${data.dtype}` })
-      else if (data.type === 'failed') this.set({ status: 'failed' })
+      else if (data.type === 'stage') {
+        console.info(`[guide voice] ${data.stage} ${data.device}/${data.dtype}`)
+        this.attempt = data.device
+        this.set({ stage: data.stage, progress: data.stage === 'warming' ? 1 : this.state.progress })
+      } else if (data.type === 'ready') {
+        console.info(`[guide voice] ready ${data.device}/${data.dtype}`)
+        this.stopWatchdog()
+        this.set({ status: this.state.status === 'off' ? 'off' : 'ready', progress: 1, stage: null, device: `${data.device} ${data.dtype}` })
+      } else if (data.type === 'failed') this.fail()
       else if (data.type === 'audio' || data.type === 'audio-error') {
         const resolve = this.pending.get(data.id)
         this.pending.delete(data.id)
         resolve?.(data.type === 'audio' ? { samples: data.samples, sampleRate: data.sampleRate } : null)
       }
     }
-    this.worker.onerror = () => this.set({ status: 'failed' })
-    this.worker.postMessage({ type: 'load' })
+    worker.onerror = (event) => {
+      console.warn('[guide voice] worker error', event.message)
+      this.fail()
+    }
+    worker.postMessage({ type: 'load', device })
+    this.stopWatchdog()
+    this.watchdog = setInterval(() => {
+      if (Date.now() - this.lastSignal < STALL_MS) return
+      console.warn(`[guide voice] loading stalled on ${this.attempt ?? 'first attempt'}`)
+      if (this.attempt === 'wasm') this.fail()
+      else this.startWorker('wasm')
+    }, 5000)
   }
 
-  disable() {
-    this.stop()
-    if (this.state.status !== 'failed') this.set({ status: 'off' })
+  private stopWatchdog() {
+    if (this.watchdog) clearInterval(this.watchdog)
+    this.watchdog = null
+  }
+
+  private fail() {
+    this.stopWatchdog()
+    this.worker?.terminate()
+    this.worker = null
+    for (const resolve of this.pending.values()) resolve(null)
+    this.pending.clear()
+    this.set({ status: 'failed', stage: null })
   }
 
   private ensureAudio() {
@@ -111,22 +199,32 @@ export class GuideVoice {
   }
 
   /**
-   * Queue one sentence. Synthesis starts immediately (the worker pipelines it behind earlier sentences);
+   * Queue one sentence. Synthesis starts as soon as the model is ready (the worker pipelines it behind earlier sentences);
    * the returned promise settles when this sentence has finished playing, or at once if voice is off or stopped.
+   * `onStart` fires when the sentence becomes audible, or right away when it cannot be spoken, so a caller that
+   * reveals text in step with speech never leaves text hidden.
    */
-  speak(text: string): Promise<void> {
+  speak(text: string, onStart?: () => void): Promise<void> {
     const clean = text.trim()
-    if (!clean || !this.ready || !this.context || !this.input) return Promise.resolve()
+    if (!clean || !this.on || !this.context || !this.input) {
+      onStart?.()
+      return Promise.resolve()
+    }
     const generation = this.generation
-    const audio = this.synthesize(clean)
+    // While the model is still loading, sentences wait for it instead of being dropped.
+    const audio = this.whenReady().then((ok) => (ok && generation === this.generation ? this.synthesize(clean) : null))
     const played = this.chain.then(async () => {
       const result = await audio
-      if (!result || generation !== this.generation || !this.context || !this.input) return
+      if (!result || generation !== this.generation || !this.context || !this.input) {
+        onStart?.()
+        return
+      }
       const buffer = this.context.createBuffer(1, result.samples.length, result.sampleRate)
       buffer.copyToChannel(result.samples as Float32Array<ArrayBuffer>, 0)
       const source = new AudioBufferSourceNode(this.context, { buffer })
       source.connect(this.input)
       const startAt = Math.max(this.cursor, this.context.currentTime + 0.02)
+      if (onStart) setTimeout(onStart, Math.max(0, (startAt - this.context.currentTime) * 1000))
       this.cursor = startAt + buffer.duration + SENTENCE_PAUSE_S
       this.sources.add(source)
       if (this.quiet) clearTimeout(this.quiet)
