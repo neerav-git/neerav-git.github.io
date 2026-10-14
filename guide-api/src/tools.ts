@@ -106,7 +106,12 @@ export class TurnState {
   private readonly knowledge: Knowledge
   private route: string | null = null
   private mode: 'show' | 'tour' | null = null
-  offTopic = false
+  private declined = false
+
+  /** A decline only counts when the same answer did not also show or tour portfolio content; doing both means the question was about Neerav. */
+  get offTopic() {
+    return this.declined && this.mode === null
+  }
 
   constructor(knowledge: Knowledge) {
     this.knowledge = knowledge
@@ -118,10 +123,21 @@ export class TurnState {
     if (name === 'start_tour') return this.tour(args.steps)
     if (name === 'offer_links') return this.links(args.link_ids)
     if (name === 'decline_off_topic') {
-      this.offTopic = true
+      this.declined = true
       return { ok: true, result: { status: 'recorded' } }
     }
     return { ok: false, error: { error: 'UNKNOWN_TOOL', message: `No tool named ${name}.` } }
+  }
+
+  /**
+   * Accept an id the model shortened ("project.homeward.5") or spelled out from the section title
+   * ("project.relay.4-application-owned-controls-turn-a-request-...") when it names exactly one registered target.
+   */
+  private resolveId(value: string): string | null {
+    if (this.knowledge.targetById.has(value)) return value
+    if (!value) return null
+    const matches = this.knowledge.targets.filter((target) => target.id.startsWith(`${value}-`) || value.startsWith(`${target.id}-`))
+    return matches.length === 1 ? matches[0].id : null
   }
 
   private unknownTarget(value: string, context: string) {
@@ -141,8 +157,10 @@ export class TurnState {
 
   private show(id: string, reason: string): ToolOutcome {
     if (this.mode === 'tour') return { ok: false, error: { error: 'TOUR_ALREADY_STARTED', message: 'This answer already starts a tour; describe anything else in words.' } }
-    const target = this.knowledge.targetById.get(id)
-    if (!target) return this.unknownTarget(id, reason)
+    const resolved = this.resolveId(id)
+    if (!resolved) return this.unknownTarget(id, reason)
+    id = resolved
+    const target = this.knowledge.targetById.get(id)!
     if (this.route && this.route !== target.route) {
       return { ok: false, error: { error: 'ONE_PAGE_PER_ANSWER', message: `This answer already moved the visitor to ${this.route}. Name the other item in words instead.` } }
     }
@@ -157,15 +175,16 @@ export class TurnState {
     if (steps.length < 2 || steps.length > 4) return { ok: false, error: { error: 'TOUR_LENGTH', message: 'A tour needs 2 to 4 steps.' } }
     const clean: Array<{ target: string; narration: string }> = []
     for (const step of steps) {
-      const id = String(step?.target_id ?? '')
+      const requested = String(step?.target_id ?? '')
       const narration = String(step?.narration ?? '').trim()
-      if (!this.knowledge.targetById.has(id)) return this.unknownTarget(id, narration)
+      const id = this.resolveId(requested)
+      if (!id) return this.unknownTarget(requested, narration)
       if (!narration) return { ok: false, error: { error: 'EMPTY_NARRATION', target_id: id } }
       if (clean.some((earlier) => earlier.target === id)) return { ok: false, error: { error: 'DUPLICATE_STEP', target_id: id, message: 'Each tour step must show a different target.' } }
       clean.push({ target: id, narration: narration.slice(0, 400) })
     }
     this.mode = 'tour'
-    return { ok: true, result: { status: 'tour_started', steps: clean.map((step) => this.knowledge.targetById.get(step.target)!.label) }, action: { type: 'tour', steps: clean } }
+    return { ok: true, result: { status: 'tour_started', steps: clean.map((step) => this.knowledge.targetById.get(step.target)!.label), note: 'Each narration is spoken as its step is shown. Do not summarize or refer to the tour afterward.' }, action: { type: 'tour', steps: clean } }
   }
 
   private links(rawIds: unknown): ToolOutcome {

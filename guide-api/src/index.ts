@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk'
 
-import { costUsd, runGuideTurn, type GuideEvent } from './agent.ts'
+import { costUsd, runGuideTurn, toApiMessages, type GuideEvent } from './agent.ts'
+import { parseMessages } from './messages.ts'
 import { Guard } from './guard.ts'
 import { loadKnowledge } from './knowledge.ts'
 import { runMockTurn } from './mock.ts'
@@ -21,13 +22,6 @@ type Env = {
   GUARD: DurableObjectNamespace<Guard>
 }
 
-type IncomingMessage = { role: 'user' | 'assistant'; content: string }
-
-const MAX_HISTORY = 12
-const MAX_USER_CHARS = 6000 // room for a pasted job description
-const MAX_ASSISTANT_CHARS = 1500
-const MAX_TOTAL_CHARS = 16000
-
 function corsHeaders(origin: string | null, env: Env): Record<string, string> {
   const allowed = env.ALLOWED_ORIGINS.split(',').map((value) => value.trim())
   if (!origin || !allowed.includes(origin)) return {}
@@ -45,21 +39,6 @@ function json(body: unknown, status: number, headers: Record<string, string>) {
 }
 
 /** Accepts only plain-text turns ending with the visitor's message; anything else is a 400. */
-function parseMessages(raw: unknown): IncomingMessage[] | null {
-  if (!Array.isArray(raw) || !raw.length) return null
-  const messages: IncomingMessage[] = []
-  for (const item of raw.slice(-MAX_HISTORY)) {
-    const role = item?.role
-    const content = typeof item?.content === 'string' ? item.content.trim() : ''
-    if ((role !== 'user' && role !== 'assistant') || !content) return null
-    if (content.length > (role === 'user' ? MAX_USER_CHARS : MAX_ASSISTANT_CHARS)) return null
-    messages.push({ role, content })
-  }
-  while (messages[0]?.role === 'assistant') messages.shift()
-  if (messages.reduce((total, message) => total + message.content.length, 0) > MAX_TOTAL_CHARS) return null
-  return messages.length && messages.at(-1)!.role === 'user' ? messages : null
-}
-
 async function visitorKey(request: Request) {
   const ip = request.headers.get('cf-connecting-ip') || 'local'
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${new Date().toISOString().slice(0, 10)}:${ip}`))
@@ -121,12 +100,8 @@ export default {
         if (mock) {
           await runMockTurn(knowledge, messages.at(-1)!.content, emit)
         } else {
-          // The current page travels with the visitor's message, after the cached prefix.
-          const apiMessages: Anthropic.MessageParam[] = messages.map((message, index) =>
-            index === messages.length - 1
-              ? { role: 'user', content: [{ type: 'text', text: `[The visitor is currently on ${route}]` }, { type: 'text', text: message.content }] }
-              : message,
-          )
+          // The current page and earlier page moves travel with the visitor's messages, after the cached prefix.
+          const apiMessages = toApiMessages(messages, route)
           const { usage, offTopic } = await runGuideTurn({
             client: new Anthropic({ apiKey: env.ANTHROPIC_API_KEY, maxRetries: 1 }),
             model: env.MODEL || 'claude-haiku-5-5',

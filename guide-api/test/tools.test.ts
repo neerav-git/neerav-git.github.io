@@ -72,3 +72,35 @@ test('declining marks the turn off topic without moving the page', () => {
   assert.equal(outcome.ok && outcome.action, undefined)
   assert.equal(state.offTopic, true)
 })
+
+test('a shortened or spelled-out section id resolves only when it names exactly one target', () => {
+  const sections = [
+    { id: 'project.homeward.5-the-model-selects', route: '/projects/homeward/', anchor: 'a5', label: 'The model selects references' },
+    { id: 'project.homeward.12-i-conceived-and', route: '/projects/homeward/', anchor: 'a12', label: 'I conceived and built Homeward' },
+    { id: 'project.homeward.1-homeward-turns-discharge', route: '/projects/homeward/', anchor: 'a1', label: 'Homeward turns discharge paperwork' },
+  ]
+  const all = [...targets, ...sections]
+  const k: Knowledge = { ...knowledge, targets: all, targetById: new Map(all.map((t) => [t.id, t])) }
+  const short = new TurnState(k).run('show_on_page', { target_id: 'project.homeward.5', reason: 'authority' })
+  assert.deepEqual(short.ok && short.action, { type: 'show', target: 'project.homeward.5-the-model-selects' })
+  const long = new TurnState(k).run('show_on_page', { target_id: 'project.homeward.12-i-conceived-and-built-homeward-end-to-end', reason: 'ownership' })
+  assert.deepEqual(long.ok && long.action, { type: 'show', target: 'project.homeward.12-i-conceived-and' })
+  // "project.homeward.1" must not match ".12": the separator after the number keeps them apart.
+  const one = new TurnState(k).run('show_on_page', { target_id: 'project.homeward.1', reason: 'outcome' })
+  assert.deepEqual(one.ok && one.action, { type: 'show', target: 'project.homeward.1-homeward-turns-discharge' })
+  const tour = new TurnState(k).run('start_tour', { steps: [{ target_id: 'project.homeward.5', narration: 'a' }, { target_id: 'project.relay', narration: 'b' }] })
+  const action = tour.ok ? tour.action : undefined
+  assert.deepEqual(action?.type === 'tour' && action.steps.map((step) => step.target), ['project.homeward.5-the-model-selects', 'project.relay'])
+  // An id that names no registered target, even by prefix, stays an error with candidates.
+  assert.equal(new TurnState(k).run('show_on_page', { target_id: 'project.homeward', reason: 'x' }).ok, false)
+})
+
+test('a decline in the same answer as a page move does not count toward the off-topic limit', () => {
+  const state = new TurnState(knowledge)
+  state.run('show_on_page', { target_id: 'project.relay', reason: 'results are real' })
+  state.run('decline_off_topic', {})
+  assert.equal(state.offTopic, false)
+  const plain = new TurnState(knowledge)
+  plain.run('decline_off_topic', {})
+  assert.equal(plain.offTopic, true)
+})
