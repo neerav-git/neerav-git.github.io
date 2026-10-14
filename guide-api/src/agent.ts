@@ -47,6 +47,7 @@ export async function runGuideTurn(options: {
     },
   ]
   let lastText = ''
+  let spoken = ''
 
   for (let iteration = 0; iteration < MAX_ITERATIONS; iteration++) {
     const stream = client.messages.stream(
@@ -59,6 +60,7 @@ export async function runGuideTurn(options: {
       if (!separated && lastText && !/\s$/.test(lastText)) emit({ t: 'text', d: ' ' })
       separated = true
       lastText = delta
+      spoken += delta
       emit({ t: 'text', d: delta })
     })
 
@@ -78,12 +80,9 @@ export async function runGuideTurn(options: {
     const results: Anthropic.ToolResultBlockParam[] = calls.map((call) => {
       const outcome = state.run(call.name, call.input)
       if (outcome.ok) emit({ t: 'action', action: outcome.action })
-      return {
-        type: 'tool_result',
-        tool_use_id: call.id,
-        is_error: !outcome.ok,
-        content: JSON.stringify(outcome.ok ? outcome.result : outcome.error),
-      }
+      // Text before the call has already been spoken; without this reminder the model tends to say it again.
+      const result = outcome.ok && spoken.trim() ? { ...outcome.result, note: 'Your text so far has already been spoken. Do not repeat it; add only something new, or nothing.' } : outcome.ok ? outcome.result : outcome.error
+      return { type: 'tool_result', tool_use_id: call.id, is_error: !outcome.ok, content: JSON.stringify(result) }
     })
     messages.push({ role: 'assistant', content: message.content }, { role: 'user', content: results })
   }

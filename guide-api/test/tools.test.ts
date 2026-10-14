@@ -42,6 +42,11 @@ test('a second page in the same answer is refused, same page is allowed', () => 
 test('tours may cross pages but need 2 to 4 valid steps and exclude highlights', () => {
   const state = new TurnState(knowledge)
   assert.equal(state.run('start_tour', { steps: [{ target_id: 'project.relay', narration: 'x' }] }).ok, false)
+  const repeated = state.run('start_tour', { steps: [
+    { target_id: 'project.relay', narration: 'Relay.' },
+    { target_id: 'project.relay', narration: 'Relay again.' },
+  ] })
+  assert.equal(!repeated.ok && repeated.error.error, 'DUPLICATE_STEP')
   const tour = state.run('start_tour', { steps: [
     { target_id: 'project.relay', narration: 'Relay shows agent safety.' },
     { target_id: 'project.refract-ai', narration: 'Refract shows research tooling.' },

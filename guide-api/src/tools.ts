@@ -139,6 +139,7 @@ export class TurnState {
       const narration = String(step?.narration ?? '').trim()
       if (!this.knowledge.targetById.has(id)) return this.unknownTarget(id, narration)
       if (!narration) return { ok: false, error: { error: 'EMPTY_NARRATION', target_id: id } }
+      if (clean.some((earlier) => earlier.target === id)) return { ok: false, error: { error: 'DUPLICATE_STEP', target_id: id, message: 'Each tour step must show a different target.' } }
       clean.push({ target: id, narration: narration.slice(0, 400) })
     }
     this.mode = 'tour'
