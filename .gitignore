@@ -15,3 +15,7 @@ tmp/
 .env.local
 public/guide/knowledge.json
 public/guide/targets.json
+
+# Playwright
+test-results/
+playwright-report/
