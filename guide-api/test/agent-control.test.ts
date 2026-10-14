@@ -72,3 +72,14 @@ test('voice questions are marked so the model restates what was heard', () => {
     ],
   })
 })
+
+test('a heard line written after a text-free page action is still taken out', () => {
+  const heard: string[] = []
+  const filter = new HeardFilter((question) => heard.push(question))
+  // First model step: only a tool call, so the step ends with no text.
+  const first = filter.flush()
+  const second = ['<heard>Show me the brain atrophy paper.</heard> ', 'This is the IEEE study.'].map((delta) => filter.push(delta)).join('') + filter.flush()
+  assert.equal(first, '')
+  assert.deepEqual(heard, ['Show me the brain atrophy paper.'])
+  assert.equal(second, 'This is the IEEE study.')
+})

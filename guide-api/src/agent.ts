@@ -83,9 +83,12 @@ export class HeardFilter {
     return text.slice(end + HEARD_CLOSE.length).trimStart()
   }
 
-  /** Anything still held back once the model stops writing. */
+  /**
+   * Anything still held back once the model stops writing. A step with no text (a page action first) leaves the
+   * filter watching, so a heard line written after the action is still taken out.
+   */
   flush(): string {
-    return this.settled ? '' : this.release()
+    return this.settled || !this.buffer ? '' : this.release()
   }
 
   private release() {
