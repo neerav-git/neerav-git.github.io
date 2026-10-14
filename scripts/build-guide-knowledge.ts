@@ -16,6 +16,8 @@ import type { ContentBlock, LinkItem } from '../lib/types'
 type Target = { id: string; route: string; anchor: string | null; label: string }
 type GuideLink = { id: string; label: string; url: string }
 type MetricRule = { id: string; pattern: string; maxNarrativeOccurrences: number }
+/** Per-source key terms (content/guide/key-terms.json): lead terms are named whenever the work is described. */
+type KeyTerms = Record<string, { section: string; lead: Array<{ term: string; match?: string }>; supporting: string[] }>
 
 const root = process.cwd()
 const outDir = path.join(root, 'public', 'guide')
@@ -64,8 +66,30 @@ function occurrences(value: string, pattern: string) {
   return [...value.matchAll(new RegExp(pattern, 'gi'))].length
 }
 
-async function readGuideSource(relativePath: string) {
-  return narrativeOnly(await fs.readFile(path.join(guideDir, relativePath), 'utf8'))
+async function readGuideSource(relativePath: string, keyTerms: KeyTerms) {
+  return withKeyTerms(relativePath, narrativeOnly(await fs.readFile(path.join(guideDir, relativePath), 'utf8')), keyTerms)
+}
+
+/**
+ * Puts the source's key terms under its title, so the guide names the field and technology alongside the plain
+ * explanation. Every lead term must already appear in the named plain-language section, which shows the model the
+ * term used plainly in context; a missing one fails the build.
+ */
+function withKeyTerms(relativePath: string, markdown: string, keyTerms: KeyTerms) {
+  const entry = keyTerms[relativePath.split(path.sep).join('/')]
+  if (!entry) {
+    if (relativePath.startsWith('projects')) throw new Error(`[guide] ${relativePath} has no entry in key-terms.json`)
+    return markdown
+  }
+  const section = markdown.match(new RegExp(`^## ${entry.section}\\n([\\s\\S]*?)(?=^## |(?![\\s\\S]))`, 'm'))?.[1]
+  if (!section) throw new Error(`[guide] ${relativePath}: key-terms section "${entry.section}" not found`)
+  const missing = entry.lead.filter(({ term, match }) => !new RegExp(match ?? term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(section))
+  if (missing.length) throw new Error(`[guide] ${relativePath}: lead key terms missing from "${entry.section}": ${missing.map(({ term }) => term).join(', ')}`)
+  const lines = [
+    entry.lead.length ? `Key terms (lead): ${entry.lead.map(({ term }) => term).join(', ')}.` : '',
+    entry.supporting.length ? `Key terms (supporting): ${entry.supporting.join(', ')}.` : '',
+  ].filter(Boolean)
+  return markdown.replace(/^(# .*)$/m, `$1\n\n${lines.join('\n')}`)
 }
 
 async function main() {
@@ -134,15 +158,16 @@ async function main() {
   }
 
   // Curated narrative is intentionally small and explicit. A missing project record is fatal.
+  const keyTerms = JSON.parse(await fs.readFile(path.join(guideDir, 'key-terms.json'), 'utf8')) as KeyTerms
   const sources: Array<{ name: string; value: string }> = [
-    { name: 'profile.md', value: await readGuideSource('profile.md') },
-    { name: 'resume.md', value: await readGuideSource('resume.md') },
-    { name: 'deep-strat.md', value: await readGuideSource('deep-strat.md') },
+    { name: 'profile.md', value: await readGuideSource('profile.md', keyTerms) },
+    { name: 'resume.md', value: await readGuideSource('resume.md', keyTerms) },
+    { name: 'deep-strat.md', value: await readGuideSource('deep-strat.md', keyTerms) },
   ]
   for (const project of projects) {
     const relativePath = path.join('projects', `${project.slug}.md`)
     try {
-      sources.push({ name: relativePath, value: await readGuideSource(relativePath) })
+      sources.push({ name: relativePath, value: await readGuideSource(relativePath, keyTerms) })
     } catch (error) {
       throw new Error(`[guide] Missing curated guide record for ${project.slug}: ${(error as Error).message}`)
     }

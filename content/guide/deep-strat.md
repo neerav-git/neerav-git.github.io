@@ -3,7 +3,7 @@
 
 ## What Neerav did
 
-Deep Strat was where Neerav first did forward-deployed AI work: he sat with the people who had the problem, turned it into a working AI system, and advised the company's leadership on how to use AI safely.
+Deep Strat was where Neerav first did forward-deployed AI work: he sat with the people who had the problem, turned it into a working AI system, and advised the company's leadership on AI safety and how to use AI responsibly.
 
 He partnered with department leadership to understand how customer feedback and complaints actually moved through the company, then defined the requirements and built a three-stage LLM workflow around them. The workflow reads each customer message, works out its sentiment and what the customer wants, finds the department responsible, and writes a report that follows that team's standard operating procedures. Teams stopped receiving raw customer messages and started receiving structured cases they could review and act on.
 

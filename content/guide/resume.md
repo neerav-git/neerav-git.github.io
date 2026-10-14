@@ -36,9 +36,9 @@ Neerav Chaudhary and Sourabh Singh Verma, “Analyzing Brain Atrophy in Dementia
 
 ## Technical and product skills
 
-- AI and agent systems: voice agents, structured function calling, RAG, LLM workflows, multi-agent systems, role-scoped tools, human-in-the-loop controls, model evaluation, grounding, failure analysis, and replay testing.
+- AI and agent systems: harness engineering (evaluation and test harnesses for LLM agents), voice agents, structured function calling, RAG, LLM workflows, multi-agent systems, role-scoped tools, human-in-the-loop controls, model evaluation, grounding, failure analysis, and replay testing.
 - AI platforms and tooling: extensive hands-on work with OpenAI, Anthropic Claude, Hugging Face, Deepgram (Nova-3 speech recognition and the Voice Agent), LangChain, Flux TTS, and browser agent SDKs.
-- Development: TypeScript, Python, SQL, R, React, Fastify, Express, FastAPI, SQLite, PostgreSQL, REST APIs, authentication and authorization, idempotency, audit logging, Docker, AWS, and Git.
+- Full-stack development: TypeScript, Python, SQL, R, React, Fastify, Express, FastAPI, SQLite, PostgreSQL, REST APIs, authentication and authorization, idempotency, audit logging, Docker, AWS, and Git.
 - Machine learning and research: PyTorch, TensorFlow, Keras, scikit-learn, OpenCV, CNNs and neural network tuning, Random Forest, statistical modeling, regression, hypothesis testing, data-quality and leakage checks, ChromaDB, Matplotlib, evidence synthesis, and technical writing.
 - AI policy and safety: model failure modes, guardrail design, AI-safety research synthesis, and advising founders and policy researchers.
 - Product and delivery: workflow design, voice UX, interaction design, requirements translation, stakeholder collaboration, rapid prototyping, evaluation planning, and human-centered automation.

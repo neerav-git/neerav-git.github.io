@@ -23,7 +23,7 @@ metricIds: []
 
 Refract puts an entire research process in one place. A researcher reads papers, asks questions and gets answers that show the exact paper and page they came from, collects evidence, compares sources, tests what they have actually learned, and runs statistical analysis on their data, all inside one research session that remembers everything. Without it, the same work is scattered across a PDF reader, a chat tool, notes, flashcards, notebooks, and spreadsheets, and the link between a claim and its evidence gets lost at every hand-off.
 
-For researchers this means every conclusion can be traced back to its source in one step. For learners it means recall is measured honestly: they answer and rate their confidence before seeing the source, so the tool knows what they really know and schedules review accordingly. For anyone running analysis it means data problems are caught and reviewed by a person before a model result is accepted. Neerav built it from research on how people learn and how research goes wrong, so it brings education and research rigor into a tool people can use every day.
+Because answers use retrieval-augmented generation (RAG) over the researcher's own papers, every conclusion can be traced back to its source in one step. For learners it means recall is measured honestly: they answer and rate their confidence before seeing the source, so the tool knows what they really know and schedules review accordingly. For anyone running analysis it means data problems are caught and reviewed by a person before a model result is accepted. Neerav built it from research on how people learn and how research goes wrong, so it brings education and research rigor into a tool people can use every day.
 
 ## Outcome
 

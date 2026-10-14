@@ -1,0 +1,200 @@
+{
+  "profile.md": {
+    "section": "What Neerav is strongest at",
+    "lead": [
+      {
+        "term": "AI product engineering",
+        "match": "AI product engineer"
+      },
+      {
+        "term": "interaction design"
+      },
+      {
+        "term": "harness engineering",
+        "match": "harness engineering|(evaluation|test) harness"
+      }
+    ],
+    "supporting": [
+      "LLM agents",
+      "voice AI",
+      "computer vision",
+      "human-in-the-loop design",
+      "full-stack development",
+      "forward deployed engineering"
+    ]
+  },
+  "resume.md": {
+    "section": "Technical and product skills",
+    "lead": [],
+    "supporting": [
+      "PyTorch",
+      "TensorFlow",
+      "Keras",
+      "scikit-learn",
+      "OpenCV",
+      "OpenAI",
+      "Anthropic Claude",
+      "Hugging Face",
+      "LangChain",
+      "Deepgram",
+      "TypeScript",
+      "React",
+      "Python",
+      "FastAPI",
+      "SQL",
+      "harness engineering"
+    ]
+  },
+  "deep-strat.md": {
+    "section": "What Neerav did",
+    "lead": [
+      {
+        "term": "LLM workflow"
+      },
+      {
+        "term": "AI safety",
+        "match": "AI safety|AI-safety"
+      }
+    ],
+    "supporting": [
+      "forward deployed AI engineering",
+      "churn prediction with Random Forest models",
+      "AUC",
+      "SOP-grounded routing",
+      "guardrails",
+      "model failure modes",
+      "Nullcon"
+    ]
+  },
+  "projects/relay.md": {
+    "section": "In plain terms",
+    "lead": [
+      {
+        "term": "voice AI agent",
+        "match": "voice (AI )?agent"
+      },
+      {
+        "term": "tool calling",
+        "match": "tool[- ]call(ing|s)?|function calling"
+      }
+    ],
+    "supporting": [
+      "Deepgram Voice Agent with Nova-3 speech recognition and GPT-4.1",
+      "confirmation-gated actions",
+      "human-in-the-loop approval",
+      "evaluation harness",
+      "harness engineering",
+      "replay testing",
+      "Playwright",
+      "React",
+      "TypeScript",
+      "Fastify",
+      "OWASP-mapped safety tests",
+      "interaction design"
+    ]
+  },
+  "projects/refract-ai.md": {
+    "section": "In plain terms",
+    "lead": [
+      {
+        "term": "retrieval-augmented generation (RAG)",
+        "match": "retrieval-augmented generation|\\bRAG\\b"
+      }
+    ],
+    "supporting": [
+      "vector search with ChromaDB and sentence-transformer embeddings",
+      "spaced repetition with FSRS",
+      "statistical modeling with regression and random forests",
+      "data-leakage checks",
+      "FastAPI",
+      "PostgreSQL",
+      "React",
+      "interaction design"
+    ]
+  },
+  "projects/homeward.md": {
+    "section": "In plain terms",
+    "lead": [
+      {
+        "term": "multi-agent AI",
+        "match": "multi-agent|AI agents|specialist agents"
+      },
+      {
+        "term": "Model Context Protocol (MCP)",
+        "match": "Model Context Protocol|\\bMCP\\b"
+      }
+    ],
+    "supporting": [
+      "role-scoped tools",
+      "human-in-the-loop approval",
+      "prompt-injection and failure testing",
+      "evaluation harness",
+      "harness engineering",
+      "Synthea synthetic patient data",
+      "React",
+      "Express",
+      "SQLite"
+    ]
+  },
+  "projects/birb-hangout.md": {
+    "section": "In plain terms",
+    "lead": [
+      {
+        "term": "realtime multiplayer 3D",
+        "match": "real-?time multiplayer|multiplayer 3D"
+      }
+    ],
+    "supporting": [
+      "React Three Fiber",
+      "Three.js",
+      "Colyseus",
+      "WebRTC voice",
+      "Rapier physics",
+      "procedural terrain",
+      "Blender",
+      "human-in-the-loop visual review tools",
+      "harness engineering",
+      "interaction design"
+    ]
+  },
+  "projects/brain-atrophy-computer-vision.md": {
+    "section": "In plain terms",
+    "lead": [
+      {
+        "term": "computer vision"
+      },
+      {
+        "term": "medical imaging"
+      }
+    ],
+    "supporting": [
+      "OpenCV",
+      "Python",
+      "image segmentation",
+      "interpretable measurement",
+      "ADNI MRI data",
+      "IEEE"
+    ]
+  },
+  "projects/alzheimers-disease-research.md": {
+    "section": "In plain terms",
+    "lead": [
+      {
+        "term": "deep learning"
+      },
+      {
+        "term": "convolutional neural networks (CNNs)",
+        "match": "convolutional neural networks?|\\bCNNs?\\b"
+      }
+    ],
+    "supporting": [
+      "ensemble learning",
+      "TensorFlow",
+      "Keras",
+      "data augmentation",
+      "hyperparameter tuning",
+      "ADNI MRI data",
+      "computer vision"
+    ]
+  }
+}

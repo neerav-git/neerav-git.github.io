@@ -4,7 +4,7 @@ Goal: every answer still leads with what the work does for people, as it does to
 
 ## Baseline checkpoint (2026-10-14)
 
-The current answers are the quality bar. They are saved so every change is compared against them:
+**Quality bar: round 2** (`eval/feedback/round-2-answers.json`, prompt at `70d4e24`, knowledge `bc3c10dc1faf`). Neerav rates those answers the best so far; every change is compared against them. Round 3 below is the version that was live when this plan started, kept as the rollback point:
 
 | What | Where |
 | --- | --- |
@@ -78,9 +78,34 @@ After the automated checks pass, you review a side-by-side sheet of about 15 rep
 3. The comparison report and side-by-side sheet go to you.
 4. On approval, deploy the Worker and site as before. The baseline tag stays as the rollback point.
 
-## Open questions
+## Decisions (2026-10-14)
 
-1. **Harness engineering.** Which work should carry it? The sources support it for Relay (evaluation harness that replays 764 turns and scores 110 conversations) and Homeward (scenario runner shared with the domain tests), and arguably the 3D review studios in Birb Hangout. Should it also be a lead strength in the profile?
-2. **PyTorch.** No project source says a project used PyTorch (the MRI study is TensorFlow and Keras). The plan keeps PyTorch to tech-stack and skills answers so the guide never attributes it to a project. Is that right, or did a project use it?
-3. **Interaction design.** Lead term for the profile only, or also for each product (it fits Relay's guide, Refract's recall flow, and Birb Hangout's consent-based interactions)?
-4. **Missing terms.** Anything you want named that is not in the table, for example forward deployed engineering, human-in-the-loop, AI safety, or full-stack?
+1. **Harness engineering** is one of Neerav's skills: a lead term in the profile ("evaluation harness" counts), supporting for Relay, Homeward, and Birb Hangout, and listed in the resume skills.
+2. **PyTorch** appears only in tech-stack and skills answers. The prompt credits a tool to a project only when that project's section names it.
+3. **Interaction design** is a lead term in the profile and a supporting term for Relay, Refract, and Birb Hangout.
+4. **Added terms:** forward deployed engineering (profile, Deep Strat), human-in-the-loop (profile, Relay, Homeward, Birb Hangout), AI safety (Deep Strat lead), full-stack development (profile, resume).
+
+## Gate refinements made while testing
+
+Comparing the baseline against itself showed three checks were stricter than intended, so they now measure only what this change adds:
+
+- The first-sentence check covers tools and acronyms (React, OpenCV, RAG, MCP). Field names such as computer vision, medical imaging, interaction design, IEEE, and evaluation harness may open an answer.
+- Density and stacked-term checks skip technical questions (how it was built, tools, models, methodology) and fail an answer only when it is denser than its own baseline answer.
+- Length and numbers vary from run to run, so the median length is a hard gate and individual outliers go to review.
+
+## Result (round 8, against round 2)
+
+Round 3 had drifted from round 2: tour intros that talked about "stops", announced page moves, and thin one-sentence tour intros. Round 8 restores the round-2 tour wording, lets a tour answer open with one to three sentences of specific evidence, asks for direct descriptions instead of "not just X" contrasts, and keeps the key terms. Files: `round-8-key-terms.json`, `round-8-side-by-side.md` (15 representative questions), `round-8-key-terms-scenarios.txt` (16/16).
+
+| Check | Round 2 | Round 8 |
+| --- | --- | --- |
+| Tour intros with specific evidence | 57% | 92% |
+| Talks about the tour ("three stops") | 0 | 0 |
+| Announces page moves | 1 | 2 |
+| Contrast phrasing ("rather than", "not just") | 3 | 6 |
+| Tours with no spoken intro | 3 | 0 |
+| Median length | 100% | 108% |
+| Relay answers naming a lead term | 3 of 47 | 27 of 48 |
+| Refract / brain atrophy / MRI study / Homeward | 2/15, 2/10, 3/5, 0/18 | 10/13, 7/11, 6/7, 5/18 |
+
+After round 8, two prompt fixes followed from the scenario checks: named papers open their case study (not the archive record), and a decline clause that briefly caused leaked reasoning was reverted. Scenarios pass 16/16 on two runs.

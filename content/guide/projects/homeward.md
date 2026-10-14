@@ -20,11 +20,11 @@ metricIds:
 
 ## In plain terms
 
-Homeward helps patients leave the hospital and actually follow their discharge instructions. It turns the discharge paperwork into a clear recovery plan: what to do next, when, and the exact sentence from the paperwork that says so. Anything unclear, such as a missing date or two instructions that conflict, goes to the care team as a question rather than becoming a guess, and a reminder is created only when the patient approves it.
+Homeward helps patients leave the hospital and actually follow their discharge instructions. It turns the discharge paperwork into a clear recovery plan: what to do next, when, and the exact sentence from the paperwork that says so. Anything unclear, such as a missing date or two instructions that conflict, goes to the care team as a question, and a reminder is created only when the patient approves it.
 
-Patients and caregivers get one place that shows what to do, why, and where it came from, which is designed to prevent the missed follow-ups and confusion that often happen after discharge. Care teams get specific, patient-linked questions to answer instead of vague calls. Homeward was tested against 32 ways things can go wrong for a patient, such as a reminder created without approval, another patient's records appearing, a document trying to trick the assistant, or a dropped connection creating a duplicate reminder, and it handled every one safely. Its essentials keep working even when the AI service is down, so a patient's recovery never stalls on an outage.
+Patients and caregivers get one place that shows what to do, why, and where it came from, which is designed to prevent the missed follow-ups and confusion that often happen after discharge. Care teams get specific, patient-linked questions to answer. Homeward's multi-agent AI was tested against 32 ways things can go wrong for a patient, such as a reminder created without approval, another patient's records appearing, a document trying to trick the assistant, or a dropped connection creating a duplicate reminder, and it handled every one safely. Its essentials keep working even when the AI service is down, so a patient's recovery never stalls on an outage.
 
-Neerav conceived and built all of it himself: the patient and care-team experience, the React interface, the Express and SQLite backend, the synthetic patient data built with Synthea, the four role-specific AI assistants, and the testing that shows it is safe to rely on.
+Neerav conceived and built all of it himself: the patient and care-team experience, the React interface, the Express and SQLite backend, the synthetic patient data built with Synthea, the multi-agent AI of four role-specific assistants that each reach patient data only through the Model Context Protocol (MCP) tools their role allows, and the testing that shows it is safe to rely on.
 
 ## Outcome
 

@@ -2,11 +2,11 @@
 
 ## What Neerav is strongest at
 
-Neerav's greatest strength is product vision grounded in the user's perspective. He starts from what a person is trying to get done, then builds complete feature sets and responsive interfaces around it. His deep interest in interaction design shows in software that feels simple and accessible to use while the engineering underneath stays innovative and rigorous.
+Neerav's greatest strength is product vision grounded in the user's perspective. As an AI product engineer, he starts from what a person is trying to get done, then builds complete feature sets and responsive interfaces around it. His deep interest in interaction design shows in software that feels simple and accessible to use while the engineering underneath stays innovative and rigorous.
 
-He demonstrates this across his products. Relay gives employees a conversational guide they can talk to or type to: it answers from their own records, takes them to the right page, and completes requests like opening a support case once they say yes. Refract puts an entire research process in one place, from reading papers and capturing evidence through comparing sources, testing recall, and running statistical analysis, so researchers stop stitching together half a dozen tools. Homeward turns confusing hospital discharge paperwork into a clear recovery plan a patient can follow. Birb Hangout gives distant friends a shared 3D space where they can simply spend time together.
+He demonstrates this across his products. Relay gives employees a voice AI agent they can talk to or type to: it answers from their own records, takes them to the right page, and uses tool calling to complete requests like opening a support case once they say yes. Refract puts an entire research process in one place, from reading papers and capturing evidence through comparing sources, testing recall, and running statistical analysis, and its retrieval-augmented generation (RAG) ties every answer to its source, so researchers stop stitching together half a dozen tools. Homeward uses multi-agent AI to turn confusing hospital discharge paperwork into a clear recovery plan a patient can follow. Birb Hangout gives distant friends a realtime multiplayer 3D space where they can simply spend time together.
 
-He also proves that his products work. In 110 realistic multi-step conversations, Relay completed the employee's request correctly 103 times, and it handled 39 of 42 conversations phrased in ways it had never seen.
+He also proves that his products work through harness engineering: he builds evaluation harnesses that test each product against realistic conversations and the ways it could fail. In 110 realistic multi-step conversations, Relay's voice AI agent completed the employee's request correctly 103 times, and it handled 39 of 42 conversations phrased in ways it had never seen.
 
 ## Why interview Neerav
 
@@ -16,15 +16,15 @@ The evidence is concrete. He has built four complete products end to end: Relay,
 
 ## Explaining the work in plain terms
 
-Visitors care about what the work does for people. Describe each mechanism by its benefit first, then name the technique only if they ask how. Use these plain explanations:
+Visitors care about what the work does for people. Describe each mechanism by its benefit first, and name its field and core technology (the lead key terms) in the same sentence; go deeper into technique only if they ask how. Use these plain explanations:
 
-- Relay's confirmed actions: Relay never changes anything for an employee without first showing exactly what it will do and getting a yes, and afterwards it checks that the change really happened. The employee gets a finished result they can trust, not a promise.
-- Relay's evaluation: in 110 realistic multi-step conversations, Relay completed the employee's request correctly 103 times; on 42 conversations worded in ways it had never seen, it succeeded 39 times. That shows it understands people who phrase things their own way.
+- Relay's confirmed actions: Relay's voice AI agent never changes anything for an employee without first showing exactly what it will do and getting a yes, and afterwards it checks that the change really happened. The employee gets a finished result they can trust.
+- Relay's evaluation: Neerav built an evaluation harness for Relay. In 110 realistic multi-step conversations, Relay's voice AI agent completed the employee's request correctly 103 times; on 42 conversations worded in ways it had never seen, it succeeded 39 times. That shows it understands people who phrase things their own way.
 - Relay's safety testing: across 21 recorded attempts to trick it, including requests for other people's information, it never made an unsafe change.
-- Homeward's 32 of 32 safety scenarios: Homeward was tested against 32 ways things can go wrong for a patient, such as a reminder created without the patient's approval, another patient's records appearing, a document trying to trick the assistant, or a dropped connection creating a duplicate reminder. It handled every one safely, which means a patient can rely on what it tells them and on what it does.
+- Homeward's 32 of 32 safety scenarios: Homeward's multi-agent AI was tested against 32 ways things can go wrong for a patient, such as a reminder created without the patient's approval, another patient's records appearing, a document trying to trick the assistant, or a dropped connection creating a duplicate reminder. It handled every one safely, which means a patient can rely on what it tells them and on what it does.
 - Homeward when the AI service is down: the patient can still see their next step, search their discharge papers, and reach their care team, so recovery never stalls on an outage.
-- Homeward's sources: every task shows the exact sentence from the discharge papers it came from, so patients and caregivers can check it instead of trusting a summary.
-- Refract's grounded answers: every answer shows the exact paper and page it came from, so a researcher can verify a claim in one step.
+- Homeward's sources: every task shows the exact sentence from the discharge papers it came from, so patients and caregivers can check it themselves.
+- Refract's grounded answers: Refract uses retrieval-augmented generation (RAG), so every answer shows the exact paper and page it came from, so a researcher can verify a claim in one step.
 - Refract's recall testing: learners give their answer and how confident they are before seeing the source, so the tool measures what they actually know.
 - Refract's statistics: the analysis pauses for a person to review data problems before any model result is accepted, so conclusions rest on checked data.
 - The MRI ensemble: a deep learning computer vision study where combining two differently built convolutional neural networks raised accuracy on scans held back from training from 78 to 85 percent, seven more correct classifications for every hundred scans.
@@ -53,19 +53,19 @@ His background combines a bachelor's degree in Computer Engineering from Manipal
 
 ### Applied AI engineer or AI product engineer
 
-Neerav is a strong fit. He builds AI features people can trust inside complete products: Relay's conversational guide completes real employee requests with confirmation, Homeward helps patients follow discharge instructions safely, and Refract keeps research answers tied to their sources. He works across the full stack, from React and TypeScript interfaces to Python, FastAPI, Fastify, Express, and SQL backends, and he designs the evaluation that proves the feature works.
+Neerav is a strong fit. He builds AI features people can trust inside complete products: Relay's voice AI agent uses tool calling to complete real employee requests with confirmation, Homeward's multi-agent AI helps patients follow discharge instructions safely, and Refract's retrieval-augmented generation (RAG) keeps research answers tied to their sources. He works across the full stack, from React and TypeScript interfaces to Python, FastAPI, Fastify, Express, and SQL backends, and he builds the evaluation harness that proves the feature works.
 
 ### Forward deployed engineer
 
-Neerav is a strong fit. At Deep Strat he sat with department leadership and the founders to turn messy customer-feedback problems into a working AI workflow, and he advised on AI safety and failure modes. In his own products he takes an ambiguous operational problem, designs the workflow around the people involved, integrates the tools it needs, and iterates quickly from measured failures. That is the core of forward deployed work: understanding the customer, building fast, and proving the result.
+Neerav is a strong fit. At Deep Strat he sat with department leadership and the founders to turn messy customer-feedback problems into a working LLM workflow, and he advised on AI safety and failure modes. In his own products he takes an ambiguous operational problem, designs the workflow around the people involved, integrates the tools it needs, and iterates quickly from measured failures. That is the core of forward deployed work: understanding the customer, building fast, and proving the result.
 
 ### ML or research engineer in healthcare
 
-Neerav is a strong fit. He co-authored a peer-reviewed IEEE study that measures brain atrophy from MRI scans, built a deep learning study that improved four-class dementia classification through model ensembling, and built Homeward, which helps patients follow discharge instructions safely. He brings image analysis, careful experimental design, neural network tuning, and an understanding of how clinical workflows actually reach patients.
+Neerav is a strong fit. He co-authored a peer-reviewed IEEE study that uses computer vision to measure brain atrophy from MRI scans, built a deep learning study whose convolutional neural networks improved four-class dementia classification through model ensembling, and built Homeward, a multi-agent AI product that helps patients follow discharge instructions safely. He brings image analysis, careful experimental design, neural network tuning, and an understanding of how clinical workflows actually reach patients.
 
 ### Realtime or interactive product engineer
 
-Neerav is a strong fit. Birb Hangout is a deployed multiplayer 3D world built with React Three Fiber and Colyseus, with live voice, synchronized media, consent-based social interactions, flight, procedural terrain, and his own tools for judging animation quality.
+Neerav is a strong fit. Birb Hangout is a deployed realtime multiplayer 3D world built with React Three Fiber and Colyseus, with live voice, synchronized media, consent-based social interactions, flight, procedural terrain, and his own tools for judging animation quality.
 
 ## Project scope framing
 

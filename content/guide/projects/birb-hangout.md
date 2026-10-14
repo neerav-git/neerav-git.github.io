@@ -22,7 +22,7 @@ metricIds: []
 
 ## In plain terms
 
-Birb Hangout is a shared 3D place where friends who live far apart can simply spend time together. Each person is an expressive bird in a cozy lounge: they can listen to music or watch something together, read side by side, play trivia, talk with live voice, rest, give a hug when the other person accepts it, or fly together through a dreamlike world. Nobody has to keep a video call going or play the same game; being together is enough.
+Birb Hangout is a realtime multiplayer 3D place where friends who live far apart can simply spend time together. Each person is an expressive bird in a cozy lounge: they can listen to music or watch something together, read side by side, play trivia, talk with live voice, rest, give a hug when the other person accepts it, or fly together through a dreamlike world. Nobody has to keep a video call going or play the same game; being together is enough.
 
 It is live and playable, with private rooms, customizable birds, and safeguards for uploads and messages. Neerav also built his own tools for the hardest part of a 3D social product, judging whether motion and interactions feel right: vague feedback like "the walk feels floaty" became precise, repeatable comparisons, so each fix could be checked by eye and by measurement.
 
