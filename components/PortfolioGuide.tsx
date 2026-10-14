@@ -5,7 +5,8 @@ import { type FormEvent, type KeyboardEvent, useCallback, useEffect, useRef, use
 
 import { GuideRequestError, streamGuideTurn, type GuideAction, type GuideTurn } from '@/lib/guide/api'
 import { clearHighlights, focusTarget, loadRegistry, type GuideRegistry } from '@/lib/guide/layer'
-import { canListen, listenOnce, type Listening } from '@/lib/guide/listen'
+import { playEarcon } from '@/lib/guide/earcons'
+import { canListen, listenOnce, type Listening, type ListenPhase } from '@/lib/guide/listen'
 import { GuideVoice, SentenceBuffer, type VoiceState } from '@/lib/guide/voice'
 
 type Turn = {
@@ -18,6 +19,17 @@ type Turn = {
   error?: boolean
 }
 type Status = 'idle' | 'listening' | 'thinking' | 'touring'
+/** What the visitor should know is happening right now, shown in the voice strip and announced to screen readers. */
+type Phase = ListenPhase | 'thinking' | 'speaking' | 'notice'
+
+const PHASE_COPY: Record<Exclude<Phase, 'notice'>, string> = {
+  starting: 'Opening the microphone…',
+  listening: 'Listening. Go ahead and speak.',
+  hearing: 'Hearing you…',
+  processing: 'Got it.',
+  thinking: 'Thinking…',
+  speaking: 'Speaking',
+}
 type TourStep = { target: string; narration: string }
 
 const SUGGESTIONS = [
@@ -84,7 +96,9 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
   const [status, setStatus] = useState<Status>('idle')
   const [input, setInput] = useState('')
   const [interim, setInterim] = useState('')
-  const [voiceState, setVoiceState] = useState<VoiceState>({ status: 'off', progress: 0, device: null })
+  const [voiceState, setVoiceState] = useState<VoiceState>({ status: 'off', progress: 0, device: null, speaking: false })
+  const [listenPhase, setListenPhase] = useState<ListenPhase>('starting')
+  const [notice, setNotice] = useState('')
   const [tour, setTour] = useState<{ index: number; total: number; waiting: boolean } | null>(null)
   const [micSupported, setMicSupported] = useState(false)
 
@@ -92,6 +106,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
   const registryRef = useRef<GuideRegistry | null>(null)
   const abortRef = useRef<AbortController | null>(null)
   const listeningRef = useRef<Listening | null>(null)
+  const micStartingRef = useRef(false)
   const tourRef = useRef<{ cancelled: boolean; advance: (() => void) | null } | null>(null)
   const turnsRef = useRef<Turn[]>([])
   const logRef = useRef<HTMLDivElement | null>(null)
@@ -112,6 +127,11 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight })
   }, [turns, interim])
+  useEffect(() => {
+    if (!notice) return
+    const timer = setTimeout(() => setNotice(''), 7000)
+    return () => clearTimeout(timer)
+  }, [notice])
   useEffect(() => {
     document.body.classList.toggle('guide-open', open)
     return () => document.body.classList.remove('guide-open')
@@ -180,6 +200,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       clearHighlights()
       setInput('')
       setInterim('')
+      setNotice('')
 
       const userTurn: Turn = { id: ++turnIds, role: 'user', text }
       const reply: Turn = { id: ++turnIds, role: 'assistant', text: '' }
@@ -252,28 +273,50 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       listeningRef.current.stop()
       return
     }
+    if (micStartingRef.current) return
     stopEverything()
-    setStatus('listening')
+    setNotice('')
     setInterim('')
-    const listening = listenOnce(setInterim)
+    setListenPhase('starting')
+    setStatus('listening')
+    // The chime plays before the mic opens so it is never recorded as part of the question.
+    micStartingRef.current = true
+    await playEarcon('listen')
+    micStartingRef.current = false
+    const listening = listenOnce(setInterim, setListenPhase)
     listeningRef.current = listening
     try {
       const heard = await listening.result
       if (listeningRef.current !== listening) return
       listeningRef.current = null
-      if (heard) void send(heard)
-      else {
+      if (heard.text) {
+        void playEarcon('heard')
+        void send(heard.text)
+      } else {
         setInterim('')
         setStatus('idle')
+        if (heard.silent) {
+          void playEarcon('silence')
+          setNotice("I didn't hear anything. Tap the mic and try again.")
+        }
       }
     } catch (error) {
       listeningRef.current = null
       setInterim('')
       setStatus('idle')
+      void playEarcon('silence')
       const denied = /not-allowed|service-not-allowed/.test(String((error as Error).message))
-      setTurns((current) => [...current, { id: ++turnIds, role: 'assistant', error: true, text: denied ? 'Microphone access is blocked. Allow it in your browser, or type your question.' : "I couldn't hear that. Please try again or type your question." }])
+      setNotice(denied ? 'Microphone access is blocked. Allow it in your browser, or type your question.' : "I couldn't hear that. Tap the mic to try again, or type your question.")
     }
   }, [send, stopEverything])
+
+  const stopSpeaking = useCallback(() => {
+    voice().stop()
+    if (tourRef.current) {
+      endTour()
+      setStatus('idle')
+    }
+  }, [endTour, voice])
 
   const toggleVoice = useCallback(() => {
     if (voiceState.status === 'off') voice().enable()
@@ -316,8 +359,10 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         : voiceState.status === 'failed'
           ? 'Voice unavailable'
           : 'Turn on voice'
-  const statusLabel =
-    status === 'listening' ? 'Listening…' : status === 'thinking' ? 'Thinking…' : status === 'touring' && tour ? `Tour · step ${tour.index + 1} of ${tour.total}` : ''
+  const phase: Phase | null =
+    status === 'listening' ? listenPhase : status === 'thinking' ? 'thinking' : voiceState.speaking ? 'speaking' : notice ? 'notice' : null
+  const phaseText = phase === 'notice' ? notice : phase ? PHASE_COPY[phase] : ''
+  const statusLabel = status === 'touring' && tour ? `Tour · step ${tour.index + 1} of ${tour.total}` : phase && phase !== 'notice' ? phaseText : ''
 
   if (!open) {
     return (
@@ -403,6 +448,29 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         {interim ? <div className="guide-turn guide-turn--user is-interim"><p>{interim}</p></div> : null}
       </div>
 
+      {phase ? (
+        <div className={`guide-voice-strip is-${phase}`} role="status" aria-live="assertive">
+          <span aria-hidden="true" className="guide-voice-indicator">
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+          </span>
+          <span className="guide-voice-text">{phaseText}</span>
+          {phase === 'listening' || phase === 'hearing' ? (
+            <button className="guide-chip" onClick={toggleListening} type="button">
+              Done
+            </button>
+          ) : null}
+          {phase === 'speaking' ? (
+            <button className="guide-chip" onClick={stopSpeaking} type="button">
+              Stop
+            </button>
+          ) : null}
+        </div>
+      ) : null}
+
       {tour ? (
         <div className="guide-tour-bar">
           <span>Step {tour.index + 1} of {tour.total}</span>
@@ -433,7 +501,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
             <button
               aria-label={status === 'listening' ? 'Stop listening' : 'Speak your question'}
               aria-pressed={status === 'listening'}
-              className={`guide-icon-button guide-mic${status === 'listening' ? ' is-listening' : ''}`}
+              className={`guide-icon-button guide-mic${status === 'listening' ? ` is-listening is-${listenPhase}` : ''}`}
               onClick={toggleListening}
               type="button"
             >

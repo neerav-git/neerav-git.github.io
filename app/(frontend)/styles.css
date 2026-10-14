@@ -3553,6 +3553,157 @@ body::before {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--bg);
+  position: relative;
+}
+
+/* A ring that keeps pulsing while the mic is open; it pulses faster once speech is detected. */
+.guide-mic.is-listening::after {
+  animation: guide-mic-ring 1.6s ease-out infinite;
+  border: 2px solid var(--accent);
+  border-radius: inherit;
+  content: "";
+  inset: -2px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.guide-mic.is-hearing::after {
+  animation-duration: 0.8s;
+}
+
+.guide-mic.is-starting::after,
+.guide-mic.is-processing::after {
+  animation: none;
+  opacity: 0.4;
+}
+
+@keyframes guide-mic-ring {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+.guide-voice-strip {
+  align-items: center;
+  background: var(--accent-soft);
+  border-top: 1px solid var(--line);
+  color: var(--text);
+  display: flex;
+  font-size: 14px;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 16px;
+}
+
+.guide-voice-strip.is-notice {
+  background: transparent;
+  color: var(--muted);
+}
+
+.guide-voice-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.guide-voice-indicator {
+  align-items: center;
+  display: inline-flex;
+  gap: 3px;
+  height: 18px;
+  width: 27px;
+}
+
+.guide-voice-indicator i {
+  background: var(--accent);
+  border-radius: 2px;
+  display: block;
+  height: 100%;
+  transform: scaleY(0.25);
+  width: 3px;
+}
+
+.guide-voice-strip.is-listening .guide-voice-indicator i {
+  animation: guide-bar-breathe 1.6s ease-in-out infinite;
+}
+
+.guide-voice-strip.is-hearing .guide-voice-indicator i,
+.guide-voice-strip.is-speaking .guide-voice-indicator i {
+  animation: guide-bar-talk 0.7s ease-in-out infinite;
+}
+
+.guide-voice-strip.is-thinking .guide-voice-indicator i {
+  animation: guide-bar-think 1.2s ease-in-out infinite;
+}
+
+.guide-voice-strip.is-processing .guide-voice-indicator i {
+  transform: scaleY(0.6);
+}
+
+.guide-voice-strip.is-starting .guide-voice-indicator i,
+.guide-voice-strip.is-notice .guide-voice-indicator i {
+  background: var(--muted);
+}
+
+.guide-voice-indicator i:nth-child(2) {
+  animation-delay: 0.12s !important;
+}
+
+.guide-voice-indicator i:nth-child(3) {
+  animation-delay: 0.24s !important;
+}
+
+.guide-voice-indicator i:nth-child(4) {
+  animation-delay: 0.36s !important;
+}
+
+.guide-voice-indicator i:nth-child(5) {
+  animation-delay: 0.48s !important;
+}
+
+@keyframes guide-bar-breathe {
+  50% {
+    transform: scaleY(0.5);
+  }
+}
+
+@keyframes guide-bar-talk {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes guide-bar-think {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleY(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide-mic.is-listening::after,
+  .guide-voice-indicator i {
+    animation: none !important;
+  }
+
+  .guide-voice-strip.is-listening .guide-voice-indicator i,
+  .guide-voice-strip.is-hearing .guide-voice-indicator i,
+  .guide-voice-strip.is-speaking .guide-voice-indicator i {
+    transform: scaleY(0.7);
+  }
 }
 
 .guide-send:not(:disabled) {

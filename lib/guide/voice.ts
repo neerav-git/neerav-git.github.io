@@ -4,7 +4,8 @@
  * warmth +2 dB, presence +1.5 dB, air -1 dB, 6% room, broadcast compression, 180 ms between sentences.
  */
 export type VoiceStatus = 'off' | 'loading' | 'ready' | 'failed'
-export type VoiceState = { status: VoiceStatus; progress: number; device: string | null }
+/** `speaking` is true while a reply is audibly playing, so the panel can show it and offer Stop. */
+export type VoiceState = { status: VoiceStatus; progress: number; device: string | null; speaking: boolean }
 
 const SENTENCE_PAUSE_S = 0.18
 const ROOM = 0.06
@@ -22,7 +23,8 @@ function impulse(context: AudioContext, seconds = 1.6, decay = 3.2) {
 }
 
 export class GuideVoice {
-  state: VoiceState = { status: 'off', progress: 0, device: null }
+  state: VoiceState = { status: 'off', progress: 0, device: null, speaking: false }
+  private quiet: ReturnType<typeof setTimeout> | null = null
   private listeners = new Set<(state: VoiceState) => void>()
   private worker: Worker | null = null
   private context: AudioContext | null = null
@@ -127,9 +129,13 @@ export class GuideVoice {
       const startAt = Math.max(this.cursor, this.context.currentTime + 0.02)
       this.cursor = startAt + buffer.duration + SENTENCE_PAUSE_S
       this.sources.add(source)
+      if (this.quiet) clearTimeout(this.quiet)
+      if (!this.state.speaking) this.set({ speaking: true })
       await new Promise<void>((resolve) => {
         source.onended = () => {
           this.sources.delete(source)
+          // Sentences are queued with a short pause; only report silence once nothing follows.
+          if (!this.sources.size) this.quiet = setTimeout(() => this.sources.size || this.set({ speaking: false }), 450)
           resolve()
         }
         source.start(startAt)
@@ -155,6 +161,8 @@ export class GuideVoice {
     this.sources.clear()
     this.chain = Promise.resolve()
     this.cursor = 0
+    if (this.quiet) clearTimeout(this.quiet)
+    if (this.state.speaking) this.set({ speaking: false })
   }
 }
 
