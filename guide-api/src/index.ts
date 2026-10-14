@@ -14,15 +14,19 @@ type Env = {
   KNOWLEDGE_URL: string
   MODEL: string
   DAILY_BUDGET_USD: string
+  MONTHLY_BUDGET_USD: string
   RATE_LIMIT_PER_10_MIN: string
+  TURNS_PER_VISITOR_PER_DAY: string
+  OFF_TOPIC_PER_VISITOR_PER_DAY: string
   GUARD: DurableObjectNamespace<Guard>
 }
 
 type IncomingMessage = { role: 'user' | 'assistant'; content: string }
 
-const MAX_HISTORY = 16
-const MAX_USER_CHARS = 8000 // room for a pasted job description
-const MAX_ASSISTANT_CHARS = 2000
+const MAX_HISTORY = 12
+const MAX_USER_CHARS = 6000 // room for a pasted job description
+const MAX_ASSISTANT_CHARS = 1500
+const MAX_TOTAL_CHARS = 16000
 
 function corsHeaders(origin: string | null, env: Env): Record<string, string> {
   const allowed = env.ALLOWED_ORIGINS.split(',').map((value) => value.trim())
@@ -52,6 +56,7 @@ function parseMessages(raw: unknown): IncomingMessage[] | null {
     messages.push({ role, content })
   }
   while (messages[0]?.role === 'assistant') messages.shift()
+  if (messages.reduce((total, message) => total + message.content.length, 0) > MAX_TOTAL_CHARS) return null
   return messages.length && messages.at(-1)!.role === 'user' ? messages : null
 }
 
@@ -83,7 +88,14 @@ export default {
     const route = typeof body.route === 'string' && /^\/[a-z0-9\-/]{0,120}$/i.test(body.route) ? body.route : '/'
 
     const guard = env.GUARD.get(env.GUARD.idFromName('global'))
-    const admission = await guard.admit(await visitorKey(request), Number(env.RATE_LIMIT_PER_10_MIN) || 20, Number(env.DAILY_BUDGET_USD) || 1)
+    const visitor = await visitorKey(request)
+    const admission = await guard.admit(visitor, {
+      perWindow: Number(env.RATE_LIMIT_PER_10_MIN) || 20,
+      perVisitorPerDay: Number(env.TURNS_PER_VISITOR_PER_DAY) || 40,
+      offTopicPerVisitorPerDay: Number(env.OFF_TOPIC_PER_VISITOR_PER_DAY) || 3,
+      dailyBudgetUsd: Number(env.DAILY_BUDGET_USD) || 1,
+      monthlyBudgetUsd: Number(env.MONTHLY_BUDGET_USD) || 5,
+    })
     if (!admission.ok) {
       return json({ error: admission.reason }, 429, { ...cors, 'retry-after': String(admission.retryAfterSeconds) })
     }
@@ -115,7 +127,7 @@ export default {
               ? { role: 'user', content: [{ type: 'text', text: `[The visitor is currently on ${route}]` }, { type: 'text', text: message.content }] }
               : message,
           )
-          const usage = await runGuideTurn({
+          const { usage, offTopic } = await runGuideTurn({
             client: new Anthropic({ apiKey: env.ANTHROPIC_API_KEY, maxRetries: 1 }),
             model: env.MODEL || 'claude-haiku-5-5',
             knowledge,
@@ -124,8 +136,12 @@ export default {
             signal: abort.signal,
           })
           const cost = costUsd(usage)
-          console.log(JSON.stringify({ event: 'turn', ...usage, costUsd: Number(cost.toFixed(6)), knowledge: knowledge.version }))
-          ctx.waitUntil(guard.record(cost))
+          console.log(JSON.stringify({ event: 'turn', ...usage, costUsd: Number(cost.toFixed(6)), offTopic, knowledge: knowledge.version }))
+          ctx.waitUntil(guard.record(visitor, cost, offTopic))
+          if (offTopic) {
+            emit({ t: 'done', offTopic: true })
+            return
+          }
         }
         emit({ t: 'done' })
       } catch (error) {

@@ -64,3 +64,11 @@ test('links must come from the registry', () => {
 test('candidates ignore unrelated targets', () => {
   assert.deepEqual(candidatesFor(targets, 'zzz unrelated'), [])
 })
+
+test('declining marks the turn off topic without moving the page', () => {
+  const state = new TurnState(knowledge)
+  const outcome = state.run('decline_off_topic', { category: 'code_or_writing_task' })
+  assert.equal(outcome.ok, true)
+  assert.equal(outcome.ok && outcome.action, undefined)
+  assert.equal(state.offTopic, true)
+})

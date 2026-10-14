@@ -2,12 +2,12 @@ import Anthropic from '@anthropic-ai/sdk'
 
 import type { Knowledge } from './knowledge.ts'
 import { GUIDE_RULES } from './prompt.ts'
-import { TOOLS, TurnState, type GuideAction } from './tools.ts'
+import { DECLINE_FALLBACK, TOOLS, TurnState, type GuideAction } from './tools.ts'
 
 export type GuideEvent =
   | { t: 'text'; d: string }
   | { t: 'action'; action: GuideAction }
-  | { t: 'done' }
+  | { t: 'done'; offTopic?: true }
   | { t: 'error'; code: string; message: string }
 
 export type Usage = { input: number; output: number; cacheRead: number; cacheWrite: number }
@@ -33,7 +33,7 @@ export async function runGuideTurn(options: {
   messages: Anthropic.MessageParam[]
   emit: (event: GuideEvent) => void
   signal?: AbortSignal
-}): Promise<Usage> {
+}): Promise<{ usage: Usage; offTopic: boolean }> {
   const { client, model, knowledge, emit, signal } = options
   const state = new TurnState(knowledge)
   const messages = [...options.messages]
@@ -70,6 +70,7 @@ export async function runGuideTurn(options: {
     usage.cacheRead += message.usage.cache_read_input_tokens ?? 0
     usage.cacheWrite += message.usage.cache_creation_input_tokens ?? 0
 
+    if (message.stop_reason === 'max_tokens') console.warn(JSON.stringify({ event: 'max_tokens', iteration }))
     if (message.stop_reason === 'refusal') {
       emit({ t: 'error', code: 'refusal', message: "I can't help with that one, but I'm happy to talk about Neerav's work." })
       break
@@ -79,13 +80,18 @@ export async function runGuideTurn(options: {
 
     const results: Anthropic.ToolResultBlockParam[] = calls.map((call) => {
       const outcome = state.run(call.name, call.input)
-      if (outcome.ok) emit({ t: 'action', action: outcome.action })
+      if (outcome.ok && outcome.action) emit({ t: 'action', action: outcome.action })
       // Text before the call has already been spoken; without this reminder the model tends to say it again.
       const result = outcome.ok && spoken.trim() ? { ...outcome.result, note: 'Your text so far has already been spoken. Do not repeat it; add only something new, or nothing.' } : outcome.ok ? outcome.result : outcome.error
       return { type: 'tool_result', tool_use_id: call.id, is_error: !outcome.ok, content: JSON.stringify(result) }
     })
+    // A decline needs no second model call: the visitor already heard it, or gets the fixed line.
+    if (calls.every((call) => call.name === 'decline_off_topic')) {
+      if (!spoken.trim()) emit({ t: 'text', d: DECLINE_FALLBACK })
+      break
+    }
     messages.push({ role: 'assistant', content: message.content }, { role: 'user', content: results })
   }
 
-  return usage
+  return { usage, offTopic: state.offTopic }
 }

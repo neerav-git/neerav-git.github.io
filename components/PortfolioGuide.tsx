@@ -29,7 +29,9 @@ const SUGGESTIONS = [
 
 const ERROR_COPY: Record<string, string> = {
   rate_limited: "You've asked a lot of questions in a short time. Please wait a few minutes and try again.",
-  budget_exhausted: "The guide has reached today's limit. The whole portfolio is still here to browse, and it will be back tomorrow.",
+  budget_exhausted: 'The guide is resting for now. The whole portfolio is still here to browse.',
+  visitor_daily_limit: "You've reached today's question limit for the guide. The whole portfolio is still here to browse.",
+  off_topic_limit: "The guide only answers questions about Neerav's portfolio, so it's paused for you today.",
   origin_not_allowed: 'The guide is not available on this address.',
   knowledge_unavailable: "The guide can't load the portfolio right now. Please try again shortly.",
 }

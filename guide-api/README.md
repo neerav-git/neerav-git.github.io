@@ -4,7 +4,9 @@ A Cloudflare Worker behind the "Ask the guide" panel on the portfolio. It holds 
 
 - **Knowledge**: `npm run guide:knowledge` (run automatically by the site build) writes `public/guide/knowledge.json` and `public/guide/targets.json` from `content/`, `docs/work-records/`, and the resume PDF. The Worker reads the published copy, so a site deploy updates what the guide knows.
 - **Navigation**: the model can only call `show_on_page`, `start_tour`, and `offer_links` with ids from the registry. Unknown ids return the closest candidates; one page per answer; tours are 2–4 steps.
-- **Cost controls**: origin allowlist, 20 turns per visitor per 10 minutes, and a daily spend cap (`DAILY_BUDGET_USD`, default $1) tracked from the API's own usage numbers. Expect about $0.01 for a visitor's first question (cache write) and well under $0.001 for each follow-up.
+- **Cost**: charged per question only, from the API's own usage numbers; a day with no visitors costs nothing. Expect about $0.01 for a visitor's first question (cache write) and well under $0.001 for each follow-up.
+- **Limits** (all in `wrangler.jsonc`): origin allowlist; 20 questions per visitor per 10 minutes and 40 per day; a $1 daily and $5 monthly spend ceiling; messages up to 6,000 characters (room for a job description).
+- **Staying on purpose**: the model declines anything not about Neerav, his work, or hiring him, and records it with `decline_off_topic`. After 3 such requests a visitor is paused for the day without reaching the model. Counters live in memory, so a redeploy resets them.
 - **Voice**: none of it touches this API. Speech input uses the browser's recognizer and speech output runs Kokoro in the visitor's browser (`public/guide/tts-worker.js`).
 
 ## Local development
