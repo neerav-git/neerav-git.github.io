@@ -12,7 +12,8 @@
     "lint": "next lint",
     "sync:github": "node scripts/sync-github.mjs",
     "predev": "npm run guide:knowledge",
-    "guide:knowledge": "tsx scripts/build-guide-knowledge.ts"
+    "guide:knowledge": "tsx scripts/build-guide-knowledge.ts && node scripts/audit-guide-knowledge.mjs",
+    "audit:guide-knowledge": "node scripts/audit-guide-knowledge.mjs"
   },
   "dependencies": {
     "next": "15.4.11",

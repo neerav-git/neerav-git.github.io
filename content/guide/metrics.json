@@ -1,0 +1,50 @@
+[
+  {
+    "id": "relay-development-success-103-of-110",
+    "pattern": "103(?:\\s+of|/)\\s*110",
+    "approvedSpokenForm": "103 of 110 post-fix development conversations completed correctly",
+    "project": "relay",
+    "source": "content/guide/projects/relay.md",
+    "maxNarrativeOccurrences": 3
+  },
+  {
+    "id": "relay-held-out-39-of-42",
+    "pattern": "39(?:\\s+of|/)\\s*42",
+    "approvedSpokenForm": "39 of 42 held-out rewordings completed correctly",
+    "project": "relay",
+    "source": "content/guide/projects/relay.md",
+    "maxNarrativeOccurrences": 3
+  },
+  {
+    "id": "homeward-guardrails-32-of-32",
+    "pattern": "32(?:\\s+of|/)\\s*32",
+    "approvedSpokenForm": "32 of 32 deterministic guardrail cases passed",
+    "project": "homeward",
+    "source": "content/guide/projects/homeward.md",
+    "maxNarrativeOccurrences": 3
+  },
+  {
+    "id": "mri-ensemble-78-to-85",
+    "pattern": "78(?:\\s*%|\\s+percent)?\\s*(?:to|→|->)\\s*85(?:\\s*%|\\s+percent)?",
+    "approvedSpokenForm": "held-out accuracy improved from 78 percent to 85 percent",
+    "project": "alzheimers-disease-research",
+    "source": "content/guide/projects/alzheimers-disease-research.md",
+    "maxNarrativeOccurrences": 3
+  },
+  {
+    "id": "atrophy-crop-66-to-71",
+    "pattern": "66(?:\\s*%|\\s+percent)?[^.\\n]{0,80}(?:to|→|->)\\s*71(?:\\s*%|\\s+percent)?",
+    "approvedSpokenForm": "crop-based accuracy improved from 66 percent to 71 percent",
+    "project": "brain-atrophy-computer-vision",
+    "source": "content/guide/projects/brain-atrophy-computer-vision.md",
+    "maxNarrativeOccurrences": 3
+  },
+  {
+    "id": "deep-strat-false-positive-reduction-25-percent",
+    "pattern": "(?:false-positive(?: churn)? flags?|false churn alarms) by 25(?:\\s*%|\\s+percent)",
+    "approvedSpokenForm": "reduced false churn alarms by 25 percent while keeping AUC stable",
+    "project": "profile",
+    "source": "content/guide/deep-strat.md",
+    "maxNarrativeOccurrences": 3
+  }
+]
