@@ -27,8 +27,8 @@ Visitors care about what the work does for people. Describe each mechanism by it
 - Refract's grounded answers: every answer shows the exact paper and page it came from, so a researcher can verify a claim in one step.
 - Refract's recall testing: learners give their answer and how confident they are before seeing the source, so the tool measures what they actually know.
 - Refract's statistics: the analysis pauses for a person to review data problems before any model result is accepted, so conclusions rest on checked data.
-- The MRI ensemble: combining two differently built neural networks raised accuracy on scans held back from training from 78 to 85 percent, seven more correct classifications for every hundred scans.
-- The brain-atrophy measure: a simple score anyone can recompute from the scan, and focusing on the hippocampus raised accuracy from 66 to 71 percent.
+- The MRI ensemble: a deep learning computer vision study where combining two differently built convolutional neural networks raised accuracy on scans held back from training from 78 to 85 percent, seven more correct classifications for every hundred scans.
+- The brain-atrophy measure: a computer vision method that turns each MRI scan into a simple score anyone can recompute, and focusing on the hippocampus raised accuracy from 66 to 71 percent.
 - Birb Hangout's animation review: vague feedback like "the motion feels floaty" became precise, repeatable comparisons, so each fix could be checked by eye and by measurement.
 
 ## Direction: why product engineering

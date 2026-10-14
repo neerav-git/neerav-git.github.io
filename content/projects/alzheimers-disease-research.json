@@ -5,8 +5,11 @@
   "dateLabel": "Built and evaluated · 2024",
   "status": "research-prototype",
   "primaryCategory": "ml-ai-study",
-  "secondaryCategories": ["healthcare", "machine-learning"],
-  "summary": "A complete TensorFlow MRI experiment that turns 6,400 images into a four-class training pipeline, compares independently saved CNNs, and raises held-out accuracy from 78% to 85% through probability-level ensembling.",
+  "secondaryCategories": [
+    "healthcare",
+    "machine-learning"
+  ],
+  "summary": "A complete TensorFlow MRI experiment that turns 6,400 ADNI brain MRI images into a four-class training pipeline, compares independently saved CNNs, and raises held-out accuracy from 78% to 85% through probability-level ensembling.",
   "landingDeck": "The study connects data inspection, performant TensorFlow ingestion, training-only augmentation, two CNN scales, reusable inference, image-level error review, checkpoint reuse, and two- and three-model probability ensembles inside one inspectable Colab workflow.",
   "landingHighlights": [
     "Processes 6,400 MRI files across NonDemented, VeryMildDemented, MildDemented, and ModerateDemented classes with a recorded 5,120/640/640-image split.",
@@ -14,15 +17,33 @@
     "Reports a seven-percentage-point held-out improvement in the companion experiment, from a 78% single-model baseline to an 85% ensemble result."
   ],
   "portfolioKeywords": [
-    { "kind": "industry", "label": "Medical Imaging" },
-    { "kind": "system", "label": "Computer Vision" },
-    { "kind": "system", "label": "CNN Ensembles" },
-    { "kind": "evaluation", "label": "78% → 85% Accuracy" },
-    { "kind": "stack", "label": "TensorFlow" },
-    { "kind": "stack", "label": "Python + Keras" }
+    {
+      "kind": "industry",
+      "label": "Medical Imaging"
+    },
+    {
+      "kind": "system",
+      "label": "Computer Vision"
+    },
+    {
+      "kind": "system",
+      "label": "CNN Ensembles"
+    },
+    {
+      "kind": "evaluation",
+      "label": "78% → 85% Accuracy"
+    },
+    {
+      "kind": "stack",
+      "label": "TensorFlow"
+    },
+    {
+      "kind": "stack",
+      "label": "Python + Keras"
+    }
   ],
   "problem": "Four-class dementia-stage classification requires a model to separate adjacent categories whose MRI slices can appear structurally similar. The research question extends beyond fitting one CNN: can independently trained variants contribute complementary judgments when their full class-probability vectors are combined?",
-  "approach": "The Colab workflow discovers 6,400 folder-labeled scans, inspects their visual characteristics, builds cached and prefetched TensorFlow partitions, applies training-only augmentation, trains and reloads CNN variants, renders class-and-confidence review grids, and evaluates equal-average two- and three-model ensembles on the held-out stream.",
+  "approach": "The Colab workflow discovers 6,400 folder-labeled ADNI brain MRI scans, inspects their visual characteristics, builds cached and prefetched TensorFlow partitions, applies training-only augmentation, trains and reloads CNN variants, renders class-and-confidence review grids, and evaluates equal-average two- and three-model ensembles on the held-out stream. Network depth, width, normalization, and dropout were tuned across variants: the main network uses six convolutional blocks growing from 64 to 256 filters with 30% dropout and a 512-unit classifier, and the lighter variant uses 32 to 128 filters with a 128-unit classifier.",
   "output": "A 100-cell experimental notebook with retained dataset and model evidence, a reproducible 256×256 four-class pipeline, deep and compact CNN variants, reusable single-image and grid inference, probability-level checkpoint fusion, and a documented seven-point companion-experiment gain.",
   "methodology": {
     "evaluation": "Retained outputs verify 6,400 files, four labels, 100 batches, an 80/10/10 partition, 256×256×3 tensors, a 2,114,756-parameter main CNN, and a 491,524-parameter saved CNN. The companion experiment reports 78% baseline and 85% ensemble accuracy; the public notebook separately records a 13% improvement statement alongside its three-model evaluation code.",
@@ -35,7 +56,7 @@
       "Image-level error review"
     ]
   },
-  "role": "I designed and built the complete notebook experiment: data discovery and inspection, TensorFlow preprocessing and augmentation, CNN architecture and training, checkpoint loading, reusable inference, sample-level error review, two- and three-model probability ensembles, weighted-fusion exploration, evaluation calls, visualizations, and run documentation.",
+  "role": "I designed and built the complete notebook experiment: ADNI data discovery and inspection, TensorFlow preprocessing and augmentation, CNN architecture design and hyperparameter tuning (depth, width, normalization, dropout), training, checkpoint loading, reusable inference, sample-level error review, two- and three-model probability ensembles, weighted-fusion exploration, evaluation calls, visualizations, and run documentation.",
   "featured": true,
   "displayOrder": 5,
   "coverImage": {
@@ -47,11 +68,24 @@
     "alt": "Four-class MRI sample montage from the notebook"
   },
   "technologies": [
-    { "value": "TensorFlow" },
-    { "value": "Keras" },
-    { "value": "Google Colab" },
-    { "value": "MRI imaging" },
-    { "value": "CNN ensembles" }
+    {
+      "value": "TensorFlow"
+    },
+    {
+      "value": "Keras"
+    },
+    {
+      "value": "Google Colab"
+    },
+    {
+      "value": "ADNI MRI data"
+    },
+    {
+      "value": "MRI imaging"
+    },
+    {
+      "value": "CNN ensembles"
+    }
   ],
   "links": [
     {
@@ -77,9 +111,18 @@
   ],
   "attachments": [],
   "gallery": [
-    { "url": "/uploads/alzheimers/notebook-output-1.png", "alt": "MRI samples labeled with the four dataset classes" },
-    { "url": "/uploads/alzheimers/notebook-output-2.png", "alt": "Single MRI image displayed by the notebook" },
-    { "url": "/uploads/alzheimers/notebook-output-4.png", "alt": "CNN model architecture exported from the notebook" }
+    {
+      "url": "/uploads/alzheimers/notebook-output-1.png",
+      "alt": "MRI samples labeled with the four dataset classes"
+    },
+    {
+      "url": "/uploads/alzheimers/notebook-output-2.png",
+      "alt": "Single MRI image displayed by the notebook"
+    },
+    {
+      "url": "/uploads/alzheimers/notebook-output-4.png",
+      "alt": "CNN model architecture exported from the notebook"
+    }
   ],
   "pageSections": [
     {
@@ -94,11 +137,31 @@
       "eyebrow": "Experiment at a glance",
       "title": "The recorded workflow spans data scale, architecture scale, and measured improvement",
       "items": [
-        { "value": "6,400", "label": "MRI image files", "context": "The committed loader output discovers 100 full batches of 64 across four folder-defined classes." },
-        { "value": "4", "label": "Severity categories", "context": "NonDemented, VeryMildDemented, MildDemented, and ModerateDemented." },
-        { "value": "5,120 / 640 / 640", "label": "Recorded image partition", "context": "Eighty training batches, ten validation batches, and ten held-out test batches in the saved run." },
-        { "value": "2.11M / 491K", "label": "Compared model scales", "context": "Trainable-parameter counts retained for the main six-block CNN and a compact saved variant." },
-        { "value": "78% → 85%", "label": "Companion experiment accuracy", "context": "A seven-percentage-point improvement after combining CNN probability outputs." }
+        {
+          "value": "6,400",
+          "label": "MRI image files",
+          "context": "The committed loader output discovers 100 full batches of 64 across four folder-defined classes."
+        },
+        {
+          "value": "4",
+          "label": "Severity categories",
+          "context": "NonDemented, VeryMildDemented, MildDemented, and ModerateDemented."
+        },
+        {
+          "value": "5,120 / 640 / 640",
+          "label": "Recorded image partition",
+          "context": "Eighty training batches, ten validation batches, and ten held-out test batches in the saved run."
+        },
+        {
+          "value": "2.11M / 491K",
+          "label": "Compared model scales",
+          "context": "Trainable-parameter counts retained for the main six-block CNN and a compact saved variant."
+        },
+        {
+          "value": "78% → 85%",
+          "label": "Companion experiment accuracy",
+          "context": "A seven-percentage-point improvement after combining CNN probability outputs."
+        }
       ]
     },
     {
@@ -106,12 +169,36 @@
       "eyebrow": "End-to-end experiment",
       "title": "Every stage produces an inspectable artifact for the next decision",
       "items": [
-        { "label": "Inspect", "title": "Verify labels, shapes, and visible image characteristics", "body": "Discover the folder hierarchy, print the four-class order and tensor shape, render a labeled 12-scan montage, and sample the proportion of black background pixels." },
-        { "label": "Partition", "title": "Create repeatable training, validation, and test streams", "body": "Split the 100 batches into an 80/10/10 workflow and apply cache, shuffle, and AUTOTUNE prefetching so input preparation overlaps model execution." },
-        { "label": "Transform", "title": "Standardize scans and generate training variation", "body": "Resize to 256×256, rescale values by 1/255, and apply flips, rotation, width and height shifts, and zoom only to the training stream." },
-        { "label": "Model", "title": "Train and reload independently saved CNNs", "body": "Build the primary six-block network, inspect its architecture, save checkpoints, and load compact and alternative variants for a common classification task." },
-        { "label": "Combine", "title": "Fuse full probability vectors", "body": "Compose two- and three-model Keras graphs that average four-class softmax outputs before the final class selection." },
-        { "label": "Review", "title": "Compare outcomes at dataset and image level", "body": "Evaluate the graphs on the held-out stream and use 3×3 grids to place actual class, predicted class, and confidence directly above each MRI." }
+        {
+          "label": "Inspect",
+          "title": "Verify labels, shapes, and visible image characteristics",
+          "body": "Discover the folder hierarchy, print the four-class order and tensor shape, render a labeled 12-scan montage, and sample the proportion of black background pixels."
+        },
+        {
+          "label": "Partition",
+          "title": "Create repeatable training, validation, and test streams",
+          "body": "Split the 100 batches into an 80/10/10 workflow and apply cache, shuffle, and AUTOTUNE prefetching so input preparation overlaps model execution."
+        },
+        {
+          "label": "Transform",
+          "title": "Standardize scans and generate training variation",
+          "body": "Resize to 256×256, rescale values by 1/255, and apply flips, rotation, width and height shifts, and zoom only to the training stream."
+        },
+        {
+          "label": "Model",
+          "title": "Train and reload independently saved CNNs",
+          "body": "Build the primary six-block network, inspect its architecture, save checkpoints, and load compact and alternative variants for a common classification task."
+        },
+        {
+          "label": "Combine",
+          "title": "Fuse full probability vectors",
+          "body": "Compose two- and three-model Keras graphs that average four-class softmax outputs before the final class selection."
+        },
+        {
+          "label": "Review",
+          "title": "Compare outcomes at dataset and image level",
+          "body": "Evaluate the graphs on the held-out stream and use 3×3 grids to place actual class, predicted class, and confidence directly above each MRI."
+        }
       ]
     },
     {
@@ -143,10 +230,26 @@
       "eyebrow": "Architecture comparison",
       "title": "Model diversity is made concrete through scale, checkpoints, and shared evaluation",
       "items": [
-        { "label": "Primary CNN", "title": "2,114,756 trainable parameters", "body": "Six convolutional blocks progress through 64, 64, 128, 256, 256, and 256 filters, each followed by 2×2 max pooling, then 30% dropout and a 512-unit dense representation." },
-        { "label": "Compact checkpoint", "title": "491,524 trainable parameters", "body": "A separately saved six-block network uses 32, 64, 64, 128, 128, and 128 filters with a 128-unit dense layer, providing a materially different scale for comparison and fusion." },
-        { "label": "Common task", "title": "One four-class input and evaluation contract", "body": "Each model receives the same 256×256×3 input shape, produces a four-value softmax vector, and can be evaluated through the same sparse-cross-entropy and accuracy workflow." },
-        { "label": "Reusable inference", "title": "Class and confidence remain inspectable", "body": "A shared helper converts raw predictions into the class name and maximum softmax confidence used by both individual models and ensembles." }
+        {
+          "label": "Primary CNN",
+          "title": "2,114,756 trainable parameters",
+          "body": "Six convolutional blocks progress through 64, 64, 128, 256, 256, and 256 filters, each followed by 2×2 max pooling, then 30% dropout and a 512-unit dense representation."
+        },
+        {
+          "label": "Compact checkpoint",
+          "title": "491,524 trainable parameters",
+          "body": "A separately saved six-block network uses 32, 64, 64, 128, 128, and 128 filters with a 128-unit dense layer, providing a materially different scale for comparison and fusion."
+        },
+        {
+          "label": "Common task",
+          "title": "One four-class input and evaluation contract",
+          "body": "Each model receives the same 256×256×3 input shape, produces a four-value softmax vector, and can be evaluated through the same sparse-cross-entropy and accuracy workflow."
+        },
+        {
+          "label": "Reusable inference",
+          "title": "Class and confidence remain inspectable",
+          "body": "A shared helper converts raw predictions into the class name and maximum softmax confidence used by both individual models and ensembles."
+        }
       ]
     },
     {
@@ -161,10 +264,26 @@
       "title": "Predictions remain tied to the scans that produced them",
       "description": "The analysis supplements aggregate accuracy with image-level review of the model's decision and confidence.",
       "items": [
-        { "label": "Actual", "title": "Folder label above each scan", "body": "Each 3×3 review grid starts with the recorded category so the investigator can see the target alongside the anatomy." },
-        { "label": "Predicted", "title": "Model or ensemble decision", "body": "The same grid shows the selected category for an individual checkpoint or the three-model ensemble." },
-        { "label": "Confidence", "title": "Maximum softmax probability", "body": "The displayed score distinguishes tentative errors from confidently incorrect decisions and helps prioritize qualitative review." },
-        { "label": "Shared tool", "title": "One helper across model variants", "body": "The inference function accepts a single model or ensemble graph, keeping the review procedure consistent as the experiment changes." }
+        {
+          "label": "Actual",
+          "title": "Folder label above each scan",
+          "body": "Each 3×3 review grid starts with the recorded category so the investigator can see the target alongside the anatomy."
+        },
+        {
+          "label": "Predicted",
+          "title": "Model or ensemble decision",
+          "body": "The same grid shows the selected category for an individual checkpoint or the three-model ensemble."
+        },
+        {
+          "label": "Confidence",
+          "title": "Maximum softmax probability",
+          "body": "The displayed score distinguishes tentative errors from confidently incorrect decisions and helps prioritize qualitative review."
+        },
+        {
+          "label": "Shared tool",
+          "title": "One helper across model variants",
+          "body": "The inference function accepts a single model or ensemble graph, keeping the review procedure consistent as the experiment changes."
+        }
       ]
     },
     {
@@ -178,12 +297,36 @@
       "eyebrow": "Research methodology",
       "title": "The experiment grows in controlled steps from data inspection to model consensus",
       "items": [
-        { "label": "Observe", "title": "Begin with the data distribution and image content", "body": "Count files, verify class order and batch shape, view real samples, and inspect background occupancy before selecting transformations." },
-        { "label": "Control", "title": "Keep training variation separate from evaluation", "body": "Apply augmentation to the training stream and retain dedicated validation and test partitions for comparison." },
-        { "label": "Establish", "title": "Train and inspect a convolutional baseline", "body": "Record architecture, parameter count, learning curves, evaluation calls, and sample predictions in the same executable document." },
-        { "label": "Diversify", "title": "Reload models with meaningfully different capacities", "body": "Use separately trained saved variants as independent probability estimators with distinct capacities and decision boundaries." },
-        { "label": "Fuse", "title": "Compare equal and weighted probability combinations", "body": "Evaluate two-model and three-model averages, then prototype a weighted layer for the next controlled comparison." },
-        { "label": "Interpret", "title": "Return aggregate results to individual images", "body": "Review actual label, predicted label, and confidence together to identify the scans behind correct and incorrect decisions." }
+        {
+          "label": "Observe",
+          "title": "Begin with the data distribution and image content",
+          "body": "Count files, verify class order and batch shape, view real samples, and inspect background occupancy before selecting transformations."
+        },
+        {
+          "label": "Control",
+          "title": "Keep training variation separate from evaluation",
+          "body": "Apply augmentation to the training stream and retain dedicated validation and test partitions for comparison."
+        },
+        {
+          "label": "Establish",
+          "title": "Train and inspect a convolutional baseline",
+          "body": "Record architecture, parameter count, learning curves, evaluation calls, and sample predictions in the same executable document."
+        },
+        {
+          "label": "Diversify",
+          "title": "Reload models with meaningfully different capacities",
+          "body": "Use separately trained saved variants as independent probability estimators with distinct capacities and decision boundaries."
+        },
+        {
+          "label": "Fuse",
+          "title": "Compare equal and weighted probability combinations",
+          "body": "Evaluate two-model and three-model averages, then prototype a weighted layer for the next controlled comparison."
+        },
+        {
+          "label": "Interpret",
+          "title": "Return aggregate results to individual images",
+          "body": "Review actual label, predicted label, and confidence together to identify the scans behind correct and incorrect decisions."
+        }
       ]
     },
     {
@@ -191,10 +334,26 @@
       "eyebrow": "Impact",
       "title": "The work turns a collection of familiar ML operations into a coherent, reusable research system",
       "items": [
-        { "label": "Applied ML researchers", "title": "A modifiable four-class imaging workflow", "body": "The notebook connects storage, labels, batching, augmentation, deep CNNs, checkpoints, inference, evaluation, and ensembling in executable order." },
-        { "label": "Research teams", "title": "Faster comparison of trained variants", "body": "Common input and evaluation contracts make checkpoints composable and reduce repeated loading, scoring, and manual result assembly." },
-        { "label": "Reviewers and students", "title": "Visible reasoning across the experiment", "body": "Retained examples, tensor shapes, summaries, architecture rendering, prediction helpers, and fusion graphs show how each result is produced." },
-        { "label": "Future medical-imaging studies", "title": "A concrete foundation for deeper validation", "body": "The workflow supplies the experimental scaffolding needed to add subject-aware splits, class-wise metrics, calibration, scanner-diverse data, and external validation." }
+        {
+          "label": "Applied ML researchers",
+          "title": "A modifiable four-class imaging workflow",
+          "body": "The notebook connects storage, labels, batching, augmentation, deep CNNs, checkpoints, inference, evaluation, and ensembling in executable order."
+        },
+        {
+          "label": "Research teams",
+          "title": "Faster comparison of trained variants",
+          "body": "Common input and evaluation contracts make checkpoints composable and reduce repeated loading, scoring, and manual result assembly."
+        },
+        {
+          "label": "Reviewers and students",
+          "title": "Visible reasoning across the experiment",
+          "body": "Retained examples, tensor shapes, summaries, architecture rendering, prediction helpers, and fusion graphs show how each result is produced."
+        },
+        {
+          "label": "Future medical-imaging studies",
+          "title": "A concrete foundation for deeper validation",
+          "body": "The workflow supplies the experimental scaffolding needed to add subject-aware splits, class-wise metrics, calibration, scanner-diverse data, and external validation."
+        }
       ]
     },
     {
@@ -220,10 +379,18 @@
     "sourceReadmePath": "README.md",
     "importedReadmeMarkdown": "",
     "repoTopics": [
-      { "value": "medical-imaging" },
-      { "value": "alzheimers" },
-      { "value": "tensorflow" },
-      { "value": "ensemble-learning" }
+      {
+        "value": "medical-imaging"
+      },
+      {
+        "value": "alzheimers"
+      },
+      {
+        "value": "tensorflow"
+      },
+      {
+        "value": "ensemble-learning"
+      }
     ]
   }
 }

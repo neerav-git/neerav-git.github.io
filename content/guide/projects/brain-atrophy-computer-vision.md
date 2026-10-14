@@ -24,7 +24,7 @@ metricIds:
 
 ## In plain terms
 
-This peer-reviewed IEEE study gives researchers a simple, transparent way to measure brain tissue loss in dementia from MRI scans. Neerav built the image-analysis pipeline that separates each scan into dark open space and visible brain tissue, turns those areas into one score, and compares it against reference ranges drawn from 2,198 ADNI scans of people with and without dementia. Anyone can recompute the score from the scan, so it is easy to check, teach, and reproduce.
+This peer-reviewed IEEE computer vision study gives researchers a simple, transparent way to measure brain tissue loss in dementia from MRI scans. Neerav built the Python and OpenCV computer vision pipeline that separates each scan into dark open space and visible brain tissue, turns those areas into one score, and compares it against reference ranges drawn from 2,198 ADNI scans of people with and without dementia. Anyone can recompute the score from the scan, so it is easy to check, teach, and reproduce.
 
 The study also showed where to look: focusing the analysis on the hippocampus, a region strongly affected in dementia, raised classification accuracy from 66 to 71 percent. Neerav co-authored the paper with Sourabh Singh Verma, and the measurement pipeline and analysis are his work.
 
