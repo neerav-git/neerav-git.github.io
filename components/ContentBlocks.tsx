@@ -1,29 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
+import { getBlockAnchor } from '@/lib/blockAnchors'
 import type { ContentBlock, ContentItem, MetricItem } from '@/lib/types'
 
 import { ArtifactList } from '@/components/ArtifactList'
 import { MarkdownArticle } from '@/components/MarkdownArticle'
 
+export { getBlockAnchor }
+
 type ContentBlocksProps = {
   blocks?: ContentBlock[] | null
-}
-
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-}
-
-export function getBlockAnchor(block: ContentBlock, index: number) {
-  const title = typeof block.title === 'string' ? block.title.trim() : ''
-  if (!title) {
-    return `section-${index + 1}`
-  }
-
-  return `${slugify(title) || `section-${index + 1}`}-${index + 1}`
 }
 
 function asContentItem(item: MetricItem | ContentItem) {

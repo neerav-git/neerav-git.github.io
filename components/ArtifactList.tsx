@@ -3,11 +3,12 @@ import type { AttachmentItem, LinkItem } from '@/lib/types'
 
 type ArtifactListProps = {
   attachments?: AttachmentItem[] | null
+  id?: string
   links?: LinkItem[] | null
   title?: string
 }
 
-export function ArtifactList({ attachments, links, title = 'Resources' }: ArtifactListProps) {
+export function ArtifactList({ attachments, id, links, title = 'Resources' }: ArtifactListProps) {
   const hasAttachments = Boolean(attachments?.length)
   const hasLinks = Boolean(links?.length)
 
@@ -20,7 +21,7 @@ export function ArtifactList({ attachments, links, title = 'Resources' }: Artifa
   }
 
   return (
-    <section className="resource-panel">
+    <section className="resource-panel" id={id}>
       <div className="panel-eyebrow">{title}</div>
       <div className="resource-list">
         {attachments?.map((attachment, index) => {

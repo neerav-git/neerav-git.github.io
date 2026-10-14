@@ -12,3 +12,6 @@ portfolio.db-wal
 media
 documents
 tmp/
+.env.local
+public/guide/knowledge.json
+public/guide/targets.json

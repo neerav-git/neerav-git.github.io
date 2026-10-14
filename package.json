@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run audit:copy && node scripts/sync-github.mjs",
+    "prebuild": "npm run audit:copy && node scripts/sync-github.mjs && npm run guide:knowledge",
     "build": "next build",
     "audit:copy": "node scripts/audit-copy.mjs",
     "start": "next start",
     "lint": "next lint",
-    "sync:github": "node scripts/sync-github.mjs"
+    "sync:github": "node scripts/sync-github.mjs",
+    "predev": "npm run guide:knowledge",
+    "guide:knowledge": "tsx scripts/build-guide-knowledge.ts"
   },
   "dependencies": {
     "next": "15.4.11",
@@ -28,6 +30,7 @@
     "eslint": "^9.29.0",
     "eslint-config-next": "15.4.11",
     "tsx": "^4.20.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "unpdf": "^1.8.1"
   }
 }

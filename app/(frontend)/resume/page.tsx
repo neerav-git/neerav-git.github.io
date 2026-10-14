@@ -39,7 +39,7 @@ export default async function ResumePage() {
 
       <div className="resume-grid">
         <EditableRegion editHref={primaryResume ? adminLinks.recommendations(primaryResume.slug) : adminLinks.resumePage} editLabel="resume record">
-          <section className="content-section resume-card">
+          <section className="content-section resume-card" id="resume-pdf">
             <div className="panel-eyebrow">Professional record</div>
             <h2>Resume PDF</h2>
             <p className="section-summary">
@@ -89,7 +89,7 @@ export default async function ResumePage() {
       </div>
 
       <EditableRegion editHref="/admin/#/collections/recommendations" editLabel="reference materials">
-        <section className="content-section reference-section">
+        <section className="content-section reference-section" id="references">
           <div className="section-heading">
             <div className="panel-eyebrow">References</div>
             <h2>References</h2>

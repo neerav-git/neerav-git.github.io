@@ -1,0 +1,5 @@
+# Copy to .dev.vars for `npm run dev`. Leave ANTHROPIC_API_KEY unset (or GUIDE_MOCK=1) to use scripted replies.
+ALLOWED_ORIGINS=http://localhost:3000
+KNOWLEDGE_URL=http://localhost:3000/guide/knowledge.json
+GUIDE_MOCK=1
+# ANTHROPIC_API_KEY=sk-ant-...

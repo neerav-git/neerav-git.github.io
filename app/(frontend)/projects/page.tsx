@@ -17,7 +17,7 @@ function ProjectIndexCard({ project }: { project: ProjectRecord }) {
       editLabel={project.title || 'project'}
       mode="card"
     >
-      <Link className="case-index-card-link" href={`/projects/${project.slug}`}>
+      <Link className="case-index-card-link" href={`/projects/${project.slug}`} id={`case-${project.slug}`}>
         {project.coverImage && getUploadUrl(project.coverImage) ? (
           <div className="case-index-media">
             <img alt={getUploadAlt(project.coverImage)} src={getUploadUrl(project.coverImage) || ''} />

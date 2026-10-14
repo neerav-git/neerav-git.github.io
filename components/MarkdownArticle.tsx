@@ -4,16 +4,17 @@ import remarkGfm from 'remark-gfm'
 
 type MarkdownArticleProps = {
   className?: string
+  id?: string
   markdown?: string | null
 }
 
-export function MarkdownArticle({ className, markdown }: MarkdownArticleProps) {
+export function MarkdownArticle({ className, id, markdown }: MarkdownArticleProps) {
   if (!markdown) {
     return null
   }
 
   return (
-    <div className={['markdown-body', className || ''].join(' ').trim()}>
+    <div className={['markdown-body', className || ''].join(' ').trim()} id={id}>
       <ReactMarkdown
         components={{
           a: ({ children, href }) => (

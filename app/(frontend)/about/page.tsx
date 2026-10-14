@@ -23,8 +23,8 @@ export default async function AboutPage() {
 
         <div className="about-grid">
           <div className="about-column">
-            <MarkdownArticle markdown={about.biographyMarkdown} />
-            <MarkdownArticle markdown={about.currentFocusMarkdown} />
+            <MarkdownArticle id="biography" markdown={about.biographyMarkdown} />
+            <MarkdownArticle id="current-focus" markdown={about.currentFocusMarkdown} />
             <div className="about-actions">
               <Link className="secondary-button" href="/resume/">
                 Resume

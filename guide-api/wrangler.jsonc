@@ -1,0 +1,20 @@
+{
+  // Portfolio guide API: holds the Anthropic key, validates every navigation target, and caps spend.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio-guide-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-28",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "ALLOWED_ORIGINS": "https://neerav-git.github.io",
+    "KNOWLEDGE_URL": "https://neerav-git.github.io/guide/knowledge.json",
+    "MODEL": "claude-haiku-5-5",
+    "DAILY_BUDGET_USD": "1.00",
+    "RATE_LIMIT_PER_10_MIN": "20"
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "GUARD", "class_name": "Guard" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Guard"] }],
+  "observability": { "enabled": true }
+}

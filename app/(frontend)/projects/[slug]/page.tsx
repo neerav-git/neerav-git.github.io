@@ -42,7 +42,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   return (
     <EditableRegion editHref={adminLinks.project(project.slug)} editLabel={project.title || 'project'}>
       <article className="detail-page detail-entry">
-        <div className="detail-overview">
+        <div className="detail-overview" id="overview">
           <div className="detail-header detail-mast">
             <div className="panel-eyebrow">
               {project.cardEyebrow || 'Project'} {project.dateLabel ? `· ${project.dateLabel}` : ''}
@@ -82,7 +82,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <ContentBlocks blocks={normalizedMedia.blocks} />
 
         {gallery.length ? (
-          <section className="gallery-grid">
+          <section className="gallery-grid" id="gallery">
             {gallery.map((image, index) =>
               getUploadUrl(image) ? (
                 <div className="gallery-card" key={`${image.url || 'image'}-${index}`}>
@@ -93,7 +93,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </section>
         ) : null}
 
-        <ArtifactList attachments={project.attachments} links={project.links} title="Project links" />
+        <ArtifactList attachments={project.attachments} id="project-links" links={project.links} title="Project links" />
 
         {repoTopics.length ? (
           <section className="detail-topics">

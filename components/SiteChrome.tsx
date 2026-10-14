@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 
 import { EditModeControls } from '@/components/EditModeControls'
 import { EditableRegion } from '@/components/EditableRegion'
+import { PortfolioGuide } from '@/components/PortfolioGuide'
 import { PrimaryNavigation } from '@/components/PrimaryNavigation'
 import { adminLinks } from '@/lib/admin'
 import type { SiteSettings } from '@/lib/types'
@@ -13,6 +14,8 @@ type SiteChromeProps = {
 }
 
 export function SiteChrome({ children, settings }: SiteChromeProps) {
+  // The guide only appears once its API is deployed and the URL is set at build time.
+  const guideApiUrl = process.env.NEXT_PUBLIC_GUIDE_API_URL
   const navigation = settings?.navigation || {}
   const socialLinks = Array.isArray(settings?.socialLinks) ? settings.socialLinks : []
 
@@ -70,6 +73,8 @@ export function SiteChrome({ children, settings }: SiteChromeProps) {
           </div>
         </footer>
       </EditableRegion>
+
+      {guideApiUrl ? <PortfolioGuide apiUrl={guideApiUrl} /> : null}
     </div>
   )
 }
