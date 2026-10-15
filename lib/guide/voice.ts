@@ -16,6 +16,23 @@ const ROOM = 0.06
 /** With no word from the worker for this long, loading has stalled (seen with some GPU drivers); retry on WASM. */
 const STALL_MS = 25_000
 
+const CV_RESUME_BEFORE = /(?:\b(?:a|the|his|her|my|your|our|their)\s+|\b(?:open|view|read|download|see|share|send|review|update)\s+|\bNeerav's\s+)$/i
+const CV_RESUME_AFTER = /^\s+(?:PDF|page|button|link|download|document|summary|section)\b/i
+
+/**
+ * Give Kokoro the accented spelling only when "resume" clearly names the CV document.
+ * The displayed answer stays untouched, and verb uses such as "resume the tour" keep their pronunciation.
+ */
+export function textForSpeech(text: string) {
+  return text.replace(/\bresume\b/gi, (word, offset: number, source: string) => {
+    const before = source.slice(Math.max(0, offset - 48), offset)
+    const after = source.slice(offset + word.length, offset + word.length + 32)
+    if (!CV_RESUME_BEFORE.test(before) && !CV_RESUME_AFTER.test(after)) return word
+    if (word === word.toUpperCase()) return 'RÉSUMÉ'
+    return word[0] === word[0].toUpperCase() ? 'Résumé' : 'résumé'
+  })
+}
+
 type Synthesized = { samples: Float32Array; sampleRate: number } | null
 
 function impulse(context: AudioContext, seconds = 1.6, decay = 3.2) {
@@ -210,7 +227,7 @@ export class GuideVoice {
     const id = this.nextId++
     return new Promise((resolve) => {
       this.pending.set(id, resolve)
-      this.worker!.postMessage({ type: 'speak', id, text })
+      this.worker!.postMessage({ type: 'speak', id, text: textForSpeech(text) })
     })
   }
 

@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 import { actionsOf, ask, expectGoodAnswer, inViewport, lastAnswer, openGuide, panel, recordReplies, replyTo, textOf } from './guide-helpers'
+import { textForSpeech } from '../lib/guide/voice'
 
 test.describe('portfolio guide: visual flow and answers', () => {
   test('the mic waits for the voice, then turns on', async ({ page }) => {
@@ -65,6 +66,12 @@ test.describe('portfolio guide: visual flow and answers', () => {
   })
 
   test('a spoken question shows as understood and is read aloud in step with the text', async ({ page }) => {
+    // Only the CV noun receives a pronunciation hint; continue/resume language must stay unchanged.
+    expect(textForSpeech("Here is Neerav's resume, with the PDF.")).toBe("Here is Neerav's résumé, with the PDF.")
+    expect(textForSpeech('Open the Resume PDF.')).toBe('Open the Résumé PDF.')
+    expect(textForSpeech('Resume the tour where you left off.')).toBe('Resume the tour where you left off.')
+    expect(textForSpeech('You can resume after this section.')).toBe('You can resume after this section.')
+
     await page.addInitScript(() => {
       // A scripted recognizer that mishears the name, as browsers do; everything after it runs for real.
       class FakeRecognition {
