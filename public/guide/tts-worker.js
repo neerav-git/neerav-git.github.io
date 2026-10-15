@@ -1,6 +1,6 @@
 // Portfolio guide voice: Kokoro-82M in a module worker, so synthesis never blocks scrolling or highlights.
 // Chosen settings: voice af_heart, WebGPU fp32; devices without WebGPU fall back to WASM q8 with the same voice.
-import { KokoroTTS } from 'https://cdn.jsdelivr.net/npm/kokoro-js@1.2.1/dist/kokoro.web.js'
+import { KokoroTTS } from '/guide/vendor/kokoro.web-1.2.1.js'
 
 const MODEL_ID = 'onnx-community/Kokoro-82M-v1.0-ONNX'
 const VOICE = 'af_heart'
@@ -10,6 +10,14 @@ let loading = false
 let queue = Promise.resolve()
 // Bumped when the page stops speaking; queued sentences from before it are skipped.
 let epoch = 0
+
+function failureCode(error) {
+  const message = String(error?.message || error || '').toLowerCase()
+  if (/out of memory|allocation|memory limit/.test(message)) return 'model_memory'
+  if (/webgpu|gpu|adapter|device lost/.test(message)) return 'webgpu_unavailable'
+  if (/network|failed to fetch|load failed|fetch/.test(message)) return 'model_download'
+  return 'model_load'
+}
 
 async function hasWebGPU() {
   try {
@@ -37,6 +45,7 @@ async function load(forced) {
       ? [{ device: 'webgpu', dtype: 'fp32' }, { device: 'wasm', dtype: 'q8' }]
       : [{ device: 'wasm', dtype: 'q8' }]
 
+  let lastFailure = 'model_load'
   for (const attempt of attempts) {
     try {
       self.postMessage({ type: 'stage', stage: 'downloading', ...attempt })
@@ -48,10 +57,12 @@ async function load(forced) {
       return
     } catch (error) {
       tts = null
+      lastFailure = failureCode(error)
+      self.postMessage({ type: 'attempt-failed', ...attempt, code: lastFailure })
       console.warn(`[guide voice] ${attempt.device}/${attempt.dtype} failed`, error)
     }
   }
-  self.postMessage({ type: 'failed' })
+  self.postMessage({ type: 'failed', code: lastFailure })
 }
 
 self.onmessage = ({ data }) => {
@@ -71,7 +82,7 @@ self.onmessage = ({ data }) => {
     const ticket = epoch
     queue = queue.then(async () => {
       if (ticket !== epoch) {
-        self.postMessage({ type: 'audio-error', id: data.id, message: 'cancelled' })
+        self.postMessage({ type: 'audio-error', id: data.id, code: 'cancelled' })
         return
       }
       try {
@@ -79,7 +90,7 @@ self.onmessage = ({ data }) => {
         const samples = audio.audio
         self.postMessage({ type: 'audio', id: data.id, samples, sampleRate: audio.sampling_rate }, [samples.buffer])
       } catch (error) {
-        self.postMessage({ type: 'audio-error', id: data.id, message: String(error?.message || error) })
+        self.postMessage({ type: 'audio-error', id: data.id, code: 'synthesis_failed' })
       }
     })
   }

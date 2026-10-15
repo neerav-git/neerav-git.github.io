@@ -3497,6 +3497,19 @@ body::before {
   color: var(--muted);
 }
 
+.guide-error-actions {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.guide-error-actions small {
+  color: var(--muted);
+  font: 500 10px var(--font-mono), monospace;
+  letter-spacing: 0.04em;
+}
+
 .guide-step-label {
   color: var(--accent);
   font: 500 11px var(--font-mono), monospace;

@@ -7,6 +7,7 @@ import { GuideRequestError, streamGuideTurn, type GuideAction, type GuideTurn } 
 import { clearHighlights, focusTarget, followAnswer, loadRegistry, type GuideRegistry } from '@/lib/guide/layer'
 import { playEarcon, shareEarconContext } from '@/lib/guide/earcons'
 import { canListen, listenOnce, prepareListening, type Listening, type ListenPhase } from '@/lib/guide/listen'
+import { postGuideTelemetry, type ClientFailureStage } from '@/lib/guide/telemetry'
 import { GuideVoice, SentenceBuffer, sentencesOf, type VoiceState } from '@/lib/guide/voice'
 
 type Turn = {
@@ -17,6 +18,9 @@ type Turn = {
   shown?: string[]
   step?: { index: number; total: number; name: string }
   error?: boolean
+  errorCode?: string
+  requestId?: string
+  retry?: { text: string; byVoice: boolean }
   /** While spoken answers are on, only this many characters are visible: text appears as it is spoken. */
   revealed?: number
   /** A guided-tour card: the stops in order and how the tour works. */
@@ -51,6 +55,12 @@ const ERROR_COPY: Record<string, string> = {
   off_topic_limit: "The guide only answers questions about Neerav's portfolio, so it's paused for you today.",
   origin_not_allowed: 'The guide is not available on this address.',
   knowledge_unavailable: "The guide can't load the portfolio right now. Please try again shortly.",
+  provider_rate_limited: 'The guide is busy right now. Please try again in a moment.',
+  provider_unavailable: 'The guide service had a temporary problem. Please try again.',
+  provider_connection: 'The guide lost its connection while answering. Please try again.',
+  response_failed: 'The guide could not complete that answer.',
+  invalid_stream: 'The answer was interrupted in transit. Please try again.',
+  network: "I couldn't reach the guide. Check your connection and try again.",
 }
 
 let turnIds = 0
@@ -116,7 +126,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
   const [status, setStatus] = useState<Status>('idle')
   const [input, setInput] = useState('')
   const [interim, setInterim] = useState('')
-  const [voiceState, setVoiceState] = useState<VoiceState>({ status: 'off', progress: 0, stage: null, device: null, speaking: false })
+  const [voiceState, setVoiceState] = useState<VoiceState>({ status: 'off', progress: 0, stage: null, device: null, speaking: false, fallback: null, failure: null })
   const [listenPhase, setListenPhase] = useState<ListenPhase>('starting')
   const [notice, setNotice] = useState('')
   const [preparing, setPreparing] = useState(false)
@@ -136,6 +146,8 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
   const turnsRef = useRef<Turn[]>([])
   const logRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLTextAreaElement | null>(null)
+  const voiceLoadStartedRef = useRef<number | null>(null)
+  const voiceFailureReportedRef = useRef(0)
 
   turnsRef.current = turns
 
@@ -145,6 +157,36 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
   }, [])
 
   useEffect(() => voice().subscribe(setVoiceState), [voice])
+  useEffect(() => {
+    if (open) postGuideTelemetry(apiUrl, { event: 'guide_opened' })
+  }, [apiUrl, open])
+  useEffect(() => {
+    if (voiceState.stage && voiceLoadStartedRef.current === null) voiceLoadStartedRef.current = performance.now()
+    const started = voiceLoadStartedRef.current
+    if (started === null || (!voiceState.device && voiceState.status !== 'failed')) return
+    postGuideTelemetry(apiUrl, {
+      event: 'voice_load',
+      elapsedMs: performance.now() - started,
+      voice: {
+        status: voiceState.status === 'failed' ? 'failed' : voiceState.fallback ? 'fallback' : 'ready',
+        device: voiceState.device || undefined,
+        fallbackFrom: voiceState.fallback?.from,
+      },
+      ...(voiceState.failure ? { error: { stage: 'speech' as const, code: voiceState.failure.code, retryable: false } } : {}),
+    })
+    voiceLoadStartedRef.current = null
+  }, [apiUrl, voiceState.device, voiceState.failure, voiceState.fallback, voiceState.stage, voiceState.status])
+  useEffect(() => {
+    const failure = voiceState.failure
+    if (!failure || failure.at === voiceFailureReportedRef.current) return
+    voiceFailureReportedRef.current = failure.at
+    postGuideTelemetry(apiUrl, {
+      event: 'voice_failure',
+      voice: { status: 'failed', device: voiceState.device || undefined, fallbackFrom: voiceState.fallback?.from },
+      error: { stage: 'speech', code: failure.code, retryable: failure.stage === 'synthesis' },
+    })
+    if (failure.stage === 'synthesis') setNotice("The spoken answer couldn't be prepared. The full answer is still available as text.")
+  }, [apiUrl, voiceState.device, voiceState.failure, voiceState.fallback])
   // Without WebGPU the voice is generated more slowly than it plays, so text leads; say so once.
   useEffect(() => {
     if (voiceState.status !== 'ready' || !voiceState.device?.startsWith('wasm') || slowNoticeShownRef.current) return
@@ -285,7 +327,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
   )
 
   const send = useCallback(
-    async (raw: string, byVoice = false) => {
+    async (raw: string, byVoice = false, retryOf?: number) => {
       const text = raw.trim()
       if (!text) return
       stopEverything()
@@ -299,21 +341,33 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       const synced = voice().keepsPace
       const userTurn: Turn = { id: ++turnIds, role: 'user', text }
       const reply: Turn = { id: ++turnIds, role: 'assistant', text: '', revealed: synced ? 0 : undefined }
-      const history = historyFor([...turnsRef.current, userTurn], registryRef.current)
-      setTurns((current) => [...current, userTurn, reply])
+      const retained = retryOf
+        ? turnsRef.current.filter((turn, index, current) => turn.id !== retryOf && !(current[index + 1]?.id === retryOf && turn.role === 'user'))
+        : turnsRef.current
+      const history = historyFor([...retained, userTurn], registryRef.current)
+      setTurns([...retained, userTurn, reply])
       setStatus('thinking')
 
       const controller = new AbortController()
       abortRef.current = controller
+      const startedAt = performance.now()
       const sentences = new SentenceBuffer()
       const queuedSpeech: { sentence: string; end: number }[] = []
       let full = ''
       let searchFrom = 0
+      let requestId: string | null = null
+      let firstTextMs: number | undefined
+      let firstAudioReported = false
+      let turnErrorReported = false
       // Each sentence becomes visible when it starts playing, so reading and listening stay together.
       const speakSentence = (sentence: string, end: number) => {
         if (!sentence.trim()) return
         setPreparing(true)
-        void voice().speak(sentence, () => {
+        void voice().speak(sentence, (audible) => {
+          if (audible && !firstAudioReported) {
+            firstAudioReported = true
+            postGuideTelemetry(apiUrl, { event: 'first_audio', requestId: requestId || undefined, elapsedMs: performance.now() - startedAt })
+          }
           setPreparing(false)
           updateTurn(reply.id, (turn) => (turn.revealed === undefined ? turn : { ...turn, revealed: Math.max(turn.revealed, end) }))
           followAnswer(sentence)
@@ -351,24 +405,54 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       }
 
       try {
-        await streamGuideTurn(
+        const completedRequestId = await streamGuideTurn(
           apiUrl,
           { messages: history, route: window.location.pathname, spoken: byVoice },
           (event) => {
-            if (event.t === 'heard') {
+            if (event.t === 'meta') {
+              requestId = event.requestId
+            } else if (event.t === 'heard') {
               if (byVoice) updateTurn(userTurn.id, (turn) => ({ ...turn, text: event.d }))
             } else if (event.t === 'text') {
+              firstTextMs ??= performance.now() - startedAt
               full += event.d
               updateTurn(reply.id, (turn) => ({ ...turn, text: turn.text + event.d }))
               if (spoken) speakAll(sentences.push(event.d))
             } else if (event.t === 'action') {
               applyAction(event.action)
             } else if (event.t === 'error') {
-              updateTurn(reply.id, (turn) => ({ ...turn, text: turn.text ? `${turn.text}\n${event.message}` : event.message, error: !turn.text, revealed: undefined }))
+              requestId = event.requestId || requestId
+              turnErrorReported = true
+              const stage = (event.stage || 'response') as ClientFailureStage
+              updateTurn(reply.id, (turn) => ({
+                ...turn,
+                text: turn.text ? `${turn.text}\n${event.message}` : event.message,
+                error: true,
+                errorCode: event.code,
+                requestId: requestId || undefined,
+                retry: event.retryable ? { text, byVoice } : undefined,
+                revealed: undefined,
+              }))
+              postGuideTelemetry(apiUrl, {
+                event: 'turn_error',
+                requestId: requestId || undefined,
+                elapsedMs: performance.now() - startedAt,
+                firstTextMs,
+                error: { stage, code: event.code, retryable: event.retryable === true },
+              })
             }
           },
           controller.signal,
         )
+        requestId = completedRequestId || requestId
+        if (!turnErrorReported) {
+          postGuideTelemetry(apiUrl, {
+            event: 'turn_complete',
+            requestId: requestId || undefined,
+            responseMs: performance.now() - startedAt,
+            firstTextMs,
+          })
+        }
         if (spoken) {
           const rest = sentences.flush()
           if (rest) speakAll([rest])
@@ -395,12 +479,25 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       } catch (error) {
         if (controller.signal.aborted) return
         const code = error instanceof GuideRequestError ? error.code : 'network'
+        const stage: ClientFailureStage = error instanceof GuideRequestError ? error.stage : 'network'
+        const retryable = error instanceof GuideRequestError ? error.retryable : true
+        requestId = error instanceof GuideRequestError ? error.requestId : requestId
         updateTurn(reply.id, (turn) => ({
           ...turn,
           revealed: undefined,
           error: true,
-          text: ERROR_COPY[code] || "I couldn't reach the guide. Check your connection and try again.",
+          errorCode: code,
+          requestId: requestId || undefined,
+          retry: retryable ? { text, byVoice } : undefined,
+          text: ERROR_COPY[code] || ERROR_COPY.network,
         }))
+        postGuideTelemetry(apiUrl, {
+          event: 'turn_error',
+          requestId: requestId || undefined,
+          elapsedMs: performance.now() - startedAt,
+          firstTextMs,
+          error: { stage, code, retryable },
+        })
       } finally {
         if (abortRef.current === controller) abortRef.current = null
       }
@@ -638,6 +735,16 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
                 <span aria-hidden="true" className="guide-typing">…</span>
               ) : null}
             </p>
+            {turn.error && (turn.retry || turn.requestId) ? (
+              <div className="guide-error-actions">
+                {turn.retry ? (
+                  <button className="guide-chip" onClick={() => void send(turn.retry!.text, turn.retry!.byVoice, turn.id)} type="button">
+                    Try again
+                  </button>
+                ) : null}
+                {turn.requestId ? <small>Reference {turn.requestId.slice(0, 8)}</small> : null}
+              </div>
+            ) : null}
             {turn.links?.length ? (
               <div className="guide-links">
                 {turn.links.map((id) => {

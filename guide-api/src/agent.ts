@@ -5,11 +5,12 @@ import { GUIDE_RULES } from './prompt.ts'
 import { DECLINE_FALLBACK, TOOLS, TurnState, type GuideAction } from './tools.ts'
 
 export type GuideEvent =
+  | { t: 'meta'; requestId: string }
   | { t: 'text'; d: string }
   | { t: 'heard'; d: string }
   | { t: 'action'; action: GuideAction }
   | { t: 'done'; offTopic?: true }
-  | { t: 'error'; code: string; message: string }
+  | { t: 'error'; code: string; message: string; stage?: 'admission' | 'knowledge' | 'response'; requestId?: string; retryable?: boolean }
 
 export type Usage = { input: number; output: number; cacheRead: number; cacheWrite: number }
 

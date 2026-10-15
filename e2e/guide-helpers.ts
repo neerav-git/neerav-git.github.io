@@ -4,11 +4,12 @@ import path from 'node:path'
 import { expect, type Page, type TestInfo } from '@playwright/test'
 
 export type GuideEvent =
+  | { t: 'meta'; requestId: string }
   | { t: 'text'; d: string }
   | { t: 'heard'; d: string }
   | { t: 'action'; action: { type: string; target?: string; steps?: Array<{ target: string; narration: string }>; links?: string[] } }
   | { t: 'done'; offTopic?: boolean }
-  | { t: 'error'; code: string; message: string }
+  | { t: 'error'; code: string; message: string; stage?: string; requestId?: string; retryable?: boolean }
 
 export const panel = (page: Page) => page.locator('aside.guide-panel')
 export const lastAnswer = (page: Page) => page.locator('.guide-turn--assistant:not(.is-step)').last()

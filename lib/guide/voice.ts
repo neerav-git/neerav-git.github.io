@@ -6,12 +6,21 @@
 import { earconsIdle } from './earcons'
 
 export type VoiceStatus ='off' | 'loading' | 'ready' | 'failed'
+export type VoiceFailure = { stage: 'load' | 'synthesis'; code: string; at: number }
 /**
  * `speaking` is true while a reply is audibly playing, so the panel can show it and offer Stop.
  * `stage` says what loading is doing: downloading the model weights (once per browser), then warming it up.
  * `device` is set once the model has loaded, even while spoken answers are switched off.
  */
-export type VoiceState = { status: VoiceStatus; progress: number; stage: 'downloading' | 'warming' | null; device: string | null; speaking: boolean }
+export type VoiceState = {
+  status: VoiceStatus
+  progress: number
+  stage: 'downloading' | 'warming' | null
+  device: string | null
+  speaking: boolean
+  fallback: { from: string; code: string } | null
+  failure: VoiceFailure | null
+}
 
 const SENTENCE_PAUSE_S = 0.18
 const ROOM = 0.06
@@ -50,7 +59,7 @@ function impulse(context: AudioContext, seconds = 1.6, decay = 3.2) {
 }
 
 export class GuideVoice {
-  state: VoiceState = { status: 'off', progress: 0, stage: null, device: null, speaking: false }
+  state: VoiceState = { status: 'off', progress: 0, stage: null, device: null, speaking: false, fallback: null, failure: null }
   private quiet: ReturnType<typeof setTimeout> | null = null
   private listeners = new Set<(state: VoiceState) => void>()
   private worker: Worker | null = null
@@ -153,7 +162,7 @@ export class GuideVoice {
   private startWorker(device?: 'wasm') {
     this.worker?.terminate()
     this.attempt = device ?? null
-    this.set({ progress: 0, stage: 'downloading' })
+    this.set({ progress: 0, stage: 'downloading', failure: null })
     const worker = new Worker('/guide/tts-worker.js', { type: 'module' })
     this.worker = worker
     this.lastSignal = Date.now()
@@ -164,28 +173,36 @@ export class GuideVoice {
         console.info(`[guide voice] ${data.stage} ${data.device}/${data.dtype}`)
         this.attempt = data.device
         this.set({ stage: data.stage, progress: data.stage === 'warming' ? 1 : this.state.progress })
+      } else if (data.type === 'attempt-failed') {
+        this.set({ fallback: { from: `${data.device} ${data.dtype}`, code: data.code || 'model_load' } })
       } else if (data.type === 'ready') {
         console.info(`[guide voice] ready ${data.device}/${data.dtype}`)
         this.stopWatchdog()
         this.set({ status: this.state.status === 'off' ? 'off' : 'ready', progress: 1, stage: null, device: `${data.device} ${data.dtype}` })
-      } else if (data.type === 'failed') this.fail()
+      } else if (data.type === 'failed') this.fail(data.code || 'model_load')
       else if (data.type === 'audio' || data.type === 'audio-error') {
         const resolve = this.pending.get(data.id)
         this.pending.delete(data.id)
+        if (data.type === 'audio-error' && data.code !== 'cancelled') {
+          this.set({ failure: { stage: 'synthesis', code: data.code || 'synthesis_failed', at: Date.now() } })
+        }
         resolve?.(data.type === 'audio' ? { samples: data.samples, sampleRate: data.sampleRate } : null)
       }
     }
     worker.onerror = (event) => {
       console.warn('[guide voice] worker error', event.message)
-      this.fail()
+      this.fail('worker_error')
     }
     worker.postMessage({ type: 'load', device })
     this.stopWatchdog()
     this.watchdog = setInterval(() => {
       if (Date.now() - this.lastSignal < STALL_MS) return
       console.warn(`[guide voice] loading stalled on ${this.attempt ?? 'first attempt'}`)
-      if (this.attempt === 'wasm') this.fail()
-      else this.startWorker('wasm')
+      if (this.attempt === 'wasm') this.fail('voice_load_stalled')
+      else {
+        this.set({ fallback: { from: this.attempt || 'webgpu', code: 'voice_load_stalled' } })
+        this.startWorker('wasm')
+      }
     }, 5000)
   }
 
@@ -194,13 +211,13 @@ export class GuideVoice {
     this.watchdog = null
   }
 
-  private fail() {
+  private fail(code: string) {
     this.stopWatchdog()
     this.worker?.terminate()
     this.worker = null
     for (const resolve of this.pending.values()) resolve(null)
     this.pending.clear()
-    this.set({ status: 'failed', stage: null })
+    this.set({ status: 'failed', stage: null, failure: { stage: 'load', code, at: Date.now() } })
   }
 
   private ensureAudio() {
@@ -239,10 +256,10 @@ export class GuideVoice {
    * `onStart` fires when the sentence becomes audible, or right away when it cannot be spoken, so a caller that
    * reveals text in step with speech never leaves text hidden.
    */
-  speak(text: string, onStart?: () => void): Promise<void> {
+  speak(text: string, onStart?: (audible: boolean) => void): Promise<void> {
     const clean = text.trim()
     if (!clean || !this.on || !this.context || !this.input) {
-      onStart?.()
+      onStart?.(false)
       return Promise.resolve()
     }
     const generation = this.generation
@@ -255,7 +272,7 @@ export class GuideVoice {
     const played = this.chain.then(async () => {
       const result = await audio
       if (!result || generation !== this.generation || !this.context || !this.input) {
-        onStart?.()
+        onStart?.(false)
         return
       }
       const buffer = this.context.createBuffer(1, result.samples.length, result.sampleRate)
@@ -263,7 +280,7 @@ export class GuideVoice {
       const source = new AudioBufferSourceNode(this.context, { buffer })
       source.connect(this.input)
       const startAt = Math.max(this.cursor, this.context.currentTime + 0.02)
-      if (onStart) setTimeout(onStart, Math.max(0, (startAt - this.context.currentTime) * 1000))
+      if (onStart) setTimeout(() => onStart(true), Math.max(0, (startAt - this.context.currentTime) * 1000))
       this.cursor = startAt + buffer.duration + SENTENCE_PAUSE_S
       this.sources.add(source)
       if (this.quiet) clearTimeout(this.quiet)

@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run audit:copy && node scripts/sync-github.mjs && npm run guide:knowledge",
+    "prebuild": "npm run audit:copy && node scripts/sync-github.mjs && npm run guide:knowledge && npm run guide:voice-runtime",
     "build": "next build",
     "audit:copy": "node scripts/audit-copy.mjs",
     "start": "next start",
     "lint": "next lint",
     "sync:github": "node scripts/sync-github.mjs",
-    "predev": "npm run guide:knowledge",
+    "predev": "npm run guide:knowledge && npm run guide:voice-runtime",
     "guide:knowledge": "tsx scripts/build-guide-knowledge.ts && node scripts/audit-guide-knowledge.mjs",
+    "guide:voice-runtime": "node scripts/sync-guide-voice-runtime.mjs",
     "audit:guide-knowledge": "node scripts/audit-guide-knowledge.mjs"
   },
   "dependencies": {
@@ -31,6 +32,7 @@
     "dotenv": "^17.0.0",
     "eslint": "^9.29.0",
     "eslint-config-next": "15.4.11",
+    "kokoro-js": "1.2.1",
     "tsx": "^4.20.0",
     "typescript": "^5.8.3",
     "unpdf": "^1.8.1"

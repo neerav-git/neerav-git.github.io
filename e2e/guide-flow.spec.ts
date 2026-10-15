@@ -183,4 +183,32 @@ test.describe('portfolio guide: visual flow and answers', () => {
     await expect(page.locator('.guide-focus')).toHaveCount(0)
     await expect(lastAnswer(page)).not.toContainText('import ')
   })
+
+  test('a retryable guide failure keeps the question and exposes a traceable retry', async ({ page }) => {
+    const requestIds = ['11111111-1111-4111-8111-111111111111', '22222222-2222-4222-8222-222222222222']
+    let attempt = 0
+    await page.route('**/chat', (route) => {
+      const requestId = requestIds[Math.min(attempt, requestIds.length - 1)]!
+      const events = attempt++ === 0
+        ? [
+            { t: 'meta', requestId },
+            { t: 'error', code: 'provider_unavailable', stage: 'response', requestId, retryable: true, message: 'The guide service had a temporary problem. Please try again.' },
+          ]
+        : [{ t: 'meta', requestId }, { t: 'text', d: 'Relay is Neerav’s voice AI employee workspace.' }, { t: 'done' }]
+      void route.fulfill({
+        status: 200,
+        headers: { 'content-type': 'application/x-ndjson', 'access-control-allow-origin': '*', 'x-guide-request-id': requestId },
+        body: events.map((event) => JSON.stringify(event)).join('\n') + '\n',
+      })
+    })
+    await openGuide(page)
+    await page.locator('textarea[aria-label="Ask the guide"]').fill('What is Relay?')
+    await page.locator('button[aria-label="Send"]').click()
+    await expect(lastAnswer(page)).toContainText('temporary problem')
+    await expect(lastAnswer(page)).toContainText('Reference 11111111')
+    await lastAnswer(page).getByRole('button', { name: 'Try again' }).click()
+    await expect(lastAnswer(page)).toContainText('voice AI employee workspace')
+    await expect(page.locator('.guide-turn--user')).toHaveCount(1)
+    await expect(page.locator('.guide-turn--user')).toHaveText('What is Relay?')
+  })
 })

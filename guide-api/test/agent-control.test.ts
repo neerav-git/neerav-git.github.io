@@ -2,9 +2,23 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
 import { HeardFilter, needsPostToolResponse, toApiMessages } from '../src/agent.ts'
+import { classifyTurnError } from '../src/diagnostics.ts'
 
 test('a successful action does not trigger a second model reply after text was spoken', () => {
   assert.equal(needsPostToolResponse('Relay completed the workflow.', true), false)
+})
+
+test('provider failures become stable visitor-safe categories', () => {
+  assert.deepEqual(classifyTurnError({ name: 'RateLimitError', status: 429 }), {
+    name: 'RateLimitError',
+    status: 429,
+    code: 'provider_rate_limited',
+    message: 'The guide is busy right now. Please try again in a moment.',
+    stage: 'response',
+    retryable: true,
+  })
+  assert.equal(classifyTurnError({ name: 'APIConnectionTimeoutError' }).code, 'provider_connection')
+  assert.equal(classifyTurnError(new Error('private provider detail')).code, 'response_failed')
 })
 
 test('the model replies after a tool-first action or a tool error', () => {
