@@ -31,6 +31,28 @@ Playwright suite: 7/7 after the change.
 
 ## Still open
 
-1. **Tape-like stutter (not yet investigated).** Neerav hears the voice freeze and repeat a fragment "like a tape recorder" before it recovers. That is an audio-output underrun: the Web Audio render thread missed its deadline and the device replayed its last buffer. It is not the silence between sentences or stops (that was a separate issue, fixed above), and splitting sentences would not address it. Candidates to measure before changing anything: CPU/GPU contention while the worker generates speech on WebGPU and the page renders or scrolls; the cost of the 1.6 s stereo `ConvolverNode` reverb on the audio thread; the default `latencyHint: 'interactive'` buffer size (a larger `'playback'` buffer is a likely no-quality-cost fix for spoken audio). Chrome exposes audio glitch counters on the AudioContext (`playbackStats` in recent versions) that can confirm underruns and when they happen.
-2. Opening the guide still costs one ~0.2 s pause (the AudioContext creation).
-3. Tour page changes still drop one frame of about 0.5 s while the project page renders; prefetching each stop's route could shorten it.
+1. Opening the guide still costs one ~0.2 s pause (the AudioContext creation).
+2. Tour page changes still drop one frame of about 0.5 s while the project page renders; prefetching each stop's route could shorten it.
+
+## Round 2: tape-like stutter (local fix, not committed or published)
+
+Chrome 155's live `AudioContext.playbackStats` counters reproduced the stutter as actual output underruns. The extended probe correlates those counters with WebGPU synthesis jobs, route and scroll events, long tasks, frozen frames, and each scheduled voice buffer.
+
+### What caused it
+
+The strongest failure was GPU/renderer contention while Kokoro generated fp32 speech on the M3 MacBook Air's shared GPU and memory. In the unchanged local build, one run logged 4 underruns / 143.1 ms. The unchanged live site logged 18 underruns / 4.096 s. Under heavier contention, Chrome recorded multi-second main-thread and frame stalls at the same time; that is why the whole Mac can appear frozen as the voice repeats. Navigation had usually completed seconds before an underrun, so page rendering was not the primary trigger.
+
+The stereo 1.6 s convolver reduced the audio thread's remaining headroom: bypassing it produced 0 underruns in two matched runs. A mono impulse preserved the approved 6% room amount and decay while halving that convolution workload, but did not prevent the worst GPU stalls by itself. `latencyHint: 'playback'` also failed by itself while WebGPU generation still overlapped audio.
+
+### Local fix
+
+- Generate the complete spoken answer and all tour-stop narration before the first voice buffer starts.
+- Suspend the shared `AudioContext` during that WebGPU batch, then resume it only when every buffer is ready. This prevents Chrome's audio service from competing with inference or counting silent-output underruns during a preparation freeze.
+- Use `latencyHint: 'playback'`, which increased measured base latency from 5.3 ms to 21.3 ms and provided more output headroom without changing the voice.
+- Use one room-impulse channel instead of two independently convolved channels. The room remains 6%, 1.6 s, decay 3.2; EQ, compression, Kokoro `af_heart` WebGPU fp32, and the 180 ms sentence pause are unchanged.
+
+### Confirmation
+
+Three final source-level spoken-tour runs, including two with multi-second preparation stalls, each logged **0 underrun events / 0.000 s**. Once playback began, tour-stop gaps stayed about 0.4 to 0.9 s including the intentional 500 ms stop pause and page move; within-stop sentence gaps remained 180 ms. The Playwright suite passed 7/7.
+
+The remaining issue is the preparation-phase computer freeze itself. The audio fix prevents that freeze from corrupting playback, but eliminating the system stall would require reducing or changing the WebGPU inference workload/backend and is outside the current constraint to keep Kokoro `af_heart` WebGPU fp32 unchanged.

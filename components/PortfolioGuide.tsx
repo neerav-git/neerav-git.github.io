@@ -230,10 +230,15 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       const card: Turn = { id: ++turnIds, role: 'assistant', text: '', tourCard: { stops: steps.map((step) => stopName(registry, step.target)), voiced: voice().on } }
       setTurns((current) => [...current, card])
       setTourCardId(card.id)
-      // Each stop's speech is generated while the previous one plays, so the tour moves on without a silent pause.
+      // Generate the complete tour before playback. WebGPU synthesis can starve Chrome's real-time audio output;
+      // keeping it outside both speech and page rendering preserves the approved voice chain without underruns.
       const stopSentences = steps.map((step) => sentencesOf(step.narration))
-      if (voice().on) stopSentences[0]?.forEach((sentence) => voice().prepare(sentence))
       await voice().idle()
+      if (voice().on) {
+        setPreparing(true)
+        await voice().prepareAll(stopSentences.flat())
+        setPreparing(false)
+      }
       for (let index = 0; index < steps.length && !control.cancelled; index++) {
         const step = steps[index]!
         const target = registry.targets.get(step.target)
@@ -264,8 +269,6 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
               })
             }),
           )
-          // Queued after this stop's sentences, so the next stop is generated while this one plays.
-          stopSentences[index + 1]?.forEach((sentence) => voice().prepare(sentence))
           await playing
           await new Promise((resolve) => setTimeout(resolve, 500))
         } else if (index < steps.length - 1) {
@@ -303,6 +306,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       const controller = new AbortController()
       abortRef.current = controller
       const sentences = new SentenceBuffer()
+      const queuedSpeech: { sentence: string; end: number }[] = []
       let full = ''
       let searchFrom = 0
       // Each sentence becomes visible when it starts playing, so reading and listening stay together.
@@ -320,7 +324,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
           const at = full.indexOf(part, searchFrom)
           const end = at < 0 ? full.length : at + part.length
           searchFrom = end
-          speakSentence(part, end)
+          queuedSpeech.push({ sentence: part, end })
         }
       }
       let tourSteps: TourStep[] | null = null
@@ -365,7 +369,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         )
         if (spoken) {
           const rest = sentences.flush()
-          if (rest) speakSentence(rest, full.length)
+          if (rest) speakAll([rest])
         } else followAnswer(full)
         // Every tour opens by connecting the question to it; supply that sentence when the model left it out.
         const pending = tourSteps as TourStep[] | null
@@ -373,7 +377,18 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
           const intro = `Here's a ${pending.length}-stop tour that answers your question, covering ${listOf(pending.map((step) => stopName(registry, step.target)))}.`
           full = intro
           updateTurn(reply.id, (turn) => ({ ...turn, text: intro }))
-          if (spoken) speakSentence(intro, intro.length)
+          if (spoken) queuedSpeech.push({ sentence: intro, end: intro.length })
+        }
+        const tourSpeech = ((tourSteps as TourStep[] | null) || []).flatMap((step) => sentencesOf(step.narration))
+        const prepareSpeech = [...queuedSpeech.map(({ sentence }) => sentence), ...tourSpeech]
+        if (spoken && prepareSpeech.length) {
+          // WebGPU fp32 inference can monopolize Chrome's GPU process long enough for real-time audio to underrun.
+          // Finish the answer and any following tour before starting playback. Once speech begins, every prepared
+          // buffer still uses the approved 180 ms pause and voice chain without a later preparation gap.
+          setPreparing(true)
+          await voice().prepareAll(prepareSpeech)
+          if (controller.signal.aborted) return
+          for (const { sentence, end } of queuedSpeech) speakSentence(sentence, end)
         }
       } catch (error) {
         if (controller.signal.aborted) return

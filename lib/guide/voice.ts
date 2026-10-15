@@ -20,8 +20,10 @@ type Synthesized = { samples: Float32Array; sampleRate: number } | null
 
 function impulse(context: AudioContext, seconds = 1.6, decay = 3.2) {
   const length = Math.floor(context.sampleRate * seconds)
-  const buffer = context.createBuffer(2, length, context.sampleRate)
-  for (let channel = 0; channel < 2; channel++) {
+  // The centered voice needs one room field, not two independently convolved channels. The
+  // mono impulse keeps the approved 6% / 1.6 s room sound while halving its render workload.
+  const buffer = context.createBuffer(1, length, context.sampleRate)
+  for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
     const data = buffer.getChannelData(channel)
     for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay)
   }
@@ -41,7 +43,7 @@ export class GuideVoice {
   private chain: Promise<void> = Promise.resolve()
   private cursor = 0
   private sources = new Set<AudioBufferSourceNode>()
-  /** Sentences generated ahead of time (the next tour stop), keyed by text, so they play without a pause. */
+  /** Sentences generated ahead of time, keyed by text, so playback never competes with WebGPU inference. */
   private prepared = new Map<string, { generation: number; audio: Promise<Synthesized> }>()
   private attempt: string | null = null
   private lastSignal = 0
@@ -184,7 +186,9 @@ export class GuideVoice {
 
   private ensureAudio() {
     if (this.context) return
-    const context = new AudioContext()
+    // Spoken answers favor continuity over instrument-grade response time. Chrome's playback hint
+    // gives the audio device four times the render headroom on the measured Mac (21.3 ms vs 5.3 ms).
+    const context = new AudioContext({ latencyHint: 'playback' })
     const warmth = new BiquadFilterNode(context, { type: 'lowshelf', frequency: 180, gain: 2 })
     const presence = new BiquadFilterNode(context, { type: 'peaking', frequency: 2800, Q: 0.9, gain: 1.5 })
     const air = new BiquadFilterNode(context, { type: 'highshelf', frequency: 8500, gain: -1 })
@@ -224,7 +228,8 @@ export class GuideVoice {
     }
     const generation = this.generation
     const ready = this.prepared.get(clean)
-    this.prepared.delete(clean)
+    // Keep prepared audio until stop() so an exact repeated sentence reuses the same buffer instead of
+    // unexpectedly starting WebGPU synthesis during playback.
     // A prepared sentence is already generating; otherwise start now. While the model is still loading,
     // sentences wait for it instead of being dropped.
     const audio = ready && ready.generation === generation ? ready.audio : this.generate(clean, generation)
@@ -263,13 +268,33 @@ export class GuideVoice {
   }
 
   /**
-   * Starts generating a sentence ahead of time, such as the next tour stop's narration while the current one plays,
-   * so it starts without a silent pause. A later speak() with the same text plays it; stop() discards it.
+   * Starts generating a sentence ahead of time. A later speak() with the same text plays it; stop() discards it.
+   * The returned promise lets tours finish WebGPU work before real-time audio and page movement begin.
    */
-  prepare(text: string) {
+  prepare(text: string): Promise<Synthesized> {
     const clean = text.trim()
-    if (!clean || !this.on || this.prepared.has(clean)) return
-    this.prepared.set(clean, { generation: this.generation, audio: this.generate(clean, this.generation) })
+    if (!clean || !this.on) return Promise.resolve(null)
+    const existing = this.prepared.get(clean)
+    if (existing?.generation === this.generation) return existing.audio
+    const audio = this.generate(clean, this.generation)
+    this.prepared.set(clean, { generation: this.generation, audio })
+    return audio
+  }
+
+  /**
+   * Prepare a complete answer while the output device is suspended. Chrome otherwise counts audio-service
+   * underruns during a WebGPU stall even though no voice buffer is playing. Resume only after every buffer is
+   * ready, so GPU inference and real-time output never compete.
+   */
+  async prepareAll(texts: string[]) {
+    const context = this.context
+    if (!texts.length || !this.on || !context) return
+    if (context.state === 'running') await context.suspend()
+    try {
+      await Promise.all(texts.map((text) => this.prepare(text)))
+    } finally {
+      if (this.on && context.state === 'suspended') await context.resume()
+    }
   }
 
   /** Resolves once everything queued so far has been spoken. */
