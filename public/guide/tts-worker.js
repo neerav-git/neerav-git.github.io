@@ -19,8 +19,14 @@ async function hasWebGPU() {
 
 async function load(forced) {
   // Progress follows the model weights only: the small config files finish first and would read as 100% too early.
+  // At most ten updates a second: each one redraws the guide panel, and the download produces thousands.
+  let lastProgress = 0
   const progress_callback = (event) => {
-    if (event.status === 'progress' && event.total && /\.onnx$/.test(event.file)) self.postMessage({ type: 'progress', loaded: event.loaded, total: event.total })
+    if (event.status !== 'progress' || !event.total || !/\.onnx$/.test(event.file)) return
+    const now = performance.now()
+    if (event.loaded < event.total && now - lastProgress < 100) return
+    lastProgress = now
+    self.postMessage({ type: 'progress', loaded: event.loaded, total: event.total })
   }
 
   const attempts = forced

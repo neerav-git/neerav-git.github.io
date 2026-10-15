@@ -15,6 +15,11 @@ const TONES: Record<Earcon, Array<{ frequency: number; at: number; length: numbe
 
 let context: AudioContext | null = null
 
+/** Plays the tones through the guide's existing audio output instead of opening a second one. */
+export function shareEarconContext(shared: AudioContext) {
+  context = shared
+}
+
 /** Resolves when the tone has finished, so the mic can open after it rather than recording it. */
 export function playEarcon(kind: Earcon): Promise<void> {
   try {

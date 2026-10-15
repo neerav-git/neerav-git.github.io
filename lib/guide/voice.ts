@@ -41,6 +41,8 @@ export class GuideVoice {
   private chain: Promise<void> = Promise.resolve()
   private cursor = 0
   private sources = new Set<AudioBufferSourceNode>()
+  /** Sentences generated ahead of time (the next tour stop), keyed by text, so they play without a pause. */
+  private prepared = new Map<string, { generation: number; audio: Promise<Synthesized> }>()
   private attempt: string | null = null
   private lastSignal = 0
   private watchdog: ReturnType<typeof setInterval> | null = null
@@ -72,8 +74,18 @@ export class GuideVoice {
     return this.ready && !this.state.device?.startsWith('wasm')
   }
 
-  /** Download and warm the model in the background without turning spoken answers on, so the mic is ready at once. */
+  /** The shared audio output, created when the guide opens, so the mic tones and the voice use one connection. */
+  get audioContext() {
+    return this.context
+  }
+
+  /**
+   * Download and warm the model in the background without turning spoken answers on, so the mic is ready at once.
+   * The audio output is created first, while the page is idle: creating it waits on the browser's audio service,
+   * which took up to seconds when it happened in the click that turned the voice on, right after the model loaded.
+   */
   preload() {
+    this.ensureAudio()
     if (!this.worker && this.state.status !== 'failed') this.startWorker()
   }
 
@@ -211,8 +223,11 @@ export class GuideVoice {
       return Promise.resolve()
     }
     const generation = this.generation
-    // While the model is still loading, sentences wait for it instead of being dropped.
-    const audio = this.whenReady().then((ok) => (ok && generation === this.generation ? this.synthesize(clean) : null))
+    const ready = this.prepared.get(clean)
+    this.prepared.delete(clean)
+    // A prepared sentence is already generating; otherwise start now. While the model is still loading,
+    // sentences wait for it instead of being dropped.
+    const audio = ready && ready.generation === generation ? ready.audio : this.generate(clean, generation)
     const played = this.chain.then(async () => {
       const result = await audio
       if (!result || generation !== this.generation || !this.context || !this.input) {
@@ -243,6 +258,20 @@ export class GuideVoice {
     return played
   }
 
+  private generate(text: string, generation: number) {
+    return this.whenReady().then((ok) => (ok && generation === this.generation ? this.synthesize(text) : null))
+  }
+
+  /**
+   * Starts generating a sentence ahead of time, such as the next tour stop's narration while the current one plays,
+   * so it starts without a silent pause. A later speak() with the same text plays it; stop() discards it.
+   */
+  prepare(text: string) {
+    const clean = text.trim()
+    if (!clean || !this.on || this.prepared.has(clean)) return
+    this.prepared.set(clean, { generation: this.generation, audio: this.generate(clean, this.generation) })
+  }
+
   /** Resolves once everything queued so far has been spoken. */
   idle() {
     return this.chain
@@ -251,6 +280,7 @@ export class GuideVoice {
   /** Barge-in: silence now and drop anything queued. */
   stop() {
     this.generation++
+    this.prepared.clear()
     for (const source of this.sources) {
       try {
         source.stop()
@@ -262,6 +292,12 @@ export class GuideVoice {
     if (this.quiet) clearTimeout(this.quiet)
     if (this.state.speaking) this.set({ speaking: false })
   }
+}
+
+/** The sentences of a complete text, split exactly as streamed text is, so prepared and spoken sentences match. */
+export function sentencesOf(text: string) {
+  const buffer = new SentenceBuffer()
+  return [...buffer.push(text), buffer.flush()].filter(Boolean)
 }
 
 /** Splits streamed text into speakable sentences as soon as each one completes. */

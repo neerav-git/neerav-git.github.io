@@ -5,9 +5,9 @@ import { type FormEvent, type KeyboardEvent, useCallback, useEffect, useRef, use
 
 import { GuideRequestError, streamGuideTurn, type GuideAction, type GuideTurn } from '@/lib/guide/api'
 import { clearHighlights, focusTarget, followAnswer, loadRegistry, type GuideRegistry } from '@/lib/guide/layer'
-import { playEarcon } from '@/lib/guide/earcons'
+import { playEarcon, shareEarconContext } from '@/lib/guide/earcons'
 import { canListen, listenOnce, prepareListening, type Listening, type ListenPhase } from '@/lib/guide/listen'
-import { GuideVoice, SentenceBuffer, type VoiceState } from '@/lib/guide/voice'
+import { GuideVoice, SentenceBuffer, sentencesOf, type VoiceState } from '@/lib/guide/voice'
 
 type Turn = {
   id: number
@@ -165,6 +165,8 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       return
     }
     voice().preload()
+    const audio = voice().audioContext
+    if (audio) shareEarconContext(audio)
     let active = true
     const hints = Promise.race([prepareListening(), new Promise((resolve) => setTimeout(resolve, 20_000))])
     void Promise.all([voice().whenLoaded(), hints]).then(() => active && setMicReady(true))
@@ -228,6 +230,9 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       const card: Turn = { id: ++turnIds, role: 'assistant', text: '', tourCard: { stops: steps.map((step) => stopName(registry, step.target)), voiced: voice().on } }
       setTurns((current) => [...current, card])
       setTourCardId(card.id)
+      // Each stop's speech is generated while the previous one plays, so the tour moves on without a silent pause.
+      const stopSentences = steps.map((step) => sentencesOf(step.narration))
+      if (voice().on) stopSentences[0]?.forEach((sentence) => voice().prepare(sentence))
       await voice().idle()
       for (let index = 0; index < steps.length && !control.cancelled; index++) {
         const step = steps[index]!
@@ -245,11 +250,10 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         if (control.cancelled) break
         if (spoken) {
           // Sentence by sentence, so the stop starts speaking as soon as its first sentence is ready.
-          const buffer = new SentenceBuffer()
-          const parts = [...buffer.push(step.narration), buffer.flush()].filter(Boolean)
+          const parts = stopSentences[index]!
           let searchFrom = 0
           setPreparing(true)
-          await Promise.all(
+          const playing = Promise.all(
             parts.map((part) => {
               const end = step.narration.indexOf(part, searchFrom) + part.length
               searchFrom = end
@@ -260,6 +264,9 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
               })
             }),
           )
+          // Queued after this stop's sentences, so the next stop is generated while this one plays.
+          stopSentences[index + 1]?.forEach((sentence) => voice().prepare(sentence))
+          await playing
           await new Promise((resolve) => setTimeout(resolve, 500))
         } else if (index < steps.length - 1) {
           setTour({ index, total: steps.length, waiting: true })
