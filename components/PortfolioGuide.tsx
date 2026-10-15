@@ -326,6 +326,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
           searchFrom = end
           queuedSpeech.push({ sentence: part, end })
         }
+        void voice().prepareEarly(parts)
       }
       let tourSteps: TourStep[] | null = null
       let shownCount = 0
@@ -345,6 +346,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
           updateTurn(reply.id, (turn) => ({ ...turn, links: [...new Set([...(turn.links || []), ...valid])] }))
         } else if (action.type === 'tour') {
           tourSteps = action.steps.filter((step) => registry?.targets.has(step.target))
+          if (spoken) void voice().prepareEarly(tourSteps.flatMap((step) => sentencesOf(step.narration)))
         }
       }
 

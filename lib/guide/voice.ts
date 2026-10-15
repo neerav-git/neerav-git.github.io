@@ -3,7 +3,9 @@
  * playback goes through the same polish chain the voice was approved with in the tuner:
  * warmth +2 dB, presence +1.5 dB, air -1 dB, 6% room, broadcast compression, 180 ms between sentences.
  */
-export type VoiceStatus = 'off' | 'loading' | 'ready' | 'failed'
+import { earconsIdle } from './earcons'
+
+export type VoiceStatus ='off' | 'loading' | 'ready' | 'failed'
 /**
  * `speaking` is true while a reply is audibly playing, so the panel can show it and offer Stop.
  * `stage` says what loading is doing: downloading the model weights (once per browser), then warming it up.
@@ -314,6 +316,22 @@ export class GuideVoice {
     }
   }
 
+  /**
+   * Start generating sentences while the answer is still streaming. Like prepareAll, the output is suspended
+   * first (after any tone still sounding), so inference never overlaps live audio. Playback is unchanged:
+   * prepareAll later reuses these buffers and starts speech only once every sentence is ready.
+   */
+  async prepareEarly(texts: string[]) {
+    const context = this.context
+    const generation = this.generation
+    if (!texts.length || !this.on || !context) return
+    await earconsIdle()
+    if (generation !== this.generation || !this.on) return
+    if (context.state === 'running') await context.suspend()
+    if (generation !== this.generation || !this.on) return
+    for (const text of texts) void this.prepare(text)
+  }
+
   /** Resolves once everything queued so far has been spoken. */
   idle() {
     return this.chain
@@ -323,6 +341,8 @@ export class GuideVoice {
   stop() {
     this.generation++
     this.prepared.clear()
+    // Sentences still waiting in the worker belong to the abandoned answer; skip them so the next one starts promptly.
+    this.worker?.postMessage({ type: 'cancel' })
     for (const source of this.sources) {
       try {
         source.stop()

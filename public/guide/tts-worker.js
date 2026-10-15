@@ -8,6 +8,8 @@ const VOICE = 'af_heart'
 let tts = null
 let loading = false
 let queue = Promise.resolve()
+// Bumped when the page stops speaking; queued sentences from before it are skipped.
+let epoch = 0
 
 async function hasWebGPU() {
   try {
@@ -60,9 +62,18 @@ self.onmessage = ({ data }) => {
     }
     return
   }
+  if (data.type === 'cancel') {
+    epoch++
+    return
+  }
   if (data.type === 'speak') {
     // One synthesis at a time: the runtime does not support overlapping runs on one session.
+    const ticket = epoch
     queue = queue.then(async () => {
+      if (ticket !== epoch) {
+        self.postMessage({ type: 'audio-error', id: data.id, message: 'cancelled' })
+        return
+      }
       try {
         const audio = await tts.generate(data.text, { voice: VOICE, speed: 1 })
         const samples = audio.audio

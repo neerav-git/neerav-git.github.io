@@ -14,6 +14,7 @@ const TONES: Record<Earcon, Array<{ frequency: number; at: number; length: numbe
 }
 
 let context: AudioContext | null = null
+let sounding: Promise<void> = Promise.resolve()
 
 /** Plays the tones through the guide's existing audio output instead of opening a second one. */
 export function shareEarconContext(shared: AudioContext) {
@@ -39,8 +40,14 @@ export function playEarcon(kind: Earcon): Promise<void> {
       oscillator.stop(t0 + tone.length + 0.02)
       end = Math.max(end, t0 + tone.length)
     }
-    return new Promise((resolve) => setTimeout(resolve, Math.ceil((end - context!.currentTime) * 1000) + 40))
+    sounding = new Promise((resolve) => setTimeout(resolve, Math.ceil((end - context!.currentTime) * 1000) + 40))
+    return sounding
   } catch {
     return Promise.resolve()
   }
+}
+
+/** Resolves once the latest tone has finished, so the voice can pause the shared output without cutting it off. */
+export function earconsIdle(): Promise<void> {
+  return sounding
 }

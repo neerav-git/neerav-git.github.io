@@ -351,6 +351,10 @@ perf.audio.forEach((audio, index) => {
   console.log(`  ${String(index + 1).padStart(2)} dur ${audio.duration.toFixed(2)}s lead ${audio.lead.toFixed(2)}s gap after previous ${previous ? gap.toFixed(2) + 's' : '-'}`)
 })
 console.log(`  silent gaps over 0.6 s between sentences: ${silentGaps}`)
+const sentAt = perf.phases.find((phase) => phase.phase === 'question sent (spoken tour)')?.at ?? 0
+const firstVoice = perf.timeline.find((entry) => entry.type === 'audio-source-scheduled' && entry.at > sentAt)
+const spokenSeconds = perf.audio.reduce((sum, audio) => sum + audio.duration, 0)
+console.log(`  first sentence scheduled ${firstVoice ? ((firstVoice.at - sentAt) / 1000).toFixed(2) + ' s' : 'never'} after the question was sent; ${spokenSeconds.toFixed(1)} s of speech in total`)
 
 if (process.env.OUT) {
   fs.writeFileSync(process.env.OUT, `${JSON.stringify({ ...perf, summary: { tourUnderruns, tourUnderrunDuration } }, null, 2)}\n`)
