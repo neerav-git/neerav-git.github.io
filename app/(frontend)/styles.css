@@ -3400,15 +3400,6 @@ body::before {
   opacity: 0.5;
 }
 
-.guide-voice-toggle.is-ready {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-}
-
-.guide-voice-toggle.is-loading {
-  border-style: dashed;
-}
-
 .guide-icon-button {
   align-items: center;
   background: transparent;
@@ -3618,23 +3609,6 @@ body::before {
   }
 }
 
-/* While the voice loads, the mic is visibly off and breathes slowly, so it reads as "almost ready", not broken. */
-.guide-mic.is-warming,
-.guide-mic.is-warming:disabled {
-  animation: guide-mic-warming 1.8s ease-in-out infinite;
-  cursor: progress;
-}
-
-@keyframes guide-mic-warming {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.55;
-  }
-}
-
 .guide-mic.is-unsupported {
   cursor: help;
   opacity: 0.45;
@@ -3706,21 +3680,7 @@ body::before {
   }
 }
 
-.guide-voice-strip.is-preparing .guide-voice-indicator i {
-  animation: guide-bar-think 1.2s ease-in-out infinite;
-}
-
-.guide-voice-strip.is-voiceLoading {
-  background: transparent;
-  color: var(--muted);
-}
-
-.guide-voice-strip.is-voiceLoading .guide-voice-indicator i {
-  animation: guide-bar-breathe 1.6s ease-in-out infinite;
-  background: var(--muted);
-}
-
-.guide-voice-strip {
+.guide-status-strip {
   align-items: center;
   background: var(--accent-soft);
   border-top: 1px solid var(--line);
@@ -3732,17 +3692,17 @@ body::before {
   padding: 8px 16px;
 }
 
-.guide-voice-strip.is-notice {
+.guide-status-strip.is-notice {
   background: transparent;
   color: var(--muted);
 }
 
-.guide-voice-text {
+.guide-status-text {
   flex: 1;
   min-width: 0;
 }
 
-.guide-voice-indicator {
+.guide-status-indicator {
   align-items: center;
   display: inline-flex;
   gap: 3px;
@@ -3750,7 +3710,7 @@ body::before {
   width: 27px;
 }
 
-.guide-voice-indicator i {
+.guide-status-indicator i {
   background: var(--accent);
   border-radius: 2px;
   display: block;
@@ -3759,41 +3719,40 @@ body::before {
   width: 3px;
 }
 
-.guide-voice-strip.is-listening .guide-voice-indicator i {
+.guide-status-strip.is-listening .guide-status-indicator i {
   animation: guide-bar-breathe 1.6s ease-in-out infinite;
 }
 
-.guide-voice-strip.is-hearing .guide-voice-indicator i,
-.guide-voice-strip.is-speaking .guide-voice-indicator i {
+.guide-status-strip.is-hearing .guide-status-indicator i {
   animation: guide-bar-talk 0.7s ease-in-out infinite;
 }
 
-.guide-voice-strip.is-thinking .guide-voice-indicator i {
+.guide-status-strip.is-thinking .guide-status-indicator i {
   animation: guide-bar-think 1.2s ease-in-out infinite;
 }
 
-.guide-voice-strip.is-processing .guide-voice-indicator i {
+.guide-status-strip.is-processing .guide-status-indicator i {
   transform: scaleY(0.6);
 }
 
-.guide-voice-strip.is-starting .guide-voice-indicator i,
-.guide-voice-strip.is-notice .guide-voice-indicator i {
+.guide-status-strip.is-starting .guide-status-indicator i,
+.guide-status-strip.is-notice .guide-status-indicator i {
   background: var(--muted);
 }
 
-.guide-voice-indicator i:nth-child(2) {
+.guide-status-indicator i:nth-child(2) {
   animation-delay: 0.12s !important;
 }
 
-.guide-voice-indicator i:nth-child(3) {
+.guide-status-indicator i:nth-child(3) {
   animation-delay: 0.24s !important;
 }
 
-.guide-voice-indicator i:nth-child(4) {
+.guide-status-indicator i:nth-child(4) {
   animation-delay: 0.36s !important;
 }
 
-.guide-voice-indicator i:nth-child(5) {
+.guide-status-indicator i:nth-child(5) {
   animation-delay: 0.48s !important;
 }
 
@@ -3828,15 +3787,13 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   .guide-mic.is-listening::after,
   .guide-mic.is-inviting,
-  .guide-mic.is-warming,
   .guide-typing,
-  .guide-voice-indicator i {
+  .guide-status-indicator i {
     animation: none !important;
   }
 
-  .guide-voice-strip.is-listening .guide-voice-indicator i,
-  .guide-voice-strip.is-hearing .guide-voice-indicator i,
-  .guide-voice-strip.is-speaking .guide-voice-indicator i {
+  .guide-status-strip.is-listening .guide-status-indicator i,
+  .guide-status-strip.is-hearing .guide-status-indicator i {
     transform: scaleY(0.7);
   }
 }

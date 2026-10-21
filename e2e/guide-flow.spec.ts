@@ -1,21 +1,20 @@
 import { expect, test } from '@playwright/test'
 
 import { actionsOf, ask, expectGoodAnswer, inViewport, lastAnswer, openGuide, panel, recordReplies, replyTo, textOf } from './guide-helpers'
-import { textForSpeech } from '../lib/guide/voice'
 
 test.describe('portfolio guide: visual flow and answers', () => {
-  test('the mic waits for the voice, then turns on', async ({ page }) => {
+  test('speech input becomes ready without loading response voice', async ({ page }) => {
+    const ttsRequests: string[] = []
+    page.on('request', (request) => {
+      if (/tts-worker|kokoro|onnx-community|huggingface/i.test(request.url())) ttsRequests.push(request.url())
+    })
     await openGuide(page)
     const mic = page.locator('.guide-mic')
-    // A fresh browser has to download the voice, so the mic starts out disabled and says why.
-    await expect(mic).toBeDisabled()
-    await expect(mic).toHaveClass(/is-warming/)
-    await expect(page.locator('.guide-voice-strip')).toContainText('Getting the voice ready')
-    await page.screenshot({ path: test.info().outputPath('01-voice-warming.png') })
-    await expect(mic).toBeEnabled({ timeout: 120_000 })
+    await expect(mic).toBeEnabled({ timeout: 30_000 })
     await expect(mic).toHaveClass(/is-inviting/)
-    await expect(page.locator('.guide-voice-toggle')).toHaveText('Voice off')
-    await page.screenshot({ path: test.info().outputPath('02-mic-ready.png') })
+    await expect(page.locator('.guide-voice-toggle')).toHaveCount(0)
+    expect(ttsRequests, 'opening the guide does not request Kokoro or its worker').toEqual([])
+    await page.screenshot({ path: test.info().outputPath('01-speech-input-ready.png') })
   })
 
   test('a portfolio tour moves the page and highlights each stop', async ({ page }) => {
@@ -25,7 +24,7 @@ test.describe('portfolio guide: visual flow and answers', () => {
     const tour = actionsOf(events).find((action) => action.type === 'tour')
     expect(tour, 'the guide starts a tour').toBeTruthy()
     const steps = tour!.steps!
-    expect(text.length, 'the tour opens with a spoken intro').toBeGreaterThan(0)
+    expect(text.length, 'the tour opens with a text intro').toBeGreaterThan(0)
 
     const card = page.locator('.guide-tour-card')
     await expect(card).toBeVisible()
@@ -65,13 +64,7 @@ test.describe('portfolio guide: visual flow and answers', () => {
     await page.screenshot({ path: test.info().outputPath('04-paper.png') })
   })
 
-  test('a spoken question shows as understood and is read aloud in step with the text', async ({ page }) => {
-    // Only the CV noun receives a pronunciation hint; continue/resume language must stay unchanged.
-    expect(textForSpeech("Here is Neerav's resume, with the PDF.")).toBe("Here is Neerav's résumé, with the PDF.")
-    expect(textForSpeech('Open the Resume PDF.')).toBe('Open the Résumé PDF.')
-    expect(textForSpeech('Resume the tour where you left off.')).toBe('Resume the tour where you left off.')
-    expect(textForSpeech('You can resume after this section.')).toBe('You can resume after this section.')
-
+  test('a spoken question is corrected and receives a text-only answer', async ({ page }) => {
     await page.addInitScript(() => {
       // A scripted recognizer that mishears the name, as browsers do; everything after it runs for real.
       class FakeRecognition {
@@ -93,35 +86,22 @@ test.describe('portfolio guide: visual flow and answers', () => {
         }
       }
       Object.assign(window, { SpeechRecognition: FakeRecognition, webkitSpeechRecognition: FakeRecognition })
-      // Record each sentence as it becomes audible, with how much of the answer was visible at that moment.
-      const starts: Array<{ duration: number; visible: number }> = []
-      Object.assign(window, { __audioStarts: starts })
-      const start = AudioBufferSourceNode.prototype.start
-      AudioBufferSourceNode.prototype.start = function (...args: Parameters<AudioBufferSourceNode['start']>) {
-        const answers = document.querySelectorAll('.guide-turn--assistant:not(.is-step) p')
-        starts.push({ duration: this.buffer?.duration ?? 0, visible: answers[answers.length - 1]?.textContent?.replace('…', '').length ?? 0 })
-        return start.apply(this, args)
-      }
     })
     await openGuide(page)
     await expect(page.locator('.guide-mic')).toBeEnabled({ timeout: 120_000 })
     const events = await replyTo(page, () => page.locator('.guide-mic').click())
     const heard = events.find((e) => e.t === 'heard')
     const text = textOf(events)
-    await expectGoodAnswer(test.info(), 'spoken overview', text)
+    await expectGoodAnswer(test.info(), 'speech-input overview', text)
 
     // The bubble shows the question as the guide understood it, not the raw transcript.
     expect(heard && heard.t === 'heard' ? heard.d : '').toMatch(/Neerav/)
     await expect(page.locator('.guide-turn--user').last()).toContainText('Neerav')
     await expect(page.locator('.guide-turn--user').last()).not.toContainText('need of')
-    // Asking by voice turned spoken answers on, and the answer is audible.
-    await expect(page.locator('.guide-voice-toggle')).toHaveText('Voice on')
-    await expect.poll(() => page.evaluate(() => (window as unknown as { __audioStarts: unknown[] }).__audioStarts.length), { timeout: 60_000 }).toBeGreaterThan(0)
-    await page.screenshot({ path: test.info().outputPath('05-speaking.png') })
-    // Text is revealed as it is spoken: when the first sentence started, the rest of the answer was still hidden.
-    const first = await page.evaluate(() => (window as unknown as { __audioStarts: Array<{ visible: number }> }).__audioStarts[0])
-    expect(first.visible, 'text visible when the first sentence started').toBeLessThan(text.length)
-    await page.locator('.guide-voice-strip').getByRole('button', { name: 'Stop' }).click().catch(() => {})
+    await expect(page.locator('.guide-voice-toggle')).toHaveCount(0)
+    await expect(lastAnswer(page)).toContainText(text)
+    await expect(page.getByText('Preparing the spoken answer…')).toHaveCount(0)
+    await page.screenshot({ path: test.info().outputPath('05-text-answer.png') })
   })
 
   test('a highlighted section starts from its first tab and its tabs follow the answer', async ({ page }) => {
@@ -146,31 +126,15 @@ test.describe('portfolio guide: visual flow and answers', () => {
     await page.locator('#product-tab-birb-hangout').click()
     await page.locator('#active-product-panel').scrollIntoViewIfNeeded()
     await page.locator('.guide-launcher').click()
-    await expect(page.locator('.guide-mic')).toBeEnabled({ timeout: 120_000 })
-    await page.locator('.guide-voice-toggle').click()
-    await expect(page.locator('.guide-voice-toggle')).toHaveText('Voice on')
+    await expect(page.locator('.guide-mic')).toBeEnabled({ timeout: 30_000 })
 
     const selected = () => page.evaluate(() => [...document.querySelectorAll('#products-and-systems [role=tab][aria-selected=true]')].map((tab) => tab.querySelector('strong,span')?.textContent).join(' / '))
     // The visitor had moved on to Birb Hangout before asking.
     await expect.poll(selected).toBe('Products & Systems / Birb Hangout')
-    const seen: string[] = []
     await page.locator('textarea[aria-label="Ask the guide"]').fill('What has Neerav built?')
     await page.locator('button[aria-label="Send"]').click()
-    const end = Date.now() + 60_000
-    while (Date.now() < end) {
-      const now = await selected()
-      if (seen.at(-1) !== now) seen.push(now)
-      if (now.startsWith('ML & AI Studies')) break
-      await page.waitForTimeout(250)
-    }
-    await test.info().attach('tab sequence', { body: seen.join('\n'), contentType: 'text/plain' })
-    // The highlight starts the section from its first product, then the tabs follow each spoken sentence.
-    // (The scripted reply is instant, so the first reading may still show Birb Hangout from before the reset.)
-    if (seen[0] === 'Products & Systems / Birb Hangout') seen.shift()
-    expect(seen[0]).toBe('Products & Systems / Relay')
-    expect(seen).toEqual(expect.arrayContaining(['Products & Systems / Relay', 'Products & Systems / Refract', 'Products & Systems / Homeward']))
-    expect(seen.indexOf('Products & Systems / Relay')).toBeLessThan(seen.indexOf('Products & Systems / Refract'))
-    expect(seen.at(-1)).toMatch(/^ML & AI Studies/)
+    // The highlighted section resets to its first tab, then the complete text selects its earliest matching project.
+    await expect.poll(selected).toBe('Products & Systems / Relay')
     await page.screenshot({ path: test.info().outputPath('06-tabs-followed.png') })
   })
 

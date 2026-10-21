@@ -1,18 +1,14 @@
 /**
  * Short, quiet tones that tell a voice user what the microphone is doing without looking at the screen:
- * a rising chime when the mic opens, a falling chime when it has caught the question, a low tone when nothing was heard,
- * and a short rising or falling triad when spoken answers turn on or off.
+ * a rising chime when the mic opens, a falling chime when it has caught the question, and a low tone when nothing was heard.
  */
-export type Earcon = 'listen' | 'heard' | 'silence' | 'voiceOn' | 'voiceOff'
+export type Earcon = 'listen' | 'heard' | 'silence'
 
 const TONES: Record<Earcon, Array<{ frequency: number; at: number; length: number }>> = {
   listen: [{ frequency: 660, at: 0, length: 0.09 }, { frequency: 880, at: 0.1, length: 0.12 }],
   heard: [{ frequency: 880, at: 0, length: 0.08 }, { frequency: 587, at: 0.09, length: 0.12 }],
   silence: [{ frequency: 330, at: 0, length: 0.12 }, { frequency: 262, at: 0.14, length: 0.16 }],
-  voiceOn: [{ frequency: 523, at: 0, length: 0.08 }, { frequency: 659, at: 0.09, length: 0.08 }, { frequency: 784, at: 0.18, length: 0.14 }],
-  voiceOff: [{ frequency: 659, at: 0, length: 0.08 }, { frequency: 440, at: 0.09, length: 0.12 }],
 }
-
 let context: AudioContext | null = null
 let sounding: Promise<void> = Promise.resolve()
 
@@ -45,9 +41,4 @@ export function playEarcon(kind: Earcon): Promise<void> {
   } catch {
     return Promise.resolve()
   }
-}
-
-/** Resolves once the latest tone has finished, so the voice can pause the shared output without cutting it off. */
-export function earconsIdle(): Promise<void> {
-  return sounding
 }

@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
 /**
- * End-to-end checks of the portfolio guide: the visual flow in a real Chrome (WebGPU voice, page moves, tours,
+ * End-to-end checks of the portfolio guide: the visual flow in a real Chrome (speech input, page moves, tours,
  * highlights) and an assessment of the answers it shows. Runs against the local site and the local guide API,
  * which use the real model, so the suite runs one test at a time and stays inside the local budget.
  * Start both first: `npm run dev` and `cd guide-api && npm run dev`.
@@ -20,7 +20,6 @@ export default defineConfig({
     viewport: { width: 1440, height: 900 },
     screenshot: 'on',
     trace: 'retain-on-failure',
-    launchOptions: { args: ['--enable-unsafe-webgpu', '--autoplay-policy=no-user-gesture-required'] },
   },
   projects: [
     { name: 'desktop', use: {}, testIgnore: /mobile/ },

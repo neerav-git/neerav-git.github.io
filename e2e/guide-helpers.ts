@@ -96,7 +96,7 @@ const PROJECTS: Record<string, RegExp> = {
 export function assessAnswer(text: string, options: { maxWords?: number; project?: string } = {}) {
   const words = text.split(/\s+/).filter(Boolean).length
   const hard: Record<string, boolean> = {
-    [`spoken length ≤ ${options.maxWords ?? 130} words`]: words <= (options.maxWords ?? 130),
+    [`response length ≤ ${options.maxWords ?? 130} words`]: words <= (options.maxWords ?? 130),
     'no URLs or markdown': !/https?:\/\/|www\.|\*\*|`|(^|\n)\s*([-*•]|\d+\.|#+)\s/.test(text),
     'no internal ids or tags': !/\b(project|link|archive|home|page)\.[a-z]|<\/?[a-z_]+>/.test(text),
     'no leaked reasoning': !/\bthe visitor\b|\bso I (decline|steer)\b|\bcall(ing)? (show_on_page|start_tour|offer_links)\b/i.test(text),

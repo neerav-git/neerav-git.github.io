@@ -5,10 +5,9 @@ import { type FormEvent, type KeyboardEvent, useCallback, useEffect, useRef, use
 
 import { GuideRequestError, streamGuideTurn, type GuideAction, type GuideTurn } from '@/lib/guide/api'
 import { clearHighlights, focusTarget, followAnswer, loadRegistry, type GuideRegistry } from '@/lib/guide/layer'
-import { playEarcon, shareEarconContext } from '@/lib/guide/earcons'
-import { canListen, listenOnce, prepareListening, type Listening, type ListenPhase } from '@/lib/guide/listen'
+import { playEarcon } from '@/lib/guide/earcons'
+import { canListen, listenOnce, type Listening, type ListenPhase } from '@/lib/guide/listen'
 import { postGuideTelemetry, type ClientFailureStage } from '@/lib/guide/telemetry'
-import { GuideVoice, SentenceBuffer, sentencesOf, type VoiceState } from '@/lib/guide/voice'
 
 type Turn = {
   id: number
@@ -21,23 +20,19 @@ type Turn = {
   errorCode?: string
   requestId?: string
   retry?: { text: string; byVoice: boolean }
-  /** While spoken answers are on, only this many characters are visible: text appears as it is spoken. */
-  revealed?: number
   /** A guided-tour card: the stops in order and how the tour works. */
-  tourCard?: { stops: string[]; voiced: boolean }
+  tourCard?: { stops: string[] }
 }
 type Status = 'idle' | 'listening' | 'thinking' | 'touring'
-/** What the visitor should know is happening right now, shown in the voice strip and announced to screen readers. */
-type Phase = ListenPhase | 'thinking' | 'preparing' | 'speaking' | 'voiceLoading' | 'notice'
+/** What the visitor should know is happening right now, shown in the status strip and announced to screen readers. */
+type Phase = ListenPhase | 'thinking' | 'notice'
 
-const PHASE_COPY: Record<Exclude<Phase, 'notice' | 'voiceLoading'>, string> = {
+const PHASE_COPY: Record<Exclude<Phase, 'notice'>, string> = {
   starting: 'Opening the microphone…',
   listening: 'Listening. Go ahead and speak.',
   hearing: 'Hearing you…',
   processing: 'Got it.',
   thinking: 'Thinking…',
-  preparing: 'Preparing the spoken answer…',
-  speaking: 'Reading the answer aloud',
 }
 type TourStep = { target: string; narration: string }
 
@@ -126,18 +121,12 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
   const [status, setStatus] = useState<Status>('idle')
   const [input, setInput] = useState('')
   const [interim, setInterim] = useState('')
-  const [voiceState, setVoiceState] = useState<VoiceState>({ status: 'off', progress: 0, stage: null, device: null, speaking: false, fallback: null, failure: null })
   const [listenPhase, setListenPhase] = useState<ListenPhase>('starting')
   const [notice, setNotice] = useState('')
-  const [preparing, setPreparing] = useState(false)
   const [tourCardId, setTourCardId] = useState<number | null>(null)
-  const slowNoticeShownRef = useRef(false)
   const [tour, setTour] = useState<{ index: number; total: number; waiting: boolean } | null>(null)
   const [micSupported, setMicSupported] = useState(false)
-  /** The mic opens only once the guide can answer aloud, so nobody starts speaking into a guide that cannot reply. */
-  const [micReady, setMicReady] = useState(false)
 
-  const voiceRef = useRef<GuideVoice | null>(null)
   const registryRef = useRef<GuideRegistry | null>(null)
   const abortRef = useRef<AbortController | null>(null)
   const listeningRef = useRef<Listening | null>(null)
@@ -146,79 +135,16 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
   const turnsRef = useRef<Turn[]>([])
   const logRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLTextAreaElement | null>(null)
-  const voiceLoadStartedRef = useRef<number | null>(null)
-  const voiceFailureReportedRef = useRef(0)
 
   turnsRef.current = turns
 
-  const voice = useCallback(() => {
-    voiceRef.current ??= new GuideVoice()
-    return voiceRef.current
-  }, [])
-
-  useEffect(() => voice().subscribe(setVoiceState), [voice])
   useEffect(() => {
     if (open) postGuideTelemetry(apiUrl, { event: 'guide_opened' })
   }, [apiUrl, open])
-  useEffect(() => {
-    if (voiceState.stage && voiceLoadStartedRef.current === null) voiceLoadStartedRef.current = performance.now()
-    const started = voiceLoadStartedRef.current
-    if (started === null || (!voiceState.device && voiceState.status !== 'failed')) return
-    postGuideTelemetry(apiUrl, {
-      event: 'voice_load',
-      elapsedMs: performance.now() - started,
-      voice: {
-        status: voiceState.status === 'failed' ? 'failed' : voiceState.fallback ? 'fallback' : 'ready',
-        device: voiceState.device || undefined,
-        fallbackFrom: voiceState.fallback?.from,
-      },
-      ...(voiceState.failure ? { error: { stage: 'speech' as const, code: voiceState.failure.code, retryable: false } } : {}),
-    })
-    voiceLoadStartedRef.current = null
-  }, [apiUrl, voiceState.device, voiceState.failure, voiceState.fallback, voiceState.stage, voiceState.status])
-  useEffect(() => {
-    const failure = voiceState.failure
-    if (!failure || failure.at === voiceFailureReportedRef.current) return
-    voiceFailureReportedRef.current = failure.at
-    postGuideTelemetry(apiUrl, {
-      event: 'voice_failure',
-      voice: { status: 'failed', device: voiceState.device || undefined, fallbackFrom: voiceState.fallback?.from },
-      error: { stage: 'speech', code: failure.code, retryable: failure.stage === 'synthesis' },
-    })
-    if (failure.stage === 'synthesis') setNotice("The spoken answer couldn't be prepared. The full answer is still available as text.")
-  }, [apiUrl, voiceState.device, voiceState.failure, voiceState.fallback])
-  // Without WebGPU the voice is generated more slowly than it plays, so text leads; say so once.
-  useEffect(() => {
-    if (voiceState.status !== 'ready' || !voiceState.device?.startsWith('wasm') || slowNoticeShownRef.current) return
-    slowNoticeShownRef.current = true
-    setNotice('The voice is running in a slower mode on this device, so text appears first and the voice follows.')
-  }, [voiceState.status, voiceState.device])
   useEffect(() => setMicSupported(canListen()), [])
   useEffect(() => {
     if (open) loadRegistry().then((registry) => (registryRef.current = registry)).catch(() => {})
   }, [open])
-  // Load the voice and the recognizer's name hints while the visitor reads; the mic turns on when both are done.
-  // On data-saver connections nothing downloads up front: the mic works at once and answers appear as text.
-  useEffect(() => {
-    if (!open) return
-    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
-    if (connection?.saveData) {
-      setMicReady(true)
-      return
-    }
-    voice().preload()
-    const audio = voice().audioContext
-    if (audio) shareEarconContext(audio)
-    let active = true
-    const hints = Promise.race([prepareListening(), new Promise((resolve) => setTimeout(resolve, 20_000))])
-    void Promise.all([voice().whenLoaded(), hints]).then(() => active && setMicReady(true))
-    return () => {
-      active = false
-    }
-  }, [open, voice])
-  useEffect(() => {
-    if (voiceState.status === 'failed') setNotice('The voice can’t run in this browser, so answers appear as text. Chrome or Edge can read them aloud.')
-  }, [voiceState.status])
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight })
   }, [turns, interim])
@@ -247,19 +173,12 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
     setTour(null)
   }, [])
 
-  const revealAll = useCallback(() => {
-    setPreparing(false)
-    setTurns((current) => (current.some((turn) => turn.revealed !== undefined) ? current.map((turn) => (turn.revealed === undefined ? turn : { ...turn, revealed: undefined })) : current))
-  }, [])
-
   const stopEverything = useCallback(() => {
     abortRef.current?.abort()
     listeningRef.current?.cancel()
     listeningRef.current = null
-    voice().stop()
-    revealAll()
     endTour()
-  }, [endTour, revealAll, voice])
+  }, [endTour])
 
   const runTour = useCallback(
     async (steps: TourStep[]) => {
@@ -269,51 +188,23 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       tourRef.current = control
       setStatus('touring')
       // The card says what a tour is, lists its stops, and explains how it moves.
-      const card: Turn = { id: ++turnIds, role: 'assistant', text: '', tourCard: { stops: steps.map((step) => stopName(registry, step.target)), voiced: voice().on } }
+      const card: Turn = { id: ++turnIds, role: 'assistant', text: '', tourCard: { stops: steps.map((step) => stopName(registry, step.target)) } }
       setTurns((current) => [...current, card])
       setTourCardId(card.id)
-      // Generate the complete tour before playback. WebGPU synthesis can starve Chrome's real-time audio output;
-      // keeping it outside both speech and page rendering preserves the approved voice chain without underruns.
-      const stopSentences = steps.map((step) => sentencesOf(step.narration))
-      await voice().idle()
-      if (voice().on) {
-        setPreparing(true)
-        await voice().prepareAll(stopSentences.flat())
-        setPreparing(false)
-      }
       for (let index = 0; index < steps.length && !control.cancelled; index++) {
         const step = steps[index]!
         const target = registry.targets.get(step.target)
-        const spoken = voice().on
-        const synced = voice().keepsPace
         const turnId = ++turnIds
         clearHighlights()
         setTour({ index, total: steps.length, waiting: false })
         setTurns((current) => [
           ...current,
-          { id: turnId, role: 'assistant', text: step.narration, shown: [step.target], step: { index, total: steps.length, name: stopName(registry, step.target) }, revealed: synced ? 0 : undefined },
+          { id: turnId, role: 'assistant', text: step.narration, shown: [step.target], step: { index, total: steps.length, name: stopName(registry, step.target) } },
         ])
         if (target) await focusTarget(target, navigate)
         if (control.cancelled) break
-        if (spoken) {
-          // Sentence by sentence, so the stop starts speaking as soon as its first sentence is ready.
-          const parts = stopSentences[index]!
-          let searchFrom = 0
-          setPreparing(true)
-          const playing = Promise.all(
-            parts.map((part) => {
-              const end = step.narration.indexOf(part, searchFrom) + part.length
-              searchFrom = end
-              return voice().speak(part, () => {
-                followAnswer(part)
-                setPreparing(false)
-                updateTurn(turnId, (turn) => (turn.revealed === undefined ? turn : { ...turn, revealed: end >= step.narration.length ? undefined : Math.max(turn.revealed, end) }))
-              })
-            }),
-          )
-          await playing
-          await new Promise((resolve) => setTimeout(resolve, 500))
-        } else if (index < steps.length - 1) {
+        followAnswer(step.narration)
+        if (index < steps.length - 1) {
           setTour({ index, total: steps.length, waiting: true })
           await new Promise<void>((resolve) => (control.advance = resolve))
           control.advance = null
@@ -323,7 +214,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       setTour(null)
       setStatus('idle')
     },
-    [navigate, updateTurn, voice],
+    [navigate],
   )
 
   const send = useCallback(
@@ -336,11 +227,8 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       setInterim('')
       setNotice('')
 
-      // Decide once per answer: an answer is either spoken in full or shown as text, never switched midway.
-      const spoken = voice().on
-      const synced = voice().keepsPace
       const userTurn: Turn = { id: ++turnIds, role: 'user', text }
-      const reply: Turn = { id: ++turnIds, role: 'assistant', text: '', revealed: synced ? 0 : undefined }
+      const reply: Turn = { id: ++turnIds, role: 'assistant', text: '' }
       const retained = retryOf
         ? turnsRef.current.filter((turn, index, current) => turn.id !== retryOf && !(current[index + 1]?.id === retryOf && turn.role === 'user'))
         : turnsRef.current
@@ -351,37 +239,10 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       const controller = new AbortController()
       abortRef.current = controller
       const startedAt = performance.now()
-      const sentences = new SentenceBuffer()
-      const queuedSpeech: { sentence: string; end: number }[] = []
       let full = ''
-      let searchFrom = 0
       let requestId: string | null = null
       let firstTextMs: number | undefined
-      let firstAudioReported = false
       let turnErrorReported = false
-      // Each sentence becomes visible when it starts playing, so reading and listening stay together.
-      const speakSentence = (sentence: string, end: number) => {
-        if (!sentence.trim()) return
-        setPreparing(true)
-        void voice().speak(sentence, (audible) => {
-          if (audible && !firstAudioReported) {
-            firstAudioReported = true
-            postGuideTelemetry(apiUrl, { event: 'first_audio', requestId: requestId || undefined, elapsedMs: performance.now() - startedAt })
-          }
-          setPreparing(false)
-          updateTurn(reply.id, (turn) => (turn.revealed === undefined ? turn : { ...turn, revealed: Math.max(turn.revealed, end) }))
-          followAnswer(sentence)
-        })
-      }
-      const speakAll = (parts: string[]) => {
-        for (const part of parts) {
-          const at = full.indexOf(part, searchFrom)
-          const end = at < 0 ? full.length : at + part.length
-          searchFrom = end
-          queuedSpeech.push({ sentence: part, end })
-        }
-        void voice().prepareEarly(parts)
-      }
       let tourSteps: TourStep[] | null = null
       let shownCount = 0
 
@@ -393,14 +254,13 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
           const target = registry?.targets.get(action.target)
           if (!target) return
           updateTurn(reply.id, (turn) => ({ ...turn, shown: [...(turn.shown || []), action.target] }))
-          // Tabs in the shown section follow the answer: per sentence while it is spoken, else by the first mention.
-          void focusTarget(target, navigate, shownCount++ === 0 ? 'primary' : 'supporting').then(() => spoken || followAnswer(full))
+          // Tabs in the shown section follow the complete text answer by its first matching mention.
+          void focusTarget(target, navigate, shownCount++ === 0 ? 'primary' : 'supporting').then(() => followAnswer(full))
         } else if (action.type === 'links') {
           const valid = action.links.filter((id) => registry?.links.has(id))
           updateTurn(reply.id, (turn) => ({ ...turn, links: [...new Set([...(turn.links || []), ...valid])] }))
         } else if (action.type === 'tour') {
           tourSteps = action.steps.filter((step) => registry?.targets.has(step.target))
-          if (spoken) void voice().prepareEarly(tourSteps.flatMap((step) => sentencesOf(step.narration)))
         }
       }
 
@@ -417,7 +277,6 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
               firstTextMs ??= performance.now() - startedAt
               full += event.d
               updateTurn(reply.id, (turn) => ({ ...turn, text: turn.text + event.d }))
-              if (spoken) speakAll(sentences.push(event.d))
             } else if (event.t === 'action') {
               applyAction(event.action)
             } else if (event.t === 'error') {
@@ -431,7 +290,6 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
                 errorCode: event.code,
                 requestId: requestId || undefined,
                 retry: event.retryable ? { text, byVoice } : undefined,
-                revealed: undefined,
               }))
               postGuideTelemetry(apiUrl, {
                 event: 'turn_error',
@@ -453,28 +311,13 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
             firstTextMs,
           })
         }
-        if (spoken) {
-          const rest = sentences.flush()
-          if (rest) speakAll([rest])
-        } else followAnswer(full)
+        followAnswer(full)
         // Every tour opens by connecting the question to it; supply that sentence when the model left it out.
         const pending = tourSteps as TourStep[] | null
         if (pending?.length && !full.trim()) {
           const intro = `Here's a ${pending.length}-stop tour that answers your question, covering ${listOf(pending.map((step) => stopName(registry, step.target)))}.`
           full = intro
           updateTurn(reply.id, (turn) => ({ ...turn, text: intro }))
-          if (spoken) queuedSpeech.push({ sentence: intro, end: intro.length })
-        }
-        const tourSpeech = ((tourSteps as TourStep[] | null) || []).flatMap((step) => sentencesOf(step.narration))
-        const prepareSpeech = [...queuedSpeech.map(({ sentence }) => sentence), ...tourSpeech]
-        if (spoken && prepareSpeech.length) {
-          // WebGPU fp32 inference can monopolize Chrome's GPU process long enough for real-time audio to underrun.
-          // Finish the answer and any following tour before starting playback. Once speech begins, every prepared
-          // buffer still uses the approved 180 ms pause and voice chain without a later preparation gap.
-          setPreparing(true)
-          await voice().prepareAll(prepareSpeech)
-          if (controller.signal.aborted) return
-          for (const { sentence, end } of queuedSpeech) speakSentence(sentence, end)
         }
       } catch (error) {
         if (controller.signal.aborted) return
@@ -484,7 +327,6 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         requestId = error instanceof GuideRequestError ? error.requestId : requestId
         updateTurn(reply.id, (turn) => ({
           ...turn,
-          revealed: undefined,
           error: true,
           errorCode: code,
           requestId: requestId || undefined,
@@ -506,7 +348,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       if (steps && steps.length) await runTour(steps)
       else setStatus('idle')
     },
-    [apiUrl, navigate, runTour, stopEverything, updateTurn, voice],
+    [apiUrl, navigate, runTour, stopEverything, updateTurn],
   )
 
   const toggleListening = useCallback(async () => {
@@ -514,9 +356,8 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       listeningRef.current.stop()
       return
     }
-    if (micStartingRef.current || !micReady) return
+    if (micStartingRef.current || !micSupported) return
     stopEverything()
-    if (!voice().on) voice().enable()
     setNotice('')
     setInterim('')
     setListenPhase('starting')
@@ -550,27 +391,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       const denied = /not-allowed|service-not-allowed/.test(String((error as Error).message))
       setNotice(denied ? 'Microphone access is blocked. Allow it in your browser, or type your question.' : "I couldn't hear that. Tap the mic to try again, or type your question.")
     }
-  }, [micReady, send, stopEverything, voice])
-
-  const stopSpeaking = useCallback(() => {
-    voice().stop()
-    revealAll()
-    if (tourRef.current) {
-      endTour()
-      setStatus('idle')
-    }
-  }, [endTour, revealAll, voice])
-
-  // A rising or falling tone confirms the press; the voice itself is heard with the next answer.
-  const toggleVoice = useCallback(() => {
-    if (voiceState.status === 'off') {
-      voice().enable()
-      void playEarcon('voiceOn')
-    } else {
-      voice().disable()
-      void playEarcon('voiceOff')
-    }
-  }, [voice, voiceState.status])
+  }, [micSupported, send, stopEverything])
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -600,41 +421,21 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
     setOpen(false)
   }
 
-  const voiceLabel =
-    voiceState.status === 'loading'
-      ? voiceState.stage === 'downloading' && voiceState.progress < 1
-        ? `Voice ${Math.round(voiceState.progress * 100)}%`
-        : 'Voice starting…'
-      : voiceState.status === 'ready'
-        ? 'Voice on'
-        : voiceState.status === 'failed'
-          ? 'Voice unavailable'
-          : 'Voice off'
   const phase: Phase | null =
     status === 'listening'
       ? listenPhase
-      : voiceState.speaking
-        ? 'speaking'
-        : preparing
-          ? 'preparing'
-          : status === 'thinking'
-            ? 'thinking'
-            : voiceState.status === 'loading' || (micSupported && !micReady)
-              ? 'voiceLoading'
-              : notice
-                ? 'notice'
-                : null
+      : status === 'thinking'
+        ? 'thinking'
+        : notice
+          ? 'notice'
+          : null
   const phaseText =
     phase === 'notice'
       ? notice
-      : phase === 'voiceLoading'
-        ? voiceState.stage === 'downloading' && voiceState.progress < 1
-          ? `Getting the voice ready (${Math.round(voiceState.progress * 100)}%). ${micReady ? 'Answers will be read aloud when it’s ready.' : 'The mic turns on when it’s ready.'}`
-          : `Getting the voice ready. ${micReady ? 'Answers will be read aloud in a moment.' : 'The mic turns on in a moment.'}`
-        : phase
-          ? PHASE_COPY[phase]
-          : ''
-  // The voice strip shows and announces what is happening; the header only adds the tour position, so nothing is said twice.
+      : phase
+        ? PHASE_COPY[phase]
+        : ''
+  // The status strip shows and announces input and guide activity; the header only adds the tour position.
   const statusLabel = status === 'touring' && tour ? `Tour · stop ${tour.index + 1} of ${tour.total}` : ''
 
   if (!open) {
@@ -654,22 +455,6 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
           <p className="guide-status" aria-live="polite">{statusLabel || 'Ask by voice or text'}</p>
         </div>
         <div className="guide-header-actions">
-          <button
-            aria-pressed={voiceState.status === 'ready' || voiceState.status === 'loading'}
-            className={`guide-chip guide-voice-toggle is-${voiceState.status}`}
-            disabled={voiceState.status === 'failed'}
-            onClick={toggleVoice}
-            title={
-              voiceState.status === 'failed'
-                ? 'The voice could not start in this browser, so answers are shown as text.'
-                : voiceState.status === 'off'
-                  ? 'Answers are shown as text. Press to also hear them. Asking with the mic turns the voice on by itself.'
-                  : 'Answers are read aloud. Press to mute.'
-            }
-            type="button"
-          >
-            {voiceLabel}
-          </button>
           <button aria-label="Close guide" className="guide-icon-button" onClick={close} type="button">
             ×
           </button>
@@ -716,9 +501,8 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
                 ))}
               </ol>
               <p className="guide-tour-help">
-                The page moves to each stop and outlines the section being described.{' '}
-                {turn.tourCard.voiced ? 'Each stop is read aloud, then the tour moves on by itself.' : 'Read the outlined section, then press Next.'} You can end the tour or ask
-                something else at any time.
+                The page moves to each stop and outlines the section being described. Read the outlined section, then press Next. You can end the tour or ask something else at
+                any time.
               </p>
             </div>
           ) : (
@@ -730,8 +514,8 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
               </div>
             ) : null}
             <p>
-              {turn.revealed === undefined ? turn.text : turn.text.slice(0, turn.revealed)}
-              {(turn.revealed !== undefined && turn.revealed < turn.text.length) || (!turn.text && turn.role === 'assistant' && status === 'thinking') ? (
+              {turn.text}
+              {!turn.text && turn.role === 'assistant' && status === 'thinking' ? (
                 <span aria-hidden="true" className="guide-typing">…</span>
               ) : null}
             </p>
@@ -766,23 +550,18 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
       </div>
 
       {phase ? (
-        <div className={`guide-voice-strip is-${phase}`} role="status" aria-live="assertive">
-          <span aria-hidden="true" className="guide-voice-indicator">
+        <div className={`guide-status-strip is-${phase}`} role="status" aria-live="assertive">
+          <span aria-hidden="true" className="guide-status-indicator">
             <i />
             <i />
             <i />
             <i />
             <i />
           </span>
-          <span className="guide-voice-text">{phaseText}</span>
+          <span className="guide-status-text">{phaseText}</span>
           {phase === 'listening' || phase === 'hearing' ? (
             <button className="guide-chip" onClick={toggleListening} type="button">
               Done
-            </button>
-          ) : null}
-          {phase === 'speaking' ? (
-            <button className="guide-chip" onClick={stopSpeaking} type="button">
-              Stop
             </button>
           ) : null}
         </div>
@@ -799,7 +578,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
               Next
             </button>
           ) : null}
-          <button className="guide-chip" onClick={() => { endTour(); voice().stop(); revealAll(); setStatus('idle') }} type="button">
+          <button className="guide-chip" onClick={() => { endTour(); setStatus('idle') }} type="button">
             End tour
           </button>
         </div>
@@ -819,17 +598,14 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         <div className="guide-composer-actions">
           {micSupported ? (
             <button
-              aria-label={!micReady ? 'Getting the voice ready' : status === 'listening' ? 'Stop listening' : 'Ask by voice'}
+              aria-label={status === 'listening' ? 'Stop listening' : 'Ask by voice'}
               aria-pressed={status === 'listening'}
-              className={`guide-icon-button guide-mic${!micReady ? ' is-warming' : status === 'listening' ? ` is-listening is-${listenPhase}` : ' is-inviting'}`}
-              disabled={!micReady}
+              className={`guide-icon-button guide-mic${status === 'listening' ? ` is-listening is-${listenPhase}` : ' is-inviting'}`}
               onClick={toggleListening}
               title={
-                !micReady
-                  ? 'Getting the voice ready. The mic turns on when the guide can answer aloud.'
-                  : status === 'listening'
-                    ? 'Tap to finish speaking'
-                    : 'Tap to ask your question by voice. A chime means the mic is listening.'
+                status === 'listening'
+                  ? 'Tap to finish speaking'
+                  : 'Tap to ask your question by voice. A chime means the mic is listening.'
               }
               type="button"
             >
@@ -840,7 +616,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
               aria-disabled="true"
               aria-label="Voice questions are not supported in this browser"
               className="guide-icon-button guide-mic is-unsupported"
-              onClick={() => setNotice('Voice questions work in Chrome, Edge, and Safari. In this browser you can type, and still turn on spoken answers.')}
+              onClick={() => setNotice('Voice questions work in Chrome, Edge, and Safari. In this browser you can type your question instead.')}
               title="Voice questions work in Chrome, Edge, and Safari"
               type="button"
             >
@@ -853,7 +629,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         </div>
       </form>
       <p className="guide-footnote">
-        Answers come from this portfolio. Spoken replies run in your browser; speech input uses your browser&apos;s recognizer.
+        Answers come from this portfolio and stay on screen as text. Speech input uses your browser&apos;s recognizer.
       </p>
     </aside>
   )
