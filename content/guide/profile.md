@@ -1,5 +1,11 @@
 # Neerav Chaudhary — guide profile
 
+## In Neerav's own words
+
+This is the summary Neerav wrote for the top of his portfolio. It names the strengths he wants his work read through.
+
+> I am an AI engineer and published researcher, with experience across product design, AI/ML research, healthcare, ed tech, and AI safety and evaluation. I bring this breadth and a researcher's discipline to building products: I turn what a person needs into a measured goal, design an interface people find easy to use and an automation layer around it, and, most importantly, build the evaluation that shows whether the system works and how well. Working with founders, policy researchers, and cross-functional teams has made me adept at turning an ambiguous problem into interactive software that people can rely on.
+
 ## What Neerav is strongest at
 
 Neerav's greatest strength is product vision grounded in the user's perspective. As an AI product engineer, he starts from what a person is trying to get done, then builds complete feature sets and responsive interfaces around it. His deep interest in interaction design shows in software that feels simple and accessible to use while the engineering underneath stays innovative and rigorous.
