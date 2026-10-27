@@ -12,7 +12,7 @@ He also proves that his products work through harness engineering: he builds eva
 
 Neerav brings something unusual: a wide breadth of knowledge and experience that most applicants do not combine. He has worked across machine learning and AI, education, healthcare, software development, workflow automation, and AI policy and safety research, and he has worked with a wide variety of stakeholders and founders along the way. He is a source of ideas who can take a user problem, research it properly, and turn it into an innovative outcome people can use.
 
-The evidence is concrete. He has built four complete products end to end: Relay, Refract, Homeward, and Birb Hangout. He co-authored peer-reviewed research on analyzing brain atrophy in dementia, published through IEEE. At Deep Strat he consulted the founders and policy researchers on AI safety, guardrails, and model failure modes, and that work supported jointly authored AI-safety research presented at the Nullcon security conference. His master's in Industrial and Engineering Management adds the operational side: users, process, measurement, and delivery.
+The evidence is concrete. He has built four complete products end to end: Relay, Refract, Homeward, and Birb Hangout. He built TraceLens, a self-built AI safety and evaluation workspace that tests whether a supporting model can catch the emergencies general-purpose chatbots miss and make those failures transparent to the patient; its supporting model, Vega, reached held-out AUC 0.966. He co-authored peer-reviewed research on analyzing brain atrophy in dementia, published through IEEE. At Deep Strat he consulted the founders and policy researchers on AI safety, guardrails, and model failure modes, and that work supported jointly authored AI-safety research presented at the Nullcon security conference. His master's in Industrial and Engineering Management adds the operational side: users, process, measurement, and delivery.
 
 ## Explaining the work in plain terms
 
@@ -20,6 +20,7 @@ Visitors care about what the work does for people. Describe each mechanism by it
 
 - Relay's confirmed actions: Relay's voice AI agent never changes anything for an employee without first showing exactly what it will do and getting a yes, and afterwards it checks that the change really happened. The employee gets a finished result they can trust.
 - Relay's evaluation: Neerav built an evaluation harness for Relay. In 110 realistic multi-step conversations, Relay's voice AI agent completed the employee's request correctly 103 times; on 42 conversations worded in ways it had never seen, it succeeded 39 times. That shows it understands people who phrase things their own way.
+- TraceLens's emergency check: general-purpose chatbots miss emergencies or do not clearly state them to the patient. TraceLens pairs the chatbot with Vega, a supporting model that reads only the patient's message and ranks a true emergency above a non-emergency 97 percent of the time (held-out AUC 0.966). When Vega disagrees with the chatbot, the flag is disclosed and the chatbot reconsiders. Vega caught 18 of the chatbot's 31 misses, and on 70 physician-labelled emergencies the loop raised emergency guidance from 39 to 47 with one added false alarm.
 - Relay's safety testing: across 21 recorded attempts to trick it, including requests for other people's information, it never made an unsafe change.
 - Homeward's 32 of 32 safety scenarios: Homeward's multi-agent AI was tested against 32 ways things can go wrong for a patient, such as a reminder created without the patient's approval, another patient's records appearing, a document trying to trick the assistant, or a dropped connection creating a duplicate reminder. It handled every one safely, which means a patient can rely on what it tells them and on what it does.
 - Homeward when the AI service is down: the patient can still see their next step, search their discharge papers, and reach their care team, so recovery never stalls on an outage.
@@ -61,7 +62,7 @@ Neerav is a strong fit. At Deep Strat he sat with department leadership and the 
 
 ### ML or research engineer in healthcare
 
-Neerav is a strong fit. He co-authored a peer-reviewed IEEE study that uses computer vision to measure brain atrophy from MRI scans, built a deep learning study whose convolutional neural networks improved four-class dementia classification through model ensembling, and built Homeward, a multi-agent AI product that helps patients follow discharge instructions safely. He brings image analysis, careful experimental design, neural network tuning, and an understanding of how clinical workflows actually reach patients.
+Neerav is a strong fit. He built TraceLens, a preregistered evaluation of emergency guidance in health chatbots using Gemma 3 4B, Qwen3.5, PyTorch, and Hugging Face on physician-labelled benchmarks. He co-authored a peer-reviewed IEEE study that uses computer vision to measure brain atrophy from MRI scans, built a deep learning study whose convolutional neural networks improved four-class dementia classification through model ensembling, and built Homeward, a multi-agent AI product that helps patients follow discharge instructions safely. He brings image analysis, careful experimental design, neural network tuning, and an understanding of how clinical workflows actually reach patients.
 
 ### Realtime or interactive product engineer
 
@@ -69,7 +70,7 @@ Neerav is a strong fit. Birb Hangout is a deployed realtime multiplayer 3D world
 
 ## Project scope framing
 
-All six works are real, implemented, and measured: Relay, Refract, Homeward, and Birb Hangout are working products with recorded evaluations; the brain-atrophy study is peer-reviewed IEEE research; and the four-class MRI study is a complete deep learning research study. Scope details are side facts for direct questions:
+All seven works are real, implemented, and measured: Relay, Refract, Homeward, and Birb Hangout are working products with recorded evaluations; TraceLens is a preregistered health-AI safety evaluation with held-out results; the brain-atrophy study is peer-reviewed IEEE research; and the four-class MRI study is a complete deep learning research study. Scope details are side facts for direct questions:
 
 - Relay runs in a realistic sample company with sample employee records, and it is built to connect to production HR, ticketing, calendar, and messaging systems through adapters designed for that purpose.
 - Refract already records what it needs for long-term learning and grading studies.

@@ -15,6 +15,10 @@ const projectStatus = {
     definition: 'The lounge, shared activities, Dream, realtime protocols, and creative-review system are implemented and continue through visual and deployment refinement.',
     label: 'Playable social world',
   },
+  'preregistered-study': {
+    definition: 'A supporting model, a disclosed reconsideration loop, and a preregistered held-out study, each measured on physician-labelled cases.',
+    label: 'Evaluated safety system',
+  },
   'published-work': {
     definition: 'The linked notebooks document the completed experiment and its reported evaluation.',
     label: 'Research study',

@@ -46,5 +46,21 @@
     "project": "profile",
     "source": "content/guide/deep-strat.md",
     "maxNarrativeOccurrences": 3
+  },
+  {
+    "id": "tracelens-commit-first-24-to-35",
+    "pattern": "24 to 35",
+    "approvedSpokenForm": "emergency guidance rose from 24 to 35 of 39 physician-labelled emergencies",
+    "project": "tracelens",
+    "source": "content/guide/projects/tracelens.md",
+    "maxNarrativeOccurrences": 3
+  },
+  {
+    "id": "tracelens-support-loop-39-to-47",
+    "pattern": "39 to 47",
+    "approvedSpokenForm": "final emergency guidance rose from 39 to 47 of 70",
+    "project": "tracelens",
+    "source": "content/guide/projects/tracelens.md",
+    "maxNarrativeOccurrences": 3
   }
 ]

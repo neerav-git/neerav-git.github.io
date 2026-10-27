@@ -8,6 +8,8 @@ import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { getProjectStatus } from '@/lib/projectStatus'
 import type { ProjectRecord } from '@/lib/types'
 
+import { SkillTags } from './SkillTags'
+
 type ProductShowcaseProps = {
   projects: ProjectRecord[]
 }
@@ -34,7 +36,8 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
 
   if (!activeProject) return null
 
-  const image = getUploadUrl(activeProject.coverImage || activeProject.thumbnailImage)
+  const showcaseAsset = activeProject.showcaseImage || activeProject.coverImage || activeProject.thumbnailImage
+  const image = getUploadUrl(showcaseAsset)
   const maturity = getProjectStatus(activeProject.status)
   const highlights = activeProject.landingHighlights || []
 
@@ -88,7 +91,7 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
       >
         {image ? (
           <Link className="active-product-media" href={`/projects/${activeProject.slug}/`}>
-            <img alt={getUploadAlt(activeProject.coverImage || activeProject.thumbnailImage)} src={image} />
+            <img alt={getUploadAlt(showcaseAsset)} src={image} />
           </Link>
         ) : null}
 
@@ -98,8 +101,10 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
             <span>{maturity.label}</span>
           </div>
           <h3>{activeProject.title}</h3>
+          {activeProject.headline ? <p className="project-headline">{activeProject.headline}</p> : null}
           <p className="active-product-summary">{activeProject.summary}</p>
           {highlights[0] ? <p className="active-product-outcome"><strong>Lead evidence:</strong> {highlights[0]}</p> : null}
+          <SkillTags compact skills={activeProject.skills} />
 
           {(highlights.length > 1 || activeProject.methodology?.evaluation || activeProject.methodology?.boundary) ? (
             <details className="product-details">

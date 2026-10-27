@@ -21,6 +21,14 @@
     { "kind": "stack", "label": "React + Vite" },
     { "kind": "stack", "label": "FastAPI" }
   ],
+  "skills": [
+    "Python",
+    "RAG",
+    "FastAPI",
+    "Research Workflows",
+    "Model Evaluation",
+    "ChromaDB"
+  ],
   "problem": "A research argument is assembled across PDF readers, note systems, AI chats, comparison documents, flashcards, notebooks, and spreadsheets. Each transfer can separate a claim from its page, a comparison from its source set, a review score from its rubric, or a model result from the assumptions that produced it.",
   "approach": "Refract makes the research session the durable unit of work. Papers, selected passages, questions, comparisons, cards, recall attempts, confidence ratings, datasets, audit decisions, analysis steps, and visual outputs inherit session and source identities that survive movement across five focused workspaces.",
   "output": "A React 18 and Vite interface with a FastAPI, PostgreSQL, Alembic, ChromaDB, and S3-compatible backend; source-constrained document retrieval; comparative synthesis; structured recall grading and FSRS scheduling; and a review-gated battery remaining-useful-life analysis workflow.",

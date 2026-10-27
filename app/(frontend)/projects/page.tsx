@@ -2,6 +2,7 @@
 import Link from 'next/link'
 
 import { EditableRegion } from '@/components/EditableRegion'
+import { SkillTags } from '@/components/SkillTags'
 import { adminLinks } from '@/lib/admin'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { getProjects, getSiteSettings } from '@/lib/content'
@@ -28,7 +29,9 @@ function ProjectIndexCard({ project }: { project: ProjectRecord }) {
             {project.cardEyebrow || 'Project'} {project.dateLabel ? `· ${project.dateLabel}` : ''}
           </div>
           <h2>{project.title}</h2>
+          {project.headline ? <p className="project-headline">{project.headline}</p> : null}
           <p>{project.summary}</p>
+          <SkillTags compact skills={project.skills} />
           <span className="text-link">Open case study →</span>
         </div>
       </Link>
@@ -72,8 +75,8 @@ export default async function ProjectsPage() {
       {studyProjects.length ? (
         <section className="case-index-section" aria-labelledby="research-case-studies">
           <div className="compact-index-heading">
-            <div className="panel-eyebrow">ML studies</div>
-            <h2 id="research-case-studies">Peer-reviewed atrophy measurement and four-class MRI ensembling</h2>
+            <div className="panel-eyebrow">ML &amp; AI studies</div>
+            <h2 id="research-case-studies">Health-AI safety evaluation, atrophy measurement, and MRI ensembling</h2>
           </div>
           <div className="case-index-grid case-index-grid--studies">
             {studyProjects.map((project) => <ProjectIndexCard key={project.slug} project={project} />)}

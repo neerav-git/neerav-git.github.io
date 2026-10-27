@@ -75,6 +75,7 @@ export type SiteSettings = {
     currentFocusMarkdown?: string
     lead?: string
     portrait?: Asset | null
+    skills?: string[]
   }
   contactEmail?: string
   footerLine?: string
@@ -142,6 +143,10 @@ export type ProjectRecord = {
   methodology?: ProjectMethodology
   primaryCategory?: 'product-system' | 'ml-ai-study'
   portfolioKeywords?: PortfolioKeyword[]
+  /** Optional problem statement shown above the summary wherever the project is introduced. */
+  headline?: string
+  /** Optional image for the homepage product showcase panel; falls back to the cover. */
+  showcaseImage?: Asset | null
   secondaryCategories?: Array<
     'research-system' | 'evaluation' | 'voice-ai' | 'healthcare' | 'multiplayer' | 'machine-learning'
   >
@@ -170,6 +175,7 @@ export type ProjectRecord = {
   relatedArchiveSlugs?: string[]
   relatedArticleSlugs?: string[]
   role?: string
+  skills?: string[]
   slug: string
   status?: string
   summary: string

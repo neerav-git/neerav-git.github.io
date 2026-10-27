@@ -36,7 +36,7 @@ const metricIds = new Set(JSON.parse(fs.readFileSync(path.join(guideDir, 'metric
 const frontmatterKeys = ['slug', 'approvedTargets', 'approvedLinks', 'metricIds']
 const files = fs.readdirSync(projectDir).filter((name) => name.endsWith('.md')).sort()
 
-if (files.length !== 6) errors.push(`Expected 6 curated project records; found ${files.length}.`)
+if (files.length !== 7) errors.push(`Expected 7 curated project records; found ${files.length}.`)
 for (const file of files) {
   const source = fs.readFileSync(path.join(projectDir, file), 'utf8')
   for (const section of requiredSections) {

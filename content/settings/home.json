@@ -1,7 +1,7 @@
 {
-  "heroEyebrow": "Product design · engineering · evaluation",
-  "heroTitle": "I design and build AI products that turn complex work into clear, verifiable outcomes.",
-  "heroBody": "Relay completes employee-service workflows from grounded answer to confirmed action. Refract keeps papers, citations, comparisons, datasets, and model results connected inside one research session. Homeward converts discharge records into source-linked recovery tasks. Birb Hangout gives distant friends a shared 3D room for music, video, reading, games, rest, and flight. The medical-imaging studies add peer-reviewed atrophy measurement and a four-class CNN ensemble result.",
+  "heroEyebrow": "Published research · product design · AI safety & evaluation",
+  "heroTitle": "I design the interfaces and engineer the systems that get the most out of AI.",
+  "heroBody": "I am a published researcher and AI engineer. My experience spans product design, AI/ML research, ed tech, healthcare, and AI safety and evaluation research, and I bring that range into each system I build. I approach products the way I approach research: I start from what a person is trying to get done, define a question that can be measured, design an interface that makes the answer simple to use, and engineer the system and evaluation harness that show whether it works. Working with founders, policy researchers, and cross-functional teams has made me practiced at turning an ambiguous problem into a system people can rely on.",
   "heroImage": "/uploads/relay/workspace-and-guide.png",
   "heroLinks": [
     {
@@ -12,33 +12,37 @@
     {
       "label": "Products & Systems",
       "url": "/#products-and-systems",
-      "description": "Relay, Refract, Homeward, and Birb Hangout."
+      "description": "Relay, TraceLens, Refract, Homeward, and Birb Hangout."
     },
     {
       "label": "ML & AI Studies",
       "url": "/#ml-ai-studies",
-      "description": "A peer-reviewed OpenCV atrophy method and a four-class TensorFlow ensemble experiment."
+      "description": "TraceLens health-AI safety evaluation, a peer-reviewed OpenCV atrophy method, and a four-class TensorFlow ensemble experiment."
     }
   ],
   "featuredProjectsHeading": "Products & Systems",
   "featuredProjectSlugs": [
     "relay",
+    "tracelens",
     "refract-ai",
     "homeward",
     "birb-hangout"
   ],
   "productProjectSlugs": [
     "relay",
+    "tracelens",
     "refract-ai",
     "homeward",
     "birb-hangout"
   ],
   "studyProjectSlugs": [
+    "tracelens",
     "brain-atrophy-computer-vision",
     "alzheimers-disease-research"
   ],
   "featuredWritingHeading": "Writing",
   "featuredArticleSlugs": [
+    "measuring-emergency-guidance-in-health-chatbots",
     "designing-a-session-centered-research-workspace",
     "what-reliable-should-mean-for-llms-in-life-sciences",
     "notebook-first-medical-ml-is-still-real-research",

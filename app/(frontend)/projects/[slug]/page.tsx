@@ -6,6 +6,7 @@ import { ContentBlocks } from '@/components/ContentBlocks'
 import { EditableRegion } from '@/components/EditableRegion'
 import { EntrySectionMap } from '@/components/EntrySectionMap'
 import { ProjectMethodology } from '@/components/ProjectMethodology'
+import { SkillTags } from '@/components/SkillTags'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { adminLinks } from '@/lib/admin'
 import { getProjectBySlug, getProjects } from '@/lib/content'
@@ -38,6 +39,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const gallery = uniqueAssets(project.gallery, normalizedMedia.usedUrls)
   const repoTopics = Array.isArray(project.github?.repoTopics) ? project.github.repoTopics : []
   const maturity = getProjectStatus(project.status)
+  const skills = project.skills?.length
+    ? project.skills
+    : (project.technologies || []).map((technology) => technology.value).filter(Boolean)
 
   return (
     <EditableRegion editHref={adminLinks.project(project.slug)} editLabel={project.title || 'project'}>
@@ -48,22 +52,19 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               {project.cardEyebrow || 'Project'} {project.dateLabel ? `· ${project.dateLabel}` : ''}
             </div>
             <h1>{project.title}</h1>
+            {project.headline ? <p className="project-headline project-headline--hero">{project.headline}</p> : null}
             <p className="hero-copy">{project.summary}</p>
             {project.role ? <p className="detail-role"><strong>Role</strong>{project.role}</p> : null}
           </div>
 
           <aside className="detail-overview-aside">
-            {Array.isArray(project.technologies) && project.technologies.length ? (
+            {skills.length ? (
               <section className="entry-rail-panel">
                 <div className="panel-eyebrow">Summary</div>
                 <div className="entry-summary-stack">
                   <p><strong>{maturity.label}.</strong> {maturity.definition}</p>
                   <a className="text-link" href="#methodology">Build, evidence, and scope ↓</a>
-                  <div className="tag-row">
-                    {project.technologies.map((technology, index) =>
-                      technology?.value ? <span key={`${technology.value}-${index}`}>{technology.value}</span> : null
-                    )}
-                  </div>
+                  <SkillTags skills={skills} />
                 </div>
               </section>
             ) : null}

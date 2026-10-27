@@ -1,4 +1,4 @@
-export type GuideTarget = { id: string; route: string; anchor: string | null; label: string }
+export type GuideTarget = { id: string; route: string; anchor: string | null; label: string; skills?: string[] }
 export type GuideLink = { id: string; label: string; url: string }
 export type Knowledge = {
   version: string

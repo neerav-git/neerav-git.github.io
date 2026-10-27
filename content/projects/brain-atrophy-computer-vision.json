@@ -21,6 +21,13 @@
     { "kind": "stack", "label": "Python" },
     { "kind": "stack", "label": "OpenCV" }
   ],
+  "skills": [
+    "Python",
+    "OpenCV",
+    "Medical Imaging",
+    "Interpretable CV",
+    "Statistical Validation"
+  ],
   "problem": "Manual tracing and segmentation can make brain-atrophy measurement expert-intensive, time-consuming, and difficult to reproduce across large MRI collections. The study asks whether visible tissue loss, ventricular expansion, and sulcal widening can be translated into a repeatable image-level score that supports consistent comparison.",
   "approach": "The pipeline creates binary masks for black, white, and grey intensity regions; calculates their pixel densities; and computes dem = b / (w + g), where dark space acts as a proxy for cerebrospinal-fluid and open-space patterns and white-plus-grey pixels represent visible tissue. Group means define lower and upper reference bounds, while a controlled crop experiment tests the value of focusing on the hippocampal region.",
   "output": "A peer-reviewed five-page IEEE conference paper, a Python/OpenCV measurement method, cohort-derived decision bounds, a three-region interpretation rule, a longitudinal atrophy-rate equation, and a reported crop-based classification improvement from 66% to 71%.",
@@ -37,7 +44,7 @@
   },
   "role": "I co-authored the paper and built the repeatable Python/OpenCV pipeline that converts MRI intensity regions into quantitative tissue-loss measurements, reference bounds, crop comparisons, and an atrophy-rate method.",
   "featured": true,
-  "displayOrder": 4,
+  "displayOrder": 5,
   "coverImage": {
     "url": "/uploads/alzheimers/brain-atrophy-publication.svg",
     "alt": "OpenCV workflow for measuring brain atrophy from MRI intensity regions"

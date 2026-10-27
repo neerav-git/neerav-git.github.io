@@ -21,6 +21,14 @@
     { "kind": "stack", "label": "Deepgram" },
     { "kind": "stack", "label": "TypeScript" }
   ],
+  "skills": [
+    "Agentic Workflows",
+    "Harness Engineering",
+    "TypeScript",
+    "Voice AI",
+    "Tool Calling",
+    "Playwright"
+  ],
   "problem": "Employee-service portals make people translate a plain-language need into the correct system, record, owner, form, and next action. The employee carries the coordination burden while support teams receive incomplete or misrouted requests.",
   "approach": "Relay places a Deepgram-powered voice and text guide inside a complete employee workspace. Typed records ground each answer; semantic navigation opens registered routes and records; five capability adapters prepare consequential actions; and an application-owned confirmation, idempotency, audit, and verification service controls execution.",
   "output": "A React 19 and Fastify 5 product spanning onboarding, tasks, documents, learning, pay and benefits, support cases, meetings, reminders, and workflow operations, with shared text and live voice paths, retained run evidence, and an in-product evaluation dashboard.",

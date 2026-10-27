@@ -5,6 +5,7 @@ import { type FormEvent, type KeyboardEvent, useCallback, useEffect, useRef, use
 
 import { GuideRequestError, streamGuideTurn, type GuideAction, type GuideTurn } from '@/lib/guide/api'
 import { clearHighlights, focusTarget, followAnswer, loadRegistry, type GuideRegistry } from '@/lib/guide/layer'
+import { guideFooterSkills } from '@/lib/guide/skills'
 import { playEarcon } from '@/lib/guide/earcons'
 import { canListen, listenOnce, type Listening, type ListenPhase } from '@/lib/guide/listen'
 import { postGuideTelemetry, type ClientFailureStage } from '@/lib/guide/telemetry'
@@ -15,6 +16,7 @@ type Turn = {
   text: string
   links?: string[]
   shown?: string[]
+  skills?: string[]
   step?: { index: number; total: number; name: string }
   error?: boolean
   errorCode?: string
@@ -199,7 +201,14 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         setTour({ index, total: steps.length, waiting: false })
         setTurns((current) => [
           ...current,
-          { id: turnId, role: 'assistant', text: step.narration, shown: [step.target], step: { index, total: steps.length, name: stopName(registry, step.target) } },
+          {
+            id: turnId,
+            role: 'assistant',
+            text: step.narration,
+            shown: [step.target],
+            skills: target?.skills,
+            step: { index, total: steps.length, name: stopName(registry, step.target) },
+          },
         ])
         if (target) await focusTarget(target, navigate)
         if (control.cancelled) break
@@ -253,7 +262,11 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
         if (action.type === 'show') {
           const target = registry?.targets.get(action.target)
           if (!target) return
-          updateTurn(reply.id, (turn) => ({ ...turn, shown: [...(turn.shown || []), action.target] }))
+          updateTurn(reply.id, (turn) => ({
+            ...turn,
+            shown: [...(turn.shown || []), action.target],
+            skills: [...new Set([...(turn.skills || []), ...(target.skills || [])])],
+          }))
           // Tabs in the shown section follow the complete text answer by its first matching mention.
           void focusTarget(target, navigate, shownCount++ === 0 ? 'primary' : 'supporting').then(() => followAnswer(full))
         } else if (action.type === 'links') {
@@ -440,7 +453,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
 
   if (!open) {
     return (
-      <button className="guide-launcher" onClick={() => setOpen(true)} type="button">
+      <button aria-label="Ask the portfolio guide" className="guide-launcher" onClick={() => setOpen(true)} type="button">
         <WaveIcon />
         <span>Ask the guide</span>
       </button>
@@ -543,6 +556,15 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
                 })}
               </div>
             ) : null}
+            {turn.role === 'assistant' && !turn.error && turn.text ? (() => {
+              const skills = guideFooterSkills(turn.text, turn.skills)
+              return skills.length ? (
+                <footer className="guide-skill-footer" aria-label="Relevant skills for this answer">
+                  <span>Skills</span>
+                  <ul>{skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
+                </footer>
+              ) : null
+            })() : null}
           </div>
           ),
         )}

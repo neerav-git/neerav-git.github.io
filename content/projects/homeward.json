@@ -21,6 +21,14 @@
     { "kind": "stack", "label": "React + Express" },
     { "kind": "stack", "label": "TypeScript" }
   ],
+  "skills": [
+    "Agentic Workflows",
+    "MCP",
+    "Harness Engineering",
+    "TypeScript",
+    "Human-in-the-Loop",
+    "Failure Recovery"
+  ],
   "problem": "Discharge instructions arrive when patients and caregivers are tired, anxious, and newly responsible for coordinating follow-up, documents, recovery checks, laboratory questions, warning signs, and dates. Missing or conflicting details can become dangerous when a summary quietly turns uncertainty into a confident instruction.",
   "approach": "Homeward converts the discharge record into typed recovery tasks with exact source references, explicit date provenance, durable clarification state, deterministic next-step selection, patient-scoped lexical search, role-bounded specialist assistance, care-team review, and approval-controlled reminder execution.",
   "output": "A React 19 and Express 5 product with SQLite persistence, four TrueForge and MCP specialist roles, patient and care-team workspaces, imported-document review, source-linked summaries, deterministic guidance, idempotent calendar-file creation, immutable audit history, and recorded multi-layer verification.",

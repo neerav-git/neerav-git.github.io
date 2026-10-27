@@ -21,6 +21,14 @@
     { "kind": "evaluation", "label": "Visual Evidence" },
     { "kind": "stack", "label": "React Three Fiber + Colyseus" }
   ],
+  "skills": [
+    "TypeScript",
+    "Realtime Multiplayer",
+    "React Three Fiber",
+    "Colyseus",
+    "Harness Engineering",
+    "3D Interaction Design"
+  ],
   "problem": "Most remote social products ask people either to keep a conversation going or to commit to the same game. That leaves little room for the quieter, parallel rituals that make physical presence comfortable: reading while someone chooses music, resting near a friend, noticing what others are doing, or joining an activity without taking over the room.",
   "approach": "Birb Hangout models the lounge itself as the interface. Players appear as expressive birds, approach visible objects, and move between shared and private activities without leaving the common space. The implementation combines authoritative room state, behavior-specific realtime protocols, procedural flight and terrain, and a rigorous creative-engineering workflow for testing how motion and spatial interactions actually read.",
   "output": "A TypeScript social-world system spanning a React 18 and React Three Fiber client, Colyseus room server, typed shared protocol, persistence and upload controls, diegetic media and reading experiences, synchronized social interactions, a shared Dream flight world, specialist 3D studios, spatial annotation, and reproducible visual-review tooling.",

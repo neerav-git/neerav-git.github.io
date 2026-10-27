@@ -42,6 +42,14 @@
       "label": "Python + Keras"
     }
   ],
+  "skills": [
+    "Python",
+    "TensorFlow",
+    "Keras",
+    "Deep Learning",
+    "CNN Ensembles",
+    "Medical Imaging"
+  ],
   "problem": "Four-class dementia-stage classification requires a model to separate adjacent categories whose MRI slices can appear structurally similar. The research question extends beyond fitting one CNN: can independently trained variants contribute complementary judgments when their full class-probability vectors are combined?",
   "approach": "The Colab workflow discovers 6,400 folder-labeled ADNI brain MRI scans, inspects their visual characteristics, builds cached and prefetched TensorFlow partitions, applies training-only augmentation, trains and reloads CNN variants, renders class-and-confidence review grids, and evaluates equal-average two- and three-model ensembles on the held-out stream. Network depth, width, normalization, and dropout were tuned across variants: the main network uses six convolutional blocks growing from 64 to 256 filters with 30% dropout and a 512-unit classifier, and the lighter variant uses 32 to 128 filters with a 128-unit classifier.",
   "output": "A 100-cell experimental notebook with retained dataset and model evidence, a reproducible 256×256 four-class pipeline, deep and compact CNN variants, reusable single-image and grid inference, probability-level checkpoint fusion, and a documented seven-point companion-experiment gain.",
@@ -58,7 +66,7 @@
   },
   "role": "I designed and built the complete notebook experiment: ADNI data discovery and inspection, TensorFlow preprocessing and augmentation, CNN architecture design and hyperparameter tuning (depth, width, normalization, dropout), training, checkpoint loading, reusable inference, sample-level error review, two- and three-model probability ensembles, weighted-fusion exploration, evaluation calls, visualizations, and run documentation.",
   "featured": true,
-  "displayOrder": 5,
+  "displayOrder": 6,
   "coverImage": {
     "url": "/uploads/alzheimers/notebook-output-1.png",
     "alt": "Notebook montage showing MRI samples from all four classification folders"

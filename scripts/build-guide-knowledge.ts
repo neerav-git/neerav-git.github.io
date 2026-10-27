@@ -13,7 +13,7 @@ import { getArchiveItems, getArticles, getProjects, getRecommendations, getSiteS
 import { normalizeContentMedia } from '../lib/mediaDeduplication'
 import type { ContentBlock, LinkItem } from '../lib/types'
 
-type Target = { id: string; route: string; anchor: string | null; label: string }
+type Target = { id: string; route: string; anchor: string | null; label: string; skills?: string[] }
 type GuideLink = { id: string; label: string; url: string }
 type MetricRule = { id: string; pattern: string; maxNarrativeOccurrences: number }
 /** Per-source key terms (content/guide/key-terms.json): lead terms are named whenever the work is described. */
@@ -33,9 +33,9 @@ function text(value: unknown) {
   return typeof value === 'string' ? value.replace(/\s+\n/g, '\n').trim() : ''
 }
 
-function addTarget(id: string, route: string, anchor: string | null, label: string) {
+function addTarget(id: string, route: string, anchor: string | null, label: string, skills?: string[]) {
   if (targets.some((target) => target.id === id)) throw new Error(`Duplicate guide target ${id}`)
-  targets.push({ id, route, anchor, label })
+  targets.push({ id, route, anchor, label, ...(skills?.length ? { skills: skills.slice(0, 7) } : {}) })
 }
 
 function addLinks(prefix: string, items: LinkItem[] | undefined | null) {
@@ -46,10 +46,10 @@ function addLinks(prefix: string, items: LinkItem[] | undefined | null) {
   }
 }
 
-function registerBlocks(prefix: string, route: string, linkPrefix: string, blocks: ContentBlock[]) {
+function registerBlocks(prefix: string, route: string, linkPrefix: string, blocks: ContentBlock[], skills?: string[]) {
   blocks.forEach((block, index) => {
     const title = text(block.title)
-    if (title) addTarget(`${prefix}.${index + 1}-${slug(title, 3)}`, route, getBlockAnchor(block, index), title)
+    if (title) addTarget(`${prefix}.${index + 1}-${slug(title, 3)}`, route, getBlockAnchor(block, index), title, skills)
     addLinks(linkPrefix, block.links)
   })
 }
@@ -107,11 +107,11 @@ async function main() {
   addTarget('projects.studies', '/projects/', 'research-case-studies', 'Work index: research studies')
   addTarget('page.writing', '/writing/', null, 'Writing index')
   addTarget('page.archive', '/archive/', null, 'Archive index')
-  addTarget('page.about', '/about/', null, 'About')
-  addTarget('about.biography', '/about/', 'biography', 'About: biography')
-  addTarget('about.focus', '/about/', 'current-focus', 'About: current focus')
-  addTarget('page.resume', '/resume/', null, 'Resume')
-  addTarget('resume.pdf', '/resume/', 'resume-pdf', 'Resume: PDF and summary')
+  addTarget('page.about', '/about/', null, 'About', settings?.about?.skills)
+  addTarget('about.biography', '/about/', 'biography', 'About: biography', settings?.about?.skills)
+  addTarget('about.focus', '/about/', 'current-focus', 'About: current focus', settings?.about?.skills)
+  addTarget('page.resume', '/resume/', null, 'Resume', settings?.about?.skills)
+  addTarget('resume.pdf', '/resume/', 'resume-pdf', 'Resume: PDF and summary', settings?.about?.skills)
   addTarget('resume.references', '/resume/', 'references', 'Resume: references')
 
   addLinks('contact', [
@@ -127,15 +127,15 @@ async function main() {
     const base = `project.${project.slug}`
     // Naming the subject keeps "show me the paper" on the case study rather than its archive record.
     const kind = [project.cardEyebrow || project.primaryCategory || 'project', project.status === 'peer-reviewed-publication' ? 'peer-reviewed IEEE paper' : ''].filter(Boolean).join(', ')
-    addTarget(base, route, 'overview', `${project.title}: case study (${kind})`)
-    addTarget(`projects.card.${project.slug}`, '/projects/', `case-${project.slug}`, `Work index card: ${project.title}`)
-    if (project.methodology) addTarget(`${base}.methodology`, route, 'methodology', `${project.title}: build, evidence, and scope`)
+    addTarget(base, route, 'overview', `${project.title}: case study (${kind})`, project.skills)
+    addTarget(`projects.card.${project.slug}`, '/projects/', `case-${project.slug}`, `Work index card: ${project.title}`, project.skills)
+    if (project.methodology) addTarget(`${base}.methodology`, route, 'methodology', `${project.title}: build, evidence, and scope`, project.skills)
     const coverUrl = getUploadUrl(project.coverImage)
     const normalized = normalizeContentMedia(project.pageSections, coverUrl ? [coverUrl] : [])
-    registerBlocks(base, route, project.slug, normalized.blocks)
-    if (project.gallery?.length) addTarget(`${base}.gallery`, route, 'gallery', `${project.title}: gallery`)
+    registerBlocks(base, route, project.slug, normalized.blocks, project.skills)
+    if (project.gallery?.length) addTarget(`${base}.gallery`, route, 'gallery', `${project.title}: gallery`, project.skills)
     addLinks(project.slug, project.links)
-    if (project.links?.length || project.attachments?.length) addTarget(`${base}.links`, route, 'project-links', `${project.title}: project links`)
+    if (project.links?.length || project.attachments?.length) addTarget(`${base}.links`, route, 'project-links', `${project.title}: project links`, project.skills)
   }
 
   for (const article of articles) {

@@ -3,7 +3,7 @@
  * same answer become supporting. Everything is cleared when the visitor starts a new turn, so a new topic never
  * inherits the previous glow.
  */
-export type GuideTarget = { id: string; route: string; anchor: string | null; label: string }
+export type GuideTarget = { id: string; route: string; anchor: string | null; label: string; skills?: string[] }
 export type GuideLink = { id: string; label: string; url: string }
 export type GuideRegistry = { version: string; targets: Map<string, GuideTarget>; links: Map<string, GuideLink> }
 

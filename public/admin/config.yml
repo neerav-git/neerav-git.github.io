@@ -105,6 +105,12 @@ collections:
               - { label: Portrait, name: portrait, widget: image, required: false, hint: "Optional portrait shown beside the About text." }
               - { label: Biography Markdown, name: biographyMarkdown, widget: markdown, required: false, hint: "Main About body content." }
               - { label: Current Focus Markdown, name: currentFocusMarkdown, widget: markdown, required: false, hint: "Secondary section for current work and priorities." }
+              - label: Core Skills
+                name: skills
+                widget: list
+                required: false
+                hint: "Concise portfolio-level skills shown on the About page."
+                field: { label: Skill, name: value, widget: string }
       - label: Home Page
         name: home
         file: content/settings/home.json
@@ -303,6 +309,13 @@ collections:
               - { label: Evaluation, value: evaluation }
               - { label: Stack, value: stack }
           - { label: Keyword, name: label, widget: string }
+      - label: Skills Applied
+        name: skills
+        widget: list
+        required: false
+        max: 7
+        hint: "Evidence-backed skills shown as compact tags on project cards and case studies."
+        field: { label: Skill, name: value, widget: string }
       - { label: Problem, name: problem, widget: text, required: false, hint: "Concrete problem shown in project cards and detail headers." }
       - { label: Approach, name: approach, widget: text, required: false, hint: "Concrete approach shown in project cards and detail headers." }
       - { label: Output, name: output, widget: text, required: false, hint: "Concrete artifact or result shown in project cards and detail headers." }

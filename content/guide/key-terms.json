@@ -196,5 +196,28 @@
       "ADNI MRI data",
       "computer vision"
     ]
+  },
+  "projects/tracelens.md": {
+    "section": "In plain terms",
+    "lead": [
+      {
+        "term": "AI safety"
+      },
+      {
+        "term": "LLM evaluation"
+      }
+    ],
+    "supporting": [
+      "Python",
+      "PyTorch",
+      "Hugging Face",
+      "Gemma 3",
+      "Qwen3.5",
+      "preregistration",
+      "McNemar test",
+      "AUC",
+      "calibration",
+      "Kaggle GPUs"
+    ]
   }
 }

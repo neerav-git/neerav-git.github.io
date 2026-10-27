@@ -1,0 +1,350 @@
+{
+  "title": "TraceLens",
+  "slug": "tracelens",
+  "cardEyebrow": "AI safety & evaluation workspace",
+  "dateLabel": "Built and evaluated · 2026",
+  "status": "preregistered-study",
+  "primaryCategory": "ml-ai-study",
+  "secondaryCategories": [
+    "evaluation",
+    "healthcare",
+    "research-system",
+    "machine-learning"
+  ],
+  "summary": "TraceLens is a self-built AI safety and evaluation workspace that tests this question. Vega, a supporting model, reads the patient's message independently of the chatbot. When the two disagree, the chatbot reconsiders with the flag disclosed to the user, and every step from first answer to final action is recorded for review.",
+  "landingDeck": "A self-built workspace that tests whether a supporting model can catch the emergencies a chatbot misses and make each failure visible: an independent emergency detector, a disclosed reconsideration loop, a preregistered study on physician-labelled cases, and a cascade decision-model architecture.",
+  "landingHighlights": [
+    "Vega reached held-out AUC 0.966: it ranks a true emergency above a non-emergency 97% of the time, accurate enough for its flags to be acted on. It caught 18 of the chatbot's 31 missed emergencies and disclosed each flag, raising final emergency guidance from 39 to 47 of 70 with one added false alarm in 134 non-emergencies.",
+    "Vega out-ranked the chatbot's own pre-answer emergency likelihood (AUC 0.92 vs 0.76), so the independent reader of the message is the stronger safety signal.",
+    "A preregistered held-out study confirmed the problem: with a plain prompt, Gemma 3 4B gave 15 of 39 physician-labelled emergencies less than emergency care; a commit-first prompt raised emergency guidance to 35/39 (McNemar p = 0.003) with 18 false alarms in 77.",
+    "Designed a cascade decision model with four task heads, extractive evidence, and abstention, and packaged its 917-record training set with separate validation and protected test splits."
+  ],
+  "portfolioKeywords": [
+    {
+      "kind": "industry",
+      "label": "Healthcare AI"
+    },
+    {
+      "kind": "system",
+      "label": "LLM Safety"
+    },
+    {
+      "kind": "system",
+      "label": "Decision Support"
+    },
+    {
+      "kind": "evaluation",
+      "label": "Preregistered Evaluation"
+    },
+    {
+      "kind": "stack",
+      "label": "PyTorch"
+    },
+    {
+      "kind": "stack",
+      "label": "Hugging Face"
+    }
+  ],
+  "skills": [
+    "LLM Evaluation",
+    "Harness Engineering",
+    "Python",
+    "PyTorch",
+    "Hugging Face",
+    "Statistical Testing",
+    "Interpretability"
+  ],
+  "problem": "People ask chatbots about symptoms before deciding whether to seek care. A model can describe a dangerous condition accurately and still leave the person with a hedged or delayed next step. Measuring that safely requires reading the recommended action itself, testing fixes against physician labels, and counting the false alarms each fix adds.",
+  "approach": "TraceLens runs a pinned chatbot and an independent message-only detector side by side. A scope-aware reader extracts the action each answer recommends. When the answer and the detector disagree, the chatbot reconsiders with the flag disclosed, and the final displayed action is stored with an evidence receipt. Every study runs from hash-pinned bundles on cloud GPUs and is scored by analysis code frozen before results are seen.",
+  "output": "A Python workspace with Observability, Training Lab, and Baseline Lab views; a resumable multi-GPU runner with hash-verified imports; a recommendation reader validated on physician-written answers; the Vega detector; preregistered safeguard studies; a support-loop replay; a multi-turn trajectory evaluator; a blinded human-review desk; a decision-model training package; and 300 automated tests.",
+  "methodology": {
+    "evaluation": "Held-out physician-labelled sets from HealthBench, Ramaswamy et al. (2026), Semigran, and Levine; paired McNemar tests, Wilson and bootstrap intervals, AUC, Brier score, and expected calibration error; dev and held-out splits fixed before scoring; a 135-prefix CARE-Bench trajectory replay with conversation-cluster bootstrap. Models run from pinned Hugging Face revisions (Gemma 3 4B-it; Qwen3.5 0.8B and 4B) on Kaggle and Colab T4 GPUs and an Apple M3 laptop.",
+    "standards": [
+      "Preregistered analysis code",
+      "Dev / held-out / sealed splits",
+      "Hash-pinned models, data, and prompts",
+      "Paired statistical testing",
+      "Calibration measurement",
+      "Blinded human review of the automated reader"
+    ]
+  },
+  "role": "I designed and built the workspace, the study protocol, the GPU runner, the recommendation reader, the Vega detector head, and the decision-model architecture, ran the preregistered studies on Kaggle and Colab, and analyzed the results.",
+  "featured": true,
+  "displayOrder": 4,
+  "coverImage": {
+    "url": "/uploads/tracelens/evaluation-dashboard.png",
+    "alt": "TraceLens evaluation dashboard summarizing emergency guidance, false alarms, detector accuracy, and trajectory results"
+  },
+  "thumbnailImage": {
+    "url": "/uploads/tracelens/evaluation-dashboard-showcase.png",
+    "alt": "TraceLens evaluation dashboard"
+  },
+  "technologies": [
+    {
+      "value": "Python"
+    },
+    {
+      "value": "PyTorch"
+    },
+    {
+      "value": "Hugging Face Transformers"
+    },
+    {
+      "value": "Gemma 3 4B"
+    },
+    {
+      "value": "Qwen3.5 (0.8B, 4B)"
+    },
+    {
+      "value": "TransformerLens"
+    },
+    {
+      "value": "circuit-tracer"
+    },
+    {
+      "value": "Kaggle 2×T4 GPUs"
+    },
+    {
+      "value": "Google Colab"
+    },
+    {
+      "value": "pytest"
+    }
+  ],
+  "links": [
+    {
+      "label": "Results article",
+      "url": "/writing/measuring-emergency-guidance-in-health-chatbots/",
+      "description": "Result analysis with every chart and the study design."
+    }
+  ],
+  "relatedArticleSlugs": [
+    "measuring-emergency-guidance-in-health-chatbots"
+  ],
+  "pageSections": [
+    {
+      "blockType": "sectionLead",
+      "eyebrow": "The answer",
+      "title": "A self-built workspace that catches missed emergencies and shows the person when the chatbot and the safety model disagree",
+      "description": "TraceLens pairs the chatbot with Vega, a supporting model that reads the patient's message on its own. Vega's accuracy decides whether its flags are worth acting on: at held-out AUC 0.966 it caught 18 of the chatbot's 31 missed emergencies. Each disagreement is disclosed, the chatbot reconsiders, and the first answer, the flag, the reconsideration, and the final action are stored as separate records.",
+      "context": "Delivered: an independent emergency detector, a disclosed reconsideration loop, a preregistered study, and a cascade decision-model architecture."
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Architecture",
+      "title": "Two independent readers of the same message, joined by a disagreement check",
+      "description": "Gemma 3 4B answers the message. Vega reads the same message without seeing the answer. A recommendation reader extracts the action the answer advises. When the two disagree, the chatbot reconsiders with the detector flag disclosed, and the final action is stored with an evidence receipt.",
+      "media": {
+        "url": "/uploads/tracelens/architecture.png",
+        "alt": "TraceLens architecture diagram with support loop, evidence layer, and evaluation sources"
+      },
+      "caption": "The evidence layer under the loop runs every study from hash-pinned bundles through a resumable GPU runner, verified import, frozen analysis, and blinded human review.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "The workspace",
+      "title": "One workspace runs, scores, and audits every study",
+      "markdown": "The TraceLens workspace is a local Python application with three views. **Observability** tracks each selected run with its receipts, hardware, and evidence records. **Training Lab** plans model runs, exports hash-pinned bundles to Kaggle or Colab GPUs, and imports results only after every hash and split boundary checks out. **Baseline Lab** holds the study protocol, the outcome and slice analysis, the blinded review desk, and the gate decisions for each study.\n\nValues shown in the workspace come only from real run records. Studies move through the same sequence: pin the cases, prompts, and model revision; fix the analysis code; run on GPUs; import with verification; read the advised action; and compare arms with paired statistics."
+    },
+    {
+      "blockType": "proseSection",
+      "eyebrow": "What was built",
+      "title": "An evaluation platform, a validated answer reader, and a fast emergency detector",
+      "markdown": "**Evaluation platform.** Every run starts from a bundle that pins the cases, prompts, model revision, and decoding settings by hash. A resumable runner executes bundles on Kaggle 2×T4 GPUs, Google Colab, or a local Apple M3 machine, and an importer accepts results only when every hash and split boundary checks out. Analysis code is committed and frozen before results are opened.\n\n**Recommendation reader.** Health answers often list several options under headings. The reader extracts the recommendation clauses themselves, including imperatives, deadlines, negation, and conditional phrases such as \"go to the ER if…\". It was tuned on a development split of physician-written HealthBench answers and frozen before held-out scoring, where its emergency calls matched the physician answer 27 of 30 times, up from 29 of 39 for the earlier keyword scorer.\n\n**Vega emergency detector.** Vega turns a patient message into features from a pinned Qwen3.5 reader model and scores it with a PCA and logistic-regression head. Its decision threshold is locked on development data with grouped folds. On held-out messages the 4B-reader head reached AUC 0.966, flagged 55 of 70 emergencies, and raised 10 false alarms on 134 non-emergencies, with Brier score 0.083 and calibration error 0.089.\n\n**Support loop and trajectory evaluation.** A replay engine joins saved chatbot answers, Vega verdicts, and reconsiderations into the final displayed action for each case. A separate trajectory evaluator scores multi-turn conversations prefix by prefix, measuring premature action, delayed updating, and oscillation."
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Decision model architecture",
+      "title": "A cascade decision model with four task heads, evidence spans, and abstention",
+      "description": "The decision model reads a single message or a multi-turn conversation through one frozen Qwen3.5 reader. Four heads answer separate questions: whether this is an emergency now, which of four actions fits, whether there is enough information to act, and the broad level of care. The output carries the action, the exact patient words behind it, and the details still needed, and it abstains when information is short.",
+      "media": {
+        "url": "/uploads/tracelens/decision-model.png",
+        "alt": "Decision model architecture with frozen reader, four task heads, decision output, and training package splits"
+      },
+      "caption": "The training package holds 917 development records with 181 validation and 135 protected test prefixes stored apart, plus a 2,256-record weak-label pool used only where two independent teachers agree.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "metrics",
+      "eyebrow": "Measured results",
+      "title": "Results, led by the supporting model",
+      "description": "Vega comes first because every downstream gain depends on its flags being accurate. All counts come from physician-labelled cases scored by frozen analysis code.",
+      "items": [
+        {
+          "value": "0.966",
+          "label": "Vega held-out AUC",
+          "context": "Ranks a true emergency above a non-emergency 97% of the time; 55/70 emergencies flagged, 10/134 false alarms, Brier 0.083, ECE 0.089."
+        },
+        {
+          "value": "18 / 31",
+          "label": "Chatbot misses caught by Vega",
+          "context": "Each flag was disclosed to the user, so the disagreement was visible on every case."
+        },
+        {
+          "value": "39 → 47",
+          "label": "Final emergency guidance, of 70",
+          "context": "Reconsideration corrected 8 flagged misses; false alarms moved from 4/134 to 5/134."
+        },
+        {
+          "value": "0.92 vs 0.76",
+          "label": "Vega vs the chatbot's own lean",
+          "context": "Vega out-ranked Gemma's pre-answer emergency likelihood on the same 125 cases; difference CI −0.271 to −0.047."
+        },
+        {
+          "value": "15 / 39",
+          "label": "Emergencies under-triaged by the plain chatbot",
+          "context": "Gemma 3 4B gave less than emergency care on held-out physician-labelled emergencies."
+        },
+        {
+          "value": "24 → 35",
+          "label": "Commit-first prompt, emergencies of 39",
+          "context": "+28.2 points, 95% CI 11.8–43.5, McNemar p = 0.003; false alarms 1/77 → 18/77."
+        },
+        {
+          "value": "90%",
+          "label": "Answer-reader precision",
+          "context": "27/30 on held-out physician answers, up from 74% (29/39) for the keyword scorer."
+        },
+        {
+          "value": "917",
+          "label": "Decision-model training records",
+          "context": "HealthBench 248, authored cases 60, CARE prefixes 609; validation and protected test stored apart."
+        }
+      ]
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Result analysis · supporting model",
+      "title": "Vega's accuracy is what makes its flags worth showing to a person",
+      "description": "A supporting model helps only if its flags are right often enough to act on. Vega reached held-out AUC 0.966 across 70 emergencies and 134 non-emergencies, and on the same 125 cases it ranked emergencies at 0.92 against 0.76 for the chatbot's own pre-answer likelihood. Reading the message independently gives a stronger safety signal than asking the chatbot about itself.",
+      "media": {
+        "url": "/uploads/tracelens/detectors.png",
+        "alt": "Vega held-out accuracy: AUC 0.966, 55 of 70 emergencies flagged, with AUC and reader-precision comparisons"
+      },
+      "layout": "wide",
+      "caption": "Right panel: the rebuilt answer reader, frozen before held-out scoring, raised emergency precision from 74% to 90%, so the chatbot's misses are counted accurately."
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Result analysis · transparency loop",
+      "title": "Vega caught 18 of 31 chatbot misses, disclosed each one, and final emergency guidance rose from 39 to 47 of 70",
+      "description": "Across 277 saved cases from five sources, the chatbot's first answer gave emergency guidance to 39 of 70 emergencies. Vega flagged 18 of the 31 misses, and each flag was disclosed to the user. With the flag in view, the chatbot corrected 8 of those 18, and false alarms moved from 4 to 5 of 134.",
+      "media": {
+        "url": "/uploads/tracelens/support-loop.png",
+        "alt": "Bar chart of support-loop stages from 70 emergencies to 47 with final emergency guidance"
+      },
+      "caption": "Each stage is counted separately, so detection, disclosure, and correction can each be measured.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Result analysis · the problem, measured",
+      "title": "The plain chatbot under-triaged 15 of 39 emergencies; prompting alone traded misses for false alarms",
+      "description": "On 39 emergencies and 77 non-emergencies, the plain prompt gave emergency guidance to 24 emergencies. A commit-first prompt raised that to 35 and sent 18 non-emergencies to emergency care. The likelihood monitor reached 32 with 15 false alarms, and the self-check reached 25 with 34.",
+      "media": {
+        "url": "/uploads/tracelens/safeguards.png",
+        "alt": "Scatter plot of four safeguard policies by emergency guidance and false-alarm rate"
+      },
+      "caption": "Each policy is placed by both of its costs, so the gain in emergency guidance and the added false alarms are read together.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "figure",
+      "eyebrow": "Result analysis · multi-turn",
+      "title": "A care-seeking protocol raised turn-by-turn accuracy for all 11 models",
+      "description": "The trajectory evaluator scored 2,970 released CARE-Bench predictions on 135 conversation prefixes. With the care-seeking protocol, every model chose the correct broad care action on more prefixes; Mistral Large 3 rose from 41% to 63% and Claude Opus 4.7 from 50% to 64%.",
+      "media": {
+        "url": "/uploads/tracelens/care-trajectory.png",
+        "alt": "Dumbbell chart of unprompted versus prompted all-prefix accuracy for 11 models"
+      },
+      "caption": "Accuracy is counted at every conversation prefix, so a model earns credit only when it updates its advice as details arrive.",
+      "layout": "wide"
+    },
+    {
+      "blockType": "timeline",
+      "eyebrow": "Study sequence",
+      "title": "Each study fixed its questions and analysis before the data was read",
+      "items": [
+        {
+          "label": "Baseline",
+          "title": "Output-only baseline on cloud GPUs",
+          "body": "Ran Gemma 3 4B in float32 across two T4 GPUs and recorded complete answers to emergency and non-emergency cases."
+        },
+        {
+          "label": "Reader",
+          "title": "Validated the answer reader",
+          "body": "Blind human reading showed the keyword scorer counted headings as advice; the scope-aware reader replaced it and was frozen before held-out scoring."
+        },
+        {
+          "label": "Results A–C",
+          "title": "Preregistered held-out safeguard study",
+          "body": "Measured under-triage, compared four safeguard policies with paired tests, and measured the model's pre-answer emergency likelihood."
+        },
+        {
+          "label": "Detector",
+          "title": "Trained and tested Vega",
+          "body": "Fit the emergency head on development messages, locked its threshold, and scored 277 held-out messages through a hash-attested Kaggle run."
+        },
+        {
+          "label": "Replay",
+          "title": "Measured the complete support loop",
+          "body": "Joined answers, detector verdicts, and reconsiderations into final actions, and added the multi-turn CARE-Bench trajectory evaluation."
+        },
+        {
+          "label": "Decision model",
+          "title": "Designed the cascade and packaged its data",
+          "body": "Defined four task heads, extractive evidence, and abstention, and built a hash-manifested 917-record training package with matched Kaggle smoke and full notebooks."
+        }
+      ]
+    },
+    {
+      "blockType": "insightGrid",
+      "eyebrow": "Tools and methods",
+      "title": "Industry tooling and evaluation methodology",
+      "items": [
+        {
+          "label": "Models",
+          "title": "Pinned open-weight LLMs",
+          "body": "Gemma 3 4B-it as the chatbot; Qwen3.5 0.8B and 4B as Vega's feature readers through the vegaml engine; all loaded by exact Hugging Face revision."
+        },
+        {
+          "label": "ML stack",
+          "title": "Python, PyTorch, Hugging Face",
+          "body": "Transformers inference, hidden-state capture before the answer, continuation-likelihood probes, and PCA plus logistic-regression detector heads."
+        },
+        {
+          "label": "Compute",
+          "title": "Multi-GPU cloud runs",
+          "body": "Kaggle 2×T4 and Google Colab notebooks with resumable checkpoints, plus local Apple M3 (MPS) runs for development."
+        },
+        {
+          "label": "Statistics",
+          "title": "Paired and calibrated measurement",
+          "body": "McNemar tests, Wilson and bootstrap intervals, AUC, Brier score, expected calibration error, and conversation-cluster bootstrap."
+        },
+        {
+          "label": "Interpretability",
+          "title": "Mechanism tooling",
+          "body": "TransformerLens, circuit-tracer attribution graphs, and Gemma Scope transcoders run end to end on free-tier GPUs."
+        },
+        {
+          "label": "Engineering",
+          "title": "Reproducible evidence",
+          "body": "Hash-pinned bundles, fail-closed import contracts, dev / held-out / sealed splits, a blinded review desk, and 300 pytest tests."
+        }
+      ]
+    },
+    {
+      "blockType": "callout",
+      "eyebrow": "My contribution",
+      "title": "Research design, engineering, and analysis",
+      "markdown": "I designed and built the TraceLens workspace; framed the safety question; wrote the preregistrations and frozen analysis code; built the runner, bundle, import, and replay infrastructure; developed and validated the recommendation reader; trained and evaluated the Vega detector heads; ran every study on Kaggle and Colab GPUs, debugging float16 overflow and memory limits on T4 hardware; and designed the support loop and the cascade decision-model architecture with its training package."
+    }
+  ],
+  "showcaseImage": {
+    "url": "/uploads/tracelens/evaluation-dashboard-showcase.png",
+    "alt": "TraceLens evaluation dashboard with emergency guidance, false alarms, safeguards, detector, and trajectory results"
+  },
+  "headline": "General-purpose chatbots miss emergencies or do not clearly state them to the patient. Can a supporting model both reduce under-triage and make failures transparent to the end user?"
+}

@@ -8,6 +8,7 @@ import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import type { ProjectRecord } from '@/lib/types'
 
 import { ProductShowcase } from './ProductShowcase'
+import { SkillTags } from './SkillTags'
 
 type PortfolioDeskTabsProps = {
   productProjects: ProjectRecord[]
@@ -73,13 +74,13 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
           type="button"
         >
           <strong>Products &amp; Systems</strong>
-          <small>{productProjects.length} working products</small>
+          <small>{productProjects.length} built and evaluated systems</small>
         </button>
         <button
           aria-controls="studies-panel"
           aria-selected={activeDesk === 'studies'}
           className="portfolio-tab"
-          data-guide-mentions="study,studies,imaging,MRI,IEEE,atrophy,Alzheimer,dementia"
+          data-guide-mentions="study,studies,TraceLens,safety,imaging,MRI,IEEE,atrophy,Alzheimer,dementia"
           id="studies-tab"
           onClick={() => selectDesk('studies')}
           onKeyDown={(event) => handleDeskKeyDown(event, 'studies')}
@@ -102,8 +103,8 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
         tabIndex={0}
       >
         <div className="desk-heading">
-          <div><div className="panel-eyebrow">Products</div><h2>Four systems built around real workflows</h2></div>
-          <p>Select a product to see its working interface, core outcome, leading evidence, and complete engineering dossier.</p>
+          <div><div className="panel-eyebrow">Products</div><h2>Five AI systems, each built and evaluated end to end</h2></div>
+          <p>Select a system to see its interface or evaluation dashboard, core outcome, leading evidence, and complete engineering dossier.</p>
         </div>
 
         <ProductShowcase projects={productProjects} />
@@ -118,8 +119,8 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
         tabIndex={0}
       >
         <div className="desk-heading">
-          <div><div className="panel-eyebrow">Studies</div><h2>Two distinct medical-imaging contributions</h2></div>
-          <p>One peer-reviewed OpenCV study turns MRI intensity regions into an interpretable atrophy score; the other builds and evaluates a four-class TensorFlow ensemble across 6,400 images.</p>
+          <div><div className="panel-eyebrow">Studies</div><h2>Health-AI evaluation and medical-imaging research</h2></div>
+          <p>TraceLens tests whether a supporting model can catch the emergencies health chatbots miss; its supporting model reached held-out AUC 0.966. A peer-reviewed OpenCV study turns MRI intensity regions into an interpretable atrophy score, and a four-class TensorFlow ensemble is evaluated across 6,400 images.</p>
         </div>
 
         <div className="study-project-grid">
@@ -137,7 +138,9 @@ export function PortfolioDeskTabs({ productProjects, studyProjects }: PortfolioD
                     <span>{project.cardEyebrow || 'ML & AI study'}</span>
                   </div>
                   <h3>{project.title}</h3>
+                  {project.headline ? <p className="project-headline">{project.headline}</p> : null}
                   <p>{project.landingDeck || project.summary}</p>
+                  <SkillTags compact skills={project.skills} />
                   {project.landingHighlights?.length ? (
                     <ul>
                       {project.landingHighlights.slice(0, 3).map((item) => <li key={item}>{item}</li>)}

@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { EditableRegion } from '@/components/EditableRegion'
 import { MarkdownArticle } from '@/components/MarkdownArticle'
+import { SkillTags } from '@/components/SkillTags'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { adminLinks } from '@/lib/admin'
 import { getSiteSettings } from '@/lib/content'
@@ -23,6 +24,7 @@ export default async function AboutPage() {
 
         <div className="about-grid">
           <div className="about-column">
+            <SkillTags label="Core skills" skills={about.skills} />
             <MarkdownArticle id="biography" markdown={about.biographyMarkdown} />
             <MarkdownArticle id="current-focus" markdown={about.currentFocusMarkdown} />
             <div className="about-actions">
