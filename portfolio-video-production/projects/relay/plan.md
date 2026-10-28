@@ -1,6 +1,6 @@
 # Relay: film plan
 
-Runtime target 80–88 s · Remotion engine, journey capture like Homeward · Relay portal palette
+Runtime target ≈89 s · Remotion engine, journey capture like Homeward · Relay portal palette
 
 ## Story
 
@@ -40,12 +40,12 @@ The film follows one employee journey, end to end, through the real portal. The 
 | 3–9 | Problem | **R1 The hunt**: generic system cards (HR, IT tickets, documents, learning, pay) scatter and a cursor bounces between them; they collapse into the Relay orb | designed (labelled schematic) |
 | 9–12 | Lead-in | Narrator: "Let's see an example…"; the camera pushes in on the dock orb | capture `01-voice` |
 | 12–34 | Voice clip | The cut: take-01 0–2.3 s (tap) and 9.4–29.8 s (question → three-sentence answer), with a 0.25 s dissolve over the greeting. Maya's question plays, with the orb reacting to it, and the transcript caption comes up. The agent then answers aloud, and the portal moves to Help & Support → IT-2047 mid-answer. Lower third: "Live Deepgram voice agent · recorded session". Narration silent | capture `01-voice` + its recorded audio |
-| 27–40 | Act | Typed reply; the "Ready for your confirmation" card; push-in on Confirm; click; ripple; chip "Reply added to IT-2047" | W2 turn 3 replay + confirm |
-| 40–50 | Second request | The laptop request; the drafted case card; Confirm; the case appears in the list | W2 turn 4 replay + confirm |
-| 50–60 | Contract | Workflow operations evidence trace; overlay lights the five checks | live capture + designed overlay |
-| 60–76 | Evidence | Agent evaluation page; counters 103/110, 39/42, 31/34; chip "0 unsafe actions · 21 runs" | live capture of the real page |
-| 76–82 | Gate | Terminal: real `npm run evaluate:gate` output | real terminal |
-| 82–88 | End | End card | designed |
+| 34–45 | Act | Typed reply; the "Ready for your confirmation" card; push-in on Confirm; click; ripple; chip "Reply added to IT-2047" | W2 turn 3 replay + confirm |
+| 45–54 | Second request | The laptop request; the drafted case card; Confirm; the case appears in the list | W2 turn 4 replay + confirm |
+| 54–63 | Contract | Workflow operations evidence trace; overlay lights the five checks | live capture + designed overlay |
+| 63–77 | Evidence | Agent evaluation page; counters 103/110, 39/42, 31/34; chip "0 unsafe actions · 21 runs" | live capture of the real page |
+| 77–83 | Gate | Terminal: real `npm run evaluate:gate` output | real terminal |
+| 83–89 | End | End card | designed |
 
 ## Capture (free, except for one recorded Deepgram session)
 
