@@ -76,8 +76,8 @@
     "alt": "TraceLens evaluation dashboard summarizing emergency guidance, false alarms, detector accuracy, and trajectory results"
   },
   "thumbnailImage": {
-    "url": "/uploads/tracelens/evaluation-dashboard-showcase.png",
-    "alt": "TraceLens evaluation dashboard"
+    "url": "/uploads/tracelens/product-workspace.png",
+    "alt": "TraceLens Training Lab showing the model ladder, current study set, and local-to-Colab execution plan"
   },
   "technologies": [
     {
@@ -343,8 +343,8 @@
     }
   ],
   "showcaseImage": {
-    "url": "/uploads/tracelens/evaluation-dashboard-showcase.png",
-    "alt": "TraceLens evaluation dashboard with emergency guidance, false alarms, safeguards, detector, and trajectory results"
+    "url": "/uploads/tracelens/product-workspace.png",
+    "alt": "TraceLens Training Lab showing the model ladder, current study set, and local-to-Colab execution plan"
   },
   "headline": "General-purpose chatbots miss emergencies or do not clearly state them to the patient. Can a supporting model both reduce under-triage and make failures transparent to the end user?"
 }
