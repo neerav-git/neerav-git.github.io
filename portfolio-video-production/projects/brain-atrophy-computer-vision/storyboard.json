@@ -1,0 +1,51 @@
+{
+  "title": "Brain Atrophy Analysis in Dementia",
+  "subtitle": "An interpretable OpenCV measurement published through IEEE",
+  "scenes": [
+    {
+      "start": 0,
+      "end": 7.93,
+      "beat": "THE RESEARCH PROBLEM",
+      "cue": "Measuring brain atrophy from MRI can",
+      "media": "captures/designed/anatomical-problem-plate.png"
+    },
+    {
+      "start": 7.93,
+      "end": 17.38,
+      "beat": "THE HYPOTHESIS",
+      "cue": "This study asked",
+      "media": "captures/designed/hypothesis-plate.png"
+    },
+    {
+      "start": 17.38,
+      "end": 29.44,
+      "beat": "THE METHOD",
+      "cue": "The OpenCV workflow",
+      "media": "captures/designed/method-plate.png"
+    },
+    {
+      "start": 29.44,
+      "end": 42.92,
+      "beat": "THE COHORT",
+      "cue": "Across 2,198",
+      "media": "captures/designed/cohort-plate.png"
+    },
+    {
+      "start": 42.92,
+      "end": 55.35,
+      "beat": "THE RESULT",
+      "cue": "The same method was evaluated",
+      "media": "captures/designed/result-plate.png"
+    },
+    {
+      "start": 55.35,
+      "end": 76.24,
+      "beat": "PUBLISHED METHOD",
+      "cue": "The work is distinctive",
+      "media": [
+        "captures/designed/pipeline-plate.png",
+        "captures/repository/paper-page-1.png"
+      ]
+    }
+  ]
+}

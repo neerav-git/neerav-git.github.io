@@ -1,0 +1,141 @@
+{
+  "title": "Refract",
+  "subtitle": "One research session connecting papers, evidence, analysis, and decisions",
+  "scenes": [
+    {
+      "start": 0,
+      "end": 10.78,
+      "beat": "THE PROBLEM",
+      "cue": "Research arguments are assembled across PDF",
+      "media": "captures/designed/fragmentation-plate.png"
+    },
+    {
+      "start": 10.78,
+      "end": 15.74,
+      "beat": "ONE SESSION",
+      "cue": "Refract makes one persistent",
+      "media": "captures/thesis/03-session-reader.png"
+    },
+    {
+      "start": 15.74,
+      "end": 24.89,
+      "beat": "CLOSE READING",
+      "cue": "In the Reader",
+      "media": [
+        "captures/thesis/01-reader-hud.png",
+        "captures/thesis/02-passage-chat.png"
+      ]
+    },
+    {
+      "start": 24.89,
+      "end": 34.89,
+      "beat": "SYNTHESIS",
+      "cue": "Index and Compare",
+      "media": [
+        {
+          "src": "captures/thesis/04-index-workspace.png",
+          "focus": [
+            0,
+            0,
+            1442,
+            980
+          ]
+        },
+        "captures/thesis/05-compare-cards.png",
+        "captures/thesis/07-coverage-map.png"
+      ]
+    },
+    {
+      "start": 34.89,
+      "end": 44.77,
+      "beat": "ARCHITECTURE",
+      "cue": "A React front end",
+      "media": [
+        "captures/repository/system-architecture.png",
+        "captures/thesis/code-chroma-service.png",
+        "captures/thesis/code-chat-service.png"
+      ]
+    },
+    {
+      "start": 44.77,
+      "end": 51.1,
+      "beat": "STAGED ANALYSIS",
+      "cue": "Stats moves a dataset",
+      "media": [
+        {
+          "src": "captures/thesis/09-stats-notebook.png",
+          "focus": [
+            0,
+            0,
+            1600,
+            1090
+          ]
+        },
+        "captures/thesis/code-analysis-execution.png"
+      ]
+    },
+    {
+      "start": 51.1,
+      "end": 59.16,
+      "beat": "PRE-MODEL AUDIT",
+      "cue": "Each column receives",
+      "media": [
+        {
+          "src": "captures/thesis/11-feature-frame.png",
+          "focus": [
+            0,
+            0,
+            1600,
+            1090
+          ]
+        },
+        "captures/thesis/14-initial-audit.png",
+        {
+          "src": "captures/thesis/15-correlation-heatmap.png",
+          "focus": [
+            0,
+            0,
+            1600,
+            1090
+          ]
+        }
+      ]
+    },
+    {
+      "start": 59.16,
+      "end": 70.49,
+      "beat": "CASE STUDY",
+      "cue": "In a battery remaining-useful-life",
+      "media": [
+        {
+          "src": "captures/thesis/19-saved-exclusion.png",
+          "focus": [
+            0,
+            200,
+            1600,
+            1012
+          ]
+        },
+        "captures/thesis/code-analysis-models.png",
+        "captures/thesis/24-model-comparison.png"
+      ]
+    },
+    {
+      "start": 70.49,
+      "end": 77.2,
+      "beat": "PROVENANCE",
+      "cue": "Interpretive claims carry",
+      "media": [
+        "captures/thesis/provenance-taxonomy.png",
+        "captures/thesis/12-cycle-index-meaning.png"
+      ]
+    },
+    {
+      "start": 77.2,
+      "end": 89.38,
+      "beat": "DISTINCTIVE",
+      "cue": "What makes Refract distinctive",
+      "media": "captures/repository/workflow-overview.png"
+    }
+  ]
+}

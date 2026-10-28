@@ -1,0 +1,28 @@
+{
+  "audioSeconds": 76.71,
+  "durationSeconds": 78.56,
+  "fps": 24,
+  "resolution": "1920x1080",
+  "cues": [
+    {
+      "cue": "This experiment turns",
+      "at": 9.13
+    },
+    {
+      "cue": "The primary convolutional",
+      "at": 31.115
+    },
+    {
+      "cue": "Independently saved models",
+      "at": 41.169999999999995
+    },
+    {
+      "cue": "In the author-confirmed",
+      "at": 52
+    },
+    {
+      "cue": "What makes the project special",
+      "at": 59.83
+    }
+  ]
+}

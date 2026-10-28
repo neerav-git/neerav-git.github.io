@@ -1,0 +1,513 @@
+{
+  "format": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "targetSeconds": [
+      40,
+      90
+    ],
+    "voice": "af_heart"
+  },
+  "projects": [
+    {
+      "slug": "relay",
+      "title": "Relay",
+      "subtitle": "Voice-first employee service, carried through to a verified result",
+      "accent": "#65d6c5",
+      "narration": "Employee service portals make people hunt for the right system, record, owner, and form before they can solve a simple problem. Relay begins with the employee's words. It reads authenticated workspace records, opens the exact task or document, and prepares consequential actions for review. A VPN issue becomes a complete IT Support request; the employee sees the destination and details, confirms the action, and receives a verified case record. The evaluation covered seven workflow families, held-out rewordings, voice sessions, safety scenarios, and replay testing. After the fix pass, Relay completed 103 of 110 task-success conversations and 39 of 42 held-out requests. Its defining achievement is the shared execution contract: identity, approval, idempotency, audit history, and postcondition checks work the same way across every capability.",
+      "scenes": [
+        {
+          "beat": "THE PROBLEM",
+          "title": "A simple employee need becomes a systems-navigation problem",
+          "body": "Records, owners, forms, and next actions are scattered across separate services.",
+          "media": "captures/motion/workspace-overview.mp4",
+          "trim": 1.9
+        },
+        {
+          "cue": "Relay begins with",
+          "beat": "THE WORKFLOW",
+          "title": "Relay opens the exact record behind the request",
+          "body": "Answers and actions are grounded in the signed-in employee's current workspace.",
+          "media": [
+            "captures/repository/02-whats-next-grounded-answer.png",
+            {
+              "src": "captures/motion/document-grounding.mp4",
+              "trim": 1.6
+            }
+          ]
+        },
+        {
+          "cue": "A VPN issue",
+          "beat": "CONTROLLED ACTION",
+          "title": "The employee reviews the complete request before it runs",
+          "body": "Destination and details stay visible; confirmation returns a verified case record.",
+          "media": [
+            "captures/repository/04-vpn-action-prepared.png",
+            "captures/repository/05-vpn-case-confirmed.png"
+          ]
+        },
+        {
+          "cue": "The evaluation covered",
+          "beat": "EVALUATION",
+          "title": "Workflow families, held-out rewordings, voice, safety, and replay",
+          "body": "103/110 task-success conversations · 39/42 held-out requests · 57 recorded voice sessions",
+          "media": [
+            {
+              "src": "captures/motion/evaluation-dashboard.mp4",
+              "trim": 1.6,
+              "until": 6.6
+            },
+            {
+              "src": "captures/motion/evaluation-dashboard.mp4",
+              "trim": 4.4,
+              "until": 6.4,
+              "focus": [
+                262,
+                110,
+                1120,
+                630
+              ]
+            }
+          ]
+        },
+        {
+          "cue": "Its defining achievement",
+          "beat": "EXECUTION CONTRACT",
+          "title": "One execution contract governs every capability",
+          "body": "Identity, approval, idempotency, audit history, and postcondition checks travel with each workflow.",
+          "media": [
+            {
+              "src": "captures/motion/operations-trace.mp4",
+              "trim": 2.3
+            },
+            "captures/repository/07-workflow-evidence-trace.png"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "refract-ai",
+      "title": "Refract",
+      "subtitle": "One research session connecting papers, evidence, analysis, and decisions",
+      "accent": "#91a7ff",
+      "narration": "Research arguments are assembled across PDF readers, AI chats, notebooks, and spreadsheets, and each transfer can detach a claim from its source. Refract makes one persistent research session the continuity layer. In the Reader, a selected passage can be explained, summarised, quizzed, or saved, and every grounded answer keeps its page and chunk. Index and Compare turn that evidence into concept memory, cross-paper comparisons, and a coverage map that exposes gaps before writing begins. A React front end calls a Fast API service, with Postgres for sessions, Chroma DB for retrieval, and Claude for grounded synthesis. Stats moves a dataset through ordered checkpoints: profile, audit, and baseline regression. Each column receives an analytical role, and Spearman screening flags leakage and redundancy before any model trains. In a battery remaining-useful-life case study, cycle index was flagged as leakage and excluded through a saved decision, and models were compared on a fixed split and seed. Interpretive claims carry one of five provenance labels, and anything unlabelled stays unresolved. What makes Refract distinctive is the preserved chain: paper, passage, question, dataset, feature decision, model, and metric stay connected in one session.",
+      "scenes": [
+        {
+          "beat": "THE PROBLEM",
+          "title": "Research context breaks when work is split across tools",
+          "body": "Claims drift away from pages; model results drift away from analytical decisions.",
+          "media": "captures/designed/fragmentation-plate.png"
+        },
+        {
+          "cue": "Refract makes one persistent",
+          "beat": "ONE SESSION",
+          "title": "Papers, evidence, and analysis share one research session",
+          "body": "Reader, Index, Compare, Review, and Stats work from the same session state.",
+          "media": "captures/thesis/03-session-reader.png"
+        },
+        {
+          "cue": "In the Reader",
+          "beat": "CLOSE READING",
+          "title": "Every passage action stays anchored to its page",
+          "body": "Explain, simplify, key terms, quiz, and study cards act on the selected text.",
+          "media": [
+            "captures/thesis/01-reader-hud.png",
+            "captures/thesis/02-passage-chat.png"
+          ]
+        },
+        {
+          "cue": "Index and Compare",
+          "beat": "SYNTHESIS",
+          "title": "Saved evidence becomes memory, comparison, and coverage",
+          "body": "Concept groups, cross-paper cards, and a coverage map show where the literature is thin.",
+          "media": [
+            {
+              "src": "captures/thesis/04-index-workspace.png",
+              "focus": [
+                0,
+                0,
+                1442,
+                980
+              ]
+            },
+            "captures/thesis/05-compare-cards.png",
+            "captures/thesis/07-coverage-map.png"
+          ]
+        },
+        {
+          "cue": "A React front end",
+          "beat": "ARCHITECTURE",
+          "title": "Built on React, FastAPI, Postgres, ChromaDB, and Claude",
+          "body": "Sentence-BERT embeddings, PyPDF2 page extraction, and Docker Compose services.",
+          "media": [
+            "captures/repository/system-architecture.png",
+            "captures/thesis/code-chroma-service.png",
+            "captures/thesis/code-chat-service.png"
+          ]
+        },
+        {
+          "cue": "Stats moves a dataset",
+          "beat": "STAGED ANALYSIS",
+          "title": "Ordered checkpoints: profile, audit, baseline regression",
+          "body": "Each step records its method, output, and review state in the run history.",
+          "media": [
+            {
+              "src": "captures/thesis/09-stats-notebook.png",
+              "focus": [
+                0,
+                0,
+                1600,
+                1090
+              ]
+            },
+            "captures/thesis/code-analysis-execution.png"
+          ]
+        },
+        {
+          "cue": "Each column receives",
+          "beat": "PRE-MODEL AUDIT",
+          "title": "Roles, leakage, and redundancy are checked before modeling",
+          "body": "Spearman thresholds flag leakage-prone and overlapping predictors.",
+          "media": [
+            {
+              "src": "captures/thesis/11-feature-frame.png",
+              "focus": [
+                0,
+                0,
+                1600,
+                1090
+              ]
+            },
+            "captures/thesis/14-initial-audit.png",
+            {
+              "src": "captures/thesis/15-correlation-heatmap.png",
+              "focus": [
+                0,
+                0,
+                1600,
+                1090
+              ]
+            }
+          ]
+        },
+        {
+          "cue": "In a battery remaining-useful-life",
+          "beat": "CASE STUDY",
+          "title": "HNEI battery cycling data, remaining useful life",
+          "body": "Cycle_Index excluded by an explicit saved decision; fixed 80/20 split and seed.",
+          "media": [
+            {
+              "src": "captures/thesis/19-saved-exclusion.png",
+              "focus": [
+                0,
+                200,
+                1600,
+                1012
+              ]
+            },
+            "captures/thesis/code-analysis-models.png",
+            "captures/thesis/24-model-comparison.png"
+          ]
+        },
+        {
+          "cue": "Interpretive claims carry",
+          "beat": "PROVENANCE",
+          "title": "Five provenance classes label every interpretive claim",
+          "body": "Data-derived, dataset-documented, session-literature, external evidence, or assumed from context.",
+          "media": [
+            "captures/thesis/provenance-taxonomy.png",
+            "captures/thesis/12-cycle-index-meaning.png"
+          ]
+        },
+        {
+          "cue": "What makes Refract distinctive",
+          "beat": "DISTINCTIVE",
+          "title": "Paper, passage, dataset, model, and metric stay connected",
+          "body": "ISE 298 master's project · San José State University · May 2026",
+          "media": "captures/repository/workflow-overview.png"
+        }
+      ]
+    },
+    {
+      "slug": "homeward",
+      "title": "Homeward",
+      "subtitle": "Source-linked recovery planning after hospital discharge",
+      "accent": "#f6b26b",
+      "narration": "Discharge instructions arrive when patients are exhausted, and one unclear line can stall recovery. Homeward turns the saved record into a plan Alex can follow. View source opens the exact sentence behind each step. Alex asks what paperwork to bring, and source search answers with the cited passage. The lab instruction names no test or date, so Alex asks for help. The care team replies, and the task stays open until the details are confirmed. A reminder waits for Alex's approval. When the response is lost, Retry safely returns the original receipt, so no second reminder appears. The agent activity log records every step. Four role-scoped specialists select references, and the server validates patient, record version, and approval. All 32 guardrail checks pass, alongside 59 backend tests and four interface journeys. Uncertainty stays visible, and every instruction keeps its source.",
+      "scenes": [
+        {
+          "beat": "THE PROBLEM",
+          "title": "Recovery begins when the patient has the least capacity for coordination",
+          "body": "Tasks, dates, documents, and unresolved questions must become one understandable plan.",
+          "media": "captures/motion/recovery-overview.mp4"
+        },
+        {
+          "cue": "Homeward turns the saved",
+          "beat": "SOURCE-LINKED PLAN",
+          "title": "Every next step opens back to the recorded instruction",
+          "body": "Task state, source passage, owner, and missing detail stay together.",
+          "media": "captures/motion/source-linking.mp4"
+        },
+        {
+          "cue": "Patients see the next task",
+          "beat": "ONE CONTINUOUS WORKFLOW",
+          "title": "Search, help, and approval happen in one place",
+          "body": "Questions return exact passages from the saved record; reminders wait for the patient's approval.",
+          "media": [
+            "captures/motion/source-search.mp4",
+            "captures/repository/05-approval.png"
+          ]
+        },
+        {
+          "cue": "Four role-scoped specialists",
+          "beat": "VALIDATED AGENTS",
+          "title": "Specialists select references; the application validates each action",
+          "body": "Patient, record version, approval, and final receipt are checked before anything is recorded.",
+          "media": "captures/repository/08-activity.png"
+        },
+        {
+          "cue": "Verification spans",
+          "beat": "VERIFICATION",
+          "title": "Contracts, journeys, and guardrails test the same workflow",
+          "body": "59 backend and contract tests · 4 React journeys · 32/32 guardrail cases",
+          "media": "captures/motion/agent-activity.mp4",
+          "focus": [
+            255,
+            545,
+            950,
+            535
+          ]
+        },
+        {
+          "cue": "Homeward's defining contribution",
+          "beat": "DURABLE COORDINATION",
+          "title": "Approved reminders survive response loss without duplication",
+          "body": "Uncertainty becomes a help item; reviewed instructions keep their provenance; retries return the original result.",
+          "media": [
+            "captures/repository/04-help-review.png",
+            "captures/repository/09-provenance.png",
+            "captures/repository/06-safe-retry.png"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "birb-hangout",
+      "title": "Birb Hangout",
+      "subtitle": "A shared 3D place for the quiet rituals of friendship",
+      "accent": "#f3d36a",
+      "narration": "Most remote social products demand a conversation or a shared game. Birb Hangout was built for the quieter rituals that make physical presence comfortable: reading while a friend chooses music, resting by the fire, watching together, sharing a hug, or taking flight. Friends enter a private 3D lounge as birds, and the room itself becomes the interface. Records, books, television, trivia, gestures, and furniture make activities visible and easy to join. Resting by the fire opens into a shared Dream where momentum-driven flight crosses rivers, forests, and floating islands. The engineering matches synchronization to each social behavior, from authoritative room state to peer voice and staged interactions. Its special contribution extends into development: specialist studios preserve camera, scene state, and spatial annotations so visual feedback becomes reproducible evidence for animation and world design.",
+      "scenes": [
+        {
+          "beat": "WHY IT MATTERS",
+          "title": "Distance removes the effortless moments that make company feel natural",
+          "body": "Birb Hangout makes room for reading, music, rest, and spontaneous participation.",
+          "media": [
+            "captures/repository/reading.mp4",
+            "captures/repository/nap.mp4"
+          ]
+        },
+        {
+          "cue": "Friends enter a private",
+          "beat": "THE LOUNGE",
+          "title": "Friends arrive as birds in a private 3D lounge",
+          "body": "The room itself is the interface, and everyone nearby can see what is happening.",
+          "media": "captures/repository/watching.mp4"
+        },
+        {
+          "cue": "Records, books, television",
+          "beat": "SHARED ACTIVITIES",
+          "title": "Activities live inside the world and invite people to gather",
+          "body": "Records, books, television, trivia, gestures, and furniture are visible and easy to join.",
+          "media": [
+            "captures/repository/records.mp4",
+            "captures/repository/trivia.mp4"
+          ]
+        },
+        {
+          "cue": "Resting by the fire",
+          "beat": "THE DREAM",
+          "title": "Stillness by the fire opens into momentum-driven flight",
+          "body": "Diving builds speed; pulling out converts it into height across rivers, forests, and floating islands.",
+          "media": [
+            "captures/repository/dream-entry.mp4",
+            "captures/repository/flight.mp4"
+          ]
+        },
+        {
+          "cue": "The engineering matches",
+          "beat": "SOCIAL ENGINEERING",
+          "title": "Synchronization is matched to each social behavior",
+          "body": "Authoritative room state, peer voice, and staged interactions such as the hug.",
+          "media": "captures/repository/hug.mp4"
+        },
+        {
+          "cue": "Its special contribution",
+          "beat": "VISUAL RIGOUR",
+          "title": "Specialist studios make animation and spatial feedback reproducible",
+          "body": "Fixed views, exact-time capture, scene state, and annotations connect creative judgment to evidence.",
+          "media": [
+            "captures/repository/exploration.mp4",
+            "captures/repository/islands.mp4"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tracelens",
+      "title": "TraceLens",
+      "subtitle": "Measuring the action a health-information answer ultimately gives",
+      "accent": "#ff7d8b",
+      "narration": "Health-information models can recognize a dangerous situation and still leave the reader with a delayed or hedged next step. TraceLens measures the action that reaches the user. A pinned chatbot answers the message; Vega reads the same message independently; and a validated recommendation reader extracts the care action from the response. When the two disagree, the flag is disclosed and the chatbot reconsiders. Every stage is stored separately, so detection, correction, and the final recommendation can each be evaluated. On held-out physician-labelled cases, Vega reached an AUC of 0.966 and caught 18 of the chatbot's 31 missed emergencies. The saved support replay raised emergency guidance from 39 to 47 of 70 with one additional false alarm among 134 non-emergencies. TraceLens is special because the metric, evidence receipt, preregistration, calibration, and blinded review live inside one reproducible evaluation workspace.",
+      "scenes": [
+        {
+          "beat": "THE PROBLEM",
+          "title": "The clinically important output is the action the reader receives",
+          "body": "Plain prompting gave emergency guidance in 24 of 39 physician-labelled emergencies.",
+          "media": "captures/repository/safeguards.png"
+        },
+        {
+          "beat": "INDEPENDENT SUPPORT",
+          "title": "The chatbot and Vega read the same message through separate paths",
+          "body": "A recommendation reader maps the answer to the care action it actually advises.",
+          "media": [
+            "captures/repository/architecture.png",
+            "captures/repository/decision-model.png"
+          ],
+          "cue": "A pinned chatbot"
+        },
+        {
+          "beat": "DISAGREEMENT LOOP",
+          "title": "A disclosed flag triggers reconsideration and a new recorded action",
+          "body": "Initial answer, detector decision, reconsideration, and final output remain separate evidence surfaces.",
+          "media": "captures/repository/evaluation-dashboard.png",
+          "cue": "When the two disagree"
+        },
+        {
+          "beat": "HELD-OUT RESULT",
+          "title": "Vega caught 18 of 31 missed emergencies",
+          "body": "Held-out AUC 0.966 · final emergency guidance 39→47 of 70 · one additional false alarm in 134",
+          "media": [
+            "captures/repository/detectors.png",
+            "captures/repository/support-loop.png"
+          ],
+          "cue": "On held-out"
+        },
+        {
+          "beat": "REPRODUCIBLE EVALUATION",
+          "title": "Pinned inputs and frozen analysis connect every claim to its run",
+          "body": "Preregistration, calibration, evidence receipts, paired statistics, and blinded reader review.",
+          "media": "captures/repository/evaluation-dashboard-showcase.png",
+          "cue": "TraceLens is special"
+        }
+      ]
+    },
+    {
+      "slug": "brain-atrophy-computer-vision",
+      "title": "Brain Atrophy Analysis in Dementia",
+      "subtitle": "An interpretable OpenCV measurement published through IEEE",
+      "accent": "#83c5be",
+      "narration": "Measuring brain atrophy from MRI can require expert tracing and time-consuming segmentation. This study asked whether visible tissue loss, ventricular expansion, and widened sulci could become a repeatable image-level measure. The OpenCV workflow separates dark space, bright tissue, and mid-range tissue, then computes an auditable ratio: black pixels divided by white plus grey pixels. Across 2,198 ADNI T1-weighted MRI images, cohort averages established lower and upper reference bounds of 0.41 and 0.83. The same method was evaluated with two anatomical views. Focusing the crop around the hippocampal region improved reported accuracy from 66 to 71 percent. The work is distinctive because the anatomical hypothesis, pixel masks, equation, reference bounds, and crop comparison remain visible from input image to result, creating an interpretable computer-vision pipeline that was published in the IEEE ICRITO 2022 proceedings.",
+      "scenes": [
+        {
+          "beat": "THE RESEARCH PROBLEM",
+          "title": "Make visible tissue loss measurable across a large MRI collection",
+          "body": "Expert tracing and segmentation are slow; the study seeks a repeatable image-level measure.",
+          "media": "captures/designed/anatomical-problem-plate.png"
+        },
+        {
+          "cue": "This study asked",
+          "beat": "THE HYPOTHESIS",
+          "title": "Widened sulci and expanded ventricles leave measurable dark space",
+          "body": "Tissue loss shifts the balance between dark space and brain tissue in each slice.",
+          "media": "captures/designed/hypothesis-plate.png"
+        },
+        {
+          "cue": "The OpenCV workflow",
+          "beat": "THE METHOD",
+          "title": "Three intensity regions produce one auditable atrophy ratio",
+          "body": "dem = black pixels ÷ (white pixels + grey pixels)",
+          "media": "captures/designed/method-plate.png"
+        },
+        {
+          "cue": "Across 2,198",
+          "beat": "THE COHORT",
+          "title": "2,198 ADNI images establish reference bounds",
+          "body": "1,172 CDR 0 images · 1,026 CDR 0.5–2 images · bounds 0.41 and 0.83",
+          "media": "captures/designed/cohort-plate.png"
+        },
+        {
+          "cue": "The same method was evaluated",
+          "beat": "THE RESULT",
+          "title": "Anatomical focus improved reported accuracy from 66% to 71%",
+          "body": "The hippocampal crop improved the same interpretable measurement workflow.",
+          "media": "captures/designed/result-plate.png"
+        },
+        {
+          "cue": "The work is distinctive",
+          "beat": "PUBLISHED METHOD",
+          "title": "Every step stays visible from input image to result",
+          "body": "Published in the IEEE ICRITO 2022 proceedings.",
+          "media": [
+            "captures/designed/pipeline-plate.png",
+            "captures/repository/paper-page-1.png"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "alzheimers-disease-research",
+      "title": "Four-Class Alzheimer MRI Classification",
+      "subtitle": "A notebook-first TensorFlow experiment with probability ensembling",
+      "accent": "#c3a6ff",
+      "narration": "Four-class Alzheimer MRI classification must separate adjacent stages whose scans can look structurally similar. This experiment turns 6,400 folder-labelled MRI images into a complete TensorFlow workflow. It inspects the scans, builds an 80-10-10 train, validation, and test pipeline, resizes images to 256 square pixels, and applies augmentation only to training data. The primary convolutional network contains six convolution-and-pooling blocks, dropout, a dense representation, and a four-class softmax output. Independently saved models are then compared through their full probability vectors, allowing uncertain judgments to be combined before the final class is chosen. In the author-confirmed companion experiment, held-out accuracy increased from 78 to 85 percent. What makes the project special is the visible experimental progression: data, tensors, architecture, individual predictions, model diversity, ensemble probabilities, and image-level error review all remain inspectable inside one reproducible notebook.",
+      "scenes": [
+        {
+          "beat": "THE RESEARCH PROBLEM",
+          "title": "Separate four adjacent MRI severity categories",
+          "body": "Neighbouring stages can share subtle structural characteristics.",
+          "media": "captures/repository/notebook-output-1.png"
+        },
+        {
+          "cue": "This experiment turns",
+          "beat": "DATA PIPELINE",
+          "title": "6,400 scans become repeatable training, validation, and test streams",
+          "body": "256×256 inputs · 80/10/10 partition · augmentation isolated to training",
+          "media": [
+            "captures/designed/dataset-plate.png",
+            "captures/repository/notebook-output-2.png"
+          ]
+        },
+        {
+          "cue": "The primary convolutional",
+          "beat": "MODEL DESIGN",
+          "title": "Six convolution blocks carry the image into a four-class softmax",
+          "body": "2,114,756 trainable parameters, with the architecture visible in the notebook.",
+          "media": "captures/designed/model-plate.png"
+        },
+        {
+          "cue": "Independently saved models",
+          "beat": "ENSEMBLE METHOD",
+          "title": "Full probability vectors are averaged before the class decision",
+          "body": "Three saved CNNs each return a four-class softmax; a Keras Average layer combines them.",
+          "media": "captures/designed/ensemble-plate.png"
+        },
+        {
+          "cue": "In the author-confirmed",
+          "beat": "THE RESULT",
+          "title": "Companion experiment accuracy increased from 78% to 85%",
+          "body": "Held-out accuracy after probability-level ensembling.",
+          "media": "captures/designed/result-plate.png"
+        },
+        {
+          "cue": "What makes the project special",
+          "beat": "REPRODUCIBLE NOTEBOOK",
+          "title": "Every stage of the experiment stays inspectable",
+          "body": "Data, tensors, architecture, predictions, model diversity, and ensemble probabilities in one notebook.",
+          "media": "captures/designed/progression-plate.png"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "title": "TraceLens",
+  "subtitle": "Measuring the action a health-information answer ultimately gives",
+  "scenes": [
+    {
+      "start": 0,
+      "end": 12.91,
+      "beat": "THE PROBLEM",
+      "cue": "Health-information models can recognize a dangerous",
+      "media": "captures/repository/safeguards.png"
+    },
+    {
+      "start": 12.91,
+      "end": 23.81,
+      "beat": "INDEPENDENT SUPPORT",
+      "cue": "A pinned chatbot",
+      "media": [
+        "captures/repository/architecture.png",
+        "captures/repository/decision-model.png"
+      ]
+    },
+    {
+      "start": 23.81,
+      "end": 36.65,
+      "beat": "DISAGREEMENT LOOP",
+      "cue": "When the two disagree",
+      "media": "captures/repository/evaluation-dashboard.png"
+    },
+    {
+      "start": 36.65,
+      "end": 59.11,
+      "beat": "HELD-OUT RESULT",
+      "cue": "On held-out",
+      "media": [
+        "captures/repository/detectors.png",
+        "captures/repository/support-loop.png"
+      ]
+    },
+    {
+      "start": 59.11,
+      "end": 72.07,
+      "beat": "REPRODUCIBLE EVALUATION",
+      "cue": "TraceLens is special",
+      "media": "captures/repository/evaluation-dashboard-showcase.png"
+    }
+  ]
+}

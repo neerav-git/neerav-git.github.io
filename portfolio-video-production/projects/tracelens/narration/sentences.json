@@ -1,0 +1,42 @@
+[
+  {
+    "sentence": "Health-information models can recognize a dangerous situation and still leave the reader with a delayed or hedged next step.",
+    "start": 0,
+    "end": 8.175
+  },
+  {
+    "sentence": "TraceLens measures the action that reaches the user.",
+    "start": 8.355,
+    "end": 12.18
+  },
+  {
+    "sentence": "A pinned chatbot answers the message; Vega reads the same message independently; and a validated recommendation reader extracts the care action from the response.",
+    "start": 12.36,
+    "end": 23.085
+  },
+  {
+    "sentence": "When the two disagree, the flag is disclosed and the chatbot reconsiders.",
+    "start": 23.265,
+    "end": 28.29
+  },
+  {
+    "sentence": "Every stage is stored separately, so detection, correction, and the final recommendation can each be evaluated.",
+    "start": 28.47,
+    "end": 35.92
+  },
+  {
+    "sentence": "On held-out physician-labelled cases, Vega reached an AUC of 0.966 and caught 18 of the chatbot's 31 missed emergencies.",
+    "start": 36.1,
+    "end": 46.525
+  },
+  {
+    "sentence": "The saved support replay raised emergency guidance from 39 to 47 of 70 with one additional false alarm among 134 non-emergencies.",
+    "start": 46.705,
+    "end": 58.38
+  },
+  {
+    "sentence": "TraceLens is special because the metric, evidence receipt, preregistration, calibration, and blinded review live inside one reproducible evaluation workspace.",
+    "start": 58.56,
+    "end": 70.035
+  }
+]

@@ -1,0 +1,19 @@
+# Dependencies and renders (rebuildable; renders are delivered to ../output/portfolio-videos)
+node_modules/
+renders/
+public/
+
+# Captured and rendered media; plans, edits, data and the recorded voice session stay tracked
+*.mp4
+*.mov
+*.webm
+*.wav
+!projects/relay/voice/*.wav
+*.f32
+projects/*/captures/
+projects/*/scenes/
+projects/*/edit/audio/
+projects/*/silent-master.mp4
+plans/boards/
+qa/*/
+qa/*.png

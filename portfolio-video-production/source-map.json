@@ -1,0 +1,257 @@
+[
+  {
+    "project": "relay",
+    "output": "projects/relay/captures/repository/01-relay-workspace-and-guide.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/DeepGram Project/docs/assets/readme/relay/screenshots/01-relay-workspace-and-guide.png"
+  },
+  {
+    "project": "relay",
+    "output": "projects/relay/captures/repository/02-whats-next-grounded-answer.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/DeepGram Project/docs/assets/readme/relay/screenshots/02-whats-next-grounded-answer.png"
+  },
+  {
+    "project": "relay",
+    "output": "projects/relay/captures/repository/03-conversation-opens-record.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/DeepGram Project/docs/assets/readme/relay/screenshots/03-conversation-opens-record.png"
+  },
+  {
+    "project": "relay",
+    "output": "projects/relay/captures/repository/04-vpn-action-prepared.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/DeepGram Project/docs/assets/readme/relay/screenshots/04-vpn-action-prepared.png"
+  },
+  {
+    "project": "relay",
+    "output": "projects/relay/captures/repository/05-vpn-case-confirmed.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/DeepGram Project/docs/assets/readme/relay/screenshots/05-vpn-case-confirmed.png"
+  },
+  {
+    "project": "relay",
+    "output": "projects/relay/captures/repository/06-meeting-or-calendar-workflow.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/DeepGram Project/docs/assets/readme/relay/screenshots/06-meeting-or-calendar-workflow.png"
+  },
+  {
+    "project": "relay",
+    "output": "projects/relay/captures/repository/07-workflow-evidence-trace.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/DeepGram Project/docs/assets/readme/relay/screenshots/07-workflow-evidence-trace.png"
+  },
+  {
+    "project": "refract-ai",
+    "output": "projects/refract-ai/captures/repository/workflow-overview.png",
+    "source": "/private/tmp/portfolio-video-sources/refract/docs/readme-assets/workflow-overview.png"
+  },
+  {
+    "project": "refract-ai",
+    "output": "projects/refract-ai/captures/repository/reader-workspace.png",
+    "source": "/private/tmp/portfolio-video-sources/refract/docs/readme-assets/reader-workspace.png"
+  },
+  {
+    "project": "refract-ai",
+    "output": "projects/refract-ai/captures/repository/index-workspace.png",
+    "source": "/private/tmp/portfolio-video-sources/refract/docs/readme-assets/index-workspace.png"
+  },
+  {
+    "project": "refract-ai",
+    "output": "projects/refract-ai/captures/repository/compare-workspace.png",
+    "source": "/private/tmp/portfolio-video-sources/refract/docs/readme-assets/compare-workspace.png"
+  },
+  {
+    "project": "refract-ai",
+    "output": "projects/refract-ai/captures/repository/stats-workspace.png",
+    "source": "/private/tmp/portfolio-video-sources/refract/docs/readme-assets/stats-workspace.png"
+  },
+  {
+    "project": "refract-ai",
+    "output": "projects/refract-ai/captures/repository/system-architecture.png",
+    "source": "/private/tmp/portfolio-video-sources/refract/docs/readme-assets/system-architecture.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/01-recovery.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/01-recovery.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/02-source.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/02-source.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/03-source-search.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/03-source-search.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/04-help-review.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/04-help-review.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/05-approval.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/05-approval.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/06-safe-retry.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/06-safe-retry.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/07-import-review.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/07-import-review.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/08-activity.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/08-activity.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/09-provenance.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/09-provenance.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/10-mobile.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/10-mobile.png"
+  },
+  {
+    "project": "homeward",
+    "output": "projects/homeward/captures/repository/failure.png",
+    "source": "/private/tmp/portfolio-video-sources/homeward/docs/assets/journey/failure.png"
+  },
+  {
+    "project": "birb-hangout",
+    "output": "projects/birb-hangout/captures/repository/records.mp4",
+    "source": "/Users/neeravch/Documents/birb-hangout/docs/thesis/site/media/activities/clips/records.mp4"
+  },
+  {
+    "project": "birb-hangout",
+    "output": "projects/birb-hangout/captures/repository/reading.mp4",
+    "source": "/Users/neeravch/Documents/birb-hangout/docs/thesis/site/media/activities/clips/reading.mp4"
+  },
+  {
+    "project": "birb-hangout",
+    "output": "projects/birb-hangout/captures/repository/watching.mp4",
+    "source": "/Users/neeravch/Documents/birb-hangout/docs/thesis/site/media/activities/clips/watching.mp4"
+  },
+  {
+    "project": "birb-hangout",
+    "output": "projects/birb-hangout/captures/repository/trivia.mp4",
+    "source": "/Users/neeravch/Documents/birb-hangout/docs/thesis/site/media/activities/clips/trivia.mp4"
+  },
+  {
+    "project": "birb-hangout",
+    "output": "projects/birb-hangout/captures/repository/hug.mp4",
+    "source": "/Users/neeravch/Documents/birb-hangout/docs/thesis/site/media/activities/clips/hug.mp4"
+  },
+  {
+    "project": "birb-hangout",
+    "output": "projects/birb-hangout/captures/repository/nap.mp4",
+    "source": "/Users/neeravch/Documents/birb-hangout/docs/thesis/site/media/activities/clips/nap.mp4"
+  },
+  {
+    "project": "birb-hangout",
+    "output": "projects/birb-hangout/captures/repository/dream-entry.mp4",
+    "source": "/Users/neeravch/Documents/birb-hangout/docs/thesis/site/media/activities/clips/dream-entry.mp4"
+  },
+  {
+    "project": "birb-hangout",
+    "output": "projects/birb-hangout/captures/repository/flight.mp4",
+    "source": "/Users/neeravch/Documents/birb-hangout/docs/thesis/site/media/activities/clips/flight.mp4"
+  },
+  {
+    "project": "birb-hangout",
+    "output": "projects/birb-hangout/captures/repository/islands.mp4",
+    "source": "/Users/neeravch/Documents/birb-hangout/docs/thesis/site/media/activities/clips/islands.mp4"
+  },
+  {
+    "project": "birb-hangout",
+    "output": "projects/birb-hangout/captures/repository/exploration.mp4",
+    "source": "/Users/neeravch/Documents/birb-hangout/docs/thesis/site/media/activities/clips/exploration.mp4"
+  },
+  {
+    "project": "tracelens",
+    "output": "projects/tracelens/captures/repository/architecture.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/tracelens/architecture.png"
+  },
+  {
+    "project": "tracelens",
+    "output": "projects/tracelens/captures/repository/care-trajectory.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/tracelens/care-trajectory.png"
+  },
+  {
+    "project": "tracelens",
+    "output": "projects/tracelens/captures/repository/decision-model.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/tracelens/decision-model.png"
+  },
+  {
+    "project": "tracelens",
+    "output": "projects/tracelens/captures/repository/detectors.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/tracelens/detectors.png"
+  },
+  {
+    "project": "tracelens",
+    "output": "projects/tracelens/captures/repository/evaluation-dashboard-showcase.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/tracelens/evaluation-dashboard-showcase.png"
+  },
+  {
+    "project": "tracelens",
+    "output": "projects/tracelens/captures/repository/evaluation-dashboard.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/tracelens/evaluation-dashboard.png"
+  },
+  {
+    "project": "tracelens",
+    "output": "projects/tracelens/captures/repository/safeguards.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/tracelens/safeguards.png"
+  },
+  {
+    "project": "tracelens",
+    "output": "projects/tracelens/captures/repository/support-loop.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/tracelens/support-loop.png"
+  },
+  {
+    "project": "brain-atrophy-computer-vision",
+    "output": "projects/brain-atrophy-computer-vision/captures/repository/paper-page-1.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/tmp/pdfs/brain-atrophy/page-1.png"
+  },
+  {
+    "project": "brain-atrophy-computer-vision",
+    "output": "projects/brain-atrophy-computer-vision/captures/repository/paper-page-2.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/tmp/pdfs/brain-atrophy/page-2.png"
+  },
+  {
+    "project": "brain-atrophy-computer-vision",
+    "output": "projects/brain-atrophy-computer-vision/captures/repository/paper-page-3.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/tmp/pdfs/brain-atrophy/page-3.png"
+  },
+  {
+    "project": "brain-atrophy-computer-vision",
+    "output": "projects/brain-atrophy-computer-vision/captures/repository/paper-page-4.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/tmp/pdfs/brain-atrophy/page-4.png"
+  },
+  {
+    "project": "brain-atrophy-computer-vision",
+    "output": "projects/brain-atrophy-computer-vision/captures/repository/brain-atrophy-publication.svg",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/alzheimers/brain-atrophy-publication.svg"
+  },
+  {
+    "project": "alzheimers-disease-research",
+    "output": "projects/alzheimers-disease-research/captures/repository/notebook-output-1.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/alzheimers/notebook-output-1.png"
+  },
+  {
+    "project": "alzheimers-disease-research",
+    "output": "projects/alzheimers-disease-research/captures/repository/notebook-output-2.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/alzheimers/notebook-output-2.png"
+  },
+  {
+    "project": "alzheimers-disease-research",
+    "output": "projects/alzheimers-disease-research/captures/repository/notebook-output-3.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/alzheimers/notebook-output-3.png"
+  },
+  {
+    "project": "alzheimers-disease-research",
+    "output": "projects/alzheimers-disease-research/captures/repository/notebook-output-4.png",
+    "source": "/Users/neeravch/Documents/ChatGPT/neerav github io/public/uploads/alzheimers/notebook-output-4.png"
+  }
+]

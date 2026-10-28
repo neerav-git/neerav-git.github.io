@@ -1,0 +1,24 @@
+{
+  "audioSeconds": 63.31,
+  "durationSeconds": 65.16,
+  "fps": 24,
+  "resolution": "1920x1080",
+  "cues": [
+    {
+      "cue": "Relay begins with",
+      "at": 9.255
+    },
+    {
+      "cue": "A VPN issue",
+      "at": 21.039999999999996
+    },
+    {
+      "cue": "The evaluation covered",
+      "at": 32.669999999999995
+    },
+    {
+      "cue": "Its defining achievement",
+      "at": 51.33
+    }
+  ]
+}

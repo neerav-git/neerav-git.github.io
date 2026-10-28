@@ -1,0 +1,55 @@
+{
+  "title": "Homeward",
+  "subtitle": "Source-linked recovery planning after hospital discharge",
+  "scenes": [
+    {
+      "start": 0,
+      "end": 15.14,
+      "beat": "THE PROBLEM",
+      "cue": "Discharge instructions arrive when patients and",
+      "media": "captures/motion/recovery-overview.mp4"
+    },
+    {
+      "start": 15.14,
+      "end": 20.61,
+      "beat": "SOURCE-LINKED PLAN",
+      "cue": "Homeward turns the saved",
+      "media": "captures/motion/source-linking.mp4"
+    },
+    {
+      "start": 20.61,
+      "end": 31.77,
+      "beat": "ONE CONTINUOUS WORKFLOW",
+      "cue": "Patients see the next task",
+      "media": [
+        "captures/motion/source-search.mp4",
+        "captures/repository/05-approval.png"
+      ]
+    },
+    {
+      "start": 31.77,
+      "end": 41.4,
+      "beat": "VALIDATED AGENTS",
+      "cue": "Four role-scoped specialists",
+      "media": "captures/repository/08-activity.png"
+    },
+    {
+      "start": 41.4,
+      "end": 51.6,
+      "beat": "VERIFICATION",
+      "cue": "Verification spans",
+      "media": "captures/motion/agent-activity.mp4"
+    },
+    {
+      "start": 51.6,
+      "end": 67.99,
+      "beat": "DURABLE COORDINATION",
+      "cue": "Homeward's defining contribution",
+      "media": [
+        "captures/repository/04-help-review.png",
+        "captures/repository/09-provenance.png",
+        "captures/repository/06-safe-retry.png"
+      ]
+    }
+  ]
+}

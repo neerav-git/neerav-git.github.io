@@ -1,0 +1,96 @@
+{
+  "slug": "homeward",
+  "sentences": [
+    {
+      "sentence": "Discharge instructions arrive when patients are exhausted, and one unclear line can stall recovery.",
+      "heard": "Discharge instructions arrive when patients are exhausted, and one unclear line can stall recovery.",
+      "missing": []
+    },
+    {
+      "sentence": "Homeward turns the saved record into a plan Alex can follow.",
+      "heard": "Homeward turns the saved record into a plan Alex can follow.",
+      "missing": []
+    },
+    {
+      "sentence": "View source opens the exact sentence behind each step.",
+      "heard": "View Source opens the exact sentence behind each step.",
+      "missing": []
+    },
+    {
+      "sentence": "Alex asks what paperwork to bring, and source search answers with the cited passage.",
+      "heard": "Alex asks what paperwork to bring, and Source Search answers with the cited passage.",
+      "missing": []
+    },
+    {
+      "sentence": "The lab instruction names no test or date, so Alex asks for help.",
+      "heard": "The lab instruction names no test or date, so Alex asks for help.",
+      "missing": []
+    },
+    {
+      "sentence": "The care team replies, and the task stays open until the details are confirmed.",
+      "heard": "The care team replies, and the task stays open until the details are confirmed.",
+      "missing": []
+    },
+    {
+      "sentence": "A reminder waits for Alex's approval.",
+      "heard": "A reminder waits for Alex's approval.",
+      "missing": []
+    },
+    {
+      "sentence": "When the response is lost, Retry safely returns the original receipt, so no second reminder appears.",
+      "heard": "When the response is lost, retry safely returns the original receipt, so no second reminder appears.",
+      "missing": []
+    },
+    {
+      "sentence": "The agent activity log records every step.",
+      "heard": "The age and activity log records every step.",
+      "missing": [
+        "agent"
+      ]
+    },
+    {
+      "sentence": "Four role-scoped specialists select references, and the server validates patient, record version, and approval.",
+      "heard": "For role-scoped specialists select references, and the server validates patient, record version, and approval.",
+      "missing": [
+        "four"
+      ]
+    },
+    {
+      "sentence": "All 32 guardrail checks pass, alongside 59 backend tests and four interface journeys.",
+      "heard": "All 32-guard rail checks pass, alongside 59 back-end tests and four interface journeys.",
+      "missing": [
+        "guardrail",
+        "backend"
+      ]
+    },
+    {
+      "sentence": "Uncertainty stays visible, and every instruction keeps its source.",
+      "heard": "Uncertainty stays visible and every instruction keeps its source.",
+      "missing": []
+    }
+  ],
+  "terms": [
+    {
+      "term": "The agent activity log records every step.",
+      "expect": "The agent activity log records every step.",
+      "heard": "The agent activity log records every step.",
+      "missing": []
+    },
+    {
+      "term": "The agents' activity log records every step.",
+      "expect": "The agents' activity log records every step.",
+      "heard": "The agent's activity log records every step.",
+      "missing": [
+        "agents'"
+      ]
+    },
+    {
+      "term": "Homeward's activity log records every step.",
+      "expect": "Homeward's activity log records every step.",
+      "heard": "Homewards activity log records every step.",
+      "missing": [
+        "homeward's"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "name": "portfolio-video-production",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "narrate": "node scripts/generate-narration.mjs",
+    "narrate:check": "node scripts/check-pronunciation.mjs",
+    "narrate:words": "node scripts/word-timings.mjs",
+    "capture:journey": "node scripts/capture-journey.mjs",
+    "capture:terminal": "node scripts/capture-terminal.mjs",
+    "plan": "node scripts/plan-film.mjs",
+    "mix": "node scripts/mix-audio.mjs",
+    "render": "node scripts/render-film.mjs",
+    "draft": "node scripts/render-film.mjs --draft",
+    "qa": "node scripts/qa-film.mjs",
+    "film": "node scripts/film.mjs",
+    "studio": "remotion studio remotion/index.ts --public-dir public",
+    "collect": "node scripts/collect-assets.mjs",
+    "capture:site": "node scripts/capture-site.mjs",
+    "deliver": "node scripts/deliver.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "5.2.5",
+    "@fontsource-variable/jetbrains-mono": "5.2.5",
+    "@fontsource-variable/manrope": "5.2.5",
+    "@remotion/bundler": "4.0.535",
+    "@remotion/cli": "4.0.535",
+    "@remotion/media-utils": "4.0.535",
+    "@remotion/motion-blur": "4.0.535",
+    "@remotion/paths": "4.0.535",
+    "@remotion/renderer": "4.0.535",
+    "@remotion/shapes": "4.0.535",
+    "@remotion/transitions": "4.0.535",
+    "ffmpeg-static": "5.3.0",
+    "kokoro-js": "1.2.1",
+    "prism-react-renderer": "2.4.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.535"
+  }
+}

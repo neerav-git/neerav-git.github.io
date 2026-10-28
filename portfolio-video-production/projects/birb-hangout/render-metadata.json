@@ -1,0 +1,28 @@
+{
+  "audioSeconds": 62.735,
+  "durationSeconds": 64.585,
+  "fps": 24,
+  "resolution": "1920x1080",
+  "cues": [
+    {
+      "cue": "Friends enter a private",
+      "at": 18.384999999999998
+    },
+    {
+      "cue": "Records, books, television",
+      "at": 24.514999999999997
+    },
+    {
+      "cue": "Resting by the fire",
+      "at": 31.845
+    },
+    {
+      "cue": "The engineering matches",
+      "at": 40.224999999999994
+    },
+    {
+      "cue": "Its special contribution",
+      "at": 48.93
+    }
+  ]
+}
