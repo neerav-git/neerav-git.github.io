@@ -9,6 +9,11 @@ function slugify(value: string) {
 }
 
 export function getBlockAnchor(block: ContentBlock, index: number) {
+  const explicitAnchor = typeof block.anchor === 'string' ? block.anchor.trim() : ''
+  if (explicitAnchor) {
+    return slugify(explicitAnchor) || `section-${index + 1}`
+  }
+
   const title = typeof block.title === 'string' ? block.title.trim() : ''
   if (!title) {
     return `section-${index + 1}`

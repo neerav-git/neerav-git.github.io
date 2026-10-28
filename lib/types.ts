@@ -35,6 +35,7 @@ export type ContentItem = {
 }
 
 export type ContentBlock = {
+  anchor?: string
   attachments?: AttachmentItem[]
   attribution?: string
   blockType:

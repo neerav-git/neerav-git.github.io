@@ -129,7 +129,15 @@ async function main() {
     const kind = [project.cardEyebrow || project.primaryCategory || 'project', project.status === 'peer-reviewed-publication' ? 'peer-reviewed IEEE paper' : ''].filter(Boolean).join(', ')
     addTarget(base, route, 'overview', `${project.title}: case study (${kind})`, project.skills)
     addTarget(`projects.card.${project.slug}`, '/projects/', `case-${project.slug}`, `Work index card: ${project.title}`, project.skills)
-    if (project.methodology) addTarget(`${base}.methodology`, route, 'methodology', `${project.title}: build, evidence, and scope`, project.skills)
+    if (project.problem) {
+      addTarget(`${base}.problem`, route, 'problem', `${project.title}: problem`, project.skills)
+    }
+    if (project.approach) {
+      addTarget(`${base}.solution`, route, 'solution', `${project.title}: built solution and feature rationale`, project.skills)
+    }
+    if (project.methodology) {
+      addTarget(`${base}.methodology`, route, 'methodology', `${project.title}: build, evidence, and scope`, project.skills)
+    }
     const coverUrl = getUploadUrl(project.coverImage)
     const normalized = normalizeContentMedia(project.pageSections, coverUrl ? [coverUrl] : [])
     registerBlocks(base, route, project.slug, normalized.blocks, project.skills)

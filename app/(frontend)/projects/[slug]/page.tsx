@@ -9,9 +9,11 @@ import { ProjectMethodology } from '@/components/ProjectMethodology'
 import { SkillTags } from '@/components/SkillTags'
 import { getUploadAlt, getUploadUrl } from '@/lib/assets'
 import { adminLinks } from '@/lib/admin'
+import { getBlockAnchor } from '@/lib/blockAnchors'
 import { getProjectBySlug, getProjects } from '@/lib/content'
 import { normalizeContentMedia, uniqueAssets } from '@/lib/mediaDeduplication'
 import { getProjectStatus } from '@/lib/projectStatus'
+import type { ContentBlock, ProjectRecord } from '@/lib/types'
 
 type ProjectPageProps = {
   params: Promise<{
@@ -26,6 +28,44 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false
 
+function createCaseStudyFlow(project: ProjectRecord, blocks: ContentBlock[]) {
+  const anchoredBlocks = blocks.map((block, index) => ({
+    ...block,
+    anchor: block.anchor || getBlockAnchor(block, index),
+  }))
+  const leadIndex = anchoredBlocks.findIndex((block) => block.blockType === 'sectionLead')
+  const lead = leadIndex >= 0 ? anchoredBlocks[leadIndex] : null
+  const detailBlocks = leadIndex >= 0
+    ? anchoredBlocks.filter((_, index) => index !== leadIndex)
+    : anchoredBlocks
+
+  const openingBlocks: ContentBlock[] = []
+
+  if (project.problem) {
+    openingBlocks.push({
+      anchor: 'problem',
+      blockType: 'sectionLead',
+      description: project.problem,
+      eyebrow: '01 · Problem',
+      title: 'Why this work was needed',
+    })
+  }
+
+  if (lead) {
+    openingBlocks.push({
+      ...lead,
+      anchor: 'solution',
+      eyebrow: `02 · ${lead.eyebrow || 'Built solution'}`,
+    })
+  }
+
+  return {
+    allBlocks: [...openingBlocks, ...detailBlocks],
+    detailBlocks,
+    openingBlocks,
+  }
+}
+
 export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const { slug } = await params
   const project = await getProjectBySlug(slug)
@@ -39,6 +79,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const gallery = uniqueAssets(project.gallery, normalizedMedia.usedUrls)
   const repoTopics = Array.isArray(project.github?.repoTopics) ? project.github.repoTopics : []
   const maturity = getProjectStatus(project.status)
+  const caseStudyFlow = createCaseStudyFlow(project, normalizedMedia.blocks)
   const skills = project.skills?.length
     ? project.skills
     : (project.technologies || []).map((technology) => technology.value).filter(Boolean)
@@ -63,7 +104,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 <div className="panel-eyebrow">Summary</div>
                 <div className="entry-summary-stack">
                   <p><strong>{maturity.label}.</strong> {maturity.definition}</p>
-                  <a className="text-link" href="#methodology">Build, evidence, and scope ↓</a>
+                  <a className="text-link" href="#problem">Problem, outcome, and evidence ↓</a>
                   <SkillTags skills={skills} />
                 </div>
               </section>
@@ -78,9 +119,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </div>
         ) : null}
 
+        <EntrySectionMap blocks={caseStudyFlow.allBlocks} />
+        <ContentBlocks blocks={caseStudyFlow.openingBlocks} />
+        <ContentBlocks blocks={caseStudyFlow.detailBlocks} />
         <ProjectMethodology project={project} />
-        <EntrySectionMap blocks={normalizedMedia.blocks} />
-        <ContentBlocks blocks={normalizedMedia.blocks} />
 
         {gallery.length ? (
           <section className="gallery-grid" id="gallery">
