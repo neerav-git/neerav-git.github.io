@@ -14,7 +14,7 @@ Outputs go to `../output/portfolio-videos/`. Renders, captures and media are git
 - **Narrator voice:** Kokoro `af_heart` with the existing tuning, synthesized per sentence. Never change the tuning.
 - **Copy:** no "X, not Y" contrasts and no curation or meta talk. Use they/them, or avoid pronouns, for people whose pronouns are unknown (Alex, Maya).
 - **State measured claims plainly.** Find the number in the user's runs instead of softening a claim.
-- **Never narrate Refract's RMSE.** Table 4-1 (25.61) conflicts with the Stats screenshots (29.14).
+- **Refract's headline metric is RMSE 25.61** (thesis Table 4-1), per the user. Don't hedge it.
 - **Never put transient percussion under narration** (see the audio fix below).
 
 ## Status
@@ -22,7 +22,7 @@ Outputs go to `../output/portfolio-videos/`. Renders, captures and media are git
 | Film | State |
 |---|---|
 | Homeward | Delivered: mp4, captioned mp4, vtt, poster, contact sheet. **Awaiting the user's sign-off.** They said it is "substantially better" than the first cut. Their one complaint, voice chipping, is fixed (below). |
-| Relay | Plan updated (`projects/relay/plan.md`). Live voice session recorded. Frame-stepped capture of `01-voice` was running at handoff; the preview is not yet built. |
+| Relay | Plan updated (`projects/relay/plan.md`). Voice chapter `01-voice` captured (take-01: 2,869 frames, 47.8 s) with its audio. Preview at `../output/portfolio-videos/previews/relay-voice-preview.mp4` has not yet been shown to the user. |
 | TraceLens | Plan and designed boards D1–D4 done (`plans/boards/tracelens-*`). Hero case and cost numbers verified. |
 | Alzheimer's | Plan rewritten: ensemble of specialist CNNs (78% → 85%), then the IEEE CV atrophy paper. Waiting on the user (open questions). |
 | Birb, Refract | Plans written. Waiting on the user (open questions). |
@@ -59,14 +59,13 @@ Capture command: `node scripts/capture-journey.mjs relay --take 1 --only 01-voic
 - At 4K it runs at about 2.6 fps, so a 60 s chapter takes about 25 min.
 - Waits use `waitFor({ pageTimeout })`, which counts page time. The first attempt failed on the wall-clock `timeout`.
 
+Take-01 result (done): greeting 2.5–8.2 s, Maya 9.9–14.9 s, tool calls 13.4–17.4 s (including the cancelled first call, as live), answer 16.6–47.5 s. IT-2047 opens around 17–22 s. Frames confirm the orb reacts and the caption card follows the answer. To rebuild the sound and preview: `sh capture/relay/voice-preview.sh`.
+
 Next steps:
-1. When the capture finishes, check the log ends without an error and that `01-voice.voice.json` exists.
-2. Build the audio: `node capture/relay/voice-audio.mjs projects/relay/captures/journey/take-01 projects/relay/voice/live-01/session.json projects/relay/voice/maya-q1.wav`. This writes `01-voice.audio.wav` and `.json`, and errors if the chunk counts differ.
-2–3. Or run `sh capture/relay/voice-preview.sh`, which does step 2 and then muxes `../output/portfolio-videos/previews/relay-voice-preview.mp4` at 1920 wide.
-4. Check the orb animation and lip sync, then show the user.
-5. Then capture the typed W2 turns 3–4 (`window.__guideReplay`), Workflow operations, the Agent evaluation page and the gate terminal.
-6. Extend `mix-audio.mjs` so it carries a chapter's own audio. The voice beat leaves the narration silent.
-7. The edit keeps about 12 s of the agent's answer, ending on "…the device you used for MFA enrollment and when you last tried to sign in."
+1. Show the user the preview and get their reaction to the voice beat.
+2. Then capture the typed W2 turns 3–4 (`window.__guideReplay`), Workflow operations, the Agent evaluation page and the gate terminal.
+3. Extend `mix-audio.mjs` so it carries a chapter's own audio. The voice beat leaves the narration silent.
+4. The edit keeps about 12 s of the agent's answer, ending on "…the device you used for MFA enrollment and when you last tried to sign in."
 
 ## TraceLens facts (verified)
 

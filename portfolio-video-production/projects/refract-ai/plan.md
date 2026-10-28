@@ -16,7 +16,7 @@ A single researcher's session runs in order. The researcher reads a battery-agei
 6. Stats moves through ordered checkpoints: profile, audit, then baseline regression.
 7. Each column gets an analytical role, and Spearman screening flags leakage and redundancy before any model trains.
 8. Cycle index is flagged as leakage and excluded through a saved decision.
-9. Models are then compared on a fixed split and seed.
+9. Models are then compared on a fixed split and seed, reaching an RMSE of 25.61.
 10. Interpretive claims carry one of five provenance labels, and anything unlabelled stays unresolved.
 11. Paper, passage, question, dataset, feature decision, model and metric stay connected in one session.
 12. It runs on React and FastAPI, with Postgres for sessions, ChromaDB for retrieval and Claude for grounded synthesis.
@@ -39,7 +39,7 @@ A single researcher's session runs in order. The researcher reads a battery-agei
 | 78–84 | Chain | **F2 Session chain**: seven linked nodes (paper → passage → question → dataset → feature decision → model → metric), each with a thumbnail of the real screen it came from | designed, real thumbnails |
 | 84–90 | Stack + end | AnimatedDiagram: React → FastAPI → Postgres / ChromaDB / Claude (from `system-architecture.png`), then the end card | real architecture |
 
-No metric value is narrated or shown as a headline number. Table 4-1 (RMSE 25.61) and the Stats screenshots (29.14) disagree, so neither appears. Benchmark screenshots show the chart shapes, and the camera does not linger on the RMSE readout.
+The headline metric is RMSE 25.61 (thesis Table 4-1). It is narrated in line 9 and shown as a counter over the model comparison.
 
 ## Capture options
 
