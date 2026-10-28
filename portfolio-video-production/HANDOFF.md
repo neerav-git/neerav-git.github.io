@@ -102,6 +102,15 @@ The hero case is **T1-8db5d356** (HealthBench held-out). It is one of 8 cases co
 - **Alzheimer's:** go without per-model numbers. The ensemble claim is 78% → 85% with fewer crucial misses.
   - The narration says "ensemble of specialist CNNs" instead of "mixture of experts". The models are averaged, with no learned gate.
 
+## Scripts v3 for the other five films (2026-10-28)
+
+The user asked for every film to be rescripted to the Relay v3 standard (need → idea → breadth → depth → trust and proof → payoff, with a reason for every line), after researching each project. The scripts are in `plans/film-scripts-v3.md` and are **awaiting sign-off**. Don't capture or render these films until the user approves them.
+- The openings use verified external facts, each shown with a source chip: Horwitz 2013, Jencks 2009, KFF 2024, Ramaswamy 2026, WHO, and the Surgeon General 2023.
+- The TraceLens line 1 citation (Nature Medicine) is contested; an alternative that uses the user's own 15/39 result is offered.
+- Runtimes at the narration rate: Homeward ~2:35, TraceLens ~2:40, Alzheimer's ~1:55, Birb ~2:10, Refract ~2:15.
+- New captures needed: Homeward tour and import review, the TraceLens workspace, and the Birb create-room/join-by-code shot.
+- Relay: test take 91 passed every chapter; the real 2K take 3 started.
+
 ## Where things are
 
 - Pipeline: `npm run film -- <slug>` runs plan-film → mix-audio → render-film → qa-film. `scripts/deliver.mjs` copies to output.
