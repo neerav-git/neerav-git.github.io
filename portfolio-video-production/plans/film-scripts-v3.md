@@ -48,7 +48,7 @@ External facts are shown on screen with a source chip. Everything else comes fro
 
 ---
 
-## TraceLens (~2:35)
+## TraceLens (~2:50)
 
 **Industry:** consumer health AI, and the teams that build and evaluate health chatbots. **Workflows:** emergency detection, disclosed reconsideration, preregistered studies on cloud GPUs, blinded review, detector training.
 **Hero capability:** Vega, an independent model that reads only the person's message, catches emergencies the chatbot under-calls, and makes the disagreement visible.
@@ -81,7 +81,7 @@ External facts are shown on screen with a source chip. Everything else comes fro
 
 ---
 
-## Alzheimer's research (~2:00)
+## Alzheimer's research (~2:15)
 
 **Industry:** neuroimaging and dementia research. **Workflows:** stage classification from MRI, atrophy measurement, tracking change across scans.
 **Hero capability:** an expert ensemble of deliberately varied CNNs, then a published, transparent measure of atrophy.
@@ -111,7 +111,7 @@ External facts are shown on screen with a source chip. Everything else comes fro
 
 ---
 
-## Birb Hangout (~2:45)
+## Birb Hangout (~3:00)
 
 **Industry:** social and realtime 3D software, an online third space for friends and family who live apart. **Workflows:** private rooms, music, a shared bookshelf, reading, television, trivia, hugs and emotes, napping, the Dream (breathing entry, flight, islands, valley), and the AI-collaboration tooling used to build it.
 **Hero capability:** a warm shared room where people can see what each other are doing and join in, and an annotation tool that lets an AI find a defect in 3D space.
