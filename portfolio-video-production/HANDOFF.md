@@ -8,7 +8,9 @@ Outputs go to `../output/portfolio-videos/`. Renders, captures and media are git
 ## Rules from the user (non-negotiable)
 
 - **No paid infrastructure.** Only the capped Claude API may cost money: no paid TTS, GPU, stock footage or music.
-  - One exception: the user asked for a live Deepgram session for Relay. It is already recorded (about 57 s, ≈$0.16). Do not record another; replay the saved one.
+  - One exception: the user asked for a live Deepgram session for Relay. It is already recorded (about 57 s, ≈$0.16).
+  - 2026-10-28: the user approved **up to 2 more attempts** for the new voice hook, "What's my next highest-priority task?" (`projects/relay/voice/live-02`, and `live-03` only if `live-02` is weak). Keep the better take, then never record again; replay the saved sessions.
+  - Done: `live-02` was recorded on the first attempt and is the take. The agent named the federal and California withholding forms (due today) and opened DOC-TAX-1007. No further sessions.
 - **All evidence is real.** That means real app footage (seeded demo data is fine), real paper, notebook and thesis figures, and real terminal output. Never invent numbers or UI.
   - Designed bridging visuals are labelled "Illustrative interface · real model outputs" or "schematic".
 - **Narrator voice:** Kokoro `af_heart` with the existing tuning, synthesized per sentence. Never change the tuning.
