@@ -14,7 +14,7 @@ Outputs go to `../output/portfolio-videos/`. Renders, captures and media are git
 - **Narrator voice:** Kokoro `af_heart` with the existing tuning, synthesized per sentence. Never change the tuning.
 - **Copy:** no "X, not Y" contrasts and no curation or meta talk. Use they/them, or avoid pronouns, for people whose pronouns are unknown (Alex, Maya).
 - **State measured claims plainly.** Find the number in the user's runs instead of softening a claim.
-- **Refract's headline metric is RMSE 25.61** (thesis Table 4-1), per the user. Don't hedge it.
+- **Refract's selling point is the end-to-end research workspace.** Its parts: paper Q&A, notes logged from assistant explanations, literature review and gap finding, then stats on the reviewed data with leakage prevention and several models tested at once. Don't headline accuracy or RMSE.
 - **Never put transient percussion under narration** (see the audio fix below).
 
 ## Status
@@ -62,7 +62,7 @@ Capture command: `node scripts/capture-journey.mjs relay --take 1 --only 01-voic
 Take-01 result (done): greeting 2.5–8.2 s, Maya 9.9–14.9 s, tool calls 13.4–17.4 s (including the cancelled first call, as live), answer 16.6–47.5 s. IT-2047 opens around 17–22 s. Frames confirm the orb reacts and the caption card follows the answer. To rebuild the sound and preview: `sh capture/relay/voice-preview.sh`.
 
 Next steps:
-1. Show the user the preview and get their reaction to the voice beat.
+1. Done: the user liked the preview and asked for a crisp cut. The cut is `output/portfolio-videos/previews/relay-voice-cut.mp4` (22 s: tap, then a dissolve past the greeting to Maya's question and a three-sentence answer ending at take 29.8 s). In the film, the narrator leads in with "Let's see an example, and hear how the Relay guide helps." Then comes the clip with narration silent, then product narration resumes.
 2. Then capture the typed W2 turns 3–4 (`window.__guideReplay`), Workflow operations, the Agent evaluation page and the gate terminal.
 3. Extend `mix-audio.mjs` so it carries a chapter's own audio. The voice beat leaves the narration silent.
 4. The edit keeps about 12 s of the agent's answer, ending on "…the device you used for MFA enrollment and when you last tried to sign in."

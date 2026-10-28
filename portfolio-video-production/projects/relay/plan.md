@@ -16,20 +16,21 @@ The film follows one employee journey, end to end, through the real portal. The 
 5. **The contract.** Workflow operations shows the action prepared, confirmed, executed and verified.
 6. **Evidence.** The in-app Agent evaluation page, plus the release gate.
 
-## Draft narration (≈135 words, plus a ≈16 s voice exchange)
+## Draft narration (≈140 words, plus a ≈22 s voice exchange)
 
 1. New employees lose time hunting for the right system, record and owner before they can fix a simple problem.
-2. In Relay, Maya just asks.
+2. Relay gives every employee one place to ask, and a guide that acts on their own records.
+3. Let's see an example, and hear how the Relay guide helps.
 
-   *[Voice exchange, live recording: Maya's question, then the agent's answer, through "…reply with the device you used for MFA enrollment and when you last tried to sign in."]*
+   *[Voice clip, 22 s, live recording; narration silent. The orb tap, then a dissolve past the greeting. Maya asks her question. The agent answers in three sentences and opens IT-2047 as it speaks. The clip ends on "…when you last tried to sign in." Preview: `output/portfolio-videos/previews/relay-voice-cut.mp4`.]*
 
-3. Relay answered from Maya's own records and opened the case at the reply field.
-4. Maya types the details, and Relay prepares the reply and waits for confirmation.
-5. One click, and the reply is on the case.
-6. A laptop that won't charge on its dock becomes a complete IT request, confirmed the same way.
-7. Every action runs through one execution contract: identity, approval, idempotency, audit history and a postcondition check.
-8. Measured end to end on the real app, Relay completed 103 of 110 tasks after the fix pass and 39 of 42 held-out rewordings, and answered 31 of 34 recorded spoken requests usefully.
-9. Red-team runs produced no unsafe actions, and a release gate fails the build if any of it regresses.
+4. In seconds, Relay found the right case, explained who owns it, and opened it at the reply field.
+5. Maya types the details, and Relay prepares the reply and waits for confirmation.
+6. One click, and the reply is on the case.
+7. A laptop that won't charge on its dock becomes a complete IT request, confirmed the same way.
+8. Every action runs through one execution contract: identity, approval, idempotency, audit history and a postcondition check.
+9. Measured end to end on the real app, Relay completed 103 of 110 tasks after the fix pass and 39 of 42 held-out rewordings, and answered 31 of 34 recorded spoken requests usefully.
+10. Red-team runs produced no unsafe actions, and a release gate fails the build if any of it regresses.
 
 ## Shot list
 
@@ -37,8 +38,8 @@ The film follows one employee journey, end to end, through the real portal. The 
 |---|---|---|---|
 | 0–3 | Sting | Relay mark | designed |
 | 3–9 | Problem | **R1 The hunt**: generic system cards (HR, IT tickets, documents, learning, pay) scatter and a cursor bounces between them; they collapse into the Relay orb | designed (labelled schematic) |
-| 9–11 | Tap | The cursor taps the dock orb; the camera pushes in on the animation | capture `01-voice` |
-| 11–27 | Voice | Maya's question plays, with the orb reacting to it, and the transcript caption comes up. The agent then answers aloud, and the portal moves to Help & Support → IT-2047 mid-answer. Lower third: "Live Deepgram voice agent · recorded session". Narration silent | capture `01-voice` + its recorded audio |
+| 9–12 | Lead-in | Narrator: "Let's see an example…"; the camera pushes in on the dock orb | capture `01-voice` |
+| 12–34 | Voice clip | The cut: take-01 0–2.3 s (tap) and 9.4–29.8 s (question → three-sentence answer), with a 0.25 s dissolve over the greeting. Maya's question plays, with the orb reacting to it, and the transcript caption comes up. The agent then answers aloud, and the portal moves to Help & Support → IT-2047 mid-answer. Lower third: "Live Deepgram voice agent · recorded session". Narration silent | capture `01-voice` + its recorded audio |
 | 27–40 | Act | Typed reply; the "Ready for your confirmation" card; push-in on Confirm; click; ripple; chip "Reply added to IT-2047" | W2 turn 3 replay + confirm |
 | 40–50 | Second request | The laptop request; the drafted case card; Confirm; the case appears in the list | W2 turn 4 replay + confirm |
 | 50–60 | Contract | Workflow operations evidence trace; overlay lights the five checks | live capture + designed overlay |
@@ -91,4 +92,4 @@ The film follows one employee journey, end to end, through the real portal. The 
 
 ## Open questions
 
-None open. The agent's spoken answer runs to about 31 s, and it repeats its request after navigating. The edit keeps the first part (about 12 s) and ends on the request for the MFA device and sign-in time.
+None open. The user liked the voice preview and asked for a crisp cut that ends once enough has been said. The agent's answer spans take-01 17.7–29.4 s: blocked (17.7–19.5), owner and 3:00 PM target (20.6–24.0), and the request for the MFA device and sign-in time (25.2–29.4). Later sentences repeat themselves and are cut.
