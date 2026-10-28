@@ -148,6 +148,10 @@ export type ProjectRecord = {
   headline?: string
   /** Optional image for the homepage product showcase panel; falls back to the cover. */
   showcaseImage?: Asset | null
+  /** Optional homepage product film. The showcase image remains its poster and fallback. */
+  showcaseVideo?: Asset | null
+  /** Optional WebVTT captions for the homepage product film. */
+  showcaseVideoCaptions?: Asset | null
   secondaryCategories?: Array<
     'research-system' | 'evaluation' | 'voice-ai' | 'healthcare' | 'multiplayer' | 'machine-learning'
   >
