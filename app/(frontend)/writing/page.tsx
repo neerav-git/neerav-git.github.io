@@ -4,7 +4,7 @@ import { EditableRegion } from '@/components/EditableRegion'
 import { adminLinks } from '@/lib/admin'
 import { getArticles, getSiteSettings } from '@/lib/content'
 
-const monthFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' })
+const monthFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
 
 function formatPublishDate(value?: string) {
   if (!value) {

@@ -1,0 +1,494 @@
+{
+  "checkpoint_version": 1,
+  "captured_at": "2026-10-28T21:35:02.137Z",
+  "base_url": "https://neerav-git.github.io/",
+  "capture_method": "Rendered same-origin crawl with Playwright",
+  "page_count": 23,
+  "failure_count": 0,
+  "pages": [
+    {
+      "url": "https://neerav-git.github.io/",
+      "requested_url": "https://neerav-git.github.io/",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/index.html",
+        "rendered_html": "rendered-html/index.html",
+        "text": "text/index.md"
+      },
+      "sha256": {
+        "source_html": "ca1ce275cf1515511bd6ec2783adc63e09ce72d5113ed8ce64c6a4d99135eeb5",
+        "rendered_html": "4221e9da731abe62bfe41050e6a99b7b3eb4df6ab19fabc01f2ea0cf93cadfdb",
+        "text": "6504e891391b9af59f9b89ad5e369f54ed522956412da13878fc047b9ca08790"
+      },
+      "characters": {
+        "main_text": 4002,
+        "body_text": 4333
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/about",
+      "requested_url": "https://neerav-git.github.io/about",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/about.html",
+        "rendered_html": "rendered-html/about.html",
+        "text": "text/about.md"
+      },
+      "sha256": {
+        "source_html": "a80e73eec896a468a8cbccd1fd2e46686d7df0e2be9c2cb56bdd7fb42be795e3",
+        "rendered_html": "24caa489014a6929caeb65e40297864ef94df8e03bd84330f23d85b08a2329f8",
+        "text": "f2ca38a097c7a0b2a6903bd5f22c8b72cef908154df4e432f9419847befd06c8"
+      },
+      "characters": {
+        "main_text": 4122,
+        "body_text": 4453
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/archive",
+      "requested_url": "https://neerav-git.github.io/archive",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/archive.html",
+        "rendered_html": "rendered-html/archive.html",
+        "text": "text/archive.md"
+      },
+      "sha256": {
+        "source_html": "3b87ecc5f3399422ba3aa145909a47bc7ea25df9f3d331fb2bf72bcaead3bbe6",
+        "rendered_html": "c607aa7e76a5a3d248f9410e1089752ff22ea908f4879a377c38319385c6ff71",
+        "text": "0cd15b54a7aee6dbb76781d1503a472d2a571f538fc16875d944a29ebeed30cb"
+      },
+      "characters": {
+        "main_text": 1022,
+        "body_text": 1353
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/archive/alzheimers-disease-ieee-record",
+      "requested_url": "https://neerav-git.github.io/archive/alzheimers-disease-ieee-record",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/archive-alzheimers-disease-ieee-record.html",
+        "rendered_html": "rendered-html/archive-alzheimers-disease-ieee-record.html",
+        "text": "text/archive-alzheimers-disease-ieee-record.md"
+      },
+      "sha256": {
+        "source_html": "6057e10b0a73ab73b904622bb6d055aa86c428e796bc43d3f312a0381fb37f38",
+        "rendered_html": "f4bc1fafe3292b3f9ca81abc254e8e2e7fc996d054ca24fd3717da69a8d391ac",
+        "text": "ab98efaa681b5930abbdc04eb393307689c5ae5cb3290d7aa418277d328671ed"
+      },
+      "characters": {
+        "main_text": 2325,
+        "body_text": 2657
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/archive/alzheimers-notebook-record",
+      "requested_url": "https://neerav-git.github.io/archive/alzheimers-notebook-record",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/archive-alzheimers-notebook-record.html",
+        "rendered_html": "rendered-html/archive-alzheimers-notebook-record.html",
+        "text": "text/archive-alzheimers-notebook-record.md"
+      },
+      "sha256": {
+        "source_html": "2f3948ea134c0b7268615ad9d9e84d13b152cab83fcd98b21fe737307237b0c8",
+        "rendered_html": "474bab929ac1910c0dfc1b9e55c5f746be5aeb73b51088577e4d569d33ecb60d",
+        "text": "561a90553828ec7315327ac3e0df8b2f0c5191d8c70448e56eac312656b96b09"
+      },
+      "characters": {
+        "main_text": 2158,
+        "body_text": 2490
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/archive/refract-system-architecture-record",
+      "requested_url": "https://neerav-git.github.io/archive/refract-system-architecture-record",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/archive-refract-system-architecture-record.html",
+        "rendered_html": "rendered-html/archive-refract-system-architecture-record.html",
+        "text": "text/archive-refract-system-architecture-record.md"
+      },
+      "sha256": {
+        "source_html": "71d77f500a61e3c47531c0f624d4445e0ed3c7bab32e1ef3b564fcf5244320b0",
+        "rendered_html": "9ad48919ee00cea889ca5bf0505a01d2eccc091e5f5e19c486d4a2a6dc2b17f4",
+        "text": "27c654fc415ab5112f01e34ae45a2ae914223e6efd6677ed3fcea80c28a81fb0"
+      },
+      "characters": {
+        "main_text": 2064,
+        "body_text": 2396
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/archive/refract-workflow-record",
+      "requested_url": "https://neerav-git.github.io/archive/refract-workflow-record",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/archive-refract-workflow-record.html",
+        "rendered_html": "rendered-html/archive-refract-workflow-record.html",
+        "text": "text/archive-refract-workflow-record.md"
+      },
+      "sha256": {
+        "source_html": "3a6397a5b8c3652110680132fa795aeeec366d506b2e714f33067336162fe2f6",
+        "rendered_html": "2987807f0d5c5d78b6a434e92df5ffe7020a66fccc4c829092d4ee0a07b2ad09",
+        "text": "d9cb7b31b74db6597780bf56927d7266154bd7dfa2fe8b1d44184336fea4640d"
+      },
+      "characters": {
+        "main_text": 1616,
+        "body_text": 1948
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/projects",
+      "requested_url": "https://neerav-git.github.io/projects",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/projects.html",
+        "rendered_html": "rendered-html/projects.html",
+        "text": "text/projects.md"
+      },
+      "sha256": {
+        "source_html": "146bd071ee3346240a19705f50d2029dda5f8dbeda177d4d0bf6706f4188f367",
+        "rendered_html": "541273374138327d661607dd586c666c7f801840b8e886b01001e08b65e45f21",
+        "text": "ca5f6011482321cfa18e6a5bdc82072cdac436233af26df6e4bffce06eeb59e0"
+      },
+      "characters": {
+        "main_text": 3464,
+        "body_text": 3795
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/projects/alzheimers-disease-research",
+      "requested_url": "https://neerav-git.github.io/projects/alzheimers-disease-research",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/projects-alzheimers-disease-research.html",
+        "rendered_html": "rendered-html/projects-alzheimers-disease-research.html",
+        "text": "text/projects-alzheimers-disease-research.md"
+      },
+      "sha256": {
+        "source_html": "7744912e670baad2778186575debd96df47d91773b9829bc9570a7a2b260ef04",
+        "rendered_html": "f43f9208add455f79f78a6eed6d2cdb1567489c2e5b624e8968383f36342b5d7",
+        "text": "6280fb219e54b364ff3cd16bb0590e990a599834c82031ceb3f61dfdf7b50e96"
+      },
+      "characters": {
+        "main_text": 12763,
+        "body_text": 13094
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/projects/birb-hangout",
+      "requested_url": "https://neerav-git.github.io/projects/birb-hangout",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/projects-birb-hangout.html",
+        "rendered_html": "rendered-html/projects-birb-hangout.html",
+        "text": "text/projects-birb-hangout.md"
+      },
+      "sha256": {
+        "source_html": "2a674f27b908192d1bcc51b07d46ca981deed0d72ca19ab658b21ec5c83e2235",
+        "rendered_html": "d3b1c9c43ad1445d571e64037219879ff3d48b9be623e6c3e709dd2f2725df88",
+        "text": "7ef7560f7fb2c71b302469e6a4aa773618467dbd1d7e2dc67261261e2c20f57d"
+      },
+      "characters": {
+        "main_text": 15799,
+        "body_text": 16130
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/projects/brain-atrophy-computer-vision",
+      "requested_url": "https://neerav-git.github.io/projects/brain-atrophy-computer-vision",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/projects-brain-atrophy-computer-vision.html",
+        "rendered_html": "rendered-html/projects-brain-atrophy-computer-vision.html",
+        "text": "text/projects-brain-atrophy-computer-vision.md"
+      },
+      "sha256": {
+        "source_html": "3b331a9ed4e6c81e7b39df65229048a6dccee360de474af39a57ec256c84c8ba",
+        "rendered_html": "5669c699b9bff9ab0b3e3ad7569b6b2356d97d1c7be62a738eedc1c404562739",
+        "text": "8097f66c289d87668d06a442f26e03038a903a561019e7235eea195ac0210b58"
+      },
+      "characters": {
+        "main_text": 11183,
+        "body_text": 11514
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/projects/homeward",
+      "requested_url": "https://neerav-git.github.io/projects/homeward",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/projects-homeward.html",
+        "rendered_html": "rendered-html/projects-homeward.html",
+        "text": "text/projects-homeward.md"
+      },
+      "sha256": {
+        "source_html": "20ff583add3c80784ae13691cec00cd554774cf18eeade0bcfcd992c97951eef",
+        "rendered_html": "206f7b2b712d79ff4828c82d44e33cca8499920579c4ea66b631e3bebfe1499b",
+        "text": "4b33d45f81bd3fc971f9276c81821ba9f9d845bb4fc34c144c19f0450178b37b"
+      },
+      "characters": {
+        "main_text": 13837,
+        "body_text": 14168
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/projects/refract-ai",
+      "requested_url": "https://neerav-git.github.io/projects/refract-ai",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/projects-refract-ai.html",
+        "rendered_html": "rendered-html/projects-refract-ai.html",
+        "text": "text/projects-refract-ai.md"
+      },
+      "sha256": {
+        "source_html": "cbccf7f7a6d108a068de6d744435475932ddb164dec02d19186bce878ac23ad2",
+        "rendered_html": "6378e5cbb9bfe76db67e72d0419c0ad85b44925ea5469d688b91c0852e184d62",
+        "text": "2e08a06f61a4b4c1820bc669500847e83f4c2f0fd15557be2eb8f811f1d472c4"
+      },
+      "characters": {
+        "main_text": 15105,
+        "body_text": 15436
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/projects/relay",
+      "requested_url": "https://neerav-git.github.io/projects/relay",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/projects-relay.html",
+        "rendered_html": "rendered-html/projects-relay.html",
+        "text": "text/projects-relay.md"
+      },
+      "sha256": {
+        "source_html": "09f95e8a859878ee1402e91600d612013da7fb8304394a3b501bd64a1dfd541d",
+        "rendered_html": "0eca1fa9c4c134250385aa14a4ae89ee397a2a3a6d16c1804edc6947fc617d2e",
+        "text": "0c9ab56b28a7162ad512e5449ff5d5459cba7d7f734570a4622f022eda85380f"
+      },
+      "characters": {
+        "main_text": 12720,
+        "body_text": 13052
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/projects/tracelens",
+      "requested_url": "https://neerav-git.github.io/projects/tracelens",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/projects-tracelens.html",
+        "rendered_html": "rendered-html/projects-tracelens.html",
+        "text": "text/projects-tracelens.md"
+      },
+      "sha256": {
+        "source_html": "a5c3b7418d286bb26098487a1b7265ad41321af5f5e564b4fd0e424281e707d4",
+        "rendered_html": "bfa17761dcd912ea971af3f2d6cb6621c3e2559724dada7e0eb7dfc4755d6ebe",
+        "text": "33942428a10ec2bf10552e7373de37d4c87ca966cf2ce0896c053439a6e40837"
+      },
+      "characters": {
+        "main_text": 12038,
+        "body_text": 12369
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/recommendations",
+      "requested_url": "https://neerav-git.github.io/recommendations",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/recommendations.html",
+        "rendered_html": "rendered-html/recommendations.html",
+        "text": "text/recommendations.md"
+      },
+      "sha256": {
+        "source_html": "53ae6ea4340f2364e578cc35eb9e2ad7fb2591eb305359c8c3bff6ce91afc1fd",
+        "rendered_html": "1b0970f8c40738dc3326337ceac1ff847d816e8039aa1f8d9307632abbf3e053",
+        "text": "0e6c8afb9b8d0ae2cafd28ac0356e90ce3836b7aa754b408b93ac1cddbf0309c"
+      },
+      "characters": {
+        "main_text": 333,
+        "body_text": 664
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/resume",
+      "requested_url": "https://neerav-git.github.io/resume",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/resume.html",
+        "rendered_html": "rendered-html/resume.html",
+        "text": "text/resume.md"
+      },
+      "sha256": {
+        "source_html": "63026d01d6de7378e2b593d82cfcc48a122c3db212214582f26a362fb66d7498",
+        "rendered_html": "60ee6fb63986bf30f9b26180206396c81635ec3703805848a2af63bc9b31d53f",
+        "text": "f272b2bf19ee88dad80bd40406f0218d5d8919e99b634187bf5b08687d169b3e"
+      },
+      "characters": {
+        "main_text": 1359,
+        "body_text": 1690
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/writing",
+      "requested_url": "https://neerav-git.github.io/writing",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/writing.html",
+        "rendered_html": "rendered-html/writing.html",
+        "text": "text/writing.md"
+      },
+      "sha256": {
+        "source_html": "042667f0e496e6994d539481370722a003d877b21ba19bcd31f9fdfd3fe54d93",
+        "rendered_html": "cd9f902791984104211577a325b1f2a19c2b4c96c3cb0b789cc00bb3a28ef5a4",
+        "text": "a0bb0506dce3426a032cb23ba918276720395a130cd35a8e143d223783e105e2"
+      },
+      "characters": {
+        "main_text": 1621,
+        "body_text": 1953
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/writing/designing-a-session-centered-research-workspace",
+      "requested_url": "https://neerav-git.github.io/writing/designing-a-session-centered-research-workspace",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/writing-designing-a-session-centered-research-workspace.html",
+        "rendered_html": "rendered-html/writing-designing-a-session-centered-research-workspace.html",
+        "text": "text/writing-designing-a-session-centered-research-workspace.md"
+      },
+      "sha256": {
+        "source_html": "735bd1f1fcf13dd674d5424a0a61c7f08588eb666581cbc88a6ae86804c64888",
+        "rendered_html": "958862184e1208ea0d4934f8661a6afcf1b3a32c8e5476e1808c019c64d58287",
+        "text": "036835899705ee34df97e0c5690255333c7fa1a335a56a4cff33f0df78827e3d"
+      },
+      "characters": {
+        "main_text": 3532,
+        "body_text": 3864
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/writing/measuring-emergency-guidance-in-health-chatbots",
+      "requested_url": "https://neerav-git.github.io/writing/measuring-emergency-guidance-in-health-chatbots",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/writing-measuring-emergency-guidance-in-health-chatbots.html",
+        "rendered_html": "rendered-html/writing-measuring-emergency-guidance-in-health-chatbots.html",
+        "text": "text/writing-measuring-emergency-guidance-in-health-chatbots.md"
+      },
+      "sha256": {
+        "source_html": "c7ce90e275bc29e4afdd86a40cba26f5d3a884911d28744bd7ed5f93c7a5b918",
+        "rendered_html": "d5f5196157bd65bb25920b3a99b36f825998acc27a174f02b977174a051f75f4",
+        "text": "738ad61ca6b1386d090ed5e0c9dfcc1ee740d06fc114d0ec28c840e6c188ca5e"
+      },
+      "characters": {
+        "main_text": 9871,
+        "body_text": 10203
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/writing/notebook-first-medical-ml-is-still-real-research",
+      "requested_url": "https://neerav-git.github.io/writing/notebook-first-medical-ml-is-still-real-research",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/writing-notebook-first-medical-ml-is-still-real-research.html",
+        "rendered_html": "rendered-html/writing-notebook-first-medical-ml-is-still-real-research.html",
+        "text": "text/writing-notebook-first-medical-ml-is-still-real-research.md"
+      },
+      "sha256": {
+        "source_html": "10946e505e8cfdc265c1157b3c736574167a489657bda6f562607966072566f6",
+        "rendered_html": "53ab43fb6bcfe85212dcd84eba6a32ed2417ad82086461b8d74d87977360374b",
+        "text": "153a706752670c32db7cece4084ff726e08179c3fa4799563b037ebe706e33f9"
+      },
+      "characters": {
+        "main_text": 3169,
+        "body_text": 3501
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/writing/notes-from-a-battery-rul-project",
+      "requested_url": "https://neerav-git.github.io/writing/notes-from-a-battery-rul-project",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/writing-notes-from-a-battery-rul-project.html",
+        "rendered_html": "rendered-html/writing-notes-from-a-battery-rul-project.html",
+        "text": "text/writing-notes-from-a-battery-rul-project.md"
+      },
+      "sha256": {
+        "source_html": "0e9e1685be6faad5e5df49d658f5955fcfe5f73c9365e06b380b461ec309c6a0",
+        "rendered_html": "0946af2a411186a77e76b0ac408ee273970a9af7cf5ac0188aaf028010fb3f88",
+        "text": "b69f985cfb47046c60a9559a98ea2781c13e6177cd2e1be1e58eb40c478a155d"
+      },
+      "characters": {
+        "main_text": 3231,
+        "body_text": 3563
+      }
+    },
+    {
+      "url": "https://neerav-git.github.io/writing/what-reliable-should-mean-for-llms-in-life-sciences",
+      "requested_url": "https://neerav-git.github.io/writing/what-reliable-should-mean-for-llms-in-life-sciences",
+      "status": 200,
+      "title": "Neerav Chaudhary",
+      "description": "A public record of work, projects, research, and technical writing by Neerav Chaudhary.",
+      "files": {
+        "source_html": "source-html/writing-what-reliable-should-mean-for-llms-in-life-sciences.html",
+        "rendered_html": "rendered-html/writing-what-reliable-should-mean-for-llms-in-life-sciences.html",
+        "text": "text/writing-what-reliable-should-mean-for-llms-in-life-sciences.md"
+      },
+      "sha256": {
+        "source_html": "913c23959665a24227f3de666b9419a5774efb32590eb45cae36e0501699df35",
+        "rendered_html": "70e2be2f888c989a92a4c391831e740932a582e2b61c786263a8efec9d40e7dc",
+        "text": "190e14f7999a52ca424e74f1e3b9fb67a5c4723c4d251498d6e8e4840c41cd83"
+      },
+      "characters": {
+        "main_text": 3511,
+        "body_text": 3843
+      }
+    }
+  ],
+  "failures": []
+}
