@@ -94,6 +94,10 @@ for (const p of [...placements].sort((a, b) => a.at - b.at)) {
     captions.push({ start: Math.round(start * FPS), end: Math.round(end * FPS), text: c.map((w) => w.word).join(" ") });
   });
 }
+// Cues the film supplies itself (dialogue in a captured audio clip), in seconds.
+for (const c of built.captions ?? []) captions.push({ start: Math.round(c.start * FPS), end: Math.round(c.end * FPS), text: c.text });
+captions.sort((a, b) => a.start - b.start);
+for (const c of captions) if (c.text.length > 52) throw new Error(`Caption over 52 characters: "${c.text}"`);
 for (let i = 0; i < captions.length - 1; i += 1) captions[i].end = Math.min(captions[i].end, captions[i + 1].start);
 
 // ---------- sound effects ----------
@@ -137,6 +141,8 @@ const plan = {
     return { ...p, at: Math.round(p.at * FPS) / FPS };
   }),
   sfx,
+  // Captured sound placed on the edit (a recorded voice exchange), mixed as dialogue.
+  audio: built.audio ?? [],
 };
 
 // ---------- extract the capture frames the edit uses ----------

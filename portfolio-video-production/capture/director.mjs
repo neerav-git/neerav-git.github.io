@@ -19,7 +19,8 @@ import { chromium } from "playwright";
 export const FPS = 60;
 const FRAME_MS = 1000 / FPS;
 const VIEWPORT = { width: 1920, height: 1080 };
-const SCALE = 2;
+// CAPTURE_SCALE=1 gives quick 1080p test takes; real takes are always 2 (3840x2160).
+const SCALE = Number(process.env.CAPTURE_SCALE ?? 2);
 
 function mulberry32(seed) {
   return () => {
@@ -128,7 +129,7 @@ export class Recorder {
   async frame() {
     await this.page.clock.runFor(FRAME_MS);
     this.vt += FRAME_MS;
-    await this.page.evaluate((now) => {
+    const scroll = await this.page.evaluate((now) => {
       const seen = (window.__captureAnimations ||= new WeakMap());
       for (const animation of document.getAnimations()) {
         if (!seen.has(animation)) {
@@ -137,10 +138,12 @@ export class Recorder {
         }
         animation.currentTime = now - seen.get(animation);
       }
+      return { x: window.scrollX, y: window.scrollY };
     }, this.vt);
+    // The clip is in document coordinates, so it follows the window's scroll to grab the viewport.
     const { data } = await this.cdp.send("Page.captureScreenshot", {
       format: "jpeg", quality: 100, optimizeForSpeed: true,
-      clip: { x: 0, y: 0, width: VIEWPORT.width, height: VIEWPORT.height, scale: SCALE },
+      clip: { x: scroll.x, y: scroll.y, width: VIEWPORT.width, height: VIEWPORT.height, scale: SCALE },
     });
     const buffer = Buffer.from(data, "base64");
     if (!this.encoder.stdin.write(buffer)) await new Promise((resolve) => this.encoder.stdin.once("drain", resolve));

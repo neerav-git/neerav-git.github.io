@@ -28,7 +28,8 @@ export type CaptureSceneData = {
 // One captured frame. Frames are pre-extracted stills, so every output frame shows exactly
 // the planned source frame with no decoder in the loop.
 export const Video: React.FC<{ src: string; frame: number; width: number; height: number }> = ({ src, frame, width, height }) => (
-  <Img src={staticFile(`${src}/${String(frame).padStart(6, "0")}.jpg`)} style={{ position: "absolute", left: 0, top: 0, width, height }} />
+  // A frame that stalls while the machine is under memory pressure is retried instead of failing the render.
+  <Img src={staticFile(`${src}/${String(frame).padStart(6, "0")}.jpg`)} delayRenderTimeoutInMilliseconds={30000} delayRenderRetries={2} style={{ position: "absolute", left: 0, top: 0, width, height }} />
 );
 
 export const CaptureScene: React.FC<{ scene: CaptureSceneData; layout: Layout; palette: Palette; product: string; icon?: React.ReactNode }> = ({ scene, layout, palette, product, icon }) => {

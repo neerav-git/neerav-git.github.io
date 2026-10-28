@@ -4,10 +4,13 @@ import { Composition } from "remotion";
 import { CaptionsLayer, type Plan } from "./Film";
 import { HomewardFilm, HomewardPoster } from "./films/Homeward";
 import homeward from "../projects/homeward/edit/plan.json";
+import { RelayFilm, RelayPoster } from "./films/Relay";
+import relay from "../projects/relay/edit/plan.json";
 import { boards } from "./designed/Boards";
 
 const films: { id: string; plan: Plan; component: React.FC<{ plan: Plan; captions?: boolean }>; poster: React.FC<{ plan: Plan }> }[] = [
   { id: "homeward", plan: homeward as unknown as Plan, component: HomewardFilm, poster: HomewardPoster },
+  { id: "relay", plan: relay as unknown as Plan, component: RelayFilm, poster: RelayPoster },
 ];
 
 export const Root: React.FC = () => (

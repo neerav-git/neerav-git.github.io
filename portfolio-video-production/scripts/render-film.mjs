@@ -1,6 +1,6 @@
 // Renders a planned film: Remotion → ProRes intermediate (+ transparent captions layer
 // and a poster still), then the delivery encodes with the mastered mix.
-// Usage: node scripts/render-film.mjs <slug> [--draft] [--frames a-b] [--patch a-b] [--skip-video] [--skip-captions]
+// Usage: node scripts/render-film.mjs <slug> [--draft] [--frames a-b] [--patch a-b] [--chunk n] [--skip-video] [--skip-captions]
 //   --patch a-b  re-render only frames a–b and splice them into the existing ProRes master
 //   --draft      half-resolution JPEG-quality preview, no captions layer, no delivery encodes
 import { spawnSync } from "node:child_process";
@@ -16,7 +16,8 @@ import { renderMedia, renderStill, selectComposition } from "@remotion/renderer"
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 const args = process.argv.slice(2);
-const slug = args[0];
+// The slug is the first bare argument, so `npm run draft -- <slug>` (which puts --draft first) works.
+const slug = args.find((a, i) => !a.startsWith("--") && !/^--(frames|patch|chunk)$/.test(args[i - 1] ?? ""));
 const has = (name) => args.includes(`--${name}`);
 const value = (name) => {
   const i = args.indexOf(`--${name}`);
@@ -36,14 +37,15 @@ const ffmpeg = (argv) => {
 
 console.log(`Bundling ${slug}…`);
 const serveUrl = await bundle({ entryPoint: path.join(root, "remotion", "index.ts"), publicDir: path.join(root, "public"), symlinkPublicDir: true });
-const concurrency = Math.max(2, Math.min(4, os.cpus().length - 4));
+// RENDER_CONCURRENCY=2 keeps an 8 GB machine out of swap, where frame loads stall.
+const concurrency = Number(process.env.RENDER_CONCURRENCY) || Math.max(2, Math.min(4, os.cpus().length - 4));
 const common = {
   serveUrl,
   concurrency,
   offthreadVideoCacheSizeInBytes: 600 * 1024 * 1024,
   offthreadVideoThreads: 2,
   browserExecutable: browserExecutable(),
-  timeoutInMilliseconds: 120000,
+  timeoutInMilliseconds: Number(process.env.RENDER_TIMEOUT_MS) || 120000,
   logLevel: "warn",
 };
 const progress = (label) => {
@@ -77,7 +79,36 @@ if (patch) {
   renameSync(spliced, videoFile);
   console.log(`Patched frames ${a}–${b} into ${path.relative(root, videoFile)}`);
 }
-if (!has("skip-video") && !patch) {
+// --chunk N renders the ProRes master in N-frame parts (resumable, each retried once) and
+// joins them losslessly. Long single renders time out in swap on an 8 GB machine.
+const chunk = Number(value("chunk")) || 0;
+if (!has("skip-video") && !patch && chunk && !draft) {
+  const composition = await selectComposition({ ...common, id: slug });
+  const partsDir = path.join(outDir, "parts");
+  mkdirSync(partsDir, { recursive: true });
+  const { renameSync } = await import("node:fs");
+  const parts = [];
+  for (let a = 0; a < composition.durationInFrames; a += chunk) {
+    const b = Math.min(a + chunk, composition.durationInFrames) - 1;
+    const part = path.join(partsDir, `video-${String(a).padStart(5, "0")}.mov`);
+    parts.push(part);
+    if (existsSync(part)) continue;
+    const partial = part.replace(/\.mov$/, ".partial.mov");
+    for (let attempt = 1; ; attempt++) {
+      try {
+        await renderMedia({ ...common, composition, outputLocation: partial, muted: true, colorSpace: "bt709", frameRange: [a, b], codec: "prores", proResProfile: "hq", imageFormat: "png", onProgress: progress(`frames ${a}–${b}`) });
+        break;
+      } catch (error) {
+        if (attempt >= 2) throw error;
+        console.log(`  frames ${a}–${b} failed (${error.message.split("\n")[0]}); retrying`);
+      }
+    }
+    renameSync(partial, part);
+  }
+  const list = path.join(partsDir, "list.txt");
+  writeFileSync(list, parts.map((p) => `file '${p.replaceAll("'", "'\\''")}'`).join("\n"));
+  ffmpeg(["-f", "concat", "-safe", "0", "-i", list, "-c", "copy", videoFile]);
+} else if (!has("skip-video") && !patch) {
   const composition = await selectComposition({ ...common, id: slug });
   await renderMedia({
     ...common,

@@ -15,7 +15,7 @@
       "title": "Relay",
       "subtitle": "Voice-first employee service, carried through to a verified result",
       "accent": "#65d6c5",
-      "narration": "Employee service portals make people hunt for the right system, record, owner, and form before they can solve a simple problem. Relay begins with the employee's words. It reads authenticated workspace records, opens the exact task or document, and prepares consequential actions for review. A VPN issue becomes a complete IT Support request; the employee sees the destination and details, confirms the action, and receives a verified case record. The evaluation covered seven workflow families, held-out rewordings, voice sessions, safety scenarios, and replay testing. After the fix pass, Relay completed 103 of 110 task-success conversations and 39 of 42 held-out requests. Its defining achievement is the shared execution contract: identity, approval, idempotency, audit history, and postcondition checks work the same way across every capability.",
+      "narration": "A blocked account on day one can mean hunting for the right record and owner. Let's see an example, and hear how the Relay guide helps. In seconds, Relay found the case, named its owner, and opened the reply field. Maya types the details, and Relay prepares the reply and waits. One click, and the reply is on the case. A laptop that won't charge becomes a complete IT request, confirmed the same way. Every action runs through one contract: the signed-in employee, an explicit confirmation, a retry-safe key, an audit trail, and a verified result. Measured on the real app, 103 of 110 conversations ended fully right, and 39 of 42 never-seen requests passed. Red-team attacks caused no unsafe actions, and a release gate fails the build if any of this slips.",
       "scenes": [
         {
           "beat": "THE PROBLEM",
@@ -84,6 +84,11 @@
             "captures/repository/07-workflow-evidence-trace.png"
           ]
         }
+      ],
+      "pronunciation": [
+        "Relay",
+        "Maya",
+        "IT"
       ]
     },
     {
@@ -359,7 +364,7 @@
       "title": "TraceLens",
       "subtitle": "Measuring the action a health-information answer ultimately gives",
       "accent": "#ff7d8b",
-      "narration": "Health-information models can recognize a dangerous situation and still leave the reader with a delayed or hedged next step. TraceLens measures the action that reaches the user. A pinned chatbot answers the message; Vega reads the same message independently; and a validated recommendation reader extracts the care action from the response. When the two disagree, the flag is disclosed and the chatbot reconsiders. Every stage is stored separately, so detection, correction, and the final recommendation can each be evaluated. On held-out physician-labelled cases, Vega reached an AUC of 0.966 and caught 18 of the chatbot's 31 missed emergencies. The saved support replay raised emergency guidance from 39 to 47 of 70 with one additional false alarm among 134 non-emergencies. TraceLens is special because the metric, evidence receipt, preregistration, calibration, and blinded review live inside one reproducible evaluation workspace.",
+      "narration": "Someone asks a chatbot about a friend slurring words and drifting in and out of consciousness after a hot tub. The answer calls it heat exhaustion, suggests care within one to two hours, and keeps 911 for if the friend loses consciousness. A physician labelled this case an emergency, and the answer was read as self-care. That gap is under-triage. TraceLens sends the same message to Vega, a decision model that reads only the person’s words. At the median, Gemma takes 67 seconds per answer, and Vega decides in 0.36 seconds without writing a word. Vega scores this message 0.98, above its frozen threshold, so the disagreement is shown to the person. The chatbot reconsiders and now says to call emergency services immediately, with its first answer still visible. The research runs in one workspace: saved runs and receipts, blinded review, gate decisions, and Colab training. On held-out cases, Vega reached an AUC of 0.966. Replaying 277 saved cases, Vega flagged 18 of 31 missed emergencies, and emergency guidance rose from 39 to 47 of 70. False alarms went from four to five of 134.",
       "scenes": [
         {
           "beat": "THE PROBLEM",

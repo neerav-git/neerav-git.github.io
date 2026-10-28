@@ -3,7 +3,7 @@
 // transitions, then a two-pass loudnorm master to -16 LUFS integrated, -1.5 dBTP.
 // Usage: node scripts/mix-audio.mjs <slug>
 import { spawnSync } from "node:child_process";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ffmpegPath from "ffmpeg-static";
@@ -62,6 +62,37 @@ for (const p of plan.narration) {
   const s = Math.round((p.at - lead) * SR);
   for (let i = 0; i < slice.length; i += 1) if (s + i < voiceMask.length) voiceMask[s + i] = 1;
 }
+// Captured dialogue clips (plan.audio: { file, srcStart, srcEnd, at, fadeIn, fadeOut }, seconds)
+// are matched to the narrator's level over their speech and mixed into the voice stem, so the
+// music and effects duck under them exactly as they do under the narration.
+const speechRms = (buf) => {
+  const win = Math.round(0.05 * SR);
+  const frames = [];
+  for (let i = 0; i + win <= buf.length; i += win) frames.push(rms(buf, i, i + win));
+  const loud = frames.filter((v) => v > Math.max(...frames) * 0.1);
+  return Math.sqrt(loud.reduce((a, v) => a + v * v, 0) / Math.max(1, loud.length));
+};
+const narrationSpeech = speechRms(source);
+for (const clip of plan.audio ?? []) {
+  const pcm = readPcm(path.join(root, clip.file));
+  const slice = pcm.slice(Math.round(clip.srcStart * SR), Math.round(clip.srcEnd * SR));
+  const gain = narrationSpeech / speechRms(slice);
+  const fi = Math.round((clip.fadeIn ?? 0.01) * SR);
+  const fo = Math.round((clip.fadeOut ?? 0.01) * SR);
+  for (let i = 0; i < slice.length; i += 1) {
+    const ramp = Math.min(1, i / Math.max(1, fi), (slice.length - 1 - i) / Math.max(1, fo));
+    slice[i] *= gain * ramp;
+  }
+  addMono(voice, slice, clip.at);
+  const s = Math.round(clip.at * SR);
+  const win = Math.round(0.02 * SR);
+  for (let i = 0; i < slice.length; i += win) {
+    if (rms(slice, i, Math.min(slice.length, i + win)) < narrationSpeech * 0.05) continue;
+    for (let k = i; k < Math.min(slice.length, i + win); k += 1) if (s + k < voiceMask.length) voiceMask[s + k] = 1;
+  }
+  console.log(`  clip ${path.basename(clip.file)} ${clip.srcStart.toFixed(2)}–${clip.srcEnd.toFixed(2)} s at ${clip.at.toFixed(2)} s, gain ${(20 * Math.log10(gain)).toFixed(1)} dB`);
+}
+
 // Voice level while speaking, for setting the music under it.
 let vs = 0;
 let vc = 0;
@@ -136,8 +167,23 @@ writeWav(path.join(outDir, "stem-music.wav"), mus);
 writeWav(path.join(outDir, "stem-sfx.wav"), fx);
 
 const target = "I=-16:TP=-1.5:LRA=11";
-const first = spawnSync(ffmpegPath, ["-hide_banner", "-i", pre, "-af", `loudnorm=${target}:print_format=json`, "-f", "null", "-"], { encoding: "utf8" });
-const stats = JSON.parse(first.stderr.slice(first.stderr.lastIndexOf("{"), first.stderr.lastIndexOf("}") + 1));
+const measure = (file) => {
+  const r = spawnSync(ffmpegPath, ["-hide_banner", "-i", file, "-af", `loudnorm=${target}:print_format=json`, "-f", "null", "-"], { encoding: "utf8" });
+  return JSON.parse(r.stderr.slice(r.stderr.lastIndexOf("{"), r.stderr.lastIndexOf("}") + 1));
+};
+let stats = measure(pre);
+// Linear normalization needs the gained peak under -1.5 dBTP; when a transient would cross it
+// (a captured voice clip's plosive, say), a transparent peak limiter takes 2 dB of headroom first.
+let limited = false;
+if (Number(stats.input_tp) + (-16 - Number(stats.input_i)) > -2) {
+  const lim = path.join(outDir, "premix-limited.wav");
+  // Ceiling 3.5 dB under full scale after the loudness gain is applied.
+  const r = spawnSync(ffmpegPath, ["-hide_banner", "-y", "-i", pre, "-af", `alimiter=limit=${db(-3.5 - (-16 - Number(stats.input_i)))}:attack=3:release=60:level=false:asc=true`, "-c:a", "pcm_f32le", lim], { encoding: "utf8" });
+  if (r.status !== 0) throw new Error(r.stderr);
+  renameSync(lim, pre);
+  stats = measure(pre);
+  limited = true;
+}
 const second = [
   `loudnorm=${target}:measured_I=${stats.input_i}:measured_TP=${stats.input_tp}:measured_LRA=${stats.input_lra}:measured_thresh=${stats.input_thresh}:offset=${stats.target_offset}:linear=true:print_format=json`,
 ].join(",");
@@ -153,6 +199,7 @@ const report = {
   input: { i: stats.input_i, tp: stats.input_tp },
   output: { i: out.output_i, tp: out.output_tp, lra: out.output_lra, normalization: out.normalization_type },
   musicUnderVoiceDb: Math.round(musicUnderVoice * 10) / 10,
+  peakLimited: limited,
   music: { generator: "audio/synth.mjs music()", ...musicSpec, sections },
 };
 writeFileSync(path.join(outDir, "mix.json"), `${JSON.stringify(report, null, 2)}\n`);

@@ -16,36 +16,36 @@ The film follows one employee journey, end to end, through the real portal. The 
 5. **The contract.** Workflow operations shows the action prepared, confirmed, executed and verified.
 6. **Evidence.** The in-app Agent evaluation page, plus the release gate.
 
-## Draft narration (≈140 words, plus a ≈22 s voice exchange)
+## Narration (as built, 9 sentences ≈55 s, plus the 20.4 s voice exchange)
 
-1. New employees lose time hunting for the right system, record and owner before they can fix a simple problem.
-2. Relay gives every employee one place to ask, and a guide that acts on their own records.
-3. Let's see an example, and hear how the Relay guide helps.
+0. A blocked account on day one can mean hunting for the right record and owner.
+1. Let's see an example, and hear how the Relay guide helps.
 
-   *[Voice clip, 22 s, live recording; narration silent. The orb tap, then a dissolve past the greeting. Maya asks her question. The agent answers in three sentences and opens IT-2047 as it speaks. The clip ends on "…when you last tried to sign in." Preview: `output/portfolio-videos/previews/relay-voice-cut.mp4`.]*
+   *[Voice exchange, narration silent: Maya's spoken question, then the agent's three sentences; IT-2047 opens mid-answer. Ends on "…when you last tried to sign in."]*
 
-4. In seconds, Relay found the right case, explained who owns it, and opened it at the reply field.
-5. Maya types the details, and Relay prepares the reply and waits for confirmation.
-6. One click, and the reply is on the case.
-7. A laptop that won't charge on its dock becomes a complete IT request, confirmed the same way.
-8. Every action runs through one execution contract: identity, approval, idempotency, audit history and a postcondition check.
-9. Measured end to end on the real app, Relay completed 103 of 110 tasks after the fix pass and 39 of 42 held-out rewordings, and answered 31 of 34 recorded spoken requests usefully.
-10. Red-team runs produced no unsafe actions, and a release gate fails the build if any of it regresses.
+2. In seconds, Relay found the case, named its owner, and opened the reply field.
+3. Maya types the details, and Relay prepares the reply and waits.
+4. One click, and the reply is on the case.
+5. A laptop that won't charge becomes a complete IT request, confirmed the same way.
+6. Every action runs through one contract: the signed-in employee, an explicit confirmation, a retry-safe key, an audit trail, and a verified result.
+7. Measured on the real app, 103 of 110 conversations ended fully right, and 39 of 42 never-seen requests passed.
+8. Red-team attacks caused no unsafe actions, and a release gate fails the build if any of this slips.
 
-## Shot list
+31/34 spoken requests answered usefully and 0 unsafe actions in 21 red-team runs are shown as callouts on the real evaluation cards. "Never-seen" replaces "reworded" because Whisper heard Kokoro's "reworded" as "rewarded".
 
-| Time (s) | Beat | Picture | Source |
-|---|---|---|---|
-| 0–3 | Sting | Relay mark | designed |
-| 3–9 | Problem | **R1 The hunt**: generic system cards (HR, IT tickets, documents, learning, pay) scatter and a cursor bounces between them; they collapse into the Relay orb | designed (labelled schematic) |
-| 9–12 | Lead-in | Narrator: "Let's see an example…"; the camera pushes in on the dock orb | capture `01-voice` |
-| 12–34 | Voice clip | The cut: take-01 0–2.3 s (tap) and 9.4–29.8 s (question → three-sentence answer), with a 0.25 s dissolve over the greeting. Maya's question plays, with the orb reacting to it, and the transcript caption comes up. The agent then answers aloud, and the portal moves to Help & Support → IT-2047 mid-answer. Lower third: "Live Deepgram voice agent · recorded session". Narration silent | capture `01-voice` + its recorded audio |
-| 34–45 | Act | Typed reply; the "Ready for your confirmation" card; push-in on Confirm; click; ripple; chip "Reply added to IT-2047" | W2 turn 3 replay + confirm |
-| 45–54 | Second request | The laptop request; the drafted case card; Confirm; the case appears in the list | W2 turn 4 replay + confirm |
-| 54–63 | Contract | Workflow operations evidence trace; overlay lights the five checks | live capture + designed overlay |
-| 63–77 | Evidence | Agent evaluation page; counters 103/110, 39/42, 31/34; chip "0 unsafe actions · 21 runs" | live capture of the real page |
-| 77–83 | Gate | Terminal: real `npm run evaluate:gate` output | real terminal |
-| 83–89 | End | End card | designed |
+## Edit (as built, `edit/films/relay.mjs`, take-02)
+
+| Beat | Picture |
+|---|---|
+| Cold open | Confirm click; the reply lands in IT-2047's case activity |
+| Sting | Relay mark and wordmark (cut from the app's `relay-logo.png`) |
+| Problem → lead-in | Home on day one: "Corporate account access · Blocked"; the cursor goes to the orb and taps it |
+| Voice | Take frames at 1× with the recorded audio; tap, then a 0.25 s dissolve past the greeting |
+| Reply | Case owner and reply field; the chat opens, Maya types, the reply waits, Confirm, the reply lands |
+| Laptop | Typed request; draft row; Confirm; the new case is Received |
+| Under the hood | IT Operations: signed-in employee, confirmation, Retry request safely, the 10-event chronology, State Change Verified |
+| Result | Agent evaluation cards (103/110, 39/42, 31/34, 0 unsafe in 21 runs), then the real `npm run evaluate:gate` output |
+| End card | Relay |
 
 ## Capture (free, except for one recorded Deepgram session)
 

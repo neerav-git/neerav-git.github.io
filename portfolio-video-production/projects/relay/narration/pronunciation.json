@@ -1,0 +1,70 @@
+{
+  "slug": "relay",
+  "sentences": [
+    {
+      "sentence": "A blocked account on day one can mean hunting for the right record and owner.",
+      "heard": "A blocked account on day one can mean hunting for the right record and owner.",
+      "missing": []
+    },
+    {
+      "sentence": "Let's see an example, and hear how the Relay guide helps.",
+      "heard": "Let's see an example and hear how the relay guide helps.",
+      "missing": []
+    },
+    {
+      "sentence": "In seconds, Relay found the case, named its owner, and opened the reply field.",
+      "heard": "In seconds, Relay found the case, named its owner, and opened the Reply field.",
+      "missing": []
+    },
+    {
+      "sentence": "Maya types the details, and Relay prepares the reply and waits.",
+      "heard": "Maya types the details, and Relay prepares the reply and waits.",
+      "missing": []
+    },
+    {
+      "sentence": "One click, and the reply is on the case.",
+      "heard": "One click and the reply is on the case.",
+      "missing": []
+    },
+    {
+      "sentence": "A laptop that won't charge becomes a complete IT request, confirmed the same way.",
+      "heard": "A laptop that won't charge becomes a complete IT request, confirmed the same way.",
+      "missing": []
+    },
+    {
+      "sentence": "Every action runs through one contract: the signed-in employee, an explicit confirmation, a retry-safe key, an audit trail, and a verified result.",
+      "heard": "Every action runs through one contract. The signed-in employee, an explicit confirmation, a retry safe key, an audit trail, and a verified result.",
+      "missing": []
+    },
+    {
+      "sentence": "Measured on the real app, 103 of 110 conversations ended fully right, and 39 of 42 never-seen requests passed.",
+      "heard": "Measured on the real app, 103 of 110 conversations ended fully right, and 39 of 42 never seen requests passed.",
+      "missing": []
+    },
+    {
+      "sentence": "Red-team attacks caused no unsafe actions, and a release gate fails the build if any of this slips.",
+      "heard": "Red Team attacks caused no unsafe actions, and a release gate fails the build if any of this slips.",
+      "missing": []
+    }
+  ],
+  "terms": [
+    {
+      "term": "Relay",
+      "expect": "Relay",
+      "heard": "Relay.",
+      "missing": []
+    },
+    {
+      "term": "Maya",
+      "expect": "Maya",
+      "heard": "Maya",
+      "missing": []
+    },
+    {
+      "term": "IT",
+      "expect": "IT",
+      "heard": "IT",
+      "missing": []
+    }
+  ]
+}
