@@ -2,7 +2,7 @@
 
 Written 2026-10-28 to the standard the user set for Relay v3. The spine is need → idea (the whole product, full frame) → breadth → depth (one journey) → trust and proof → payoff. Every line has a reason, each film names the industry it serves and its workflow types, and the hero capability gets room.
 
-Status: **awaiting the user's sign-off.** Nothing is captured or rendered until each script is approved.
+Status: **revision 2** (2026-10-28), after the user's notes on Birb, Alzheimer's and TraceLens. Homeward and TraceLens were approved in principle (TraceLens with the new opening). Refract is unchanged and still awaiting comments. Nothing is captured or rendered until each script is approved.
 
 External facts are shown on screen with a source chip. Everything else comes from the user's own repos, papers, thesis and runs.
 
@@ -12,10 +12,9 @@ External facts are shown on screen with a source chip. Everything else comes fro
 |---|---|
 | 54 of 123 older patients (43.9%) with a scheduled follow-up could accurately recall its details after discharge | Horwitz et al., "Quality of Discharge Practices and Patient Understanding at an Academic Medical Center", *JAMA Internal Medicine* 2013 |
 | 19.6% of Medicare patients were rehospitalized within 30 days | Jencks, Williams & Coleman, *NEJM* 2009;360:1418–28 |
-| 17% of U.S. adults use AI chatbots at least monthly for health information and advice | KFF Health Misinformation Tracking Poll, August 2024 |
 | ChatGPT Health under-triaged 52% of physician-confirmed emergencies; explanatory text often recognized the danger while the recommendation delayed care | Ramaswamy et al., *Nature Medicine* 2026 (doi 10.1038/s41591-026-04297-7), cited in TraceLens's manuscript. Contested by a preprint (Fraile Navarro et al.) on test format. |
 | 57 million people living with dementia (2021); Alzheimer's may contribute to 60–70% of cases | WHO dementia fact sheet |
-| About half of U.S. adults reported measurable loneliness; time with friends in person fell from about 60 to 20 minutes a day (2003 → 2020) | U.S. Surgeon General's Advisory, *Our Epidemic of Loneliness and Isolation*, 2023 |
+| Birb's hearth inspiration from Stephen Fry's *Mythos* | The Birb Hangout about site, "Why I made it" |
 
 ---
 
@@ -49,86 +48,106 @@ External facts are shown on screen with a source chip. Everything else comes fro
 
 ---
 
-## TraceLens (~2:40)
+## TraceLens (~2:35)
 
 **Industry:** consumer health AI, and the teams that build and evaluate health chatbots. **Workflows:** emergency detection, disclosed reconsideration, preregistered studies on cloud GPUs, blinded review, detector training.
 **Hero capability:** Vega, an independent model that reads only the person's message, catches emergencies the chatbot under-calls, and makes the disagreement visible.
+**Spine:** the published failure → the project's question → one case → the answer (the product) → proof → the question answered.
 
 | # | Picture | Narration | Why it's there |
 |---|---|---|---|
-| 0 | Kinetic stat · chip *KFF 2024* | About one in six American adults ask an AI chatbot for health advice every month. | Scale of the industry. |
-| 1 | Kinetic stat · chip *Nature Medicine 2026* | In a 2026 study, a leading health chatbot under-called about half of the emergencies physicians agreed on, often describing the danger and still advising the person to wait. | The specific failure TraceLens targets, from outside the project. |
+| 0 | Kinetic type · chip *Nature Medicine 2026* | In a 2026 Nature Medicine study, ChatGPT Health under-triaged about half of the emergencies physicians agreed on, often describing the danger and still advising the person to wait. | Opens on the published failure (approved opener). |
+| 1 | The question types on, word for word from the portfolio | General-purpose chatbots miss emergencies, or don't state them clearly to the patient. Can a supporting model both reduce under-triage and make failures transparent to the end user? | The project's research question, stated up front. |
 | 2 | D1 chat (labelled "Illustrative interface · real model output"): the message types in | Here's one case: a friend spent an hour in a hot tub and is now slurring words and drifting in and out of consciousness. | One concrete case. |
 | 3 | The real Gemma answer streams; highlights land as each phrase is said | The chatbot calls it heat exhaustion, suggests care within one to two hours, and starts with hydrating them. | Shows the hedge in the model's own output. |
-| 4 | D2: "Physician label · Emergency" vs "Advice read as · Self-care" | A physician labelled this an emergency. That gap between the danger and the advice is called under-triage. | Names the problem precisely. |
+| 4 | D2: "Physician label · Emergency" vs "Advice read as · Self-care" | A physician labelled this an emergency. That gap between the danger and the advice is under-triage. | Names the problem precisely. |
 | 5 | **Full-frame TraceLens workspace** (Observability); wordmark | TraceLens is a safety and evaluation workspace that pairs a health chatbot with Vega, an independent model that reads only the person's message and checks for an emergency. | The idea, over the whole product. |
 | 6 | D3 fork: the message to the chatbot and to Vega, each with its measured cost | The chatbot took a median of 67 seconds to write an answer; Vega decides in 0.36 seconds, without writing a word. | Why it's practical: cheap enough for every message. |
 | 7 | Vega's gauge fills to 0.98 past the 0.876 tick | Here, Vega scores the message 0.98, above its threshold, so the two disagree. | The hero mechanism at work. |
-| 8 | D4: banner → the chatbot's reconsideration types in | The person is told a safety check flagged the answer, and the chatbot reconsiders: call emergency services immediately. | What the person actually sees. |
-| 9 | First answer kept above; evidence-receipt chip slides out | The first answer stays visible, and every step, from first answer to final action, is stored for review. | Transparency and audit. |
+| 8 | D4: banner → the chatbot's reconsideration types in | The person is told a safety check flagged the answer, and the chatbot reconsiders: call emergency services immediately. | Transparency to the end user, the question's second half. |
+| 9 | First answer kept above; evidence-receipt chip slides out | The first answer stays visible, and every step, from first answer to final action, is stored for review. | Audit trail. |
 | 10 | Live capture: Training Lab plan → bundle export → Baseline Lab runs and receipts | The workspace also runs the research: each study is pinned to an exact model, case set and prompt, runs on cloud GPUs, and is scored by analysis code fixed before any result is seen. | Breadth, and why the numbers can be trusted. |
 | 11 | Baseline Lab: blind review desk → gate decision | A blinded review desk checks how each answer's advice was read, and every study ends in a recorded go or no-go decision. | Human checks in the loop. |
 | 12 | `safeguards.png` figure, bars draw on | Prompting alone traded misses for false alarms: a cautious prompt reached 35 of 39 emergencies but sent 18 of 77 non-emergencies to emergency care. | Why a separate model is needed. |
 | 13 | Counter to 0.966 over `detectors.png` | On held-out cases, Vega ranked a true emergency above a non-emergency 97 percent of the time. | Vega's flags are accurate enough to act on. |
-| 14 | `support-loop.png`: 31 → 18 → 8; 39 → 47 of 70; 4 → 5 of 134 | Across 277 saved cases, Vega flagged 18 of the chatbot's 31 missed emergencies, and emergency advice rose from 39 to 47 of 70, with one added false alarm in 134. | The headline result, with its cost. |
+| 14 | `support-loop.png`: 31 → 18 → 8; 39 → 47 of 70; 4 → 5 of 134 | Across 277 saved cases, Vega flagged 18 of the chatbot's 31 missed emergencies, and emergency advice rose from 39 to 47 of 70, with one added false alarm in 134. | Reduced under-triage, the question's first half, with its cost. |
 | 15 | 0.92 vs 0.76 pair | Vega also judged urgency better than the chatbot's own internal lean, 0.92 to 0.76. | An independent reader beats self-assessment. |
 | 16 | `care-trajectory.png`, dumbbells draw on | Scoring released conversations from 11 models, a care-seeking protocol raised turn-by-turn accuracy for every one. | Reach beyond one chatbot. |
-| 17 | The paired chat (D4) resolves → end card | For about a third of a second per message, a chatbot's riskiest mistake becomes visible, and correctable. | Payoff tied to the need. |
+| 17 | The question returns with both halves checked → D4 → end card | A supporting model can do both: catch the emergencies a chatbot under-calls, and show the person when it does, for about a third of a second per message. | Answers the opening question. |
 
 **Capture:** a live workspace capture (Observability, Training Lab, Baseline Lab). Everything else is boards D1–D4 and real figures.
-**Your call on line 1:** the Nature Medicine figure is published but contested on test format (TraceLens's own manuscript notes that the magnitude doesn't carry across formats). The alternative uses your own measurement: *"In a preregistered test, a chatbot with a plain prompt gave 15 of 39 physician-labelled emergencies less than emergency care."* If you take the alternative, line 12 starts from it.
 
 ---
 
-## Alzheimer's research (~1:55)
+---
+
+## Alzheimer's research (~2:00)
 
 **Industry:** neuroimaging and dementia research. **Workflows:** stage classification from MRI, atrophy measurement, tracking change across scans.
-**Hero capability:** two automated readings of a brain scan, the stage of dementia and the amount of atrophy, both built to be inspected.
+**Hero capability:** an expert ensemble of deliberately varied CNNs, then a published, transparent measure of atrophy.
+**Spine:** why dementia research matters → the research question → the ensemble that answers it → the follow-up question and the published method → payoff.
 
 | # | Picture | Narration | Why it's there |
 |---|---|---|---|
-| 0 | Slow drift across the real 12-scan notebook montage · chip *WHO* | 57 million people were living with dementia in 2021, and Alzheimer's disease accounts for most cases. | Scale of the need. |
-| 1 | Paper Fig. 4 (normal vs dementia); callouts on ventricles, folds, hippocampus | On MRI, it shows as wider ventricles, deeper folds and a shrinking hippocampus, but measuring that still means expert tracing, scan by scan. | What clinicians look for, and why automation matters. |
-| 2 | **Both studies side by side, full frame**: notebook montage and IEEE paper page 1 | This research automates two parts of that reading: classifying the stage of dementia from a scan, and measuring the atrophy itself. | The idea, with the whole scope visible. |
-| 3 | Montage builds tile by tile; counter to 6,400; four class chips | The first study trained on 6,400 ADNI brain scans across four stages, from non-demented to moderate dementia. | Data scale and task. |
-| 4 | Two neighbouring-stage scans side by side | The hard part is telling neighbouring stages apart, because their scans can look structurally alike. | Why one model isn't enough. |
-| 5 | Real CNN diagram splits into A1 towers; hyperparameter chips; strength tags | Custom CNNs were built at different depths and widths, tuned across batch normalisation, dropout and activation functions, and each learned different strengths. | The specialist ensemble. |
-| 6 | A2 probability average (schematic bars) → 78% → 85% bar | Averaging their full class probabilities lets one model's confidence cover another's doubt: accuracy rose from 78 to 85 percent, with fewer crucial cases missed. | The result. |
-| 7 | Paper page 1 slides in (ICRITO 2022 header) | The second study, published at IEEE ICRITO 2022, measures the atrophy directly with computer vision. | Moves to the published work. |
-| 8 | A3 colour mask on Fig. 6 scan (fluid in accent, tissue grey); dem = b / (w + g) writes on | Each scan is separated into dark fluid and white and grey tissue, and the ratio of fluid to tissue becomes one atrophy score. | The method, in plain terms. |
-| 9 | A4 scale 0–1, ticks at 0.41 and 0.83, marker slides to 0.60 → real Fig. 7 | Across 2,198 labelled scans, healthy brains averaged 0.41 and dementia 0.83; this mildly demented scan scores 0.60, in between. | Reference bounds and how a score is read. |
-| 10 | Default crop vs hippocampal crop; Table II counts 66 → 71 | Focusing on the hippocampus, one of the first regions Alzheimer's affects, raised accuracy from 66 to 71 percent. | Where the disease shows, measured. |
-| 11 | Equation 4 writes on; two scans of the same subject with an arrow (schematic) | Measured again on later scans, the change in that score gives an automated rate of atrophy. | Tracking progression. |
-| 12 | Both studies together → end card | Together, the two studies give a stage for each scan and a transparent measure of how far, and how fast, the brain is changing. | Payoff tied to the need. |
+| 0 | Slow drift across the real 12-scan notebook montage · chip *WHO* | Dementia affects 57 million people worldwide, Alzheimer's disease accounts for most cases, and detecting it early is one of medicine's most important research goals. | Why the area matters. |
+| 1 | Paper Fig. 4 (normal vs dementia); callouts on ventricles, folds, hippocampus | On MRI, it shows as wider ventricles, deeper folds and a shrinking hippocampus, and reading those signs still takes expert time, scan by scan. | What doctors look for, and the workload to automate. |
+| 2 | Kinetic type, first half of the question | How can we detect the disease early, and help doctors automate image analysis? | The research question, part one. |
+| 3 | Kinetic type over the CNN diagram, three towers appearing | Can several deep-learning models, each carefully chosen and altered in architecture, depth, width and hyperparameters, be combined into an expert ensemble that consults each model's strengths and is more accurate than any one alone? | The research question, part two: the hypothesis the film tests. |
+| 4 | Montage builds tile by tile; counter to 6,400; four class chips | The study trained on 6,400 ADNI brain scans across four stages, from non-demented to moderate dementia. | Data scale and task. |
+| 5 | Two neighbouring-stage scans side by side | The hard part is telling neighbouring stages apart, because their scans can look structurally alike. | Why one model isn't enough. |
+| 6 | Real CNN diagram splits into A1 towers; hyperparameter chips flick across them; strength tags | Custom CNNs were built at different depths and widths, tuned across batch normalisation, dropout and activation functions, and each learned different strengths. | The experts. |
+| 7 | A2 probability average (schematic bars) → 78% → 85% bar | Averaging their full class probabilities lets one model's confidence cover another's doubt: accuracy rose from 78 to 85 percent, with fewer crucial cases missed. | The answer: yes, the ensemble beats the single model. |
+| 8 | Kinetic type over a scan as its tissue begins to glow | The next question was where the disease shows itself most, and whether that can be measured directly. | Bridges to the second study. |
+| 9 | Paper page 1 slides in (ICRITO 2022 header) | The answer was published at IEEE ICRITO 2022: a computer-vision method that measures atrophy itself. | The published work. |
+| 10 | A3 colour mask on the Fig. 6 scan; dem = b / (w + g) writes on | Each scan is separated into dark fluid and white and grey tissue, and the ratio of fluid to tissue becomes one atrophy score. | The method, in plain terms. |
+| 11 | A4 scale 0–1, ticks at 0.41 and 0.83, marker slides to 0.60 → real Fig. 7 | Across 2,198 labelled scans, healthy brains averaged 0.41 and dementia 0.83; this mildly demented scan scores 0.60, in between. | Reference bounds and how a score is read. |
+| 12 | Default crop vs hippocampal crop; Table II counts 66 → 71 | Focusing on the hippocampus, one of the first regions Alzheimer's affects, raised accuracy from 66 to 71 percent. | Where the disease shows, measured. |
+| 13 | Equation 4 writes on; two scans of the same subject with an arrow (schematic) | Measured again on later scans, the change in that score gives an automated rate of atrophy. | Tracking progression, toward early detection. |
+| 14 | Both studies together → end card | Together, the two studies give doctors a stage for each scan, and a transparent measure of how far, and how fast, the brain is changing. | Answers the opening question. |
 
 **Capture:** none. Real notebook outputs and paper figures, plus designed A1–A4 (labelled "Schematic" where values aren't real).
 
 ---
 
-## Birb Hangout (~2:10)
+---
 
-**Industry:** social and realtime 3D software for remote connection. **Workflows:** private rooms, shared music and video, reading, trivia, consent-based gestures, rest, cooperative flight, and the studios used to judge 3D quality.
-**Hero capability:** a shared room where being together needs no plan: everyone can see what the others are doing, and activities stay in sync.
+## Birb Hangout (~2:45)
+
+**Industry:** social and realtime 3D software, an online third space for friends and family who live apart. **Workflows:** private rooms, music, a shared bookshelf, reading, television, trivia, hugs and emotes, napping, the Dream (breathing entry, flight, islands, valley), and the AI-collaboration tooling used to build it.
+**Hero capability:** a warm shared room where people can see what each other are doing and join in, and an annotation tool that lets an AI find a defect in 3D space.
+**Primary source:** the Birb Hangout about site (birb-hangout-about.onrender.com): its wording, its eleven activities in order, and its clip selections.
+**Spine:** online third spaces → the hearth from *Mythos* → the Birb fireplace → the idea → the room as interface → all eleven activities → how it syncs → collaborating with AI → payoff.
 
 | # | Picture | Narration | Why it's there |
 |---|---|---|---|
-| 0 | Kinetic stat over a dim, empty lounge · chip *U.S. Surgeon General 2023* | Americans spend about a third as much time with friends in person as they did twenty years ago, and about half of adults report feeling lonely. | The need, from a national source. |
-| 1 | Lounge lights warm up | Most online hangouts ask for a conversation or a game, and leave out the quiet time of simply being in the same room. | The specific gap Birb fills. |
-| 2 | **Full lounge, both birds, whole room visible**; wordmark | Birb Hangout is a private 3D lounge where distant friends spend time together as birds, at their own pace. | The idea, over the whole product. |
-| 3 | **New capture:** create a room → share the code → a friend joins | A friend joins with a short room code, and a refresh brings back the same bird. | Private and easy to join. |
-| 4 | Slow orbit: record cabinet, bookshelf, television, trivia screen, fireplace | The room itself is the menu: a record cabinet, a bookshelf, a television, a trivia screen and a fireplace, each showing what the others are doing. | Breadth, and the design idea. |
-| 5 | Vinyl clip 00:03–00:15; its music plays, ducked | Pull a record, carry it to the turntable, and the music plays for everyone at the same moment. | Shared media, in sync. |
-| 6 | Reading clip 00:12–00:30 (*Dracula* opens) | One friend reads a real book in the rocking chair, while the other stays in view across the room. | Parallel activity, still together. |
-| 7 | TV clip 00:02–00:10 | They can watch the same video together. | Shared viewing. |
-| 8 | Trivia clip, cut on the ejection | Trivia ends with a ceremony every screen plays at once, down to the loser being ejected into space. | Play, timed to the frame. |
-| 9 | Hug clip | A hug starts as a private request, and plays only once the other bird accepts. | Consent built into the interaction. |
-| 10 | Napping clip | Resting by the fire, a bird falls asleep, and drifts into the Dream. | The transition to the hero moment. |
-| 11 | Dream clip 00:15–00:52, speed ramps on flight | There, physics-based flight carries them over terrain built from real elevation data: rivers, forests and floating islands. | The most ambitious feature. |
-| 12 | B1 sync map (schematic), each lane lit over its activity | Each activity syncs the way it needs to: lasting room facts on the server, fast flight updates relayed, voice sent directly between friends, and shared moments started from a single timestamp. | The engineering, in plain terms. |
-| 13 | Annotation clip: a note pinned to scene geometry | Studios for each part of the world pin feedback to exact geometry, and instrumenting the twelve original animations exposed a jump in every one, which redirected the animation work. | How the quality was measured and fixed. |
-| 14 | Back to the lounge, both birds by the fire → end card | Friends far apart get back the easy hours: listening, reading, resting nearby, and flying off together. | Payoff tied to the need. |
+| 0 | Warm dark frame; soft kinetic type | Friendships have always had third places: somewhere besides home and work to gather with no agenda. For friends who live far apart, that place has to be online. | The need, framed warmly: online third spaces. |
+| 1 | Typographic card *Stephen Fry · Mythos*; a flame grows beneath the words | In Mythos, Stephen Fry writes about the hearth: the fire at the centre of the home, where people told stories, sat quietly, and kept each other company. | The inspiration, in the about site's own terms. |
+| 2 | The flame match-cuts into the **Birb fireplace**, slow push-in (nap clip, fire audible) | Birb Hangout began as a small hearth across distance. | The concept made real, with the fireplace on screen. |
+| 3 | Pull back to the **full lounge, both birds, whole room visible**; wordmark | It became a 3D social world where friends and family spend time together as birds, with each other's company as the only goal. | The idea, over the whole product. |
+| 4 | **New capture:** create a room → share the code → a friend joins | A friend joins with a short room code, and a refresh brings back the same bird. | Private and easy to join. |
+| 5 | Wide: one bird reading, the other at the record cabinet | Everything happens inside the room itself: books, records and the television are real objects, so you can look up, see what a friend is doing, and join in. | The design philosophy (diegetic interaction). |
+| 6 | `records` (00:00–00:12), its music audible under the voice | Choose a record, carry it across the lounge, and the music starts when it reaches the turntable. | Activity 1. |
+| 7 | `bookshelf-selection` | Friends choose which books stay on the shelf, | Activity 2. |
+| 8 | `reading` (*Dracula* opens) | and read in two rocking chairs that face each other, quiet without being solitary. | Activity 3. |
+| 9 | `watching` (choosing, then the sofa view) | One bird holds the remote, and every browser stays on the same video, at the same moment. | Activity 4, and its sync. |
+| 10 | `trivia`, cut on the ejection | In trivia, a wrong answer launches the losing bird, seat and all, in a reveal every screen plays at once. | Activity 5: the room event. |
+| 11 | `hug` | Birds greet each other with hugs and quick emotes. | Activity 6. |
+| 12 | `nap` | By the fire, they can nap side by side, making room for doing almost nothing. | Activity 7: back at the hearth. |
+| 13 | `dream-entry`: the breathing ring and stars | Three slow breaths carry them into a shared Dream. | Activity 8. |
+| 14 | `flight` | There, they learn to fly by feel: dive for speed, pull up to climb, bank to turn. | Activity 9. |
+| 15 | `islands` | Floating islands give every flight somewhere to go, | Activity 10. |
+| 16 | `exploration` (river, low pass) | across a valley almost nine kilometres long, built from real USGS elevation data. | Activity 11, and the scale of the world. |
+| 17 | B1 sync map (schematic) | A shared room server keeps presence, seats, media and the Dream in step, while each browser flies its own bird and both build the same landscape from one seed. | The engineering, in plain terms. |
+| 18 | Kinetic type over a paused landscape frame | Building a world like this raised a new question: how do you point an AI coding assistant at something that only looks wrong from one camera angle? | Sets up the AI-collaboration story. |
+| 19 | `annotation-workflow`: pause → orbit → zoom → mark → describe | An annotation tool inside the game's studios pauses the scene, so you can orbit to the defect, draw over it, and describe it. | The interface used to collaborate with AI. |
+| 20 | The mark's area lights the hit geometry; packet card: image, camera, object, coordinates | The mark is traced into the 3D scene itself, so the AI receives the image, the camera position, and the exact object or patch of terrain to fix. | How defects are traced in the 3D environment. |
+| 21 | `flight-studio.png` → before/after pair from the same camera | After each fix, the same view is recaptured beside the original, so every change is checked exactly where the problem was found. | Closes the loop: verified fixes. |
+| 22 | Back at the fireplace, both birds asleep → end card | Wherever the people you love are, the hearth is one room code away. | Payoff, tied back to the hearth. |
 
-**Capture:** one new shot (create a room, then join by code with a second browser), which needs Birb running locally. Everything else comes from your `.mov` captures.
+**Capture:** one new shot (create a room, then join by code with a second browser), which needs Birb running locally. The about site's clips (`projects/birb-hangout/captures/about-site/`, 960 px) set which moments to use. Each is re-cut from the full-resolution `.mov` master where one exists, and the 960 px clip is used only where there is no master (e.g. bookshelf selection, islands, exploration, if they aren't in the masters).
+**Fact sources:** the about site (the hearth and *Mythos*, the eleven activities, the 3.8 × 8.8 km USGS valley, the annotation workflow) and `content/projects/birb-hangout.json` (room codes, identity on refresh, sync model).
+
+---
 
 ---
 
