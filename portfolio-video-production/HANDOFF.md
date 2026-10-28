@@ -22,7 +22,7 @@ Outputs go to `../output/portfolio-videos/`. Renders, captures and media are git
 | Film | State |
 |---|---|
 | Homeward | Delivered and **signed off** by the user. Voice chipping fixed (below). |
-| Relay | Captured (take-02, five chapters), edited (`edit/films/relay.mjs`, 89.2 s) and mixed. Final render, QA and delivery: see "Relay (built)" below. |
+| Relay | **Delivered** (2026-10-28): `../output/portfolio-videos/relay.mp4`, captioned mp4, vtt, poster, contact sheet. QA all pass (`qa/relay.md`): 89.22 s, −15.9 LUFS / −3.1 dBTP, worst sync 5 ms, 0 reversals, longest hold 2.48 s. Awaiting the user's review. |
 | TraceLens | Plan and designed boards D1–D4 done (`plans/boards/tracelens-*`). Hero case and cost numbers verified. |
 | Alzheimer's | Plan rewritten: ensemble of specialist CNNs (78% → 85%), then the IEEE CV atrophy paper. Waiting on the user (open questions). |
 | Birb, Refract | Plans written; the user's decisions are below. |
@@ -78,7 +78,9 @@ Edit (`edit/films/relay.mjs`): cold open on the reply landing → sting → prob
 Pipeline changes made for Relay:
 - `plan-film.mjs` merges an edit's own `captions` (speaker-labelled dialogue) and `audio`, and enforces ≤52 characters.
 - `mix-audio.mjs` lays dialogue clips into the voice stem, level-matched to the narration's speech RMS, and engages a limiter only when a peak would pass −2 dBTP. Relay mixes to −15.9 LUFS, −3.5 dBTP.
-- `render-film.mjs` takes `RENDER_CONCURRENCY` and `--chunk N`. This 8 GB machine swaps under user apps, and a single full render timed out at `remotion_setFrame`; render the master with `RENDER_CONCURRENCY=2 node scripts/render-film.mjs <slug> --chunk 600` (resumable parts in `renders/<slug>/parts/`).
+- `render-film.mjs` takes `RENDER_CONCURRENCY` and `--chunk N`. This 8 GB machine swaps under user apps, and a single full render timed out at `remotion_setFrame`; render the master with `RENDER_CONCURRENCY=1 RENDER_TIMEOUT_MS=300000 node scripts/render-film.mjs <slug> --chunk 300` (resumable parts in `renders/<slug>/parts/`; a part with no progress for 3 min is cancelled and retried, because Remotion's own retry after a Chrome crash can hang). Speed swings between about 5 fps and 0.2 fps with the user's Firefox memory use. Check that no older render is still running (`pgrep -fl render-film`) before starting one.
+- Fixing a QA failure: re-plan, diff the scene's `frames.cam` against the old plan to find the changed output frames, then `--patch a-b --skip-captions` (the captions layer is unchanged).
+- `qa_film.py` now lists every still span over 3 s (`holds.over_3s`). Relay needed slow drift keys during the voice answer (24.5 s) and the evaluation figures (71 s).
 
 ## TraceLens facts (verified)
 

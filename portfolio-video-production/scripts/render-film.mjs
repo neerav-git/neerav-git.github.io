@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 import ffmpegPath from "ffmpeg-static";
 import { browserExecutable } from "./lib/browser.mjs";
 import { bundle } from "@remotion/bundler";
-import { renderMedia, renderStill, selectComposition } from "@remotion/renderer";
+import { makeCancelSignal, renderMedia, renderStill, selectComposition } from "@remotion/renderer";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -79,7 +79,7 @@ if (patch) {
   renameSync(spliced, videoFile);
   console.log(`Patched frames ${a}–${b} into ${path.relative(root, videoFile)}`);
 }
-// --chunk N renders the ProRes master in N-frame parts (resumable, each retried once) and
+// --chunk N renders the ProRes master in N-frame parts (resumable, each retried twice) and
 // joins them losslessly. Long single renders time out in swap on an 8 GB machine.
 const chunk = Number(value("chunk")) || 0;
 if (!has("skip-video") && !patch && chunk && !draft) {
@@ -95,12 +95,20 @@ if (!has("skip-video") && !patch && chunk && !draft) {
     if (existsSync(part)) continue;
     const partial = part.replace(/\.mov$/, ".partial.mov");
     for (let attempt = 1; ; attempt++) {
+      // A crashed browser can leave Remotion's own retry hanging, so a part that makes no
+      // progress for three minutes is cancelled and rendered again.
+      const { cancelSignal, cancel } = makeCancelSignal();
+      const report = progress(`frames ${a}–${b}`);
+      let last = Date.now();
+      const watchdog = setInterval(() => Date.now() - last > 180000 && cancel(), 10000);
       try {
-        await renderMedia({ ...common, composition, outputLocation: partial, muted: true, colorSpace: "bt709", frameRange: [a, b], codec: "prores", proResProfile: "hq", imageFormat: "png", onProgress: progress(`frames ${a}–${b}`) });
+        await renderMedia({ ...common, composition, outputLocation: partial, muted: true, colorSpace: "bt709", frameRange: [a, b], codec: "prores", proResProfile: "hq", imageFormat: "png", cancelSignal, onProgress: (p) => { last = Date.now(); report(p); } });
         break;
       } catch (error) {
-        if (attempt >= 2) throw error;
+        if (attempt >= 3) throw error;
         console.log(`  frames ${a}–${b} failed (${error.message.split("\n")[0]}); retrying`);
+      } finally {
+        clearInterval(watchdog);
       }
     }
     renameSync(partial, part);

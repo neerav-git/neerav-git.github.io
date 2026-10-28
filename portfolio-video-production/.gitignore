@@ -16,4 +16,6 @@ projects/*/edit/audio/
 projects/*/silent-master.mp4
 plans/boards/
 qa/*/
+!qa/tools/
+qa/tools/__pycache__/
 qa/*.png

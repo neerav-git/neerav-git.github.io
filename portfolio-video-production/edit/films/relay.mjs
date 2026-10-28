@@ -17,6 +17,7 @@ export const meta = {
 // Frames covered by [start, start + length), so adjacent scenes tile exactly.
 const span = (start, length) => f(start + length) - f(start);
 const centre = (b) => ({ x: b.x + b.width / 2, y: b.y + b.height / 2 });
+const lerp = (a, b, p, off = { x: 0, y: 0 }) => ({ x: a.x + (b.x - a.x) * p + off.x, y: a.y + (b.y - a.y) * p + off.y });
 
 // The approved voice cut (take-01: 0–2.3 s and 9.4–29.8 s), expressed against the recorded audio so
 // any take re-derives it: the tap runs until just before the greeting, then the clip picks up just
@@ -158,6 +159,8 @@ export function build({ journey, say, video, terminal }) {
         { at: 0.2, z: 1.72, focus: { x: centre(orbBox).x - 260, y: centre(orbBox).y - 90 }, dur: navAt - 1.2 },
         { at: navAt - 0.75, z: 1.12, focus: { x: 1130, y: 540 }, dur: 0.85 },
         { at: at(texts.find((s) => s > answerAt + 1)) - 0.1, z: 1.4, focus: { x: centre(caseDetail.owner).x - 60, y: centre(caseDetail.owner).y - 40 }, dur: 0.9 },
+        // Drift toward the reply field while the agent explains the owner and target.
+        { at: at(texts.find((s) => s > answerAt + 1)) + 0.85, z: 1.42, focus: lerp({ x: centre(caseDetail.owner).x - 60, y: centre(caseDetail.owner).y - 40 }, { x: centre(caseDetail.reply).x - 180, y: centre(caseDetail.reply).y - 70 }, 0.2), dur: at(texts.find((s) => s > answerAt + 4)) - at(texts.find((s) => s > answerAt + 1)) - 1.0 },
         { at: at(texts.find((s) => s > answerAt + 4)) - 0.1, z: 1.48, focus: { x: centre(caseDetail.reply).x - 180, y: centre(caseDetail.reply).y - 70 }, dur: 0.9 },
         { at: at(texts.find((s) => s > answerAt + 4)) + 1.0, z: 1.56, focus: { x: centre(caseDetail.reply).x - 200, y: centre(caseDetail.reply).y - 60 }, dur: length - at(texts.find((s) => s > answerAt + 4)) - 1.0 },
       ],
@@ -342,7 +345,10 @@ export function build({ journey, say, video, terminal }) {
         { at: 0, z: 1.08, focus: { x: 1100, y: 470 }, dur: 0 },
         { at: 0.6, z: 1.32, focus: { x: 1100, y: 360 }, dur: 1.0 },
         { at: L(s7.word("103")) - 0.3, z: 1.62, focus: { x: centre(e.task).x + 80, y: centre(e.task).y + 30 }, dur: 0.7 },
+        // Slow drift toward the next card while each figure is read, so no hold passes 3 s.
+        { at: L(s7.word("103")) + 0.45, z: 1.64, focus: lerp(centre(e.task), centre(e.heldOut), 0.18, { x: 80, y: 30 }), dur: L(s7.word("39")) - L(s7.word("103")) - 0.8 },
         { at: L(s7.word("39")) - 0.3, z: 1.62, focus: { x: centre(e.heldOut).x + 80, y: centre(e.heldOut).y + 30 }, dur: 0.7 },
+        { at: L(s7.word("39")) + 0.45, z: 1.64, focus: lerp(centre(e.heldOut), centre(e.voice), 0.18, { x: 80, y: 30 }), dur: L(s7.word("passed")) - L(s7.word("39")) - 0.3 },
         { at: L(s7.word("passed")) + 0.2, z: 1.62, focus: { x: centre(e.voice).x + 40, y: centre(e.voice).y + 30 }, dur: 0.7 },
         { at: L(s8.word("unsafe")) - 0.45, z: 1.55, focus: { x: centre(e.safety).x + 160, y: centre(e.safety).y - 10 }, dur: 0.75 },
       ],
