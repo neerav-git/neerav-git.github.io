@@ -35,7 +35,7 @@ Six narrated portfolio films, built on a Remotion engine.
 
 | Film | State |
 |---|---|
-| Relay | **v3 in production.** Script approved. v1 (`aece8d6`, 89 s) is delivered but superseded. The 2K capture take 3 is running or done (see below). Next: edit, mix, draft, then show the user. |
+| Relay | **v3 draft rendered, awaiting the user's review.** Script approved; line 2 now names Nova-3 (listening) and Flux (speaking). Take 3 (2K) captured in full; plan is 161 s, 18 scenes, syncs within 5 ms; mix −15.9 LUFS / −3.8 dBTP. Draft: `renders/relay/draft-audio.mp4`. Next: apply the user's notes, then the chunked final render, QA, deliver. v1 (`aece8d6`, 89 s) is delivered but superseded. |
 | Homeward | v1 delivered, but the user rejected its opening (a cropped cold open with no need or industry). The **v3 script** is in `plans/film-scripts-v3.md`; the user said "fine". |
 | TraceLens | v3 script: the user said "fine" and set the opener (Nature Medicine, then the portfolio question). Boards D1–D4 exist (`plans/boards/`). Fix the D3 "median per answer" overflow before use. |
 | Alzheimer's | v3 script rewritten to the user's notes (dementia's importance, then the research question). Needs a final look. |
@@ -88,7 +88,7 @@ Test take 91 (1080p) passed every chapter and the frames were checked.
   - Vite: `npx vite --port 5180 --strictPort`.
 
 **Next steps for Relay:**
-1. Build the voice audio: `node capture/relay/voice-audio.mjs 3 projects/relay/voice/live-02/session.json projects/relay/voice/maya-q2.wav`.
+1. Build the voice audio: `node capture/relay/voice-audio.mjs projects/relay/captures/journey/take-03 projects/relay/voice/live-02/session.json projects/relay/voice/maya-q2.wav`.
 2. Rewrite `edit/films/relay.mjs` to the v3 beats, with `meta.take = 3` and an updated tagline and impact. Mechanics: `shot()`, `say()`, `sync()`, `extraCaptions`, `audio.push`, and the terminal `gate` scene.
    - A full-frame tour under the need lines.
    - The idea, then the sting.
