@@ -5,8 +5,10 @@ import { BrowserFrame } from "../components/BrowserFrame";
 import { CaptureScene, Video, type CaptureSceneData } from "../components/CaptureScene";
 import { Terminal } from "../components/Technical";
 import { Backdrop } from "../components/Backdrop";
+import { AnimatedDiagram, type DiagramCheck, type DiagramEdge, type DiagramNode, type DiagramPacket } from "../components/Diagram";
 import { Film, type Plan, type PlanScene } from "../Film";
 import { RELAY_ICON } from "./relay-icon";
+import { FONT } from "../lib/theme";
 
 // Relay's own logo, cut from the app's relay-logo.png: the two-figure mark and the wordmark.
 const Mark: React.FC<{ size: number }> = ({ size }) => (
@@ -73,6 +75,16 @@ export const RelayFilm: React.FC<{ plan: Plan; captions?: boolean }> = ({ plan, 
               emphasise={(l) => (/^All enforced gates pass/.test(l) ? "strong" : /^Evaluation gate/.test(l) ? "dim" : undefined)}
             />
           </TerminalScene>
+        );
+      }
+      case "diagram": {
+        // Schematic of Relay's own components and tool names (labelled "schematic" on screen).
+        const props = scene.props as { title: string; nodes: DiagramNode[]; edges: DiagramEdge[]; packets: DiagramPacket[]; checks: DiagramCheck[] };
+        return (
+          <AbsoluteFill>
+            <AnimatedDiagram palette={plan.palette} {...props} />
+            <div style={{ position: "absolute", right: 96, bottom: 54, padding: "8px 18px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.72)", fontSize: 28, fontFamily: FONT }}>Schematic</div>
+          </AbsoluteFill>
         );
       }
       case "endcard":

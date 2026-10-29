@@ -1,47 +1,77 @@
 [
   {
-    "sentence": "A blocked account on day one can mean hunting for the right record and owner.",
+    "sentence": "At most companies, HR, IT, payroll and learning each run their own portal, with their own forms and owners.",
     "start": 0,
-    "end": 4.8
+    "end": 7.725
   },
   {
-    "sentence": "Let's see an example, and hear how the Relay guide helps.",
-    "start": 4.98,
-    "end": 8.68
+    "sentence": "New hires have to work out which system, form and person applies, and support teams untangle requests that arrive incomplete or at the wrong desk.",
+    "start": 7.905,
+    "end": 17.93
   },
   {
-    "sentence": "In seconds, Relay found the case, named its owner, and opened the reply field.",
-    "start": 8.86,
-    "end": 14.11
+    "sentence": "Relay puts all of it in one workspace, with a voice agent built on Deepgram that connects every service to a single conversation.",
+    "start": 18.11,
+    "end": 26.71
   },
   {
-    "sentence": "Maya types the details, and Relay prepares the reply and waits.",
-    "start": 14.29,
-    "end": 18.765
+    "sentence": "Here’s Maya, a new hire, on day one.",
+    "start": 26.89,
+    "end": 29.69
   },
   {
-    "sentence": "One click, and the reply is on the case.",
-    "start": 18.945,
-    "end": 21.97
+    "sentence": "It reads Maya’s own records, picks the task due first, and opens the exact form, ready to start.",
+    "start": 29.87,
+    "end": 36.445
   },
   {
-    "sentence": "A laptop that won't charge becomes a complete IT request, confirmed the same way.",
-    "start": 22.15,
-    "end": 27.9
+    "sentence": "Raising a concern works the same way: Relay drafts a complete IT request for the right team and files it when Maya confirms.",
+    "start": 36.625,
+    "end": 45.35
   },
   {
-    "sentence": "Every action runs through one contract: the signed-in employee, an explicit confirmation, a retry-safe key, an audit trail, and a verified result.",
-    "start": 28.08,
-    "end": 38.005
+    "sentence": "It books meetings on the calendar and explains what’s holding up a first paycheck, and every action waits for the employee’s click.",
+    "start": 45.53,
+    "end": 53.43
   },
   {
-    "sentence": "Measured on the real app, 103 of 110 conversations ended fully right, and 39 of 42 never-seen requests passed.",
-    "start": 38.185,
-    "end": 48.035
+    "sentence": "Underneath, an intelligence layer built for Relay gives the agent a small set of tools to read records, open them, highlight sections and propose actions.",
+    "start": 53.61,
+    "end": 63.985
   },
   {
-    "sentence": "Red-team attacks caused no unsafe actions, and a release gate fails the build if any of this slips.",
-    "start": 48.215,
-    "end": 54.74
+    "sentence": "The agent only names the record; Relay works out the page and the highlight itself, and refuses any target it doesn’t recognize.",
+    "start": 64.165,
+    "end": 72.64
+  },
+  {
+    "sentence": "The server decides who is signed in and gives the agent that employee’s records alone, so each person reaches only what they’re authorized to see.",
+    "start": 72.82,
+    "end": 82.17
+  },
+  {
+    "sentence": "Sensitive details, like bank numbers, are removed before the agent ever sees them.",
+    "start": 82.35,
+    "end": 88.3
+  },
+  {
+    "sentence": "HR and IT see a timeline of every request, from what was asked to the verified change.",
+    "start": 88.48,
+    "end": 94.855
+  },
+  {
+    "sentence": "On the real app, 103 of 110 conversations ended fully right, and 31 of 34 spoken requests got a useful answer.",
+    "start": 95.035,
+    "end": 105.035
+  },
+  {
+    "sentence": "It stops talking within 51 milliseconds when the employee cuts in, and red-team attacks caused no unsafe actions.",
+    "start": 105.215,
+    "end": 112.74
+  },
+  {
+    "sentence": "Whatever the request, the employee says it once, and Relay finds the record, the owner and the next step.",
+    "start": 112.92,
+    "end": 119.445
   }
 ]

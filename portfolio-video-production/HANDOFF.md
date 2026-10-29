@@ -1,121 +1,162 @@
-# Portfolio films: handoff (2026-10-28)
+# Portfolio films: handoff (2026-10-28, end of session)
 
-Six narrated films for the portfolio are being rebuilt on a Remotion engine. Homeward is the pilot, and the user signed it off on 2026-10-28.
-
-Films: relay, refract-ai, homeward, birb-hangout, tracelens, alzheimers-research (a combined film).
-Outputs go to `../output/portfolio-videos/`. Renders, captures and media are gitignored and rebuildable.
+Six narrated portfolio films, built on a Remotion engine.
+- Films: relay, refract-ai, homeward, birb-hangout, tracelens, alzheimers-research (one film covering both Alzheimer's studies).
+- Outputs go to `../output/portfolio-videos/`. Renders, captures and media are gitignored and rebuildable.
 
 ## Rules from the user (non-negotiable)
 
 - **No paid infrastructure.** Only the capped Claude API may cost money: no paid TTS, GPU, stock footage or music.
-  - One exception: the user asked for a live Deepgram session for Relay. It is already recorded (about 57 s, ≈$0.16).
-  - 2026-10-28: the user approved **up to 2 more attempts** for the new voice hook, "What's my next highest-priority task?" (`projects/relay/voice/live-02`, and `live-03` only if `live-02` is weak). Keep the better take, then never record again; replay the saved sessions.
-  - Done: `live-02` was recorded on the first attempt and is the take. The agent named the federal and California withholding forms (due today) and opened DOC-TAX-1007. No further sessions.
-- **All evidence is real.** That means real app footage (seeded demo data is fine), real paper, notebook and thesis figures, and real terminal output. Never invent numbers or UI.
-  - Designed bridging visuals are labelled "Illustrative interface · real model outputs" or "schematic".
-- **Narrator voice:** Kokoro `af_heart` with the existing tuning, synthesized per sentence. Never change the tuning.
-- **Copy:** no "X, not Y" contrasts and no curation or meta talk. Use they/them, or avoid pronouns, for people whose pronouns are unknown (Alex, Maya).
+  - Deepgram exceptions for Relay: `live-01` (earlier) and `live-02`, the voice hook.
+  - **Never record another Deepgram session.** Replay the saved sessions.
+- **All evidence is real.**
+  - Real app footage (seeded demo data is fine), real paper, notebook and thesis figures, and real terminal output.
+  - Never invent numbers or UI.
+  - Designed bridging visuals are labelled "Illustrative interface · real model outputs" or "Schematic".
+  - External facts appear on screen with a source chip.
+- **Narrator voice:** Kokoro `af_heart` with the existing tuning, one synthesis per sentence. Never change the tuning.
+- **Copy:**
+  - No "X, not Y" contrasts, no curation or meta talk, no formulaic lines ("every X becomes Y"), and no jargon ("retry-safe key", "signed keys").
+  - Use they/them, or no pronouns, for Maya and Alex.
 - **State measured claims plainly.** Find the number in the user's runs instead of softening a claim.
-- **Refract's selling point is the end-to-end research workspace.** Its parts: paper Q&A, notes logged from assistant explanations, literature review and gap finding, then stats on the reviewed data with leakage prevention and several models tested at once. Don't headline accuracy or RMSE.
-- **Never put transient percussion under narration** (see the audio fix below).
+- **Script standard** (memory `film-story-first`):
+  - Spine: need → idea, over the whole product at full frame → breadth → depth (one journey) → trust and proof → payoff.
+  - Name the industry and the workflow types, give the hero capability room, and give every line a reason.
+  - Never cold-open on a cropped, mid-action detail.
+  - **Cut detail that doesn't serve the pitch.** The user called a Birb line about the room server, per-browser flight and a shared seed "nonsense we do not need". Keep the hero mechanism, trust limits and proof; drop plumbing (sync models, retry/idempotency, secondary metrics).
+  - Present scripts as beats (picture / narration / why). **Scripts need the user's sign-off before capture or render.**
+- **Audio:** no transient percussion under narration. Master at −16 LUFS, ≤ −1.5 dBTP.
+- **Git:**
+  - Commit on `feature/portfolio-guide`.
+  - Commit messages end with `Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>`.
+  - Leave uncommitted site files outside `portfolio-video-production/` alone. Other agents or the user commit site work on this branch.
 
 ## Status
 
 | Film | State |
 |---|---|
-| Homeward | Delivered and **signed off** by the user. Voice chipping fixed (below). |
-| Relay | **Delivered** (2026-10-28): `../output/portfolio-videos/relay.mp4`, captioned mp4, vtt, poster, contact sheet. QA all pass (`qa/relay.md`): 89.22 s, −15.9 LUFS / −3.1 dBTP, worst sync 5 ms, 0 reversals, longest hold 2.48 s. Awaiting the user's review. |
-| TraceLens | Plan and designed boards D1–D4 done (`plans/boards/tracelens-*`). Hero case and cost numbers verified. |
-| Alzheimer's | Plan rewritten: ensemble of specialist CNNs (78% → 85%), then the IEEE CV atrophy paper. Waiting on the user (open questions). |
-| Birb, Refract | Plans written; the user's decisions are below. |
+| Relay | **v3 in production.** Script approved. v1 (`aece8d6`, 89 s) is delivered but superseded. The 2K capture take 3 is running or done (see below). Next: edit, mix, draft, then show the user. |
+| Homeward | v1 delivered, but the user rejected its opening (a cropped cold open with no need or industry). The **v3 script** is in `plans/film-scripts-v3.md`; the user said "fine". |
+| TraceLens | v3 script: the user said "fine" and set the opener (Nature Medicine, then the portfolio question). Boards D1–D4 exist (`plans/boards/`). Fix the D3 "median per answer" overflow before use. |
+| Alzheimer's | v3 script rewritten to the user's notes (dementia's importance, then the research question). Needs a final look. |
+| Birb | v3 script rewritten to the user's notes (the hearth and *Mythos* opening, all eleven about-site activities, the AI annotation tool). Needs a final look. |
+| Refract | v3 script written; **no comments from the user yet**. |
 
-## Homeward audio fix (done this session)
+The scripts are at **revision 3** (`plans/film-scripts-v3.md`), after the user's detail-cut note was applied to all five. Ask once for sign-off on revision 3, then capture and edit in the order the user prefers.
 
-The user heard the Kokoro narration "chipping and cutting". The cause was the music bed's offbeat hi-hats: full-band ticks every 0.65 s under the speech. The narration itself was clean: the voice stem matches `narration.wav` sample for sample.
+Estimated runtimes: Homeward ~2:25, TraceLens ~2:35, Alzheimer's ~2:10, Birb ~2:45, Refract ~2:00, Relay ~2:30.
 
-Fix:
-- `audio/synth.mjs`: hats removed; the bed is low-passed at 4.2 kHz.
-- `scripts/mix-audio.mjs`: SFX ducked 12 dB under the voice.
+## Relay v3
 
-Homeward was remixed, and only its audio was swapped into the delivered mp4s. Loudness is −15.9 LUFS, and the audio offset is 0 samples. To diagnose audio, compare `ffmpeg … showspectrumpic` spectrograms of `narration.wav`, the stems and the master.
+**Script (approved).** The voice agent is the hero. The film:
+1. Opens on fragmented HR, IT, payroll and learning portals.
+2. Introduces Relay: one workspace, with a voice agent built on Deepgram.
+3. Plays Maya's live voice hook, "What's my next highest-priority task?".
+4. Moves through IT request, meeting and paycheck.
+5. Explains the intelligence layer and security containment as schematic diagrams.
+6. Shows the IT Operations timeline, then the evaluation numbers, then the payoff.
 
-## Relay voice
+The narration has 15 sentences in `production.json` (relay), synthesized at 119.6 s. `narration/words.json` is generated and pronunciation is checked. "Sets reminders for training" was dropped because it isn't shown.
 
-Relay repo: `/Users/neeravch/Documents/ChatGPT/DeepGram Project`.
-- Start the API with `npx tsx src/server/index.ts` (port 8787).
-- Start Vite with `npx vite --port 5180 --strictPort`.
-- The capture needs both running.
+**Voice hook:**
+- **Session:** `projects/relay/voice/live-02/session.json`. Maya's line is `projects/relay/voice/maya-q2.wav` (Kokoro `bf_emma`, 3.17 s), made by `capture/relay/say-line.mjs`.
+- **Greeting:** "Hi, I'm Relay Guide…".
+- **Tools:** `get_employee_portal_context` fires at +1.76 s after Maya stops, and `reveal_portal_record` (which opens DOC-TAX-1007) at +4.98 s. Speech starts at +6.3 s.
+- **Waiting:** the edit shows tool-call labels during the wait. There is no TTFA claim.
 
-The recording:
-- `projects/relay/voice/live-01/session.json` holds every socket message and the agent's PCM. It contains no credentials.
-- Maya's question is a Kokoro `bf_emma` line, `projects/relay/voice/maya-q1.wav`: "My corporate account access says blocked. Why, and is anyone working on it?"
-- The agent called `get_employee_portal_context`, then `reveal_portal_record`, and opened IT-2047 about 15 s into its answer.
+**Journey** (`capture/journeys/relay.mjs`), with the replay paced to the live text-run medians:
+- `00-tour`: the sidebar sections.
+- `01-voice`: the live-02 replay. It writes `01-voice.voice.json` and marks `document`.
+- `02-laptop`: W2 turn 3 plus confirm.
+- `03-meeting`: W3 turn 1 plus confirm, then closes the calendar via `.meeting-calendar__close`.
+- `04-pay`: W5 turns 0–1, paycheck then direct deposit.
+- `05-operations`.
+- `06-evaluation`.
 
-Replay (`capture/relay/voice-replay.mjs`):
-- A fake Deepgram socket replays the recording, gated on the app's own messages.
-- Maya's PCM goes in through the microphone worklet.
-- The audio clock follows page time.
-- The app runs unchanged, so the user's orb animation and the navigation are real.
+Test take 91 (1080p) passed every chapter and the frames were checked.
 
-Capture command: `node scripts/capture-journey.mjs relay --take 1 --only 01-voice`. It writes to `projects/relay/captures/journey/take-01/`, with the log in `projects/relay/voice/capture-take-01.log`.
-- At 4K it runs at about 2.6 fps, so a 60 s chapter takes about 25 min.
-- Waits use `waitFor({ pageTimeout })`, which counts page time. The first attempt failed on the wall-clock `timeout`.
+**Take 3 (2K, the real one):** started with `node scripts/capture-journey.mjs relay --take 3`. The log is in the session scratchpad (lost after this session).
+- At handoff, chapters 00–03 were done and `04-pay` was recording.
+- Check `projects/relay/captures/journey/take-03/` for all seven `.mp4` + `.events.json` files.
+- If it's incomplete, recapture the missing chapters with `node scripts/capture-journey.mjs relay --take 3 --only <chapter>`.
+- The Relay servers must be running, started from `/Users/neeravch/Documents/ChatGPT/DeepGram Project`:
+  - API: `npx tsx src/server/index.ts` (8787).
+  - Vite: `npx vite --port 5180 --strictPort`.
 
-Take-01 result (done): greeting 2.5–8.2 s, Maya 9.9–14.9 s, tool calls 13.4–17.4 s (including the cancelled first call, as live), answer 16.6–47.5 s. IT-2047 opens around 17–22 s. Frames confirm the orb reacts and the caption card follows the answer. To rebuild the sound and preview: `sh capture/relay/voice-preview.sh`.
+**Next steps for Relay:**
+1. Build the voice audio: `node capture/relay/voice-audio.mjs 3 projects/relay/voice/live-02/session.json projects/relay/voice/maya-q2.wav`.
+2. Rewrite `edit/films/relay.mjs` to the v3 beats, with `meta.take = 3` and an updated tagline and impact. Mechanics: `shot()`, `say()`, `sync()`, `extraCaptions`, `audio.push`, and the terminal `gate` scene.
+   - A full-frame tour under the need lines.
+   - The idea, then the sting.
+   - The voice hook, with tool-call labels during the wait.
+   - Document callouts.
+   - Laptop, meeting and pay as a montage, with request chips and visible time cuts. The text replay waits run up to 25 s and must be cut down on screen.
+   - Two diagrams, intelligence layer and security, using the new `diagram` scene kind in `remotion/films/Relay.tsx` (AnimatedDiagram plus a "Schematic" chip).
+   - The IT Operations timeline.
+   - Evaluation callouts, then the gate terminal.
+   - Payoff, then the end card.
+3. Plan, mix, draft render, contact sheet, and show the user.
+4. On approval: the final chunked render, QA, deliver, commit and update HANDOFF.
 
-Take-01 was superseded by take-02 (below); every voice cue shifted by exactly +1.819 s.
+**Relay facts for the edit:**
+- **Tools:**
+  - `get_employee_portal_context`: the server binds the employee's scope.
+  - `get_record_details`.
+  - `highlight_portal_section`: a fixed enum of sections.
+  - `reveal_portal_record`: exact IDs only. The app works out the route and highlight, and unknown IDs fail closed.
+  - `propose_onboarding_action`: shows the action for review and needs separate confirmation.
+  - `navigate_portal` and `focus_portal_object`.
+- **Security:**
+  - Identity is resolved on the server.
+  - Protected fields are excluded from the model.
+  - Bank-number redaction: leaks went from 4/4 to 0/5.
+  - The API key stays on the server; the browser gets 30 s tokens.
+- **Evaluation:** 103/110 conversations, 39/42 held-out, 31/34 spoken requests useful, 0 unsafe actions in 21 red-team runs, barge-in 51 ms p95, 186/187 correct record.
 
-## Relay (built)
+## The other five films: what the next session needs
 
-Capture take-02 (`node scripts/capture-journey.mjs relay --take 2`, log `projects/relay/voice/capture-take-02.log`), five chapters at 4K:
-- `01-voice` 2,973 frames: home pre-roll, orb tap, the replayed live session. Audio: `node capture/relay/voice-audio.mjs 2 projects/relay/voice/live-01/session.json projects/relay/voice/maya-q1.wav` (Maya 11.67–16.75 s; agent 4.34–10.06 s and 18.45–49.33 s).
-- `02-reply` 873, `03-laptop` 838: W2 typed turns 3–4 through `window.__guideReplay`, with the real confirm clicks.
-- `04-operations` 668: IT Operations and the IT-2047 chronology. `05-evaluation` 651: the Agent evaluation cards.
-- Gate terminal: `node scripts/capture-terminal.mjs relay gate "<Relay repo>" npm run evaluate:gate` → `projects/relay/captures/terminal/gate.json` (exit 0, all enforced gates pass).
-
-Director fixes made for Relay: the screenshot clip follows `window.scrollX/scrollY` (Relay scrolls the window), and `CAPTURE_SCALE` gives quick 1080p test takes.
-
-Edit (`edit/films/relay.mjs`): cold open on the reply landing → sting → problem and lead-in → the live voice clip at 1× (narration silent; cut points derived from the audio cues) → typed reply → laptop request → "Under the hood" → the action contract on IT Operations → evaluation cards → gate terminal → end card. 89.2 s, 9 narration sentences, 7 click syncs (all ≤5 ms by plan), tracker Ask/Reply/Request. The journey share is about 53%, the same as Homeward's.
-
-Pipeline changes made for Relay:
-- `plan-film.mjs` merges an edit's own `captions` (speaker-labelled dialogue) and `audio`, and enforces ≤52 characters.
-- `mix-audio.mjs` lays dialogue clips into the voice stem, level-matched to the narration's speech RMS, and engages a limiter only when a peak would pass −2 dBTP. Relay mixes to −15.9 LUFS, −3.5 dBTP.
-- `render-film.mjs` takes `RENDER_CONCURRENCY` and `--chunk N`. This 8 GB machine swaps under user apps, and a single full render timed out at `remotion_setFrame`; render the master with `RENDER_CONCURRENCY=1 RENDER_TIMEOUT_MS=300000 node scripts/render-film.mjs <slug> --chunk 300` (resumable parts in `renders/<slug>/parts/`; a part with no progress for 3 min is cancelled and retried, because Remotion's own retry after a Chrome crash can hang). Speed swings between about 5 fps and 0.2 fps with the user's Firefox memory use. Check that no older render is still running (`pgrep -fl render-film`) before starting one.
-- Fixing a QA failure: re-plan, diff the scene's `frames.cam` against the old plan to find the changed output frames, then `--patch a-b --skip-captions` (the captions layer is unchanged).
-- `qa_film.py` now lists every still span over 3 s (`holds.over_3s`). Relay needed slow drift keys during the voice answer (24.5 s) and the evaluation figures (71 s).
+- **Homeward:** new capture chapters for the workspace tour, the care-team queue and import review on the seeded demo. Lines 6–11 reuse the existing journey chapters.
+  - The repo is at `/private/tmp/portfolio-video-sources/homeward` (public as pruhnav/homeward). `/private/tmp` may have been cleared; re-clone if so.
+- **TraceLens:**
+  - Live workspace capture: `python3 -m tracelens_training.server` (port 8765) from `/Users/neeravch/Documents/ChatGPT/AI Self Explainability`, covering Observability, the Training Lab and the Baseline Lab.
+  - Figures are in `public/uploads/tracelens/`, including safeguards, detectors, support-loop and care-trajectory.
+  - Hero case facts are below.
+- **Alzheimer's:**
+  - No capture.
+  - Sources: notebook outputs `public/uploads/alzheimers/notebook-output-1..4.png`, and paper pages `projects/brain-atrophy-computer-vision/captures/repository/paper-page-1..4.png`.
+  - Designed visuals A1–A4.
+- **Birb:**
+  - The primary source is **birb-hangout-about.onrender.com**.
+  - Its clips were downloaded to `projects/birb-hangout/captures/about-site/` (960 px, 60 fps): records, bookshelf-selection, reading, watching, trivia, hug, nap, dream-entry, flight, islands, exploration, plus annotation-workflow and the flight-studio still.
+  - Use them to choose the moments, then re-cut from the full-resolution `.mov` masters in `~/Desktop/birb hangout video captures for website/` where a master exists.
+  - The records clip keeps its music, ducked.
+  - One new capture: create a room, then join by code with a second browser. This needs Birb running locally; its repo location hasn't been found yet.
+  - The *Mythos* card is text only, with no book cover.
+- **Refract:**
+  - No capture: option B, the thesis screenshots in `projects/refract-ai/captures/thesis/01–25`, plus designed F1 and F2.
+  - The thesis descriptions are in `~/Desktop/Integrative Framework Thesis/demo with images/Refract_Demo_Annotated_Thesis_Descriptions.docx`.
+  - The end card credits the San José State ISE master's project.
 
 ## TraceLens facts (verified)
 
 The hero case is **T1-8db5d356** (HealthBench held-out). It is one of 8 cases corrected in audit P1-20261026T110000Z: 277 cases → 31 misses → 18 flagged by Vega → 8 corrected.
-- **Gemma:** first answer advised self-care ("Hydrate them"). Gold label: emergency. Gemma's revision: emergency.
-- **Vega:** score 0.985 against a 0.876 threshold.
+- **Gemma:** the first answer advised self-care ("Hydrate them"). Gold label: emergency. The revision: emergency ("call emergency services (911) immediately").
+- **Vega:** scored 0.985 against a 0.876 threshold.
 - **Cost:**
-  - Gemma's first answers: median 818 output tokens and 66.9 s (n=87, BR-…-012).
-  - Vega: no generated text; median 0.36 s per decision, max 2.37 s (n=25, BR-…-029).
+  - Gemma's first answers: median 818 output tokens and 66.9 s (n=87).
+  - Vega: median 0.36 s per decision (n=25).
 - The HealthBench item carries a canary. Narration and VTT paraphrase it; the exact text appears only as pixels.
+- The opening question is verbatim from `content/projects/tracelens.json` (`headline`).
 
-## Decisions from the user (2026-10-28, second session)
+## Pipeline notes
 
-- **Homeward: signed off.** The rollout gate is lifted; every film renders to the Homeward standard.
-- **Refract:** option B, the 25 thesis screenshots in order. The HNEI dataset and paper locations were not given.
-- **Birb:** add the "create a room and join by code" shot, and let the records clip's own music play (ducked under narration).
-- **Alzheimer's:** go without per-model numbers. The ensemble claim is 78% → 85% with fewer crucial misses.
-  - The narration says "ensemble of specialist CNNs" instead of "mixture of experts". The models are averaged, with no learned gate.
-
-## Scripts v3 for the other five films (2026-10-28)
-
-The user asked for every film to be rescripted to the Relay v3 standard (need → idea → breadth → depth → trust and proof → payoff, with a reason for every line), after researching each project. The scripts are in `plans/film-scripts-v3.md` and are **awaiting sign-off**. Don't capture or render these films until the user approves them.
-- The openings use verified external facts, each shown with a source chip: Horwitz 2013, Jencks 2009, KFF 2024, Ramaswamy 2026, WHO, and the Surgeon General 2023.
-- The TraceLens line 1 citation (Nature Medicine) is contested; an alternative that uses the user's own 15/39 result is offered.
-- Runtimes at the narration rate: Homeward ~2:35, TraceLens ~2:40, Alzheimer's ~1:55, Birb ~2:10, Refract ~2:15.
-- New captures needed: Homeward tour and import review, the TraceLens workspace, and the Birb create-room/join-by-code shot.
-- Relay: test take 91 passed every chapter; the real 2K take 3 started.
-
-## Where things are
-
-- Pipeline: `npm run film -- <slug>` runs plan-film → mix-audio → render-film → qa-film. `scripts/deliver.mjs` copies to output.
-- Plans: `plans/README.md` (suite) and `projects/<slug>/plan.md`. Edits are in `edit/films/<slug>.mjs`.
-- Captures: `capture/director.mjs` (frame-stepped Playwright) and the journeys in `capture/journeys/`.
-- Designed boards: `remotion/designed/`. Render them with `node scripts/render-boards.mjs <prefix>`.
-- QA: `qa/tools/qa_film.py`, with the report at `qa/<slug>.md`.
-- Port 5173 may still be held by a leftover Homeward Vite process (pid 82622).
+- `npm run film -- <slug>` runs plan-film → mix-audio → render-film → qa-film. `scripts/deliver.mjs` copies to output.
+- **Capture:** `capture/director.mjs` (frame-stepped Playwright). The default is 2560×1440 (SCALE 4/3); `CAPTURE_SCALE=1` gives 1080p tests and `2` gives 4K. Films deliver at 1920×1080, 60 fps.
+- **Render** (8 GB Mac; the user keeps Firefox open, so check `pgrep -fl render-film` first): `RENDER_CONCURRENCY=1 RENDER_TIMEOUT_MS=300000 node scripts/render-film.mjs <slug> --chunk 300`.
+  - The parts are resumable.
+  - A part with no progress for 3 min is cancelled and retried.
+  - To fix a QA failure: `--patch a-b --skip-captions`.
+- QA: `qa/tools/qa_film.py`, with the report at `qa/<slug>.md`. It lists holds over 3 s.
+- ffmpeg isn't on PATH; use `node_modules/ffmpeg-static/ffmpeg`.
+- **Pitfall:** never `require("./scripts/generate-narration.mjs")`, because it regenerates every project. Use `node scripts/generate-narration.mjs --project <slug>`.
+- **Homeward audio fix (earlier):** the music bed's hi-hats caused the "chipping". The fix is in `audio/synth.mjs` (hats removed, bed low-passed at 4.2 kHz) and `scripts/mix-audio.mjs` (SFX ducked 12 dB under voice).

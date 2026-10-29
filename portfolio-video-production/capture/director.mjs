@@ -3,7 +3,7 @@
 // Headless Chrome's screencast only delivers CSS-pixel frames (1920x1080 at any DPR), so
 // journeys are captured by frame stepping instead: Playwright's fake clock advances page
 // time by exactly 1/60 s, every CSS animation is paused and seeked to the same virtual
-// time, and each frame is grabbed through CDP at scale 2 (3840x2160 source pixels).
+// time, and each frame is grabbed through CDP at CAPTURE_SCALE (default 4/3: 2560x1440 source pixels).
 // Network requests still resolve in real time, so waits come out shorter on screen than
 // they were, but nothing on screen is invented or skipped.
 //
@@ -19,8 +19,9 @@ import { chromium } from "playwright";
 export const FPS = 60;
 const FRAME_MS = 1000 / FPS;
 const VIEWPORT = { width: 1920, height: 1080 };
-// CAPTURE_SCALE=1 gives quick 1080p test takes; real takes are always 2 (3840x2160).
-const SCALE = Number(process.env.CAPTURE_SCALE ?? 2);
+// Real takes are 2560x1440 (the user's call: 2K is enough for a 1080p film, and it captures and
+// renders far faster than 4K). CAPTURE_SCALE=1 gives quick 1080p test takes; 2 gives 3840x2160.
+const SCALE = Number(process.env.CAPTURE_SCALE ?? 4 / 3);
 
 function mulberry32(seed) {
   return () => {
