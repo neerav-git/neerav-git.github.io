@@ -2,7 +2,9 @@
 
 Written 2026-10-28 to the standard the user set for Relay v3. The spine is need → idea (the whole product, full frame) → breadth → depth (one journey) → trust and proof → payoff. Every line has a reason, each film names the industry it serves and its workflow types, and the hero capability gets room.
 
-Status: **revision 2** (2026-10-28), after the user's notes on Birb, Alzheimer's and TraceLens. Homeward and TraceLens were approved in principle (TraceLens with the new opening). Refract is unchanged and still awaiting comments. Nothing is captured or rendered until each script is approved.
+Status: **revision 2** (2026-10-28), after the user's notes on Birb, Alzheimer's and TraceLens. Homeward and TraceLens were approved in principle (TraceLens with the new opening). Refract is unchanged apart from the detail pass and still awaiting comments.
+
+**Detail pass (revision 3):** lines that explain how something is built, but not why it matters to the user, were cut from every film (the user's note on the Birb sync line). Nothing is captured or rendered until each script is approved.
 
 External facts are shown on screen with a source chip. Everything else comes from the user's own repos, papers, thesis and runs.
 
@@ -18,7 +20,7 @@ External facts are shown on screen with a source chip. Everything else comes fro
 
 ---
 
-## Homeward (~2:35)
+## Homeward (~2:25)
 
 **Industry:** hospital care transitions. **Users:** patients, caregivers and care teams. **Workflows:** follow-up visits, paperwork, recovery check-ins, lab instructions, clarification requests, reminders, record import and review.
 **Hero capability:** a recovery plan where every step links to its source sentence, gaps stay marked as gaps, and the care team closes them.
@@ -37,18 +39,17 @@ External facts are shown on screen with a source chip. Everything else comes fro
 | 9 | Care-team workspace: question beside the original instruction; reply saved; task still open | The care team sees the question next to the original instruction and replies, and the task stays open until the details are confirmed. | The care-team side of the product, and why it's safe. |
 | 10 | Import review: new passage labelled Unreviewed → confirmed | New records arrive marked unreviewed, and become tasks only once the care team confirms them. | A second workflow: new information can't silently become an order. |
 | 11 | Bell on the dated follow-up → approval dialog → Approve | The follow-up has a date, so a reminder is proposed and waits for Alex's approval. | Patient control over every action. |
-| 12 | Response lost → Retry safely → original receipt | If the connection drops, Retry safely returns the original receipt, and no duplicate reminder is created. | Reliability, in a moment anyone understands. |
-| 13 | Diagram (schematic): router → four specialists, each with its tool list | Behind the assistant are four AI specialists, a coordinator, a summarizer, a questions guide and a reminder assistant, each given only the tools its job needs. | The agent architecture, named plainly. |
-| 14 | Diagram continues: specialist returns references → Homeward rebuilds the text from the record | The specialists choose which records to cite, and Homeward rebuilds the wording from the record itself, so clinical instructions always appear in the record's own words. | Trust: the model never writes the clinical text. |
-| 15 | Locked tiles: approve instruction · change medication · book appointment · send message | No agent can approve an instruction, change a medication or book an appointment; those decisions stay with people. | Trust: the limits on agent authority. |
-| 16 | `npm run eval` terminal → in-app guardrail report | All 32 guardrail cases pass, from missing details and cross-patient requests to prompt injection, alongside 59 backend tests and four interface journeys. | Proof. |
-| 17 | Alex's plan: next step, sources, open question, saved reminder → end card | After discharge, Alex knows what to do next, where each instruction came from, and what is still being clarified. | Payoff that answers line 1. |
+| 12 | Diagram (schematic): router → four specialists, each with its tool list | Behind the assistant are four AI specialists, a coordinator, a summarizer, a questions guide and a reminder assistant, each given only the tools its job needs. | The agent architecture, named plainly. |
+| 13 | Diagram continues: specialist returns references → Homeward rebuilds the text from the record | The specialists choose which records to cite, and Homeward rebuilds the wording from the record itself, so clinical instructions always appear in the record's own words. | Trust: the model never writes the clinical text. |
+| 14 | Locked tiles: approve instruction · change medication · book appointment · send message | No agent can approve an instruction, change a medication or book an appointment; those decisions stay with people. | Trust: the limits on agent authority. |
+| 15 | `npm run eval` terminal → in-app guardrail report | All 32 guardrail cases pass, from missing details and cross-patient requests to prompt injection. | Proof. |
+| 16 | Alex's plan: next step, sources, open question, saved reminder → end card | After discharge, Alex knows what to do next, where each instruction came from, and what is still being clarified. | Payoff that answers line 1. |
 
 **Capture:** a new `00-tour` chapter (workspace, discharge summary, care-team queue) and an import-review chapter on the seeded demo. Lines 6–12 reuse the existing journey chapters. The diagrams are labelled "Schematic". Live agent runs aren't claimed; the cited answer shown is source search.
 
 ---
 
-## TraceLens (~2:50)
+## TraceLens (~2:35)
 
 **Industry:** consumer health AI, and the teams that build and evaluate health chatbots. **Workflows:** emergency detection, disclosed reconsideration, preregistered studies on cloud GPUs, blinded review, detector training.
 **Hero capability:** Vega, an independent model that reads only the person's message, catches emergencies the chatbot under-calls, and makes the disagreement visible.
@@ -66,14 +67,12 @@ External facts are shown on screen with a source chip. Everything else comes fro
 | 7 | Vega's gauge fills to 0.98 past the 0.876 tick | Here, Vega scores the message 0.98, above its threshold, so the two disagree. | The hero mechanism at work. |
 | 8 | D4: banner → the chatbot's reconsideration types in | The person is told a safety check flagged the answer, and the chatbot reconsiders: call emergency services immediately. | Transparency to the end user, the question's second half. |
 | 9 | First answer kept above; evidence-receipt chip slides out | The first answer stays visible, and every step, from first answer to final action, is stored for review. | Audit trail. |
-| 10 | Live capture: Training Lab plan → bundle export → Baseline Lab runs and receipts | The workspace also runs the research: each study is pinned to an exact model, case set and prompt, runs on cloud GPUs, and is scored by analysis code fixed before any result is seen. | Breadth, and why the numbers can be trusted. |
-| 11 | Baseline Lab: blind review desk → gate decision | A blinded review desk checks how each answer's advice was read, and every study ends in a recorded go or no-go decision. | Human checks in the loop. |
-| 12 | `safeguards.png` figure, bars draw on | Prompting alone traded misses for false alarms: a cautious prompt reached 35 of 39 emergencies but sent 18 of 77 non-emergencies to emergency care. | Why a separate model is needed. |
-| 13 | Counter to 0.966 over `detectors.png` | On held-out cases, Vega ranked a true emergency above a non-emergency 97 percent of the time. | Vega's flags are accurate enough to act on. |
-| 14 | `support-loop.png`: 31 → 18 → 8; 39 → 47 of 70; 4 → 5 of 134 | Across 277 saved cases, Vega flagged 18 of the chatbot's 31 missed emergencies, and emergency advice rose from 39 to 47 of 70, with one added false alarm in 134. | Reduced under-triage, the question's first half, with its cost. |
-| 15 | 0.92 vs 0.76 pair | Vega also judged urgency better than the chatbot's own internal lean, 0.92 to 0.76. | An independent reader beats self-assessment. |
-| 16 | `care-trajectory.png`, dumbbells draw on | Scoring released conversations from 11 models, a care-seeking protocol raised turn-by-turn accuracy for every one. | Reach beyond one chatbot. |
-| 17 | The question returns with both halves checked → D4 → end card | A supporting model can do both: catch the emergencies a chatbot under-calls, and show the person when it does, for about a third of a second per message. | Answers the opening question. |
+| 10 | Live capture: Training Lab plan → bundle export → Baseline Lab runs and receipts | The same workspace runs the research behind these results: every study is planned in advance, run on cloud GPUs, and checked by blinded human review. | Breadth, and why the numbers can be trusted. |
+| 11 | `safeguards.png` figure, bars draw on | Prompting alone traded misses for false alarms: a cautious prompt reached 35 of 39 emergencies but sent 18 of 77 non-emergencies to emergency care. | Why a separate model is needed. |
+| 12 | Counter to 0.966 over `detectors.png` | On held-out cases, Vega ranked a true emergency above a non-emergency 97 percent of the time. | Vega's flags are accurate enough to act on. |
+| 13 | `support-loop.png`: 31 → 18 → 8; 39 → 47 of 70; 4 → 5 of 134 | Across 277 saved cases, Vega flagged 18 of the chatbot's 31 missed emergencies, and emergency advice rose from 39 to 47 of 70, with one added false alarm in 134. | Reduced under-triage, the question's first half, with its cost. |
+| 14 | `care-trajectory.png`, dumbbells draw on | Scoring released conversations from 11 models, a care-seeking protocol raised turn-by-turn accuracy for every one. | Reach beyond one chatbot. |
+| 15 | The question returns with both halves checked → D4 → end card | A supporting model can do both: catch the emergencies a chatbot under-calls, and show the person when it does, for about a third of a second per message. | Answers the opening question. |
 
 **Capture:** a live workspace capture (Observability, Training Lab, Baseline Lab). Everything else is boards D1–D4 and real figures.
 
@@ -81,7 +80,7 @@ External facts are shown on screen with a source chip. Everything else comes fro
 
 ---
 
-## Alzheimer's research (~2:15)
+## Alzheimer's research (~2:10)
 
 **Industry:** neuroimaging and dementia research. **Workflows:** stage classification from MRI, atrophy measurement, tracking change across scans.
 **Hero capability:** an expert ensemble of deliberately varied CNNs, then a published, transparent measure of atrophy.
@@ -95,12 +94,12 @@ External facts are shown on screen with a source chip. Everything else comes fro
 | 3 | Kinetic type over the CNN diagram, three towers appearing | Can several deep-learning models, each carefully chosen and altered in architecture, depth, width and hyperparameters, be combined into an expert ensemble that consults each model's strengths and is more accurate than any one alone? | The research question, part two: the hypothesis the film tests. |
 | 4 | Montage builds tile by tile; counter to 6,400; four class chips | The study trained on 6,400 ADNI brain scans across four stages, from non-demented to moderate dementia. | Data scale and task. |
 | 5 | Two neighbouring-stage scans side by side | The hard part is telling neighbouring stages apart, because their scans can look structurally alike. | Why one model isn't enough. |
-| 6 | Real CNN diagram splits into A1 towers; hyperparameter chips flick across them; strength tags | Custom CNNs were built at different depths and widths, tuned across batch normalisation, dropout and activation functions, and each learned different strengths. | The experts. |
+| 6 | Real CNN diagram splits into A1 towers; hyperparameter chips flick across them; strength tags | Each custom CNN was built differently, and each learned different strengths. | The experts. |
 | 7 | A2 probability average (schematic bars) → 78% → 85% bar | Averaging their full class probabilities lets one model's confidence cover another's doubt: accuracy rose from 78 to 85 percent, with fewer crucial cases missed. | The answer: yes, the ensemble beats the single model. |
 | 8 | Kinetic type over a scan as its tissue begins to glow | The next question was where the disease shows itself most, and whether that can be measured directly. | Bridges to the second study. |
 | 9 | Paper page 1 slides in (ICRITO 2022 header) | The answer was published at IEEE ICRITO 2022: a computer-vision method that measures atrophy itself. | The published work. |
 | 10 | A3 colour mask on the Fig. 6 scan; dem = b / (w + g) writes on | Each scan is separated into dark fluid and white and grey tissue, and the ratio of fluid to tissue becomes one atrophy score. | The method, in plain terms. |
-| 11 | A4 scale 0–1, ticks at 0.41 and 0.83, marker slides to 0.60 → real Fig. 7 | Across 2,198 labelled scans, healthy brains averaged 0.41 and dementia 0.83; this mildly demented scan scores 0.60, in between. | Reference bounds and how a score is read. |
+| 11 | A4 scale 0–1, ticks at 0.41 and 0.83, marker slides to 0.60 → real Fig. 7 | Across 2,198 labelled scans, healthy brains averaged 0.41 and brains with dementia 0.83, so every new scan has a place on that scale. | Reference bounds and how a score is read. |
 | 12 | Default crop vs hippocampal crop; Table II counts 66 → 71 | Focusing on the hippocampus, one of the first regions Alzheimer's affects, raised accuracy from 66 to 71 percent. | Where the disease shows, measured. |
 | 13 | Equation 4 writes on; two scans of the same subject with an arrow (schematic) | Measured again on later scans, the change in that score gives an automated rate of atrophy. | Tracking progression, toward early detection. |
 | 14 | Both studies together → end card | Together, the two studies give doctors a stage for each scan, and a transparent measure of how far, and how fast, the brain is changing. | Answers the opening question. |
@@ -111,12 +110,12 @@ External facts are shown on screen with a source chip. Everything else comes fro
 
 ---
 
-## Birb Hangout (~3:00)
+## Birb Hangout (~2:45)
 
 **Industry:** social and realtime 3D software, an online third space for friends and family who live apart. **Workflows:** private rooms, music, a shared bookshelf, reading, television, trivia, hugs and emotes, napping, the Dream (breathing entry, flight, islands, valley), and the AI-collaboration tooling used to build it.
 **Hero capability:** a warm shared room where people can see what each other are doing and join in, and an annotation tool that lets an AI find a defect in 3D space.
 **Primary source:** the Birb Hangout about site (birb-hangout-about.onrender.com): its wording, its eleven activities in order, and its clip selections.
-**Spine:** online third spaces → the hearth from *Mythos* → the Birb fireplace → the idea → the room as interface → all eleven activities → how it syncs → collaborating with AI → payoff.
+**Spine:** online third spaces → the hearth from *Mythos* → the Birb fireplace → the idea → the room as interface → all eleven activities → collaborating with AI → payoff.
 
 | # | Picture | Narration | Why it's there |
 |---|---|---|---|
@@ -124,25 +123,24 @@ External facts are shown on screen with a source chip. Everything else comes fro
 | 1 | Typographic card *Stephen Fry · Mythos*; a flame grows beneath the words | In Mythos, Stephen Fry writes about the hearth: the fire at the centre of the home, where people told stories, sat quietly, and kept each other company. | The inspiration, in the about site's own terms. |
 | 2 | The flame match-cuts into the **Birb fireplace**, slow push-in (nap clip, fire audible) | Birb Hangout began as a small hearth across distance. | The concept made real, with the fireplace on screen. |
 | 3 | Pull back to the **full lounge, both birds, whole room visible**; wordmark | It became a 3D social world where friends and family spend time together as birds, with each other's company as the only goal. | The idea, over the whole product. |
-| 4 | **New capture:** create a room → share the code → a friend joins | A friend joins with a short room code, and a refresh brings back the same bird. | Private and easy to join. |
+| 4 | **New capture:** create a room → share the code → a friend joins | A friend joins with a short room code. | Private and easy to join. |
 | 5 | Wide: one bird reading, the other at the record cabinet | Everything happens inside the room itself: books, records and the television are real objects, so you can look up, see what a friend is doing, and join in. | The design philosophy (diegetic interaction). |
 | 6 | `records` (00:00–00:12), its music audible under the voice | Choose a record, carry it across the lounge, and the music starts when it reaches the turntable. | Activity 1. |
 | 7 | `bookshelf-selection` | Friends choose which books stay on the shelf, | Activity 2. |
 | 8 | `reading` (*Dracula* opens) | and read in two rocking chairs that face each other, quiet without being solitary. | Activity 3. |
-| 9 | `watching` (choosing, then the sofa view) | One bird holds the remote, and every browser stays on the same video, at the same moment. | Activity 4, and its sync. |
-| 10 | `trivia`, cut on the ejection | In trivia, a wrong answer launches the losing bird, seat and all, in a reveal every screen plays at once. | Activity 5: the room event. |
+| 9 | `watching` (choosing, then the sofa view) | One bird holds the remote, and everyone watches together from the sofa. | Activity 4, and its sync. |
+| 10 | `trivia`, cut on the ejection | In trivia, a wrong answer launches the losing bird, seat and all, while everyone watches. | Activity 5: the room event. |
 | 11 | `hug` | Birds greet each other with hugs and quick emotes. | Activity 6. |
 | 12 | `nap` | By the fire, they can nap side by side, making room for doing almost nothing. | Activity 7: back at the hearth. |
 | 13 | `dream-entry`: the breathing ring and stars | Three slow breaths carry them into a shared Dream. | Activity 8. |
 | 14 | `flight` | There, they learn to fly by feel: dive for speed, pull up to climb, bank to turn. | Activity 9. |
 | 15 | `islands` | Floating islands give every flight somewhere to go, | Activity 10. |
-| 16 | `exploration` (river, low pass) | across a valley almost nine kilometres long, built from real USGS elevation data. | Activity 11, and the scale of the world. |
-| 17 | B1 sync map (schematic) | A shared room server keeps presence, seats, media and the Dream in step, while each browser flies its own bird and both build the same landscape from one seed. | The engineering, in plain terms. |
-| 18 | Kinetic type over a paused landscape frame | Building a world like this raised a new question: how do you point an AI coding assistant at something that only looks wrong from one camera angle? | Sets up the AI-collaboration story. |
-| 19 | `annotation-workflow`: pause → orbit → zoom → mark → describe | An annotation tool inside the game's studios pauses the scene, so you can orbit to the defect, draw over it, and describe it. | The interface used to collaborate with AI. |
-| 20 | The mark's area lights the hit geometry; packet card: image, camera, object, coordinates | The mark is traced into the 3D scene itself, so the AI receives the image, the camera position, and the exact object or patch of terrain to fix. | How defects are traced in the 3D environment. |
-| 21 | `flight-studio.png` → before/after pair from the same camera | After each fix, the same view is recaptured beside the original, so every change is checked exactly where the problem was found. | Closes the loop: verified fixes. |
-| 22 | Back at the fireplace, both birds asleep → end card | Wherever the people you love are, the hearth is one room code away. | Payoff, tied back to the hearth. |
+| 16 | `exploration` (river, low pass) | across a valley almost nine kilometres long, shaped from real elevation data. | Activity 11, and the scale of the world. |
+| 17 | Kinetic type over a paused landscape frame | Building a world like this raised a new question: how do you point an AI coding assistant at something that only looks wrong from one camera angle? | Sets up the AI-collaboration story. |
+| 18 | `annotation-workflow`: pause → orbit → zoom → mark → describe | An annotation tool inside the game's studios pauses the scene, so you can orbit to the defect, draw over it, and describe it. | The interface used to collaborate with AI. |
+| 19 | The mark's area lights the hit geometry; packet card: image, camera, object, coordinates | The mark is traced into the 3D scene itself, so the AI receives the image, the camera position, and the exact object or patch of terrain to fix. | How defects are traced in the 3D environment. |
+| 20 | `flight-studio.png` → before/after pair from the same camera | After each fix, the same view is recaptured beside the original, so every change is checked exactly where the problem was found. | Closes the loop: verified fixes. |
+| 21 | Back at the fireplace, both birds asleep → end card | Wherever the people you love are, the hearth is one room code away. | Payoff, tied back to the hearth. |
 
 **Capture:** one new shot (create a room, then join by code with a second browser), which needs Birb running locally. The about site's clips (`projects/birb-hangout/captures/about-site/`, 960 px) set which moments to use. Each is re-cut from the full-resolution `.mov` master where one exists, and the 960 px clip is used only where there is no master (e.g. bookshelf selection, islands, exploration, if they aren't in the masters).
 **Fact sources:** the about site (the hearth and *Mythos*, the eleven activities, the 3.8 × 8.8 km USGS valley, the annotation workflow) and `content/projects/birb-hangout.json` (room codes, identity on refresh, sync model).
@@ -151,7 +149,7 @@ External facts are shown on screen with a source chip. Everything else comes fro
 
 ---
 
-## Refract (~2:15)
+## Refract (~2:00)
 
 **Industry:** academic and engineering research. The worked example is Industrial and Systems Engineering: predicting the remaining useful life of lithium-ion batteries for predictive maintenance. **Workflows:** paper Q&A, note-taking, literature review and gap finding, code-free statistics with leakage checks, multi-model comparison.
 **Hero capability:** one session carries a study from the first highlighted sentence to a tested model, with every decision kept.
@@ -173,8 +171,6 @@ External facts are shown on screen with a source chip. Everything else comes fro
 | 12 | 12 → 14 → 18: Cycle_Index flagged, ρ ≈ −0.9996 | Its audit flags cycle index: cycle count tracks remaining life so closely that a model using it would score well without learning anything about battery health. | The hero catch: leakage prevention. |
 | 13 | 19 saved exclusion | The researcher accepts the exclusion, and the decision is saved with its reason. | Human decision, recorded. |
 | 14 | 20 → 23 → 24: three models on one split | Three models then run on the same held-out data, a mean baseline, linear regression and a random forest, and are compared side by side. | Several models at once. |
-| 15 | 25 random forest feature importance | The random forest leads, and discharge time carries most of its predictive weight. | The finding, without an RMSE headline. |
-| 16 | Provenance taxonomy; the five classes light in turn | Every answer keeps its paper and page, and every interpretive claim carries one of five provenance labels. | Trust. |
-| 17 | F2 session chain from real thumbnails → end card | From the first highlighted sentence to the tested model, the whole study stays in one place, with its reasoning attached. | Payoff tied to the need. |
+| 15 | F2 session chain from real thumbnails → end card | From the first highlighted sentence to the tested model, the whole study stays in one place, with its reasoning attached. | Payoff tied to the need. |
 
 **Capture:** none (option B: the 25 thesis screenshots, plus designed F1 and F2). The end card carries the San José State ISE master's project credit.
