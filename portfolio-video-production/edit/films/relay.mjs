@@ -1,29 +1,29 @@
 // Relay v3: the need, the idea, Maya's live voice request, three typed requests, the intelligence
 // layer and its security boundary, the operations record, and the measured results.
 // Times are seconds; event names are the labels logged by capture/journeys/relay.mjs.
-// The voice beat plays the recorded live Deepgram exchange (projects/relay/voice/live-02) with the
-// narrator silent; long agent waits in the typed requests are cut and labelled on screen.
+// The voice beats play recorded live Deepgram exchanges (projects/relay/voice/live-02, greeting
+// included, and live-03 for the meeting) with the narrator silent; long agent waits in the typed
+// requests are cut and labelled on screen.
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { f, FPS, captureShot, event, loadNarration } from "../planner.mjs";
 
 export const meta = {
   slug: "relay",
-  take: 3,
+  take: 4,
   palette: { accent: "#3ccfba", accent2: "#3b7be0", deep: "#06141f", ink: "#ffffff", muted: "rgba(255,255,255,0.72)", warn: "#f5a524", ok: "#34c38f" },
   tagline: "One workspace and one voice agent for every employee service",
   impact: "Say it once, and Relay finds the record, the owner and the next step.",
   link: "neerav-git.github.io/projects/relay",
-  runtime: [120, 175], // v3 script approved at about 2:30
+  runtime: [120, 200], // v3 script approved at about 2:30; the greeting and the spoken meeting add about 30 s
 };
 
 // Frames covered by [start, start + length), so adjacent scenes tile exactly.
 const span = (start, length) => f(start + length) - f(start);
 const centre = (b) => ({ x: b.x + b.width / 2, y: b.y + b.height / 2 });
 
-// The typed requests, word for word from the evaluation recordings the replay uses (W2, W3, W5).
+// The typed requests, word for word from the evaluation recordings the replay uses (W5).
 const ASKED = {
-  meeting: "Set up a 30 minute follow-up with Casey tomorrow afternoon at 2",
   paycheck: "What's blocking my first paycheck?",
   deposit: "Take me to direct deposit",
 };
@@ -75,40 +75,29 @@ export function build({ journey, say, video, terminal }) {
   const steps = [];
   const audio = [];
   const extraCaptions = [];
+  // Caption cues split in proportion to their length (52 characters at most).
+  const cueParts = (from, to, parts, place) => {
+    const total = parts.join(" ").length;
+    let cursor = from;
+    parts.forEach((text) => {
+      const d = ((to - from) * text.length) / total;
+      extraCaptions.push({ start: place(cursor), end: place(cursor + d), text });
+      cursor += d;
+    });
+  };
 
-  // ---------- 1. The need: the whole workspace, section by section ----------
+  // ---------- 1. The need: one portal per department, as a schematic ----------
   {
-    const c = "00-tour";
-    const firstMove = ev(c, "move-start", "nav-My Onboarding");
-    const help = ev(c, "click", "nav-Help & Support");
-    const home = ev(c, "click", "nav-Home");
     const s0 = say(0, 0.7);
     const s1 = say(1, s0.end + 0.4);
-    const length = s1.end + 0.55;
-    const s = shot({
-      id: "tour", chapter: c, start: 0, srcIn: 0, srcOut: ch[c].frames - 1, length,
-      // The home page holds full frame while the first words land, then the sections follow.
-      pins: [[firstMove.frame, 2.4], [help.frame, s1.word("support") - 0.1], [home.frame, s1.end - 0.15]],
-      keys: [
-        { at: 0, z: 1.0, focus: { x: 960, y: 540 }, dur: 0 },
-        { at: 0.05, z: 1.05, focus: { x: 990, y: 520 }, dur: 2.3 },
-        { at: 2.4, z: 1.0, focus: { x: 960, y: 540 }, dur: 1.2 },
-        { at: 3.7, z: 1.04, focus: { x: 1000, y: 530 }, dur: length - 3.7 },
-      ],
-      outT: { type: "blurDissolve", dur: 26 },
-    });
-    const pages = [
-      ["My Onboarding", "HR · My Onboarding"],
-      ["Pay & Benefits", "Payroll · Pay & Benefits"],
-      ["Learning", "Learning"],
-      ["Help & Support", "IT · Help & Support"],
-    ];
-    pages.forEach(([name, label], k) => {
-      const arrived = ev(c, "wait-end", `page-${name}`);
-      const box = ev(c, "mark", `section-${name}`).main;
-      const leave = k + 1 < pages.length ? ev(c, "move-start", `nav-${pages[k + 1][0]}`) : ev(c, "move-start", "nav-Home");
-      overlayAt(s, { type: "callout", box: { x: box.x + 24, y: box.y + 20, width: Math.min(box.width - 48, 620), height: 96 }, label, side: "bottom", pad: 6, dim: false }, arrived.frame + 6, leave.frame);
-    });
+    const length = s1.end + 0.7;
+    const times = {
+      hr: f(s0.word("hr")), it: f(s0.word("it")), payroll: f(s0.word("payroll")), learning: f(s0.word("learning")),
+      forms: f(s0.word("forms")), owners: f(s0.word("owners")),
+      hire: f(s1.start), system: f(s1.word("system")), form: f(s1.word("form")), person: f(s1.word("person")),
+      support: f(s1.word("support")), incomplete: f(s1.word("incomplete")), wrong: f(s1.word("wrong")),
+    };
+    push({ id: "problem", kind: "problem", from: 0, duration: span(0, length), out: { type: "blurDissolve", dur: 26 }, props: { times } });
     t = length;
   }
 
@@ -117,7 +106,7 @@ export function build({ journey, say, video, terminal }) {
   push({ id: "sting", kind: "sting", from: f(stingStart), duration: 114, tagline: meta.tagline, in: { type: "blurDissolve", dur: 26 }, out: { type: "wipe", dur: 24 } });
   t = stingStart + 114 / FPS;
 
-  // ---------- 3. The idea over the whole home page, then Maya taps the voice agent ----------
+  // ---------- 3. Relay: every department in one workspace, then the voice agent and Maya's tap ----------
   const voiceLog = JSON.parse(readFileSync(path.join(journey.dir, "01-voice.voice.json"), "utf8"));
   const cues = JSON.parse(readFileSync(path.join(journey.dir, "01-voice.audio.json"), "utf8"));
   const voiceWav = path.relative(root, path.join(journey.dir, "01-voice.audio.wav"));
@@ -127,36 +116,84 @@ export function build({ journey, say, video, terminal }) {
   const lines = voiceLog.log.filter((e) => e.in === "ConversationText").map(chapterT).filter((s) => s >= answerAt - 0.1);
   const orb = ev("01-voice", "click", "orb");
   const orbBox = orb.box;
-  // The tap and the session connecting; the greeting is cut and the clip resumes as Maya speaks.
   const aOut = orb.frame + f(1.0);
-  const ideaStart = t - 24 / FPS;
-  let journeyStart;
+  const tourStart = t - 24 / FPS;
+  let s2;
+  let s3;
   {
-    const orbMove = ev("01-voice", "move-start", "orb");
-    const s2 = say(2, ideaStart + 0.6);
-    const s3 = say(3, s2.end + 0.45);
-    journeyStart = s3.start - 0.2;
-    const tapAt = s3.end + 0.2 - ideaStart;
-    const length = tapAt + (aOut - orb.frame) / FPS;
-    const L = (s) => s - ideaStart;
-    const near = { x: centre(orbBox).x - 330, y: centre(orbBox).y - 190 };
-    steps.push({ label: "Ask", from: f(journeyStart) });
+    // The sections at the approved draft's pace: My Onboarding to Home over 16.3 s. Line 2 runs over
+    // them; the voice-agent callout sits on the orb, which is in the same corner on every page.
+    const c = "00-tour";
+    const firstMove = ev(c, "move-start", "nav-My Onboarding");
+    const homeClick = ev(c, "click", "nav-Home");
+    const homeArrived = ev(c, "wait-end", "page-Home");
+    const srcIn = firstMove.frame - f(0.3);
+    const pace = (homeClick.frame - firstMove.frame) / FPS / 16.3;
+    const length = (homeArrived.frame - srcIn) / FPS / pace;
+    const L = (x) => x - tourStart;
+    s2 = say(2, tourStart + 1.0);
+    // Line 3 ends as Maya taps, a moment after the tour lands on Home.
+    s3 = say(3, Math.max(s2.end + 0.45, tourStart + length + 0.9 - (narration[3].end - narration[3].start)));
+    const orbFrom = Math.max(0.3, L(s2.word("deepgram")) - 0.05);
+    const orbTo = L(s2.word("connects")) + 0.6;
     const s = shot({
-      id: "idea", chapter: "01-voice", start: ideaStart, srcIn: 0, srcOut: aOut, length, tiltIn: 60,
-      pins: [[orbMove.frame, L(s3.start) + 0.2], [orb.frame, tapAt]],
+      id: "tour", chapter: c, start: tourStart, srcIn, srcOut: homeArrived.frame, length,
       keys: [
         { at: 0, z: 1.0, focus: { x: 960, y: 540 }, dur: 0 },
-        { at: 0.1, z: 1.03, focus: { x: 975, y: 545 }, dur: L(s2.word("deepgram")) - 0.4 },
-        { at: L(s2.word("deepgram")) - 0.25, z: 1.18, focus: { x: 1180, y: 640 }, dur: L(s2.word("connects")) - L(s2.word("deepgram")) + 0.2 },
-        { at: L(s2.word("connects")), z: 1.06, focus: { x: 1010, y: 560 }, dur: L(s2.end) - L(s2.word("connects")) + 0.3 },
-        { at: L(s3.start), z: 1.55, focus: near, dur: tapAt - L(s3.start) },
+        { at: 0.05, z: 1.04, focus: { x: 1000, y: 530 }, dur: length - 0.05 },
+      ],
+      overlays: [
+        { type: "callout", from: orbFrom, to: orbTo, box: { x: orbBox.x - 10, y: orbBox.y - 10, width: orbBox.width + 20, height: orbBox.height + 20 }, label: "Relay Guide · Deepgram voice agent", side: "left", pad: 6, dim: false },
+        { type: "lowerThird", from: L(s3.start), to: length + 0.5, title: "Maya Patel · day one", detail: "Synthetic employee in Relay's demo portal" },
+      ],
+      inT: { type: "wipe", dur: 24 },
+      outT: { type: "blurDissolve", dur: 15 },
+    });
+    const pages = [
+      ["My Onboarding", "HR · My Onboarding"],
+      ["Pay & Benefits", "Payroll · Pay & Benefits"],
+      ["Learning", "Learning"],
+      ["Help & Support", "IT · Help & Support"],
+    ];
+    // Section callouts give way to the orb callout instead of sharing the screen with it.
+    const [oA, oB] = [f(orbFrom) - 6, f(orbTo) + 6];
+    pages.forEach(([name, label], k) => {
+      const arrived = ev(c, "wait-end", `page-${name}`);
+      const box = ev(c, "mark", `section-${name}`).main;
+      const leave = k + 1 < pages.length ? ev(c, "move-start", `nav-${pages[k + 1][0]}`) : ev(c, "move-start", "nav-Home");
+      let a = s.outFrame(arrived.frame + 4);
+      let b = s.outFrame(leave.frame);
+      if (a < oB && b > oA) {
+        if (a >= oA) a = oB;
+        else b = oA;
+      }
+      if (b - a >= f(0.9)) s.overlays.push({ type: "callout", box: { x: box.x + 24, y: box.y + 20, width: Math.min(box.width - 48, 620), height: 96 }, label, side: "bottom", pad: 6, dim: false, from: a, to: b });
+    });
+    t = tourStart + length;
+  }
+  const ideaStart = t - 15 / FPS;
+  let journeyStart;
+  {
+    // Home, then Maya's tap on the orb as line 3 ends.
+    const orbMove = ev("01-voice", "move-start", "orb");
+    journeyStart = Math.max(s3.start - 0.2, ideaStart);
+    const tapAt = s3.end + 0.2 - ideaStart;
+    const length = tapAt + (aOut - orb.frame) / FPS;
+    const near = { x: centre(orbBox).x - 330, y: centre(orbBox).y - 190 };
+    const moveAt = Math.max(0.3, tapAt - 1.4);
+    steps.push({ label: "Ask", from: f(journeyStart) });
+    const s = shot({
+      id: "idea", chapter: "01-voice", start: ideaStart, srcIn: 0, srcOut: aOut, length,
+      pins: [[orbMove.frame, moveAt], [orb.frame, tapAt]],
+      keys: [
+        { at: 0, z: 1.04, focus: { x: 1000, y: 530 }, dur: 0 },
+        { at: 0.1, z: 1.55, focus: near, dur: tapAt - 0.1 },
         { at: tapAt + 0.1, z: 1.6, focus: { x: near.x - 30, y: near.y - 20 }, dur: length - tapAt - 0.1 },
       ],
       overlays: [
-        { type: "callout", from: L(s2.word("deepgram")) - 0.05, to: L(s2.word("connects")) + 0.6, box: { x: orbBox.x - 10, y: orbBox.y - 10, width: orbBox.width + 20, height: orbBox.height + 20 }, label: "Relay Guide · Deepgram voice agent", side: "left", pad: 6, dim: false },
-        { type: "lowerThird", from: L(s3.start), to: length - 0.2, title: "Maya Patel · day one", detail: "Synthetic employee in Relay's demo portal" },
+        { type: "lowerThird", from: 0, to: length - 0.2, title: "Maya Patel · day one", detail: "Synthetic employee in Relay's demo portal" },
       ],
-      inT: { type: "wipe", dur: 24 },
+      inT: { type: "blurDissolve", dur: 15 },
       outT: { type: "blurDissolve", dur: 15 },
     });
     sync("Orb tap", s, orb.frame, s3.end + 0.2, "day one (end)");
@@ -169,7 +206,8 @@ export function build({ journey, say, video, terminal }) {
   const button = docMark.button ?? docMark.action;
   {
     const start = t - 15 / FPS;
-    const bIn = f(cues.maya.start - 0.45);
+    // From just before the greeting: the agent introduces itself, then Maya asks.
+    const bIn = f(cues.agent[0].start - 0.5);
     const bOut = Math.min(ch["01-voice"].frames - 1, f(cues.agent[1].end + 0.5));
     const length = (bOut - bIn) / FPS;
     const at = (src) => src - bIn / FPS; // shot-local seconds for a chapter time
@@ -189,7 +227,7 @@ export function build({ journey, say, video, terminal }) {
         { at: at(lines[2]) + 0.8, z: 1.52, focus: { x: centre(button).x + 150, y: centre(button).y - 70 }, dur: length - at(lines[2]) - 0.8 },
       ],
       overlays: [
-        { type: "lowerThird", from: 0.3, to: at(calls[0]) - 0.2, title: "Live voice agent", detail: "A recorded Deepgram session in the real portal" },
+        { type: "lowerThird", from: 0.3, to: at(cues.maya.start) - 0.3, title: "Live voice agent", detail: "A recorded Deepgram session in the real portal" },
         { type: "chip", from: at(calls[0]), to: revealFrom - 0.05, box: orbBox, text: "Tool · get_employee_portal_context", side: "left", icon: "⚙" },
         { type: "chip", from: revealFrom, to: at(opened) + 1.4, box: orbBox, text: "Tool · reveal_portal_record → DOC-TAX-1007", side: "left", icon: "⚙" },
         { type: "callout", from: at(opened) + 0.4, to: at(lines[2]) - 0.3, box: record, label: "Due today · opened by the agent", side: "top", tone: "warn", pad: 8, dim: false },
@@ -200,6 +238,7 @@ export function build({ journey, say, video, terminal }) {
     void s;
     audio.push({ file: voiceWav, srcStart: bIn / FPS, srcEnd: bOut / FPS, at: start, fadeIn: 0.12, fadeOut: 0.35 });
     const filmT = (src) => start + at(src);
+    cueParts(cues.agent[0].start, cues.agent[0].end, ["Relay: Hi, I'm Relay Guide.", "Ask me about your onboarding, tasks, documents,", "pay, benefits, or support."], filmT);
     extraCaptions.push({ start: filmT(cues.maya.start), end: filmT(mayaEnd), text: "Maya: What's my next highest-priority task?" });
     ANSWER.forEach((parts, k) => {
       const a = lines[k];
@@ -298,32 +337,86 @@ export function build({ journey, say, video, terminal }) {
     t = startB + lenB;
   }
 
-  // ---------- 6. Meetings, the paycheck, direct deposit: one sentence, three requests ----------
+  // ---------- 6. A meeting by voice (live-03), then the paycheck and direct deposit under one sentence ----------
   {
+    const c = "03-meeting";
+    const mLog = JSON.parse(readFileSync(path.join(journey.dir, "03-meeting.voice.json"), "utf8"));
+    const mCues = JSON.parse(readFileSync(path.join(journey.dir, "03-meeting.audio.json"), "utf8"));
+    const mWav = path.relative(root, path.join(journey.dir, "03-meeting.audio.wav"));
+    const mT = (e) => (e.at - mLog.pageT0) / 1000;
+    const mine = mLog.log.filter((e) => (e.sock ?? 1) === mLog.sock);
+    const mCalls = mine.filter((e) => e.in === "FunctionCallRequest").map(mT);
+    const mAnswer = mCues.agent[1].start;
+    const mLines = mine.filter((e) => e.in === "ConversationText").map(mT).filter((x) => x >= mAnswer - 0.1);
+    const m = ev(c, "mark", "meeting-draft");
+    const drafted = ev(c, "wait-end", "meeting-draft").frame / FPS;
+    const confirm = ev(c, "click", "confirm-meeting");
+    const booked = ev(c, "mark", "meeting-booked");
+    const mOrb = ev(c, "click", "orb-meeting").box;
+
+    // A: Maya asks; the agent drafts the meeting and says the first two lines of its answer, at 1×.
     const startM = t - 24 / FPS;
-    const m = ev("03-meeting", "mark", "meeting-draft");
-    const ready = ev("03-meeting", "wait-end", "meeting-ready");
-    const confirm = ev("03-meeting", "click", "confirm-meeting");
-    const booked = ev("03-meeting", "mark", "meeting-booked");
-    const sentM = ev("03-meeting", "key", "send-meeting");
-    const s6 = say(6, startM + 1.5 - offset(6, "books") + 0.0);
+    const aIn = f(mCues.maya.start - 0.6);
+    const aOutM = f(mLines[2] - 0.15);
+    const lenA = (aOutM - aIn) / FPS;
+    const at = (src) => src - aIn / FPS;
+    const panel = m.panel;
+    const cal = m.calendar;
+    const both = { x: Math.min(cal.x, panel.x), y: Math.min(cal.y, panel.y), width: Math.max(cal.x + cal.width, panel.x + panel.width) - Math.min(cal.x, panel.x), height: Math.max(cal.y + cal.height, panel.y + panel.height) - Math.min(cal.y, panel.y) };
     steps.push({ label: "Meeting", from: f(startM + 0.2) });
-    const LM = (x) => x - startM;
-    const startP = s6.word("explains") - 0.35;
-    const lenM = startP + 12 / FPS - startM;
-    const sm = shot({
-      id: "meeting", chapter: "03-meeting", start: startM, srcIn: ready.frame - f(0.6), srcOut: booked.frame + f(0.4), length: lenM,
-      pins: [[confirm.frame, LM(s6.word("books"))]],
+    shot({
+      id: "meeting", chapter: c, start: startM, srcIn: aIn, srcOut: aOutM, length: lenA,
       keys: [
-        { at: 0, z: 1.12, focus: { x: centre(m.main).x + 120, y: centre(m.main).y }, dur: 0 },
-        { at: 0.2, z: 1.16, focus: { x: centre(m.main).x + 160, y: centre(m.main).y + 10 }, dur: lenM - 0.2 },
+        { at: 0, z: 1.5, focus: { x: centre(mOrb).x - 330, y: centre(mOrb).y - 190 }, dur: 0 },
+        { at: 0.2, z: 1.55, focus: { x: centre(mOrb).x - 310, y: centre(mOrb).y - 180 }, dur: at(drafted) - 0.6 },
+        { at: at(drafted) - 0.2, z: 1.06, focus: { x: centre(both).x, y: centre(both).y }, dur: 0.9 },
+        { at: at(drafted) + 0.8, z: 1.1, focus: { x: centre(both).x + 20, y: centre(both).y + 10 }, dur: Math.max(0.3, lenA - at(drafted) - 0.8) },
       ],
       overlays: [
-        { type: "lowerThird", from: 0.3, to: lenM, title: "Maya asks", detail: ASKED.meeting },
-        { type: "chip", from: 0.05, to: 1.4, box: m.panel, text: `${Math.round((ready.frame - sentM.frame) / FPS)} s of agent work cut`, side: "left", icon: "⏩" },
-        { type: "callout", from: LM(s6.word("books")) + 0.3, to: lenM + 0.3, box: booked.outcome, label: "On the calendar", side: "left", tone: "ok", pad: 6, dim: false },
+        { type: "lowerThird", from: 0.3, to: at(mCalls[0]) - 0.2, title: "Maya asks by voice", detail: "A second recorded Deepgram session" },
+        { type: "chip", from: at(mCalls[0]), to: at(mCalls[1]) - 0.05, box: mOrb, text: "Tool · get_employee_portal_context", side: "left", icon: "⚙" },
+        { type: "chip", from: at(mCalls[1]), to: Math.max(at(drafted) + 1.2, at(mCalls[1]) + 2.2), box: mOrb, text: "Tool · propose_onboarding_action → meeting", side: "left", icon: "⚙" },
+        { type: "callout", from: at(mLines[0]) + 0.2, to: lenA + 0.5, box: m.card, label: "Drafted · waits for Maya", side: "left", tone: "warn", pad: 6, dim: false },
       ],
       inT: { type: "whip", dur: 24, dir: "left" },
+      outT: { type: "blurDissolve", dur: 12 },
+    });
+    audio.push({ file: mWav, srcStart: aIn / FPS, srcEnd: aOutM / FPS + 0.3, at: startM, fadeIn: 0.12, fadeOut: 0.3 });
+    const mFilm = (src) => startM + at(src);
+    cueParts(mCues.maya.start, mCues.maya.end, ["Maya: Set up a 30 minute follow-up with Casey", "tomorrow afternoon at 2."], mFilm);
+    const SAID = [
+      ["Relay: A thirty-minute follow-up with Casey Nguyen", "is ready to schedule on Fri, Oct 2,", "from 2:00 PM to 2:30 PM."],
+      ["The subject is “Follow-up with Casey”."],
+    ];
+    SAID.forEach((parts, k) => {
+      const a = mLines[k];
+      const b = k + 1 < SAID.length ? mLines[k + 1] : Math.min(mLines[2], mCues.agent[1].end);
+      const total = parts.join(" ").length;
+      let cursor = a;
+      parts.forEach((text) => {
+        const d = ((b - a - 0.2) * text.length) / total;
+        extraCaptions.push({ start: mFilm(cursor), end: mFilm(cursor + d), text });
+        cursor += d;
+      });
+    });
+
+    // B: Maya confirms as the narrator says "books"; the meeting lands on the calendar.
+    const startB = startM + lenA - 12 / FPS;
+    const s6 = say(6, startB + 0.6);
+    const LM = (x) => x - startB;
+    const startP = s6.word("explains") - 0.35;
+    const lenM = startP + 12 / FPS - startB;
+    const sm = shot({
+      id: "meeting-confirm", chapter: c, start: startB, srcIn: confirm.frame - f(LM(s6.word("books"))), srcOut: booked.frame + f(0.4), length: lenM,
+      pins: [[confirm.frame, LM(s6.word("books"))]],
+      keys: [
+        { at: 0, z: 1.1, focus: { x: centre(both).x + 20, y: centre(both).y + 10 }, dur: 0 },
+        { at: 0.2, z: 1.14, focus: { x: centre(both).x + 60, y: centre(both).y + 10 }, dur: lenM - 0.2 },
+      ],
+      overlays: [
+        { type: "callout", from: LM(s6.word("books")) + 0.3, to: lenM + 0.3, box: booked.outcome, label: "On the calendar", side: "left", tone: "ok", pad: 6, dim: false },
+      ],
+      inT: { type: "blurDissolve", dur: 12 },
       outT: { type: "blurDissolve", dur: 12 },
     });
     sync("Meeting confirm", sm, confirm.frame, s6.word("books"), "books");
@@ -576,7 +669,7 @@ export function build({ journey, say, video, terminal }) {
     tracker: { from: f(journeyStart) + 30, to: f(journeyEnd) - 10, steps },
     chapters: [
       { name: "The need", at: 0 },
-      { name: "Relay", at: ideaStart },
+      { name: "Relay", at: stingStart },
       { name: "Journey", at: journeyStart },
       { name: "Under the hood", at: hoodStart },
       { name: "Results", at: resultStart },

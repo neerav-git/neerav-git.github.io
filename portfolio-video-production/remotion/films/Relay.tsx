@@ -7,6 +7,7 @@ import { Terminal } from "../components/Technical";
 import { Backdrop } from "../components/Backdrop";
 import { AnimatedDiagram, type DiagramCheck, type DiagramEdge, type DiagramNode, type DiagramPacket } from "../components/Diagram";
 import { Film, type Plan, type PlanScene } from "../Film";
+import { RelayProblem, type ProblemTimes } from "../designed/RelayProblem";
 import { RELAY_ICON } from "./relay-icon";
 import { FONT } from "../lib/theme";
 
@@ -87,6 +88,8 @@ export const RelayFilm: React.FC<{ plan: Plan; captions?: boolean }> = ({ plan, 
           </AbsoluteFill>
         );
       }
+      case "problem":
+        return <RelayProblem palette={plan.palette} times={(scene.props as { times: ProblemTimes }).times} />;
       case "endcard":
         return <EndCard palette={plan.palette} title="Relay" impact={scene.impact as string} link={scene.link as string} mark={<Mark size={104} />} />;
       default:

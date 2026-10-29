@@ -57,11 +57,14 @@ export function buildReplay(sessionFile, micWav16k) {
   };
 }
 
-export function replayScript(data) {
+// One recorded session per voice conversation: the page's Nth Deepgram socket replays sessions[N - 1].
+export function replayScript(sessions) {
+  const list = Array.isArray(sessions) ? sessions : [sessions];
   return `(() => {
-  const R = ${JSON.stringify(data)};
+  const S = ${JSON.stringify(list)};
   const now = () => performance.now();
-  const state = (window.__voiceReplay = { log: [], phase: "ready", phases: [], settingsAt: null, micStart: null });
+  const state = (window.__voiceReplay = { log: [], phase: "ready", phases: [], settingsAt: null, micStart: null, sock: 0 });
+  let sockets = 0;
   window.addEventListener("northstar:voice-state", (e) => {
     const phase = e.detail && e.detail.phase;
     if (phase && phase !== state.phase) { state.phase = phase; state.phases.push({ phase, at: now() }); }
@@ -77,8 +80,7 @@ export function replayScript(data) {
   // Microphone: a silent stream for getUserMedia; the PCM worklet's port is fed Maya's line.
   const media = navigator.mediaDevices || (navigator.mediaDevices = {});
   media.getUserMedia = async () => new AudioContext().createMediaStreamDestination().stream;
-  const micPcm = Uint8Array.from(atob(R.mic), (c) => c.charCodeAt(0));
-  const mic = new Int16Array(micPcm.buffer, 0, micPcm.length >> 1);
+  const mics = S.map((R) => { const u = Uint8Array.from(atob(R.mic), (c) => c.charCodeAt(0)); return new Int16Array(u.buffer, 0, u.length >> 1); });
   const FRAME = 320; // 20 ms at 16 kHz
   const NativeAWN = window.AudioWorkletNode;
   window.AudioWorkletNode = function (ctx, name, options) {
@@ -90,7 +92,8 @@ export function replayScript(data) {
     const tick = () => {
       t += 20;
       const frame = new Int16Array(FRAME);
-      if (state.micStart !== null && now() >= state.micStart) {
+      const mic = mics[state.sock - 1];
+      if (mic && state.micStart !== null && now() >= state.micStart) {
         const i = Math.round((now() - state.micStart) / 1000 * 16000);
         if (i < mic.length) frame.set(mic.subarray(i, Math.min(mic.length, i + FRAME)));
       }
@@ -110,7 +113,10 @@ export function replayScript(data) {
       Object.assign(this, { url, readyState: 0, binaryType: "blob", protocol: "", extensions: "", bufferedAmount: 0, onopen: null, onmessage: null, onclose: null, onerror: null });
       this.counts = {};
       this.t0 = now();
-      state.log.push({ ev: "construct", at: this.t0 });
+      this.n = ++sockets;
+      this.R = S[Math.min(this.n, S.length) - 1];
+      Object.assign(state, { sock: this.n, settingsAt: null, micStart: null });
+      state.log.push({ ev: "construct", at: this.t0, sock: this.n });
       this.fire("open#1", this.t0);
       setTimeout(() => { if (this.readyState === 0) { this.readyState = 1; this.emit("open"); } }, 1);
     }
@@ -121,19 +127,19 @@ export function replayScript(data) {
       if (handler) handler.call(this, ev);
     }
     fire(key, sentAt) {
-      const items = R.byAnchor[key] || [];
+      const items = this.R.byAnchor[key] || [];
       // Never earlier than the live session's offset from Settings.
-      const base = key === "open#1" || state.settingsAt === null ? sentAt : Math.max(sentAt, state.settingsAt + R.anchorOffset[key]);
+      const base = key === "open#1" || state.settingsAt === null ? sentAt : Math.max(sentAt, state.settingsAt + this.R.anchorOffset[key]);
       for (const item of items) setTimeout(() => this.deliver(item, key), Math.max(0, base + item.delay - now()));
     }
     deliver(item, key) {
       if (this.readyState !== 1) return;
       if (item.text) {
-        state.log.push({ in: JSON.parse(item.text).type, at: now(), anchor: key });
+        state.log.push({ in: JSON.parse(item.text).type, at: now(), anchor: key, sock: this.n });
         this.emit("message", { data: item.text });
       } else {
         const buf = b64(item.bin);
-        state.log.push({ in: "audio", at: now(), bytes: buf.byteLength });
+        state.log.push({ in: "audio", at: now(), bytes: buf.byteLength, sock: this.n });
         this.emit("message", { data: this.binaryType === "arraybuffer" ? buf : new Blob([buf]) });
       }
     }
@@ -143,16 +149,16 @@ export function replayScript(data) {
       try { type = JSON.parse(data).type; } catch { return; }
       if (type === "KeepAlive") return;
       const at = now();
-      state.log.push({ out: type, at });
-      if (!R.anchorOffset.hasOwnProperty(type + "#1")) return;
+      state.log.push({ out: type, at, sock: this.n });
+      if (!this.R.anchorOffset.hasOwnProperty(type + "#1")) return;
       const k = (this.counts[type] = (this.counts[type] || 0) + 1);
-      if (type === "Settings" && k === 1) { state.settingsAt = at; state.micStart = at + R.micDelay; }
+      if (type === "Settings" && k === 1) { state.settingsAt = at; state.micStart = at + this.R.micDelay; }
       this.fire(type + "#" + k, at);
     }
     close(code = 1000) {
       if (this.readyState === 3) return;
       this.readyState = 3;
-      state.log.push({ ev: "close", at: now() });
+      state.log.push({ ev: "close", at: now(), sock: this.n });
       this.emit("close", { code, reason: "", wasClean: true });
     }
   }

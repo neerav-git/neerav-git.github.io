@@ -2,10 +2,11 @@
 // 00-tour walks the workspace's sections. 01-voice replays a live Deepgram voice session
 // (projects/relay/voice/live-02, recorded with capture/relay/voice-live.ts): Kokoro speaks Maya's
 // question, and the agent's spoken answer, tool calls and navigation are the ones the live agent
-// produced. 02-laptop, 03-meeting and 04-pay are typed: the text guide replays live agent turns
-// recorded by the evaluation (W2, W3, W5 in evaluation/ui-runner/recordings) through the real
-// portal tools, and Maya's confirm clicks are real, so cases, meetings and workflow records are
-// written by the app itself.
+// produced. 03-meeting replays a second live session the same way (live-03: Maya asks for a
+// follow-up with Casey; the agent drafts it on the calendar). 02-laptop and 04-pay are typed: the
+// text guide replays live agent turns recorded by the evaluation (W2, W5 in
+// evaluation/ui-runner/recordings) through the real portal tools. Maya's confirm clicks are real,
+// so cases, meetings and workflow records are written by the app itself.
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -15,16 +16,17 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const VOICE = path.join(root, "projects", "relay", "voice");
 const RELAY_REPO = process.env.RELAY_REPO || "/Users/neeravch/Documents/ChatGPT/DeepGram Project";
 const replay = buildReplay(path.join(VOICE, "live-02", "session.json"), path.join(VOICE, "maya-q2-16k.wav"));
+const meetingReplay = buildReplay(path.join(VOICE, "live-03", "session.json"), path.join(VOICE, "maya-q3-16k.wav"));
 const recording = (id) => JSON.parse(readFileSync(path.join(RELAY_REPO, `evaluation/ui-runner/recordings/${id}.json`), "utf8"));
 const W2 = recording("W2");
-const W3 = recording("W3");
 const W5 = recording("W5");
-// The replay matches each turn on the employee's last line; earlier lines are [Portal update] notes.
+// The replay plays its turns in order, matching each on the employee's last line (earlier lines are
+// [Portal update] notes). The meeting is spoken (live-03), so it has no typed turn here.
 const lastLine = (text) => text.trim().split("\n").at(-1).trim();
 // The recordings keep no step timing, so replayed answers would land in milliseconds. Each turn is
 // paced to the median of the live text runs of that request (evaluation/ui-runs, deepgram.agent
 // "live"): tool calls before the first visible text, then the answer streams until the turn ends.
-const LIVE_MS = [[1969, 19504], [2280, 25113], [2921, 25511], [2142, 9331]]; // [first text, done]
+const LIVE_MS = [[1969, 19504], [2921, 25511], [2142, 9331]]; // [first text, done]
 function paced(turn, [first, done]) {
   const tools = turn.steps.filter((step) => step.type === "functions").length;
   const texts = turn.steps.filter((step) => step.type === "text").length;
@@ -39,8 +41,8 @@ function paced(turn, [first, done]) {
     }),
   };
 }
-const TURNS = [W2.turns[3], W3.turns[1], W5.turns[0], W5.turns[1]].map((turn, i) => paced(turn, LIVE_MS[i]));
-const [LAPTOP, MEETING, PAYCHECK, DEPOSIT] = TURNS.map((turn) => lastLine(turn.user));
+const TURNS = [W2.turns[3], W5.turns[0], W5.turns[1]].map((turn, i) => paced(turn, LIVE_MS[i]));
+const [LAPTOP, PAYCHECK, DEPOSIT] = TURNS.map((turn) => lastLine(turn.user));
 const SECTIONS = ["My Onboarding", "Pay & Benefits", "Learning", "Help & Support"];
 
 const nav = (page, name) => page.locator(".sidebar, nav, aside").getByText(name, { exact: true }).first();
@@ -83,7 +85,7 @@ export default {
     const response = await context.request.post(`${this.url}/api/dev/reset`);
     if (!response.ok()) throw new Error(`Relay reset failed: ${response.status()}`);
     await context.addInitScript({ content: "window.__name = (target) => target;" });
-    await context.addInitScript({ content: replayScript(replay.data) });
+    await context.addInitScript({ content: replayScript([replay.data, meetingReplay.data]) });
     await context.addInitScript({ content: `window.__guideReplay = ${JSON.stringify({ scenario: "film-take-3", turns: TURNS })};` });
     // No Deepgram traffic during capture: the token and usage calls are answered locally.
     await context.route("**/api/deepgram-token", (route) => route.fulfill({ status: 200, contentType: "text/plain", body: "replay" }));
@@ -164,23 +166,53 @@ export default {
     {
       name: "03-meeting",
       async run(rec, page) {
-        await rec.hold(300);
+        // Maya taps the orb again and asks by voice; the second socket replays live-03.
+        const pageT0 = await page.evaluate(() => performance.now());
+        const frame0 = rec.frameIndex;
+        await rec.hold(400);
         const done = await succeeded(page).count();
-        await sendTyped(rec, page, MEETING, "meeting");
+        const phase = () => page.evaluate(() => window.__voiceReplay.phase);
+        // The orb is hidden while the typed conversation is open.
+        const closePanel = page.locator(".assistant-panel").getByRole("button", { name: "Close conversation" });
+        if (await closePanel.isVisible()) {
+          await rec.click(closePanel, { label: "close-typed" });
+          await rec.waitFor(() => page.locator(".assistant-launcher").isVisible(), { label: "orb-visible", settle: 400, pageTimeout: 10000 });
+        }
+        await rec.click(page.locator(".assistant-launcher"), { label: "orb-meeting" });
+        await rec.waitFor(async () => (await phase()) === "greeting", { label: "meeting-greeting", settle: 0, pageTimeout: 60000 });
+        await rec.waitFor(async () => (await phase()) === "listening", { label: "meeting-listening", settle: 0, pageTimeout: 60000 });
+        await rec.waitFor(async () => (await phase()) === "processing", { label: "meeting-heard", settle: 0, pageTimeout: 60000 });
         await rec.waitFor(async () => (await confirmCard(page).count()) > 0 && (await confirmCard(page).isVisible()), { label: "meeting-draft", settle: 0, pageTimeout: 60000 });
-        await rec.waitFor(() => idle(page), { label: "meeting-ready", settle: 500, pageTimeout: 60000 });
-        rec.mark("meeting-draft", { card: await rec.box(confirmCard(page)), confirm: await rec.box(confirmCard(page).locator(".assistant-primary")), panel: await rec.box(page.locator(".assistant-panel")), main: await rec.box(page.locator("main")) });
-        await rec.hold(1400);
+        await rec.waitFor(async () => (await phase()) === "speaking", { label: "meeting-answer", settle: 0, pageTimeout: 60000 });
+        await rec.waitFor(async () => (await phase()) === "listening", { label: "meeting-ready", settle: 800, pageTimeout: 60000 });
+        rec.mark("meeting-draft", { card: await rec.box(confirmCard(page)), confirm: await rec.box(confirmCard(page).locator(".assistant-primary")), panel: await rec.box(page.locator(".assistant-panel")), main: await rec.box(page.locator("main")), calendar: await rec.box(page.locator(".meeting-calendar")) });
+        const log = await page.evaluate(() => window.__voiceReplay);
+        writeFileSync(path.join(rec.outDir, "03-meeting.voice.json"), `${JSON.stringify({ recordedAt: meetingReplay.recordedAt, pageT0, frame0, ...log })}\n`);
+        await rec.hold(900);
         await rec.click(confirmCard(page).locator(".assistant-primary"), { label: "confirm-meeting" });
         await rec.waitFor(async () => (await succeeded(page).count()) > done, { label: "meeting-booked", settle: 0, pageTimeout: 30000 });
         await rec.hold(900);
         rec.mark("meeting-booked", { outcome: await rec.box(succeeded(page).last()), main: await rec.box(page.locator("main")), panel: await rec.box(page.locator(".assistant-panel")) });
         await rec.hold(1800);
-        // Maya closes the calendar so the next request starts from the portal.
+        // Maya closes the calendar and ends the voice session; the next request is typed.
         const close = page.locator(".meeting-calendar__close");
         if (await close.isVisible()) {
           await rec.click(close, { label: "close-calendar" });
           await rec.waitFor(async () => !(await page.locator(".meeting-calendar").isVisible()), { label: "calendar-closed", settle: 400, pageTimeout: 10000 });
+        }
+        const launcher = page.locator(".assistant-launcher");
+        if ((await launcher.getAttribute("aria-pressed")) === "true") {
+          // The conversation panel opened with the draft; the orb shows again once it is closed.
+          if (!(await launcher.isVisible()) && (await closePanel.isVisible())) {
+            await rec.click(closePanel, { label: "close-voice-panel" });
+            await rec.waitFor(() => launcher.isVisible(), { label: "orb-back", settle: 400, pageTimeout: 10000 });
+          }
+          await rec.click(launcher, { label: "stop-voice-meeting" });
+          await rec.waitFor(async () => (await launcher.getAttribute("aria-pressed")) !== "true", { label: "meeting-voice-stopped", pageTimeout: 10000 });
+        }
+        if (!(await page.locator("#assistant-query").isVisible())) {
+          await rec.click(page.locator(".assistant-chat-launcher"), { label: "resume-typed" });
+          await rec.waitFor(() => page.locator("#assistant-query").isVisible(), { label: "panel-typed", settle: 500 });
         }
       },
     },

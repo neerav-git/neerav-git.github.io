@@ -1,4 +1,4 @@
-# Portfolio films: handoff (2026-10-28, end of session)
+# Portfolio films: handoff (2026-10-29)
 
 Six narrated portfolio films, built on a Remotion engine.
 - Films: relay, refract-ai, homeward, birb-hangout, tracelens, alzheimers-research (one film covering both Alzheimer's studies).
@@ -7,8 +7,8 @@ Six narrated portfolio films, built on a Remotion engine.
 ## Rules from the user (non-negotiable)
 
 - **No paid infrastructure.** Only the capped Claude API may cost money: no paid TTS, GPU, stock footage or music.
-  - Deepgram exceptions for Relay: `live-01` (earlier) and `live-02`, the voice hook.
-  - **Never record another Deepgram session.** Replay the saved sessions.
+  - Deepgram exceptions for Relay: `live-01` (earlier), `live-02` (the voice hook) and `live-03` (the spoken meeting, approved by the user on 2026-10-29).
+  - **Never record another Deepgram session without asking.** Replay the saved sessions.
 - **All evidence is real.**
   - Real app footage (seeded demo data is fine), real paper, notebook and thesis figures, and real terminal output.
   - Never invent numbers or UI.
@@ -35,7 +35,7 @@ Six narrated portfolio films, built on a Remotion engine.
 
 | Film | State |
 |---|---|
-| Relay | **v3 draft rendered, awaiting the user's review.** Script approved; line 2 now names Nova-3 (listening) and Flux (speaking). Take 3 (2K) captured in full; plan is 161 s, 18 scenes, syncs within 5 ms; mix −15.9 LUFS / −3.8 dBTP. Draft: `renders/relay/draft-audio.mp4`. Next: apply the user's notes, then the chunked final render, QA, deliver. v1 (`aece8d6`, 89 s) is delivered but superseded. |
+| Relay | **v3, second draft in progress (take 4).** The user reviewed the first draft (saved in `projects/relay/reference/`): "the script and scenes and diagrams are brilliant". Notes applied: Maya's voice was noise (kokoro float32 WAV read as int16, fixed in `voice-audio.mjs`); the need lines now play over a problem schematic (`remotion/designed/RelayProblem.tsx`, scene kind `problem`); the tour follows the sting at its original pace under line 2; the greeting is heard; the meeting is spoken (live-03). Half-res drafts looked blurry to the user: show full-res from now on. Next: plan take 4, full-res chunked master as the draft, show, then QA and deliver. v1 (`aece8d6`) is superseded. |
 | Homeward | v1 delivered, but the user rejected its opening (a cropped cold open with no need or industry). The **v3 script** is in `plans/film-scripts-v3.md`; the user said "fine". |
 | TraceLens | v3 script: the user said "fine" and set the opener (Nature Medicine, then the portfolio question). Boards D1–D4 exist (`plans/boards/`). Fix the D3 "median per answer" overflow before use. |
 | Alzheimer's | v3 script rewritten to the user's notes (dementia's importance, then the research question). Needs a final look. |
@@ -68,7 +68,8 @@ The narration has 15 sentences in `production.json` (relay), synthesized at 119.
 - `00-tour`: the sidebar sections.
 - `01-voice`: the live-02 replay. It writes `01-voice.voice.json` and marks `document`.
 - `02-laptop`: W2 turn 3 plus confirm.
-- `03-meeting`: W3 turn 1 plus confirm, then closes the calendar via `.meeting-calendar__close`.
+- `03-meeting`: closes the typed panel (the orb is hidden while it is open), taps the orb and replays live-03 (the page's second Deepgram socket; `replayScript([live02, live03])`), confirms, closes the calendar, closes the panel and stops voice, then reopens the typed panel. Writes `03-meeting.voice.json`.
+- The typed replay (`__guideReplay`) plays its turns strictly in order, so it holds only W2 turn 3 and W5 turns 0–1.
 - `04-pay`: W5 turns 0–1, paycheck then direct deposit.
 - `05-operations`.
 - `06-evaluation`.
@@ -88,7 +89,9 @@ Test take 91 (1080p) passed every chapter and the frames were checked.
   - Vite: `npx vite --port 5180 --strictPort`.
 
 **Next steps for Relay:**
-1. Build the voice audio: `node capture/relay/voice-audio.mjs projects/relay/captures/journey/take-03 projects/relay/voice/live-02/session.json projects/relay/voice/maya-q2.wav`.
+1. Build the voice audio for both voice chapters (args: take folder, session, Maya's 24 kHz line, chapter):
+   - `node capture/relay/voice-audio.mjs projects/relay/captures/journey/take-04 projects/relay/voice/live-02/session.json projects/relay/voice/maya-q2.wav 01-voice`
+   - `node capture/relay/voice-audio.mjs projects/relay/captures/journey/take-04 projects/relay/voice/live-03/session.json projects/relay/voice/maya-q3.wav 03-meeting`
 2. Rewrite `edit/films/relay.mjs` to the v3 beats, with `meta.take = 3` and an updated tagline and impact. Mechanics: `shot()`, `say()`, `sync()`, `extraCaptions`, `audio.push`, and the terminal `gate` scene.
    - A full-frame tour under the need lines.
    - The idea, then the sting.
