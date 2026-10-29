@@ -9,10 +9,7 @@ Read these first:
 
 ## What to do
 
-1. **Finish Relay v3 first.** Its script is approved.
-   - The 2K capture take 3 was stopped after chapter 03 when the laptop went to sleep. Make sure the Relay API (8787) and Vite (5180) servers are up (commands in HANDOFF), then rerun the whole take in the background: `node scripts/capture-journey.mjs relay --take 3` (about 30 min). Don't use `--only`, because the chapters depend on each other. Confirm that all seven chapters and `take.json` exist.
-   - Build the voice audio, then rewrite `edit/films/relay.mjs` to the v3 beats in HANDOFF.
-   - Then plan, mix and draft-render, and show me the draft with a contact sheet before the final render.
+1. **Finish Relay v3 first.** The second draft's full-res master was stopped mid-render when the laptop slept. Resume it with the command in HANDOFF (finished chunks are kept), make a contact sheet and show me the full-res draft. On my approval: QA, deliver, commit.
 2. **Ask me once for sign-off on the revision-3 scripts** for Homeward, TraceLens, Alzheimer's, Birb and Refract. I said Homeward and TraceLens were fine, and Birb and Alzheimer's were rewritten to my notes. I haven't commented on Refract yet.
 3. **Once a script is signed off,** capture what it needs, then edit, draft, show me, final render, QA, deliver and commit. Do one film at a time, to the Homeward/Relay standard.
 
