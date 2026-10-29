@@ -75,11 +75,15 @@ The narration has 15 sentences in `production.json` (relay), synthesized at 119.
 
 Test take 91 (1080p) passed every chapter and the frames were checked.
 
-**Take 3 (2K, the real one):** started with `node scripts/capture-journey.mjs relay --take 3`. The log is in the session scratchpad (lost after this session).
-- At handoff, chapters 00–03 were done and `04-pay` was recording.
-- Check `projects/relay/captures/journey/take-03/` for all seven `.mp4` + `.events.json` files.
-- If it's incomplete, recapture the missing chapters with `node scripts/capture-journey.mjs relay --take 3 --only <chapter>`.
-- The Relay servers must be running, started from `/Users/neeravch/Documents/ChatGPT/DeepGram Project`:
+**Take 3 (2K, the real one): incomplete, rerun it in full.**
+- The laptop was going to sleep, so the capture was stopped deliberately mid-`04-pay`, and the partial file was deleted.
+- `take-03/` holds good chapters 00–03 but no `take.json`.
+- **Don't resume with `--only`.** The chapters share one browser session:
+  - `04-pay` continues the open chat panel and the conversation from 02–03.
+  - `05-operations` needs the IT case created in `02-laptop`.
+- **Rerun the whole take:** `node scripts/capture-journey.mjs relay --take 3`. It takes about 30 min at 2K and overwrites the chapters.
+- Then check that all seven `.mp4` + `.events.json` files and `take.json` are present.
+- The Relay servers must be running, started from `/Users/neeravch/Documents/ChatGPT/DeepGram Project`. Check them with `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8787/api/health` and `http://127.0.0.1:5180/`, and restart them if they don't respond:
   - API: `npx tsx src/server/index.ts` (8787).
   - Vite: `npx vite --port 5180 --strictPort`.
 
