@@ -129,7 +129,7 @@ export default {
         const record = page.locator("main [data-record-id='DOC-TAX-1007']").first();
         rec.mark("document", {
           record: await rec.box(record),
-          action: await rec.box(page.locator("main").getByRole("button", { name: /Complete withholding forms/i }).first()),
+          button: await rec.box(page.locator("main").getByRole("button", { name: /Complete withholding forms/i }).first()),
           main: await rec.box(page.locator("main")),
         });
         const log = await page.evaluate(() => window.__voiceReplay);

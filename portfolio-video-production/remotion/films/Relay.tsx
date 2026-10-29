@@ -72,7 +72,7 @@ export const RelayFilm: React.FC<{ plan: Plan; captions?: boolean }> = ({ plan, 
               {...props}
               backdrop={false}
               rect={{ x: 170, y: 90, w: 1580, h: 900 }}
-              emphasise={(l) => (/^All enforced gates pass/.test(l) ? "strong" : /^Evaluation gate/.test(l) ? "dim" : undefined)}
+              emphasise={(l) => (/^All enforced gates pass|Barge-in latency|Unsafe actions in red-team/.test(l) ? "strong" : /^Evaluation gate|^track/.test(l) ? "dim" : undefined)}
             />
           </TerminalScene>
         );

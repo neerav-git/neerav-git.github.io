@@ -199,7 +199,8 @@ for (let i = 1; i < placements.length; i += 1) {
   if (a[i].at < a[i - 1].at + (a[i - 1].srcEnd - a[i - 1].srcStart) - 0.01) problems.push(`narration ${a[i - 1].index} overlaps ${a[i].index}`);
 }
 const runtime = plan.durationInFrames / FPS;
-if (runtime < 40 || runtime > 90) problems.push(`runtime ${runtime.toFixed(1)} s outside 40–90 s`);
+const [minRuntime, maxRuntime] = film.meta.runtime ?? [40, 90];
+if (runtime < minRuntime || runtime > maxRuntime) problems.push(`runtime ${runtime.toFixed(1)} s outside ${minRuntime}–${maxRuntime} s`);
 if (problems.length) {
   console.log("Problems:");
   for (const p of problems) console.log(`  - ${p}`);

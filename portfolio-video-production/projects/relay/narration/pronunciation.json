@@ -12,9 +12,11 @@
       "missing": []
     },
     {
-      "sentence": "Relay puts all of it in one workspace, with a voice agent built on Deepgram that connects every service to a single conversation.",
-      "heard": "Relay puts all of it in one workspace, with a voice agent built on DeepGram that connects every service to a single conversation.",
-      "missing": []
+      "sentence": "Relay puts all of it in one workspace, with a Deepgram voice agent, Nova-3 listening and Flux speaking, that connects every service to a single conversation.",
+      "heard": "Relay puts all of it in one workspace, with a deep gram voice agent, NOVA 3 listening and flux speaking, that connects every service to a single conversation.",
+      "missing": [
+        "deepgram"
+      ]
     },
     {
       "sentence": "Here’s Maya, a new hire, on day one.",

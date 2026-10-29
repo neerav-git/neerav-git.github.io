@@ -237,9 +237,9 @@
   },
   {
     "index": 2,
-    "sentence": "Relay puts all of it in one workspace, with a voice agent built on Deepgram that connects every service to a single conversation.",
+    "sentence": "Relay puts all of it in one workspace, with a Deepgram voice agent, Nova-3 listening and Flux speaking, that connects every service to a single conversation.",
     "start": 18.11,
-    "end": 26.71,
+    "end": 28.76,
     "words": [
       {
         "word": "Relay",
@@ -249,1363 +249,1378 @@
       {
         "word": "puts",
         "start": 18.74,
-        "end": 18.94
+        "end": 18.96
       },
       {
         "word": "all",
-        "start": 18.94,
+        "start": 18.96,
         "end": 19.24
       },
       {
         "word": "of",
         "start": 19.24,
-        "end": 19.38
+        "end": 19.42
       },
       {
         "word": "it",
-        "start": 19.38,
-        "end": 19.48
+        "start": 19.42,
+        "end": 19.5
       },
       {
         "word": "in",
-        "start": 19.48,
-        "end": 19.66
+        "start": 19.5,
+        "end": 19.68
       },
       {
         "word": "one",
-        "start": 19.66,
-        "end": 19.84
+        "start": 19.68,
+        "end": 19.86
       },
       {
         "word": "workspace",
-        "start": 19.84,
-        "end": 20.24
+        "start": 19.86,
+        "end": 20.28
       },
       {
         "word": "with",
-        "start": 20.94,
-        "end": 21.12
+        "start": 20.96,
+        "end": 21.08
       },
       {
         "word": "a",
-        "start": 21.12,
+        "start": 21.08,
         "end": 21.2
       },
       {
-        "word": "voice",
+        "word": "Deepgram",
         "start": 21.2,
-        "end": 21.4
+        "end": 21.36
+      },
+      {
+        "word": "voice",
+        "start": 21.6,
+        "end": 21.9
       },
       {
         "word": "agent",
-        "start": 21.4,
-        "end": 21.76
+        "start": 21.9,
+        "end": 22.4
       },
       {
-        "word": "built",
-        "start": 21.76,
-        "end": 22.2
+        "word": "Nova-3",
+        "start": 22.92,
+        "end": 23.14
       },
       {
-        "word": "on",
-        "start": 22.2,
-        "end": 22.46
-      },
-      {
-        "word": "Deepgram",
-        "start": 22.46,
-        "end": 23
-      },
-      {
-        "word": "that",
-        "start": 23,
-        "end": 23.5
-      },
-      {
-        "word": "connects",
-        "start": 23.5,
+        "word": "listening",
+        "start": 23.46,
         "end": 23.76
       },
       {
-        "word": "every",
+        "word": "and",
         "start": 23.76,
-        "end": 24.14
+        "end": 24.18
+      },
+      {
+        "word": "Flux",
+        "start": 24.18,
+        "end": 24.38
+      },
+      {
+        "word": "speaking",
+        "start": 24.38,
+        "end": 24.74
+      },
+      {
+        "word": "that",
+        "start": 25.36,
+        "end": 25.54
+      },
+      {
+        "word": "connects",
+        "start": 25.54,
+        "end": 25.8
+      },
+      {
+        "word": "every",
+        "start": 25.8,
+        "end": 26.16
       },
       {
         "word": "service",
-        "start": 24.14,
-        "end": 24.64
+        "start": 26.16,
+        "end": 26.66
       },
       {
         "word": "to",
-        "start": 24.64,
-        "end": 24.9
+        "start": 26.66,
+        "end": 26.92
       },
       {
         "word": "a",
-        "start": 24.9,
-        "end": 25.02
+        "start": 26.92,
+        "end": 27.04
       },
       {
         "word": "single",
-        "start": 25.02,
-        "end": 25.2
+        "start": 27.04,
+        "end": 27.24
       },
       {
         "word": "conversation",
-        "start": 25.2,
-        "end": 25.96
+        "start": 27.24,
+        "end": 28.02
       }
     ]
   },
   {
     "index": 3,
     "sentence": "Here’s Maya, a new hire, on day one.",
-    "start": 26.89,
-    "end": 29.69,
+    "start": 28.94,
+    "end": 31.74,
     "words": [
       {
         "word": "Here’s",
-        "start": 26.88,
-        "end": 27.44
+        "start": 28.97,
+        "end": 29.49
       },
       {
         "word": "Maya",
-        "start": 27.44,
-        "end": 27.62
+        "start": 29.49,
+        "end": 29.67
       },
       {
         "word": "a",
-        "start": 28.02,
-        "end": 28.08
+        "start": 30.07,
+        "end": 30.13
       },
       {
         "word": "new",
-        "start": 28.08,
-        "end": 28.18
+        "start": 30.13,
+        "end": 30.23
       },
       {
         "word": "hire",
-        "start": 28.18,
-        "end": 28.38
+        "start": 30.23,
+        "end": 30.43
       },
       {
         "word": "on",
-        "start": 28.38,
-        "end": 28.66
+        "start": 30.43,
+        "end": 30.71
       },
       {
         "word": "day",
-        "start": 28.66,
-        "end": 28.8
+        "start": 30.71,
+        "end": 30.85
       },
       {
         "word": "one",
-        "start": 28.8,
-        "end": 29.12
+        "start": 30.85,
+        "end": 31.17
       }
     ]
   },
   {
     "index": 4,
     "sentence": "It reads Maya’s own records, picks the task due first, and opens the exact form, ready to start.",
-    "start": 29.87,
-    "end": 36.445,
+    "start": 31.92,
+    "end": 38.495,
     "words": [
       {
         "word": "It",
-        "start": 29.86,
-        "end": 30.24
+        "start": 31.91,
+        "end": 32.29
       },
       {
         "word": "reads",
-        "start": 30.24,
-        "end": 30.42
+        "start": 32.29,
+        "end": 32.47
       },
       {
         "word": "Maya’s",
-        "start": 30.42,
-        "end": 30.96
+        "start": 32.47,
+        "end": 33.01
       },
       {
         "word": "own",
-        "start": 30.96,
-        "end": 31.14
+        "start": 33.01,
+        "end": 33.19
       },
       {
         "word": "records",
-        "start": 31.14,
-        "end": 31.48
+        "start": 33.19,
+        "end": 33.53
       },
       {
         "word": "picks",
-        "start": 32,
-        "end": 32.12
+        "start": 34.05,
+        "end": 34.17
       },
       {
         "word": "the",
-        "start": 32.12,
-        "end": 32.32
+        "start": 34.17,
+        "end": 34.37
       },
       {
         "word": "task",
-        "start": 32.32,
-        "end": 32.58
+        "start": 34.37,
+        "end": 34.63
       },
       {
         "word": "due",
-        "start": 32.58,
-        "end": 32.82
+        "start": 34.63,
+        "end": 34.87
       },
       {
         "word": "first",
-        "start": 32.82,
-        "end": 33.16
+        "start": 34.87,
+        "end": 35.21
       },
       {
         "word": "and",
-        "start": 33.6,
-        "end": 33.76
+        "start": 35.65,
+        "end": 35.81
       },
       {
         "word": "opens",
-        "start": 33.76,
-        "end": 34.04
+        "start": 35.81,
+        "end": 36.09
       },
       {
         "word": "the",
-        "start": 34.04,
-        "end": 34.26
+        "start": 36.09,
+        "end": 36.31
       },
       {
         "word": "exact",
-        "start": 34.26,
-        "end": 34.42
+        "start": 36.31,
+        "end": 36.47
       },
       {
         "word": "form",
-        "start": 34.42,
-        "end": 34.96
+        "start": 36.47,
+        "end": 37.01
       },
       {
         "word": "ready",
-        "start": 34.96,
-        "end": 35.28
+        "start": 37.01,
+        "end": 37.33
       },
       {
         "word": "to",
-        "start": 35.28,
-        "end": 35.5
+        "start": 37.33,
+        "end": 37.55
       },
       {
         "word": "start",
-        "start": 35.5,
-        "end": 35.78
+        "start": 37.55,
+        "end": 37.83
       }
     ]
   },
   {
     "index": 5,
     "sentence": "Raising a concern works the same way: Relay drafts a complete IT request for the right team and files it when Maya confirms.",
-    "start": 36.625,
-    "end": 45.35,
+    "start": 38.675,
+    "end": 47.4,
     "words": [
       {
         "word": "Raising",
-        "start": 36.655,
-        "end": 37.255
+        "start": 38.705,
+        "end": 39.305
       },
       {
         "word": "a",
-        "start": 37.255,
-        "end": 37.375
+        "start": 39.305,
+        "end": 39.425
       },
       {
         "word": "concern",
-        "start": 37.375,
-        "end": 37.715
+        "start": 39.425,
+        "end": 39.765
       },
       {
         "word": "works",
-        "start": 37.715,
-        "end": 38.135
+        "start": 39.765,
+        "end": 40.185
       },
       {
         "word": "the",
-        "start": 38.135,
-        "end": 38.395
+        "start": 40.185,
+        "end": 40.445
       },
       {
         "word": "same",
-        "start": 38.395,
-        "end": 38.635
+        "start": 40.445,
+        "end": 40.685
       },
       {
         "word": "way",
-        "start": 38.635,
-        "end": 39.015
+        "start": 40.685,
+        "end": 41.065
       },
       {
         "word": "Relay",
-        "start": 39.695,
-        "end": 39.815
+        "start": 41.745,
+        "end": 41.865
       },
       {
         "word": "drafts",
-        "start": 39.815,
-        "end": 39.975
+        "start": 41.865,
+        "end": 42.025
       },
       {
         "word": "a",
-        "start": 39.975,
-        "end": 40.355
+        "start": 42.025,
+        "end": 42.405
       },
       {
         "word": "complete",
-        "start": 40.355,
-        "end": 40.695
+        "start": 42.405,
+        "end": 42.745
       },
       {
         "word": "IT",
-        "start": 40.695,
-        "end": 41.055
+        "start": 42.745,
+        "end": 43.105
       },
       {
         "word": "request",
-        "start": 41.055,
-        "end": 41.475
+        "start": 43.105,
+        "end": 43.525
       },
       {
         "word": "for",
-        "start": 41.475,
-        "end": 41.975
+        "start": 43.525,
+        "end": 44.025
       },
       {
         "word": "the",
-        "start": 41.975,
-        "end": 42.075
+        "start": 44.025,
+        "end": 44.125
       },
       {
         "word": "right",
-        "start": 42.075,
-        "end": 42.255
+        "start": 44.125,
+        "end": 44.305
       },
       {
         "word": "team",
-        "start": 42.255,
-        "end": 42.575
+        "start": 44.305,
+        "end": 44.625
       },
       {
         "word": "and",
-        "start": 42.575,
-        "end": 43.115
+        "start": 44.625,
+        "end": 45.165
       },
       {
         "word": "files",
-        "start": 43.115,
-        "end": 43.395
+        "start": 45.165,
+        "end": 45.445
       },
       {
         "word": "it",
-        "start": 43.395,
-        "end": 43.695
+        "start": 45.445,
+        "end": 45.745
       },
       {
         "word": "when",
-        "start": 43.695,
-        "end": 43.835
+        "start": 45.745,
+        "end": 45.885
       },
       {
         "word": "Maya",
-        "start": 43.835,
-        "end": 44.015
+        "start": 45.885,
+        "end": 46.065
       },
       {
         "word": "confirms",
-        "start": 44.015,
-        "end": 44.495
+        "start": 46.065,
+        "end": 46.545
       }
     ]
   },
   {
     "index": 6,
     "sentence": "It books meetings on the calendar and explains what’s holding up a first paycheck, and every action waits for the employee’s click.",
-    "start": 45.53,
-    "end": 53.43,
+    "start": 47.58,
+    "end": 55.48,
     "words": [
       {
         "word": "It",
-        "start": 45.48,
-        "end": 45.9
+        "start": 47.53,
+        "end": 47.95
       },
       {
         "word": "books",
-        "start": 45.9,
-        "end": 46.04
+        "start": 47.95,
+        "end": 48.09
       },
       {
         "word": "meetings",
-        "start": 46.04,
-        "end": 46.34
+        "start": 48.09,
+        "end": 48.39
       },
       {
         "word": "on",
-        "start": 46.34,
-        "end": 46.72
+        "start": 48.39,
+        "end": 48.77
       },
       {
         "word": "the",
-        "start": 46.72,
-        "end": 46.82
+        "start": 48.77,
+        "end": 48.87
       },
       {
         "word": "calendar",
-        "start": 46.82,
-        "end": 47.08
+        "start": 48.87,
+        "end": 49.13
       },
       {
         "word": "and",
-        "start": 47.08,
-        "end": 47.76
+        "start": 49.13,
+        "end": 49.81
       },
       {
         "word": "explains",
-        "start": 47.76,
-        "end": 48.1
+        "start": 49.81,
+        "end": 50.15
       },
       {
         "word": "what’s",
-        "start": 48.1,
-        "end": 48.54
+        "start": 50.15,
+        "end": 50.59
       },
       {
         "word": "holding",
-        "start": 48.54,
-        "end": 48.86
+        "start": 50.59,
+        "end": 50.91
       },
       {
         "word": "up",
-        "start": 48.86,
-        "end": 49.02
+        "start": 50.91,
+        "end": 51.07
       },
       {
         "word": "a",
-        "start": 49.02,
-        "end": 49.1
+        "start": 51.07,
+        "end": 51.15
       },
       {
         "word": "first",
-        "start": 49.1,
-        "end": 49.34
+        "start": 51.15,
+        "end": 51.39
       },
       {
         "word": "paycheck",
-        "start": 49.34,
-        "end": 49.68
+        "start": 51.39,
+        "end": 51.73
       },
       {
         "word": "and",
-        "start": 50.34,
-        "end": 50.56
+        "start": 52.39,
+        "end": 52.61
       },
       {
         "word": "every",
-        "start": 50.56,
-        "end": 50.82
+        "start": 52.61,
+        "end": 52.87
       },
       {
         "word": "action",
-        "start": 50.82,
-        "end": 51.3
+        "start": 52.87,
+        "end": 53.35
       },
       {
         "word": "waits",
-        "start": 51.3,
-        "end": 51.54
+        "start": 53.35,
+        "end": 53.59
       },
       {
         "word": "for",
-        "start": 51.54,
-        "end": 51.84
+        "start": 53.59,
+        "end": 53.89
       },
       {
         "word": "the",
-        "start": 51.84,
-        "end": 51.96
+        "start": 53.89,
+        "end": 54.01
       },
       {
         "word": "employee’s",
-        "start": 51.96,
-        "end": 52.58
+        "start": 54.01,
+        "end": 54.63
       },
       {
         "word": "click",
-        "start": 52.58,
-        "end": 52.78
+        "start": 54.63,
+        "end": 54.83
       }
     ]
   },
   {
     "index": 7,
     "sentence": "Underneath, an intelligence layer built for Relay gives the agent a small set of tools to read records, open them, highlight sections and propose actions.",
-    "start": 53.61,
-    "end": 63.985,
+    "start": 55.66,
+    "end": 66.035,
     "words": [
       {
         "word": "Underneath",
-        "start": 53.56,
-        "end": 54.36
+        "start": 55.61,
+        "end": 56.41
       },
       {
         "word": "an",
-        "start": 54.36,
-        "end": 54.68
+        "start": 56.41,
+        "end": 56.73
       },
       {
         "word": "intelligence",
-        "start": 54.68,
-        "end": 54.92
+        "start": 56.73,
+        "end": 56.97
       },
       {
         "word": "layer",
-        "start": 54.92,
-        "end": 55.54
+        "start": 56.97,
+        "end": 57.59
       },
       {
         "word": "built",
-        "start": 55.54,
-        "end": 55.82
+        "start": 57.59,
+        "end": 57.87
       },
       {
         "word": "for",
-        "start": 55.82,
-        "end": 56.06
+        "start": 57.87,
+        "end": 58.11
       },
       {
         "word": "Relay",
-        "start": 56.06,
-        "end": 56.42
+        "start": 58.11,
+        "end": 58.47
       },
       {
         "word": "gives",
-        "start": 56.42,
-        "end": 56.9
+        "start": 58.47,
+        "end": 58.95
       },
       {
         "word": "the",
-        "start": 56.9,
-        "end": 57.08
+        "start": 58.95,
+        "end": 59.13
       },
       {
         "word": "agent",
-        "start": 57.08,
-        "end": 57.32
+        "start": 59.13,
+        "end": 59.37
       },
       {
         "word": "a",
-        "start": 57.32,
-        "end": 57.68
+        "start": 59.37,
+        "end": 59.73
       },
       {
         "word": "small",
-        "start": 57.68,
-        "end": 57.92
+        "start": 59.73,
+        "end": 59.97
       },
       {
         "word": "set",
-        "start": 57.92,
-        "end": 58.26
+        "start": 59.97,
+        "end": 60.31
       },
       {
         "word": "of",
-        "start": 58.26,
-        "end": 58.38
+        "start": 60.31,
+        "end": 60.43
       },
       {
         "word": "tools",
-        "start": 58.38,
-        "end": 58.62
+        "start": 60.43,
+        "end": 60.67
       },
       {
         "word": "to",
-        "start": 58.62,
-        "end": 58.94
+        "start": 60.67,
+        "end": 60.99
       },
       {
         "word": "read",
-        "start": 58.94,
-        "end": 59.08
+        "start": 60.99,
+        "end": 61.13
       },
       {
         "word": "records",
-        "start": 59.08,
-        "end": 59.5
+        "start": 61.13,
+        "end": 61.55
       },
       {
         "word": "open",
-        "start": 60.28,
-        "end": 60.42
+        "start": 62.33,
+        "end": 62.47
       },
       {
         "word": "them",
-        "start": 60.42,
-        "end": 60.66
+        "start": 62.47,
+        "end": 62.71
       },
       {
         "word": "highlight",
-        "start": 61,
-        "end": 61.32
+        "start": 63.05,
+        "end": 63.37
       },
       {
         "word": "sections",
-        "start": 61.32,
-        "end": 61.8
+        "start": 63.37,
+        "end": 63.85
       },
       {
         "word": "and",
-        "start": 61.86,
-        "end": 62.42
+        "start": 63.91,
+        "end": 64.47
       },
       {
         "word": "propose",
-        "start": 62.42,
-        "end": 62.68
+        "start": 64.47,
+        "end": 64.73
       },
       {
         "word": "actions",
-        "start": 62.68,
-        "end": 63.24
+        "start": 64.73,
+        "end": 65.29
       }
     ]
   },
   {
     "index": 8,
     "sentence": "The agent only names the record; Relay works out the page and the highlight itself, and refuses any target it doesn’t recognize.",
-    "start": 64.165,
-    "end": 72.64,
+    "start": 66.215,
+    "end": 74.69,
     "words": [
       {
         "word": "The",
-        "start": 64.115,
-        "end": 64.535
+        "start": 66.165,
+        "end": 66.585
       },
       {
         "word": "agent",
-        "start": 64.535,
-        "end": 64.795
+        "start": 66.585,
+        "end": 66.845
       },
       {
         "word": "only",
-        "start": 64.795,
-        "end": 65.175
+        "start": 66.845,
+        "end": 67.225
       },
       {
         "word": "names",
-        "start": 65.175,
-        "end": 65.615
+        "start": 67.225,
+        "end": 67.665
       },
       {
         "word": "the",
-        "start": 65.615,
-        "end": 65.795
+        "start": 67.665,
+        "end": 67.845
       },
       {
         "word": "record",
-        "start": 65.795,
-        "end": 66.095
+        "start": 67.845,
+        "end": 68.145
       },
       {
         "word": "Relay",
-        "start": 66.975,
-        "end": 67.075
+        "start": 69.025,
+        "end": 69.125
       },
       {
         "word": "works",
-        "start": 67.075,
-        "end": 67.315
+        "start": 69.125,
+        "end": 69.365
       },
       {
         "word": "out",
-        "start": 67.315,
-        "end": 67.495
+        "start": 69.365,
+        "end": 69.545
       },
       {
         "word": "the",
-        "start": 67.495,
-        "end": 67.615
+        "start": 69.545,
+        "end": 69.665
       },
       {
         "word": "page",
-        "start": 67.615,
-        "end": 67.875
+        "start": 69.665,
+        "end": 69.925
       },
       {
         "word": "and",
-        "start": 67.875,
-        "end": 68.175
+        "start": 69.925,
+        "end": 70.225
       },
       {
         "word": "the",
-        "start": 68.175,
-        "end": 68.295
+        "start": 70.225,
+        "end": 70.345
       },
       {
         "word": "highlight",
-        "start": 68.295,
-        "end": 68.555
+        "start": 70.345,
+        "end": 70.605
       },
       {
         "word": "itself",
-        "start": 68.555,
-        "end": 69.015
+        "start": 70.605,
+        "end": 71.065
       },
       {
         "word": "and",
-        "start": 69.015,
-        "end": 69.735
+        "start": 71.065,
+        "end": 71.785
       },
       {
         "word": "refuses",
-        "start": 69.735,
-        "end": 69.975
+        "start": 71.785,
+        "end": 72.025
       },
       {
         "word": "any",
-        "start": 69.975,
-        "end": 70.475
+        "start": 72.025,
+        "end": 72.525
       },
       {
         "word": "target",
-        "start": 70.475,
-        "end": 70.875
+        "start": 72.525,
+        "end": 72.925
       },
       {
         "word": "it",
-        "start": 70.875,
-        "end": 71.155
+        "start": 72.925,
+        "end": 73.205
       },
       {
         "word": "doesn’t",
-        "start": 71.155,
-        "end": 71.415
+        "start": 73.205,
+        "end": 73.465
       },
       {
         "word": "recognize",
-        "start": 71.415,
-        "end": 71.855
+        "start": 73.465,
+        "end": 73.905
       }
     ]
   },
   {
     "index": 9,
     "sentence": "The server decides who is signed in and gives the agent that employee’s records alone, so each person reaches only what they’re authorized to see.",
-    "start": 72.82,
-    "end": 82.17,
+    "start": 74.87,
+    "end": 84.22,
     "words": [
       {
         "word": "The",
-        "start": 72.77,
-        "end": 73.17
+        "start": 74.82,
+        "end": 75.22
       },
       {
         "word": "server",
-        "start": 73.17,
-        "end": 73.39
+        "start": 75.22,
+        "end": 75.44
       },
       {
         "word": "decides",
-        "start": 73.39,
-        "end": 73.81
+        "start": 75.44,
+        "end": 75.86
       },
       {
         "word": "who",
-        "start": 73.81,
-        "end": 74.25
+        "start": 75.86,
+        "end": 76.3
       },
       {
         "word": "is",
-        "start": 74.25,
-        "end": 74.37
+        "start": 76.3,
+        "end": 76.42
       },
       {
         "word": "signed",
-        "start": 74.37,
-        "end": 74.67
+        "start": 76.42,
+        "end": 76.72
       },
       {
         "word": "in",
-        "start": 74.67,
-        "end": 74.97
+        "start": 76.72,
+        "end": 77.02
       },
       {
         "word": "and",
-        "start": 74.97,
-        "end": 75.47
+        "start": 77.02,
+        "end": 77.52
       },
       {
         "word": "gives",
-        "start": 75.47,
-        "end": 75.67
+        "start": 77.52,
+        "end": 77.72
       },
       {
         "word": "the",
-        "start": 75.67,
-        "end": 75.83
+        "start": 77.72,
+        "end": 77.88
       },
       {
         "word": "agent",
-        "start": 75.83,
-        "end": 76.17
+        "start": 77.88,
+        "end": 78.22
       },
       {
         "word": "that",
-        "start": 76.17,
-        "end": 76.43
+        "start": 78.22,
+        "end": 78.48
       },
       {
         "word": "employee’s",
-        "start": 76.43,
-        "end": 76.83
+        "start": 78.48,
+        "end": 78.88
       },
       {
         "word": "records",
-        "start": 76.83,
-        "end": 77.33
+        "start": 78.88,
+        "end": 79.38
       },
       {
         "word": "alone",
-        "start": 77.33,
-        "end": 77.85
+        "start": 79.38,
+        "end": 79.9
       },
       {
         "word": "so",
-        "start": 78.55,
-        "end": 78.63
+        "start": 80.6,
+        "end": 80.68
       },
       {
         "word": "each",
-        "start": 78.63,
-        "end": 78.85
+        "start": 80.68,
+        "end": 80.9
       },
       {
         "word": "person",
-        "start": 78.85,
-        "end": 79.29
+        "start": 80.9,
+        "end": 81.34
       },
       {
         "word": "reaches",
-        "start": 79.29,
-        "end": 79.59
+        "start": 81.34,
+        "end": 81.64
       },
       {
         "word": "only",
-        "start": 79.59,
-        "end": 80.11
+        "start": 81.64,
+        "end": 82.16
       },
       {
         "word": "what",
-        "start": 80.11,
-        "end": 80.33
+        "start": 82.16,
+        "end": 82.38
       },
       {
         "word": "they’re",
-        "start": 80.33,
-        "end": 80.51
+        "start": 82.38,
+        "end": 82.56
       },
       {
         "word": "authorized",
-        "start": 80.59,
-        "end": 80.87
+        "start": 82.64,
+        "end": 82.92
       },
       {
         "word": "to",
-        "start": 80.87,
-        "end": 81.31
+        "start": 82.92,
+        "end": 83.36
       },
       {
         "word": "see",
-        "start": 81.31,
-        "end": 81.53
+        "start": 83.36,
+        "end": 83.58
       }
     ]
   },
   {
     "index": 10,
     "sentence": "Sensitive details, like bank numbers, are removed before the agent ever sees them.",
-    "start": 82.35,
-    "end": 88.3,
+    "start": 84.4,
+    "end": 90.35,
     "words": [
       {
         "word": "Sensitive",
-        "start": 82.3,
-        "end": 83.08
+        "start": 84.35,
+        "end": 85.13
       },
       {
         "word": "details",
-        "start": 83.08,
-        "end": 83.38
+        "start": 85.13,
+        "end": 85.43
       },
       {
         "word": "like",
-        "start": 83.96,
-        "end": 84.14
+        "start": 86.01,
+        "end": 86.19
       },
       {
         "word": "bank",
-        "start": 84.14,
-        "end": 84.32
+        "start": 86.19,
+        "end": 86.37
       },
       {
         "word": "numbers",
-        "start": 84.32,
-        "end": 84.82
+        "start": 86.37,
+        "end": 86.87
       },
       {
         "word": "are",
-        "start": 85.14,
-        "end": 85.44
+        "start": 87.19,
+        "end": 87.49
       },
       {
         "word": "removed",
-        "start": 85.44,
-        "end": 85.74
+        "start": 87.49,
+        "end": 87.79
       },
       {
         "word": "before",
-        "start": 85.74,
-        "end": 86.24
+        "start": 87.79,
+        "end": 88.29
       },
       {
         "word": "the",
-        "start": 86.24,
-        "end": 86.42
+        "start": 88.29,
+        "end": 88.47
       },
       {
         "word": "agent",
-        "start": 86.42,
-        "end": 86.76
+        "start": 88.47,
+        "end": 88.81
       },
       {
         "word": "ever",
-        "start": 86.76,
-        "end": 87.1
+        "start": 88.81,
+        "end": 89.15
       },
       {
         "word": "sees",
-        "start": 87.1,
-        "end": 87.42
+        "start": 89.15,
+        "end": 89.47
       },
       {
         "word": "them",
-        "start": 87.42,
-        "end": 87.74
+        "start": 89.47,
+        "end": 89.79
       }
     ]
   },
   {
     "index": 11,
     "sentence": "HR and IT see a timeline of every request, from what was asked to the verified change.",
-    "start": 88.48,
-    "end": 94.855,
+    "start": 90.53,
+    "end": 96.905,
     "words": [
       {
         "word": "HR",
-        "start": 89.11,
-        "end": 89.11
+        "start": 91.16,
+        "end": 91.16
       },
       {
         "word": "and",
-        "start": 89.11,
-        "end": 89.41
+        "start": 91.16,
+        "end": 91.46
       },
       {
         "word": "IT",
-        "start": 89.41,
-        "end": 89.63
+        "start": 91.46,
+        "end": 91.68
       },
       {
         "word": "see",
-        "start": 89.63,
-        "end": 90.21
+        "start": 91.68,
+        "end": 92.26
       },
       {
         "word": "a",
-        "start": 90.21,
-        "end": 90.33
+        "start": 92.26,
+        "end": 92.38
       },
       {
         "word": "timeline",
-        "start": 90.33,
-        "end": 90.69
+        "start": 92.38,
+        "end": 92.74
       },
       {
         "word": "of",
-        "start": 90.69,
-        "end": 91.07
+        "start": 92.74,
+        "end": 93.12
       },
       {
         "word": "every",
-        "start": 91.07,
-        "end": 91.27
+        "start": 93.12,
+        "end": 93.32
       },
       {
         "word": "request",
-        "start": 91.27,
-        "end": 91.75
+        "start": 93.32,
+        "end": 93.8
       },
       {
         "word": "from",
-        "start": 91.75,
-        "end": 92.51
+        "start": 93.8,
+        "end": 94.56
       },
       {
         "word": "what",
-        "start": 92.51,
-        "end": 92.63
+        "start": 94.56,
+        "end": 94.68
       },
       {
         "word": "was",
-        "start": 92.63,
-        "end": 92.73
+        "start": 94.68,
+        "end": 94.78
       },
       {
         "word": "asked",
-        "start": 92.73,
-        "end": 92.95
+        "start": 94.78,
+        "end": 95
       },
       {
         "word": "to",
-        "start": 92.95,
-        "end": 93.23
+        "start": 95,
+        "end": 95.28
       },
       {
         "word": "the",
-        "start": 93.23,
-        "end": 93.31
+        "start": 95.28,
+        "end": 95.36
       },
       {
         "word": "verified",
-        "start": 93.31,
-        "end": 93.59
+        "start": 95.36,
+        "end": 95.64
       },
       {
         "word": "change",
-        "start": 93.59,
-        "end": 94.07
+        "start": 95.64,
+        "end": 96.12
       }
     ]
   },
   {
     "index": 12,
     "sentence": "On the real app, 103 of 110 conversations ended fully right, and 31 of 34 spoken requests got a useful answer.",
-    "start": 95.035,
-    "end": 105.035,
+    "start": 97.085,
+    "end": 107.085,
     "words": [
       {
         "word": "On",
-        "start": 94.985,
-        "end": 95.445
+        "start": 97.035,
+        "end": 97.495
       },
       {
         "word": "the",
-        "start": 95.445,
-        "end": 95.545
+        "start": 97.495,
+        "end": 97.595
       },
       {
         "word": "real",
-        "start": 95.545,
-        "end": 95.665
+        "start": 97.595,
+        "end": 97.715
       },
       {
         "word": "app",
-        "start": 95.665,
-        "end": 96.065
+        "start": 97.715,
+        "end": 98.115
       },
       {
         "word": "103",
-        "start": 96.405,
-        "end": 97.145
+        "start": 98.455,
+        "end": 99.195
       },
       {
         "word": "of",
-        "start": 97.145,
-        "end": 97.445
+        "start": 99.195,
+        "end": 99.495
       },
       {
         "word": "110",
-        "start": 97.445,
-        "end": 97.785
+        "start": 99.495,
+        "end": 99.835
       },
       {
         "word": "conversations",
-        "start": 97.785,
-        "end": 98.865
+        "start": 99.835,
+        "end": 100.915
       },
       {
         "word": "ended",
-        "start": 98.865,
-        "end": 99.445
+        "start": 100.915,
+        "end": 101.495
       },
       {
         "word": "fully",
-        "start": 99.445,
-        "end": 99.745
+        "start": 101.495,
+        "end": 101.795
       },
       {
         "word": "right",
-        "start": 99.745,
-        "end": 100.105
+        "start": 101.795,
+        "end": 102.155
       },
       {
         "word": "and",
-        "start": 100.805,
-        "end": 100.825
+        "start": 102.855,
+        "end": 102.875
       },
       {
         "word": "31",
-        "start": 100.825,
-        "end": 101.225
+        "start": 102.875,
+        "end": 103.275
       },
       {
         "word": "of",
-        "start": 101.225,
-        "end": 101.445
+        "start": 103.275,
+        "end": 103.495
       },
       {
         "word": "34",
-        "start": 101.445,
-        "end": 101.725
+        "start": 103.495,
+        "end": 103.775
       },
       {
         "word": "spoken",
-        "start": 101.725,
-        "end": 102.505
+        "start": 103.775,
+        "end": 104.555
       },
       {
         "word": "requests",
-        "start": 102.505,
-        "end": 102.865
+        "start": 104.555,
+        "end": 104.915
       },
       {
         "word": "got",
-        "start": 102.865,
-        "end": 103.525
+        "start": 104.915,
+        "end": 105.575
       },
       {
         "word": "a",
-        "start": 103.525,
-        "end": 103.645
+        "start": 105.575,
+        "end": 105.695
       },
       {
         "word": "useful",
-        "start": 103.645,
-        "end": 103.885
+        "start": 105.695,
+        "end": 105.935
       },
       {
         "word": "answer",
-        "start": 103.885,
-        "end": 104.445
+        "start": 105.935,
+        "end": 106.495
       }
     ]
   },
   {
     "index": 13,
     "sentence": "It stops talking within 51 milliseconds when the employee cuts in, and red-team attacks caused no unsafe actions.",
-    "start": 105.215,
-    "end": 112.74,
+    "start": 107.265,
+    "end": 114.79,
     "words": [
       {
         "word": "It",
-        "start": 105.165,
-        "end": 105.585
+        "start": 107.215,
+        "end": 107.635
       },
       {
         "word": "stops",
-        "start": 105.585,
-        "end": 105.805
+        "start": 107.635,
+        "end": 107.855
       },
       {
         "word": "talking",
-        "start": 105.805,
-        "end": 106.165
+        "start": 107.855,
+        "end": 108.215
       },
       {
         "word": "within",
-        "start": 106.165,
-        "end": 106.525
+        "start": 108.215,
+        "end": 108.575
       },
       {
         "word": "51",
-        "start": 106.525,
-        "end": 107.065
+        "start": 108.575,
+        "end": 109.115
       },
       {
         "word": "milliseconds",
-        "start": 107.065,
-        "end": 107.345
+        "start": 109.115,
+        "end": 109.395
       },
       {
         "word": "when",
-        "start": 107.345,
-        "end": 107.845
+        "start": 109.395,
+        "end": 109.895
       },
       {
         "word": "the",
-        "start": 107.845,
-        "end": 107.945
+        "start": 109.895,
+        "end": 109.995
       },
       {
         "word": "employee",
-        "start": 107.945,
-        "end": 108.265
+        "start": 109.995,
+        "end": 110.315
       },
       {
         "word": "cuts",
-        "start": 108.265,
-        "end": 108.645
+        "start": 110.315,
+        "end": 110.695
       },
       {
         "word": "in",
-        "start": 108.645,
-        "end": 108.885
+        "start": 110.695,
+        "end": 110.935
       },
       {
         "word": "and",
-        "start": 109.305,
-        "end": 109.465
+        "start": 111.355,
+        "end": 111.515
       },
       {
         "word": "red-team",
-        "start": 109.465,
-        "end": 109.665
+        "start": 111.515,
+        "end": 111.715
       },
       {
         "word": "attacks",
-        "start": 109.985,
-        "end": 110.245
+        "start": 112.035,
+        "end": 112.295
       },
       {
         "word": "caused",
-        "start": 110.245,
-        "end": 110.705
+        "start": 112.295,
+        "end": 112.755
       },
       {
         "word": "no",
-        "start": 110.705,
-        "end": 111.105
+        "start": 112.755,
+        "end": 113.155
       },
       {
         "word": "unsafe",
-        "start": 111.105,
-        "end": 111.485
+        "start": 113.155,
+        "end": 113.535
       },
       {
         "word": "actions",
-        "start": 111.485,
-        "end": 112.005
+        "start": 113.535,
+        "end": 114.055
       }
     ]
   },
   {
     "index": 14,
     "sentence": "Whatever the request, the employee says it once, and Relay finds the record, the owner and the next step.",
-    "start": 112.92,
-    "end": 119.445,
+    "start": 114.97,
+    "end": 121.495,
     "words": [
       {
         "word": "Whatever",
-        "start": 112.87,
-        "end": 113.35
+        "start": 114.92,
+        "end": 115.4
       },
       {
         "word": "the",
-        "start": 113.35,
-        "end": 113.63
+        "start": 115.4,
+        "end": 115.68
       },
       {
         "word": "request",
-        "start": 113.63,
-        "end": 113.93
+        "start": 115.68,
+        "end": 115.98
       },
       {
         "word": "the",
-        "start": 114.31,
-        "end": 114.41
+        "start": 116.36,
+        "end": 116.46
       },
       {
         "word": "employee",
-        "start": 114.41,
-        "end": 114.71
+        "start": 116.46,
+        "end": 116.76
       },
       {
         "word": "says",
-        "start": 114.71,
-        "end": 115.11
+        "start": 116.76,
+        "end": 117.16
       },
       {
         "word": "it",
-        "start": 115.11,
-        "end": 115.27
+        "start": 117.16,
+        "end": 117.32
       },
       {
         "word": "once",
-        "start": 115.27,
-        "end": 115.45
+        "start": 117.32,
+        "end": 117.5
       },
       {
         "word": "and",
-        "start": 116.05,
-        "end": 116.05
+        "start": 118.1,
+        "end": 118.1
       },
       {
         "word": "Relay",
-        "start": 116.05,
-        "end": 116.37
+        "start": 118.1,
+        "end": 118.42
       },
       {
         "word": "finds",
-        "start": 116.37,
-        "end": 116.61
+        "start": 118.42,
+        "end": 118.66
       },
       {
         "word": "the",
-        "start": 116.61,
-        "end": 116.83
+        "start": 118.66,
+        "end": 118.88
       },
       {
         "word": "record",
-        "start": 116.83,
-        "end": 117.11
+        "start": 118.88,
+        "end": 119.16
       },
       {
         "word": "the",
-        "start": 117.63,
-        "end": 117.69
+        "start": 119.68,
+        "end": 119.74
       },
       {
         "word": "owner",
-        "start": 117.69,
-        "end": 117.97
+        "start": 119.74,
+        "end": 120.02
       },
       {
         "word": "and",
-        "start": 117.97,
-        "end": 118.23
+        "start": 120.02,
+        "end": 120.28
       },
       {
         "word": "the",
-        "start": 118.23,
-        "end": 118.35
+        "start": 120.28,
+        "end": 120.4
       },
       {
         "word": "next",
-        "start": 118.35,
-        "end": 118.53
+        "start": 120.4,
+        "end": 120.58
       },
       {
         "word": "step",
-        "start": 118.53,
-        "end": 118.87
+        "start": 120.58,
+        "end": 120.92
       }
     ]
   }

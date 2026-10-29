@@ -10,68 +10,68 @@
     "end": 17.93
   },
   {
-    "sentence": "Relay puts all of it in one workspace, with a voice agent built on Deepgram that connects every service to a single conversation.",
+    "sentence": "Relay puts all of it in one workspace, with a Deepgram voice agent, Nova-3 listening and Flux speaking, that connects every service to a single conversation.",
     "start": 18.11,
-    "end": 26.71
+    "end": 28.76
   },
   {
     "sentence": "Here’s Maya, a new hire, on day one.",
-    "start": 26.89,
-    "end": 29.69
+    "start": 28.94,
+    "end": 31.74
   },
   {
     "sentence": "It reads Maya’s own records, picks the task due first, and opens the exact form, ready to start.",
-    "start": 29.87,
-    "end": 36.445
+    "start": 31.92,
+    "end": 38.495
   },
   {
     "sentence": "Raising a concern works the same way: Relay drafts a complete IT request for the right team and files it when Maya confirms.",
-    "start": 36.625,
-    "end": 45.35
+    "start": 38.675,
+    "end": 47.4
   },
   {
     "sentence": "It books meetings on the calendar and explains what’s holding up a first paycheck, and every action waits for the employee’s click.",
-    "start": 45.53,
-    "end": 53.43
+    "start": 47.58,
+    "end": 55.48
   },
   {
     "sentence": "Underneath, an intelligence layer built for Relay gives the agent a small set of tools to read records, open them, highlight sections and propose actions.",
-    "start": 53.61,
-    "end": 63.985
+    "start": 55.66,
+    "end": 66.035
   },
   {
     "sentence": "The agent only names the record; Relay works out the page and the highlight itself, and refuses any target it doesn’t recognize.",
-    "start": 64.165,
-    "end": 72.64
+    "start": 66.215,
+    "end": 74.69
   },
   {
     "sentence": "The server decides who is signed in and gives the agent that employee’s records alone, so each person reaches only what they’re authorized to see.",
-    "start": 72.82,
-    "end": 82.17
+    "start": 74.87,
+    "end": 84.22
   },
   {
     "sentence": "Sensitive details, like bank numbers, are removed before the agent ever sees them.",
-    "start": 82.35,
-    "end": 88.3
+    "start": 84.4,
+    "end": 90.35
   },
   {
     "sentence": "HR and IT see a timeline of every request, from what was asked to the verified change.",
-    "start": 88.48,
-    "end": 94.855
+    "start": 90.53,
+    "end": 96.905
   },
   {
     "sentence": "On the real app, 103 of 110 conversations ended fully right, and 31 of 34 spoken requests got a useful answer.",
-    "start": 95.035,
-    "end": 105.035
+    "start": 97.085,
+    "end": 107.085
   },
   {
     "sentence": "It stops talking within 51 milliseconds when the employee cuts in, and red-team attacks caused no unsafe actions.",
-    "start": 105.215,
-    "end": 112.74
+    "start": 107.265,
+    "end": 114.79
   },
   {
     "sentence": "Whatever the request, the employee says it once, and Relay finds the record, the owner and the next step.",
-    "start": 112.92,
-    "end": 119.445
+    "start": 114.97,
+    "end": 121.495
   }
 ]
