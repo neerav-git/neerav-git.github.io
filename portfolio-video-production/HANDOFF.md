@@ -1,4 +1,4 @@
-# Portfolio films: handoff (2026-10-29)
+# Portfolio films: handoff (2026-10-30)
 
 Six narrated portfolio films, built on a Remotion engine.
 - Films: relay, refract-ai, homeward, birb-hangout, tracelens, alzheimers-research (one film covering both Alzheimer's studies).
@@ -35,7 +35,7 @@ Six narrated portfolio films, built on a Remotion engine.
 
 | Film | State |
 |---|---|
-| Relay | **v3 second draft: full-res master rendering (take 4, 191.7 s, plan clean, mix −15.9 LUFS / −3.5 dBTP).** Stopped mid-render for laptop sleep at about chunk 22 of 39. **Resume** (finished chunks in `renders/relay/parts/` are kept and skipped): `pgrep -fl render-film` first, then `RENDER_CONCURRENCY=1 RENDER_TIMEOUT_MS=300000 node scripts/render-film.mjs relay --chunk 300`. Then a contact sheet, show the user (full-res; the half-res draft looked blurry to them), then QA (`qa/tools/qa_film.py`), `scripts/deliver.mjs`, commit. The user reviewed the first draft (saved in `projects/relay/reference/`): "the script and scenes and diagrams are brilliant". Notes applied in `706900d`: Maya's voice fixed (kokoro float32 WAV read as int16), the need lines over a problem schematic (`remotion/designed/RelayProblem.tsx`), the tour after the sting at its approved pace (the user objected when it was sped up; don't re-time approved parts), greeting heard, meeting spoken (live-03). Runtime grew to 3:12 at 1×; offer trimming the meeting's ~5 s thinking pause if the user finds it long. |
+| Relay | **v3 second draft rendered and reviewed (2026-10-30).** Take 4, 3:11.7, full-res, mix −15.9 LUFS. Saved as `projects/relay/reference/relay-v3-draft2-2026-10-30.mp4` (+ contact sheet). The user: "a perfect base", but it needs to be **snappier**. Their notes and the plan are in **Relay draft-2 notes** below. Do that pass, render draft 3 at full res, show the user, then QA/deliver/commit on approval. |
 | Homeward | v1 delivered, but the user rejected its opening (a cropped cold open with no need or industry). The **v3 script** is in `plans/film-scripts-v3.md`; the user said "fine". |
 | TraceLens | v3 script: the user said "fine" and set the opener (Nature Medicine, then the portfolio question). Boards D1–D4 exist (`plans/boards/`). Fix the D3 "median per answer" overflow before use. |
 | Alzheimer's | v3 script rewritten to the user's notes (dementia's importance, then the research question). Needs a final look. |
@@ -45,6 +45,102 @@ Six narrated portfolio films, built on a Remotion engine.
 The scripts are at **revision 3** (`plans/film-scripts-v3.md`), after the user's detail-cut note was applied to all five. Ask once for sign-off on revision 3, then capture and edit in the order the user prefers.
 
 Estimated runtimes: Homeward ~2:25, TraceLens ~2:35, Alzheimer's ~2:10, Birb ~2:45, Refract ~2:00, Relay ~2:30.
+
+
+## Relay draft-2 notes (from the user, 2026-10-30) and the plan
+
+The user's notes, in their words:
+- "the exchanges between user and relay agent needs a bit of cuts to make it look faster, because the interaction seems slow for the video's pace"
+- "the tool call keeps overlapping and crowding the screen (some tool call banners)"
+- "in general we need a little more snappier video (so this video is a perfect base just needs to be adjusted to make it a bit more well paced and speech could also be a little faster and warmer)"
+- "Relay guide's voice needs to be as loud as the narrator when the video switches to showing its greeting or functionality"
+- Assess "where we can add a little more meaning in the visual frame (the content is there, but how do we make the right visual and focus on it better to convey the significance of the work)".
+
+This is an explicit request to re-pace. The "don't re-time approved parts" rule still holds for anything the notes don't cover (the problem schematic, the diagrams, the scene order and the script).
+
+### 1. Faster exchanges (`edit/films/relay.mjs`, scenes `voice` and `meeting`)
+
+- `voice` runs 32 s at 1× (film 39.3–71.3 s). `meeting` runs 19.1 s (film 89.1–108.3), **including a 5.5 s silent tool wait** (94.3–99.8, −23.7 LUFS).
+- **Cut dead air.** Cut the waits between Maya's question and the agent's first word down to about 1 s, and mark each with the existing "⏩ n s of agent work cut" chip, as the typed scenes do. Trim gaps over about 0.3 s between agent sentences. Cues are in `take-04/01-voice.voice.json` and `03-meeting.voice.json`.
+- **Meeting.** End the agent audio after its first line ("A thirty-minute follow-up with Casey Nguyen is ready to schedule…"), unless the subject line is needed. Then go straight to the confirm.
+- **Dialogue speed.** Optionally play the dialogue a little faster (pitch-preserved `atempo` at 1.08–1.12) with the video speed-mapped to match. Note it in the deliver notes' speed-ramp list.
+- **Mechanics.** Split each dialogue clip into utterance segments (`plan.audio` entries) with matching video shots, so cuts keep lip-sync with the UI: the orb state, the text appearing, the record opening.
+- **Target.** Roughly 15–20 s shorter overall (about 2:50–2:55).
+
+### 2. Narrator "a little faster and warmer"
+
+- **Speed.** `scripts/generate-narration.mjs` has `SPEED = 1`. Kokoro `af_heart` stays; nothing else in the voice tuning changes.
+- **Warmth.** Do it in the mix, on the narration stem only: a gentle low shelf (about +1.5–2 dB around 150–250 Hz) and a slight 5–8 kHz softening or de-ess.
+- **Ask first.** The narrator tuning is a standing rule, so make an A/B **before** re-synthesizing. Render two narration sentences at speed 1.0 / 1.06 / 1.1, each with and without the warm EQ, and let the user pick.
+- **Then rebuild.** `node scripts/generate-narration.mjs --project relay`, then word timings and the pronunciation check. Every `say()`/`sync()` anchor re-derives from `words.json`. Check the tour, which plays at its fixed 1× pace with line 2 at tourStart+1.0.
+
+### 3. Relay Guide as loud as the narrator (`scripts/mix-audio.mjs`)
+
+Measured on draft 2 (integrated LUFS per window):
+
+| Window | Level |
+|---|---|
+| Narrator (8–14 s) | −15.0 LUFS |
+| Narrator (150–158 s) | −14.9 LUFS |
+| Greeting | −15.7 LUFS |
+| Maya's first line | −18.5 LUFS |
+| Agent reply | −16.2 LUFS |
+| Meeting: Maya | −16.2 LUFS |
+| Meeting: agent | −17.0 LUFS |
+
+- **Cause.** `mix-audio.mjs` gives each dialogue clip **one** gain, matching its speech RMS to the narrator's. Lines quieter than the clip average land 1–3.5 dB low, and the 16 kHz Deepgram audio sounds thinner than the narrator at equal level.
+- **Fix:**
+  - Gain-match **each utterance** (Maya / agent segments from the voice.json cues) to the narrator by loudness (K-weighted).
+  - Add a little presence EQ (about +2 dB at 2–4 kHz) to the agent.
+  - Hold the music at its "speaking" duck for the whole dialogue scene.
+- **Check.** Every utterance should land within ±0.5 LU of the narrator.
+
+### 4. Tool-call banners crowding the screen
+
+- **Where it happens.** The `chip` overlays at the orb (`relay.mjs` ~231–232, ~377–378) stack with lower thirds, callouts and captions. In draft 2 at about 1:47, "Tool · propose_onboarding_action → meeting" sits on the caption line.
+- **Rule.** One annotation at a time, plus captions. Never over the caption band.
+- **Labels.** Show tool calls as one plain-language status line in a fixed slot above the captions and clear of the orb, e.g. "Reading Maya's records" with the tool name small and dim. Swap the text in place for the next call instead of stacking chips.
+- **Drop.** Remove `get_employee_portal_context` in the meeting (the intelligence diagram explains it), and remove any chip shorter than about 1.2 s.
+
+### 5. More meaning in the frame (assessment for the user)
+
+These are ranked by impact. Propose them to the user with a still or two and do the ones they pick. All of them use existing real footage or labelled schematics.
+
+1. **Push in on what matters.** Most capture scenes show the whole 2K browser shrunk into the frame, so the UI text is unreadable at 1080p (see the contact sheet). On each beat, ease the camera in (1.3–1.6×; 2K source stays sharp) to:
+   - the record the agent opens;
+   - the confirm card;
+   - the calendar slot;
+   - the evaluation number being read;
+
+   then ease back out between beats. This is the single biggest gain.
+2. **Close the problem→product loop.**
+   - At the sting, the four portal windows from the schematic fly together into the Relay window ("four sign-ins → one workspace").
+   - In the payoff, bring back the new hire's three questions ("Which system? Which form? Who do I ask?"). Tick each with the real moment that answered it: the opened form, the IT request routed to IT Support, the booked meeting.
+3. **Show voice turning into action.**
+   - Time callouts to the agent's *words* (e.g., the record pulses when "DOC-TAX-1007" or "withholding" is spoken), not only to the tool event.
+   - Draw a short line from the orb to the thing that opened.
+   - Give Maya and Relay distinct caption styles (name tag or colour) so it's obvious who is talking.
+4. **Diagrams explain what we just watched.**
+   - Plain labels large, code names small and dim.
+   - When a tool node lights, show a small thumbnail of the real frame where it fired (e.g., "Open a record" next to the DOC-TAX-1007 frame).
+5. **Security made concrete.** Next to "Bank numbers removed", cut in a tight real frame of the masked bank number from the deposit capture. Add the measured result as a source-backed stat: leaks 4/4 → 0/5 after redaction.
+6. **Evaluation and gate.**
+   - Zoom into each dashboard card as it's narrated.
+   - In the gate terminal, keep only the narrated line bright and push in on it.
+7. **Payoff as a recap of Maya's day one.** A 2×2 of the real end frames: form opened, IT request filed, meeting booked, deposit opened. It reads as "what got done in a few sentences".
+
+### Order of work
+
+1. Mix-level fix and banner cleanup. These are mechanical.
+2. Exchange cuts.
+3. Narrator A/B to the user.
+4. Re-synthesize if they pick a change.
+5. Visual-meaning items the user approves.
+6. Plan (expect about 2:50).
+7. Mix: check per-utterance LUFS.
+8. Full-res chunked render.
+9. Contact sheet.
+10. Show the user and save the draft to `projects/relay/reference/`.
 
 ## Relay v3
 
@@ -76,7 +172,7 @@ The narration has 15 sentences in `production.json` (relay), synthesized at 119.
 
 Test take 91 (1080p) passed every chapter and the frames were checked.
 
-**Take 3 (2K, the real one): incomplete, rerun it in full.**
+**History (superseded: take 4 is complete and is the one in use; the steps below are kept for the capture mechanics).** Take 3 (2K) was incomplete:
 - The laptop was going to sleep, so the capture was stopped deliberately mid-`04-pay`, and the partial file was deleted.
 - `take-03/` holds good chapters 00–03 but no `take.json`.
 - **Don't resume with `--only`.** The chapters share one browser session:
@@ -88,7 +184,7 @@ Test take 91 (1080p) passed every chapter and the frames were checked.
   - API: `npx tsx src/server/index.ts` (8787).
   - Vite: `npx vite --port 5180 --strictPort`.
 
-**Next steps for Relay:**
+**Original build steps (done for take 4):**
 1. Build the voice audio for both voice chapters (args: take folder, session, Maya's 24 kHz line, chapter):
    - `node capture/relay/voice-audio.mjs projects/relay/captures/journey/take-04 projects/relay/voice/live-02/session.json projects/relay/voice/maya-q2.wav 01-voice`
    - `node capture/relay/voice-audio.mjs projects/relay/captures/journey/take-04 projects/relay/voice/live-03/session.json projects/relay/voice/maya-q3.wav 03-meeting`
