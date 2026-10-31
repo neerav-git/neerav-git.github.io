@@ -117,7 +117,9 @@ export const AnimatedDiagram: React.FC<{
       </svg>
       {nodes.map((n) => {
         const p = ramp(frame, n.at, n.at + 22);
-        const lit = (n.lit ?? []).reduce((m, [a, b]) => Math.max(m, interpolate(frame, [a, a + 10, b - 10, b], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })), 0);
+        // A window of 20 frames or less has no hold: it fades up and straight back down.
+        const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+        const lit = (n.lit ?? []).reduce((m, [a, b]) => Math.max(m, b - a > 20 ? interpolate(frame, [a, a + 10, b - 10, b], [0, 1, 1, 0], clamp) : b > a ? interpolate(frame, [a, (a + b) / 2, b], [0, 1, 0], clamp) : 0), 0);
         const color = toneOf(n);
         return (
           <div

@@ -1,7 +1,7 @@
 import React from "react";
 import { interpolate, useCurrentFrame } from "remotion";
 import type { Box } from "../lib/geometry";
-import { alpha, EASE, FONT, type Palette } from "../lib/theme";
+import { alpha, EASE, FONT, MONO, type Palette } from "../lib/theme";
 
 const span = (frame: number, from: number, to: number, inDur = 18, outDur = 14) => {
   const i = EASE.enter(interpolate(frame, [from, from + inDur], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
@@ -229,5 +229,72 @@ export const Chip: React.FC<{ text: string; from: number; to: number; x: number;
       {icon && <span style={{ width: 34, height: 34, borderRadius: 17, background: "rgba(255,255,255,0.22)", display: "grid", placeItems: "center", fontSize: 20 }}>{icon}</span>}
       {text}
     </div>
+  );
+};
+
+// One status line in a fixed slot above the captions: what the agent is doing, or a time cut.
+// Consecutive cues that touch swap their text in place instead of stacking.
+export const StatusLine: React.FC<{ cues: { start: number; end: number; text: string; sub?: string; cut?: string }[]; palette: Palette }> = ({ cues, palette }) => {
+  const frame = useCurrentFrame();
+  const k = cues.findIndex((c) => frame >= c.start && frame < c.end);
+  if (k < 0) return null;
+  const cue = cues[k];
+  const prev = cues[k - 1];
+  const next = cues[k + 1];
+  // The pill fades only at the ends of a run of touching cues; inside a run only the text changes.
+  const runStart = prev && prev.end >= cue.start - 1 ? null : cue.start;
+  const runEnd = next && next.start <= cue.end + 1 ? null : cue.end;
+  const shell = (runStart === null ? 1 : EASE.enter(interpolate(frame, [runStart, runStart + 14], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }))) *
+    (runEnd === null ? 1 : 1 - EASE.exit(interpolate(frame, [runEnd - 12, runEnd], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })));
+  const text = EASE.enter(interpolate(frame, [cue.start, cue.start + 12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  return (
+    <div style={{ position: "absolute", left: 0, right: 0, bottom: 150, display: "flex", justifyContent: "center", opacity: shell, transform: `translateY(${(1 - shell) * 12}px)` }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 16,
+          height: 58,
+          padding: "0 26px 0 14px",
+          borderRadius: 999,
+          background: "rgba(10,14,26,0.84)",
+          backdropFilter: "blur(16px)",
+          boxShadow: "0 14px 34px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.1)",
+          fontFamily: FONT,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {cue.cut ? (
+          <span style={{ height: 38, padding: "0 14px", borderRadius: 999, display: "flex", alignItems: "center", gap: 8, background: alpha(palette.warn, 0.22), color: palette.warn, fontSize: 24, fontWeight: 650 }}>⏩ {cue.cut}</span>
+        ) : (
+          <span style={{ width: 12, height: 12, marginLeft: 6, borderRadius: 6, background: palette.accent, boxShadow: `0 0 12px ${palette.accent}`, opacity: 0.6 + 0.4 * Math.sin(frame / 6) ** 2 }} />
+        )}
+        <span style={{ opacity: text, transform: `translateY(${(1 - text) * 6}px)`, display: "flex", alignItems: "baseline", gap: 14 }}>
+          {cue.text && <span style={{ color: "#fff", fontSize: 30, fontWeight: 600, letterSpacing: -0.2 }}>{cue.text}</span>}
+          {cue.sub && <span style={{ color: "rgba(255,255,255,0.45)", fontSize: 22, fontWeight: 500, fontFamily: MONO }}>{cue.sub}</span>}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+// A line drawn from one thing on screen to another (the voice agent to the record it opened), then faded.
+export const Link: React.FC<{ a: { x: number; y: number }; b: { x: number; y: number }; from: number; to: number; color: string }> = ({ a, b, from, to, color }) => {
+  const frame = useCurrentFrame();
+  if (frame < from || frame > to) return null;
+  const draw = EASE.enter(interpolate(frame, [from, from + 22], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  const o = 1 - EASE.exit(interpolate(frame, [to - 12, to], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  // The line arcs up and over between the two points.
+  const c = { x: (a.x + b.x) / 2, y: Math.min(a.y, b.y) - 0.2 * Math.abs(a.x - b.x) };
+  const at = (t: number) => ({ x: (1 - t) ** 2 * a.x + 2 * (1 - t) * t * c.x + t ** 2 * b.x, y: (1 - t) ** 2 * a.y + 2 * (1 - t) * t * c.y + t ** 2 * b.y });
+  const head = at(draw);
+  const d = `M ${a.x} ${a.y} Q ${c.x} ${c.y} ${b.x} ${b.y}`;
+  return (
+    <svg style={{ position: "absolute", left: 0, top: 0, width: 1920, height: 1080, opacity: o, overflow: "visible" }}>
+      <path d={d} fill="none" stroke={alpha(color, 0.3)} strokeWidth={12} strokeLinecap="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - draw} />
+      <path d={d} fill="none" stroke={color} strokeWidth={4} strokeLinecap="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - draw} />
+      <circle cx={a.x} cy={a.y} r={7} fill={color} />
+      <circle cx={head.x} cy={head.y} r={10} fill={color} style={{ filter: `drop-shadow(0 0 10px ${color})` }} />
+    </svg>
   );
 };

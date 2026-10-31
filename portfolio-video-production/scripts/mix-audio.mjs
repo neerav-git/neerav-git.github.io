@@ -43,8 +43,23 @@ const rms = (buf, from = 0, to = buf.length) => {
   return Math.sqrt(s / Math.max(1, c));
 };
 
+// Pipes mono PCM through an ffmpeg filter chain and back.
+const filterPcm = (buf, af) => {
+  const r = spawnSync(ffmpegPath, ["-v", "error", "-f", "f32le", "-ar", String(SR), "-ac", "1", "-i", "-", "-af", af, "-f", "f32le", "-ar", String(SR), "-ac", "1", "-"], { input: Buffer.from(buf.buffer, buf.byteOffset, buf.byteLength), maxBuffer: 1 << 30 });
+  if (r.status !== 0) throw new Error(r.stderr.toString());
+  return new Float32Array(r.stdout.buffer.slice(r.stdout.byteOffset, r.stdout.byteOffset + r.stdout.length));
+};
+// Integrated loudness (LUFS, K-weighted and gated, EBU R128) of mono PCM.
+const lufs = (buf) => {
+  const r = spawnSync(ffmpegPath, ["-hide_banner", "-f", "f32le", "-ar", String(SR), "-ac", "1", "-i", "-", "-af", "loudnorm=print_format=json", "-f", "null", "-"], { input: Buffer.from(buf.buffer, buf.byteOffset, buf.byteLength), encoding: "utf8", maxBuffer: 1 << 30 });
+  const stderr = r.stderr.toString();
+  return Number(JSON.parse(stderr.slice(stderr.lastIndexOf("{"), stderr.lastIndexOf("}") + 1)).input_i);
+};
+
 // ---------- narration ----------
-const source = readPcm(path.join(root, "projects", slug, "narration", "narration.wav"));
+let source = readPcm(path.join(root, "projects", slug, "narration", "narration.wav"));
+// Optional warmth on the narration stem only (plan.meta.narrationEq, an ffmpeg filter chain).
+if (plan.meta.narrationEq) source = filterPcm(source, plan.meta.narrationEq);
 const voice = stereo(duration);
 const voiceMask = new Float32Array(voice[0].length);
 for (const p of plan.narration) {
@@ -62,21 +77,26 @@ for (const p of plan.narration) {
   const s = Math.round((p.at - lead) * SR);
   for (let i = 0; i < slice.length; i += 1) if (s + i < voiceMask.length) voiceMask[s + i] = 1;
 }
-// Captured dialogue clips (plan.audio: { file, srcStart, srcEnd, at, fadeIn, fadeOut }, seconds)
-// are matched to the narrator's level over their speech and mixed into the voice stem, so the
-// music and effects duck under them exactly as they do under the narration.
-const speechRms = (buf) => {
+// Captured dialogue clips (plan.audio: { file, srcStart, srcEnd, at, fadeIn, fadeOut, role }, seconds),
+// one per utterance, are each matched to the narrator's loudness and mixed into the voice stem, so
+// the music and effects duck under them exactly as they do under the narration. The agent's
+// band-limited voice gets a little presence so it reads as clearly as the narrator at equal level.
+const PRESENCE = "equalizer=f=3000:t=q:w=0.8:g=2";
+const narrationSpeech = (() => {
   const win = Math.round(0.05 * SR);
   const frames = [];
-  for (let i = 0; i + win <= buf.length; i += win) frames.push(rms(buf, i, i + win));
+  for (let i = 0; i + win <= source.length; i += win) frames.push(rms(source, i, i + win));
   const loud = frames.filter((v) => v > Math.max(...frames) * 0.1);
   return Math.sqrt(loud.reduce((a, v) => a + v * v, 0) / Math.max(1, loud.length));
-};
-const narrationSpeech = speechRms(source);
+})();
+const narrationLufs = lufs(source);
+const dialogueLufs = [];
 for (const clip of plan.audio ?? []) {
   const pcm = readPcm(path.join(root, clip.file));
-  const slice = pcm.slice(Math.round(clip.srcStart * SR), Math.round(clip.srcEnd * SR));
-  const gain = narrationSpeech / speechRms(slice);
+  let slice = pcm.slice(Math.round(clip.srcStart * SR), Math.round(clip.srcEnd * SR));
+  if (clip.role === "agent") slice = filterPcm(slice, PRESENCE);
+  const before = lufs(slice);
+  const gain = db(narrationLufs - before);
   const fi = Math.round((clip.fadeIn ?? 0.01) * SR);
   const fo = Math.round((clip.fadeOut ?? 0.01) * SR);
   for (let i = 0; i < slice.length; i += 1) {
@@ -90,7 +110,19 @@ for (const clip of plan.audio ?? []) {
     if (rms(slice, i, Math.min(slice.length, i + win)) < narrationSpeech * 0.05) continue;
     for (let k = i; k < Math.min(slice.length, i + win); k += 1) if (s + k < voiceMask.length) voiceMask[s + k] = 1;
   }
-  console.log(`  clip ${path.basename(clip.file)} ${clip.srcStart.toFixed(2)}–${clip.srcEnd.toFixed(2)} s at ${clip.at.toFixed(2)} s, gain ${(20 * Math.log10(gain)).toFixed(1)} dB`);
+  dialogueLufs.push({ role: clip.role, at: Math.round(clip.at * 100) / 100, lufs: Math.round(lufs(slice) * 10) / 10 });
+  console.log(`  ${clip.role ?? "clip"} ${path.basename(clip.file)} ${clip.srcStart.toFixed(2)}–${clip.srcEnd.toFixed(2)} s at ${clip.at.toFixed(2)} s, gain ${(narrationLufs - before).toFixed(1)} dB`);
+}
+// The music holds its speaking duck through each exchange: clips less than 3 s apart form one span.
+const holdMask = new Uint8Array(voiceMask.length);
+{
+  const spans = [...(plan.audio ?? [])].map((c) => [c.at, c.at + c.srcEnd - c.srcStart]).sort((a, b) => a[0] - b[0]);
+  const merged = [];
+  for (const sp of spans) {
+    if (merged.length && sp[0] - merged.at(-1)[1] < 3) merged.at(-1)[1] = Math.max(merged.at(-1)[1], sp[1]);
+    else merged.push([...sp]);
+  }
+  for (const [a, b] of merged) holdMask.fill(1, Math.max(0, Math.round(a * SR)), Math.min(holdMask.length, Math.round(b * SR)));
 }
 
 // Voice level while speaking, for setting the music under it.
@@ -124,7 +156,7 @@ const rel = 1 - Math.exp(-1 / (0.45 * SR));
 for (let i = 0; i < env.length; i += 1) {
   if (voiceMask[i]) hold = Math.round(0.35 * SR);
   else hold = Math.max(0, hold - 1);
-  const target = voiceMask[i] || hold > 0 ? 1 : 0;
+  const target = voiceMask[i] || hold > 0 || holdMask[i] ? 1 : 0;
   e += (target - e) * (target > e ? atk : rel);
   env[i] = e;
 }
@@ -199,8 +231,10 @@ const report = {
   input: { i: stats.input_i, tp: stats.input_tp },
   output: { i: out.output_i, tp: out.output_tp, lra: out.output_lra, normalization: out.normalization_type },
   musicUnderVoiceDb: Math.round(musicUnderVoice * 10) / 10,
+  // Loudness of each dialogue utterance after matching, against the narration's (both in LUFS).
+  dialogue: { narration: Math.round(narrationLufs * 10) / 10, utterances: dialogueLufs },
   peakLimited: limited,
   music: { generator: "audio/synth.mjs music()", ...musicSpec, sections },
 };
 writeFileSync(path.join(outDir, "mix.json"), `${JSON.stringify(report, null, 2)}\n`);
-console.log(JSON.stringify({ output: report.output, musicUnderVoiceDb: report.musicUnderVoiceDb }));
+console.log(JSON.stringify({ output: report.output, musicUnderVoiceDb: report.musicUnderVoiceDb, dialogue: report.dialogue }));

@@ -12,7 +12,8 @@ const forceFallback = process.argv.includes("--fallback");
 const projectFlag = process.argv.indexOf("--project");
 const onlyProject = projectFlag >= 0 ? process.argv[projectFlag + 1] : null;
 
-// Same voice and tuning as the portfolio guide (lib/guide/voice.ts on main).
+// Same voice and tuning as the portfolio guide (lib/guide/voice.ts on main). A film may set its own
+// pace with `narrationSpeed` (Relay: 1.06, approved 2026-10-30).
 const SPEED = 1;
 const SENTENCE_PAUSE_S = 0.18;
 const ROOM = 0.06;
@@ -95,7 +96,7 @@ for (const project of production.projects) {
   const timings = [];
   let cursor = 0;
   for (const sentence of sentencesOf(project.narration)) {
-    const audio = await tts.generate(sentence, { voice: production.format.voice, speed: SPEED });
+    const audio = await tts.generate(sentence, { voice: production.format.voice, speed: project.narrationSpeed ?? SPEED });
     if (audio.sampling_rate !== SAMPLE_RATE) throw new Error(`Unexpected sample rate ${audio.sampling_rate}`);
     timings.push({ sentence, start: cursor / SAMPLE_RATE, end: (cursor + audio.audio.length) / SAMPLE_RATE });
     pieces.push(audio.audio, new Float32Array(Math.round(SENTENCE_PAUSE_S * SAMPLE_RATE)));

@@ -7,8 +7,9 @@ import { alpha, EASE, FONT, type Palette } from "../lib/theme";
 const ramp = (frame: number, a: number, b: number) => EASE.enter(interpolate(frame, [a, b], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
 
 // Shared ≤2 s sting: the project mark scales in, its stroke draws, the wordmark wipes on.
-export const IntroSting: React.FC<{ palette: Palette; mark: React.ReactNode; wordmark: React.ReactNode; tagline: string }> = ({ palette, mark, wordmark, tagline }) => {
-  const frame = useCurrentFrame();
+// `delay` (frames) holds the mark back for something a film plays first.
+export const IntroSting: React.FC<{ palette: Palette; mark: React.ReactNode; wordmark: React.ReactNode; tagline: string; delay?: number }> = ({ palette, mark, wordmark, tagline, delay = 0 }) => {
+  const frame = useCurrentFrame() - delay;
   const m = ramp(frame, 0, 26);
   const w = ramp(frame, 14, 44);
   const glow = interpolate(frame, [0, 20, 70], [0, 1, 0.35], { extrapolateRight: "clamp" });
@@ -21,7 +22,7 @@ export const IntroSting: React.FC<{ palette: Palette; mark: React.ReactNode; wor
           <div style={{ transform: `scale(${0.6 + 0.4 * m}) rotate(${(1 - m) * -12}deg)`, opacity: m, filter: `blur(${(1 - m) * 8}px)` }}>{mark}</div>
           <div style={{ clipPath: `inset(-20% ${100 - w * 100}% -20% 0)`, transform: `translateX(${(1 - w) * -24}px)` }}>{wordmark}</div>
         </div>
-        <KineticText text={tagline} start={30} size={36} weight={500} color="rgba(255,255,255,0.78)" align="center" />
+        <KineticText text={tagline} start={30 + delay} size={36} weight={500} color="rgba(255,255,255,0.78)" align="center" />
       </AbsoluteFill>
     </AbsoluteFill>
   );

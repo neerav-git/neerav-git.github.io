@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, interpolate, Sequence, useCurrentFrame } from "remotion";
 import { Finish } from "./components/Backdrop";
-import { JourneyTracker } from "./components/Overlays";
+import { JourneyTracker, StatusLine } from "./components/Overlays";
 import { Captions } from "./components/Technical";
 import type { Layout } from "./lib/geometry";
 import { alpha, EASE, type Palette } from "./lib/theme";
@@ -15,6 +15,8 @@ export type TransitionSpec = {
 
 export type PlanScene = { id: string; kind: string; from: number; duration: number; in?: TransitionSpec; out?: TransitionSpec; [key: string]: unknown };
 
+export type StatusCue = { start: number; end: number; text: string; sub?: string; cut?: string };
+
 export type Plan = {
   slug: string;
   fps: number;
@@ -23,7 +25,8 @@ export type Plan = {
   palette: Palette;
   scenes: PlanScene[];
   tracker?: { from: number; to: number; steps: { label: string; from: number }[] };
-  captions: { start: number; end: number; text: string }[];
+  captions: { start: number; end: number; text: string; speaker?: string }[];
+  status?: StatusCue[];
   meta: { tagline: string; impact: string; link: string };
   poster?: { video: string; frame: number };
 };
@@ -121,6 +124,11 @@ export const Film: React.FC<{ plan: Plan; captions?: boolean; render: (scene: Pl
     {plan.tracker && (
       <AbsoluteFill style={{ zIndex: 5 }}>
         <JourneyTracker steps={plan.tracker.steps} from={plan.tracker.from} to={plan.tracker.to} palette={plan.palette} />
+      </AbsoluteFill>
+    )}
+    {plan.status && plan.status.length > 0 && (
+      <AbsoluteFill style={{ zIndex: 5 }}>
+        <StatusLine cues={plan.status} palette={plan.palette} />
       </AbsoluteFill>
     )}
     <AbsoluteFill style={{ zIndex: 6 }}>

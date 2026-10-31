@@ -85,8 +85,23 @@ const chunk = Number(value("chunk")) || 0;
 if (!has("skip-video") && !patch && chunk && !draft) {
   const composition = await selectComposition({ ...common, id: slug });
   const partsDir = path.join(outDir, "parts");
+  const { renameSync, rmSync, readdirSync } = await import("node:fs");
+  const { createHash } = await import("node:crypto");
+  // Parts are only resumable for the same plan, renderer code and capture frames (plan-film writes
+  // a .source stamp per extracted chapter); anything else starts clean, or stale parts from an
+  // earlier cut get joined into the new master.
+  const hash = createHash("sha1").update(readFileSync(path.join(root, "projects", slug, "edit", "plan.json")));
+  for (const f of readdirSync(path.join(root, "remotion"), { recursive: true }).filter((f) => /\.tsx?$/.test(f)).sort()) hash.update(f).update(readFileSync(path.join(root, "remotion", f)));
+  const framesDir = path.join(root, "public", slug, "frames");
+  if (existsSync(framesDir)) for (const f of readdirSync(framesDir, { recursive: true }).filter((f) => path.basename(f) === ".source").sort()) hash.update(f).update(readFileSync(path.join(framesDir, f)));
+  const stampFile = path.join(partsDir, "stamp.txt");
+  const stamp = hash.digest("hex");
+  if (existsSync(partsDir) && (!existsSync(stampFile) || readFileSync(stampFile, "utf8") !== stamp)) {
+    console.log("  plan or renderer changed; discarding old parts");
+    rmSync(partsDir, { recursive: true, force: true });
+  }
   mkdirSync(partsDir, { recursive: true });
-  const { renameSync } = await import("node:fs");
+  writeFileSync(stampFile, stamp);
   const parts = [];
   for (let a = 0; a < composition.durationInFrames; a += chunk) {
     const b = Math.min(a + chunk, composition.durationInFrames) - 1;
@@ -145,17 +160,33 @@ if (draft) {
 const captionsFile = path.join(outDir, "captions.mov");
 if (!has("skip-captions")) {
   const composition = await selectComposition({ ...common, id: `${slug}-captions` });
-  await renderMedia({
-    ...common,
-    composition,
-    outputLocation: captionsFile,
-    muted: true,
-    codec: "prores",
-    proResProfile: "4444",
-    imageFormat: "png",
-    pixelFormat: "yuva444p10le",
-    onProgress: progress("captions"),
-  });
+  // Same stall watchdog as the video parts: a crashed browser can hang Remotion's retry.
+  for (let attempt = 1; ; attempt++) {
+    const { cancelSignal, cancel } = makeCancelSignal();
+    const report = progress("captions");
+    let last = Date.now();
+    const watchdog = setInterval(() => Date.now() - last > 180000 && cancel(), 10000);
+    try {
+      await renderMedia({
+        ...common,
+        composition,
+        outputLocation: captionsFile,
+        muted: true,
+        codec: "prores",
+        proResProfile: "4444",
+        imageFormat: "png",
+        pixelFormat: "yuva444p10le",
+        cancelSignal,
+        onProgress: (p) => { last = Date.now(); report(p); },
+      });
+      break;
+    } catch (error) {
+      if (attempt >= 3) throw error;
+      console.log(`  captions failed (${error.message.split("\n")[0]}); retrying`);
+    } finally {
+      clearInterval(watchdog);
+    }
+  }
 }
 
 // Designed poster.

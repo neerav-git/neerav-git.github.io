@@ -3,14 +3,15 @@ import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from "rem
 import { Backdrop } from "./Backdrop";
 import { BrowserFrame } from "./BrowserFrame";
 import { ClickRipple, Cursor } from "./Cursor";
-import { CalloutDim, CalloutRing, Chip, LowerThird } from "./Overlays";
+import { CalloutDim, CalloutRing, Chip, Link, LowerThird } from "./Overlays";
 import { type Box, camOf, cameraTransform, clamp, type Layout, screenBox, screenOf } from "../lib/geometry";
 import { alpha, EASE, type Palette } from "../lib/theme";
 
 export type Overlay =
   | { type: "callout"; from: number; to: number; box: Box; label?: string; side?: "top" | "bottom" | "left" | "right"; tone?: "accent" | "warn" | "ok"; dim?: boolean; pad?: number }
   | { type: "chip"; from: number; to: number; box: Box; text: string; side?: "right" | "left" | "below" | "above"; tone?: "accent" | "warn" | "ok"; icon?: string }
-  | { type: "lowerThird"; from: number; to: number; title: string; detail?: string };
+  | { type: "lowerThird"; from: number; to: number; title: string; detail?: string }
+  | { type: "link"; from: number; to: number; fromBox: Box; box: Box };
 
 export type CaptureSceneData = {
   id: string;
@@ -135,6 +136,14 @@ export const CaptureScene: React.FC<{ scene: CaptureSceneData; layout: Layout; p
             side === "below" ? { x: b.x + b.width / 2, y: b.y + b.height + 16, anchor: "center" as const } :
             { x: b.x + b.width / 2, y: b.y - 76, anchor: "center" as const };
           return <Chip key={k} text={o.text} from={o.from} to={o.to} x={pos.x} y={pos.y} color={tone(o.tone)} icon={o.icon} anchor={pos.anchor} />;
+        }
+        if (o.type === "link") {
+          // From the centre of one box to the nearest point on the other's edge.
+          const s = screenBox(o.fromBox, cam, L);
+          const t = screenBox(o.box, cam, L);
+          const a = { x: s.x + s.width / 2, y: s.y + s.height / 2 };
+          const b = { x: clamp(a.x, t.x, t.x + t.width), y: clamp(a.y, t.y, t.y + t.height) };
+          return <Link key={k} a={a} b={b} from={o.from} to={o.to} color={palette.accent} />;
         }
         return null;
       })}

@@ -9,7 +9,7 @@ Checks
                     camera holds: residual motion (should be ~0)
   holds             longest span with no visual change (must be <= 3 s)
   loudness          integrated LUFS and true peak of the delivered file
-  runtime           40-90 s
+  runtime           the film's meta.runtime range (default 40-90 s)
   sync              every pinned action vs its narration word (must be within 150 ms)
 """
 import json, os, subprocess, sys
@@ -46,7 +46,9 @@ def probe_duration():
 
 report = {"slug": slug, "video": os.path.relpath(video, root)}
 duration = probe_duration()
-report["runtime"] = {"seconds": round(duration, 2), "pass": 40 <= duration <= 90}
+# The film's own approved runtime (meta.runtime) when it has one; 40-90 s otherwise.
+lo, hi = plan.get("meta", {}).get("runtime") or (40, 90)
+report["runtime"] = {"seconds": round(duration, 2), "range": [lo, hi], "pass": lo <= duration <= hi}
 
 # ---------- contact sheet ----------
 cols, w, h = 8, 384, 216

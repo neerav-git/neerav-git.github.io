@@ -1,30 +1,27 @@
 # QA — relay
 
-Take 2 · 89.22 s · checked by `qa/tools/qa_film.py` on `renders/relay/relay.mp4`
+Take 4 · 167.68 s · checked by `qa/tools/qa_film.py` on `renders/relay/relay.mp4`
 
 | Check | Result | Detail |
 |---|---|---|
-| Runtime 40–90 s | PASS | 89.22 s |
-| Jitter: planned camera | PASS | 0 direction reversals in the exact per-frame camera values the renderer draws, across all 30 moves |
-| Jitter: rendered camera | PASS | 7 of 30 moves have enough clean capture pixels to measure (overlays, cursor, ripples and in-page changes excluded); on those, 0 reversals and the rendered motion tracks the plan to 0.246 px RMS. The other moves are covered by the planned-camera check |
+| Runtime 120–200 s | PASS | 167.68 s |
+| Jitter: planned camera | PASS | 0 direction reversals in the exact per-frame camera values the renderer draws, across all 31 moves |
+| Jitter: rendered camera | PASS | 6 of 31 moves have enough clean capture pixels to measure (overlays, cursor, ripples and in-page changes excluded); on those, 0 reversals and the rendered motion tracks the plan to 0.401 px RMS. The other moves are covered by the planned-camera check |
 | Jitter: holds | PASS | worst residual motion 0 px/frame over 0 holds |
-| No hold over 3 s | PASS | longest span without visual change 2.48 s (at 86.72 s) |
-| Loudness −16 LUFS, ≤ −1.5 dBTP | PASS | -15.9 LUFS, -3.1 dBTP |
-| Narration/action sync ±150 ms | PASS | worst 5 ms over 7 pairs |
-| Transitions | — | 10: blurDissolve, radial, whip, wipe (strips in `qa/relay/transitions.png`) |
+| No hold over 3 s | FAIL | longest span without visual change 3.55 s (at 116.85 s) |
+| Loudness −16 LUFS, ≤ −1.5 dBTP | PASS | -15.9 LUFS, -3.4 dBTP |
+| Narration/action sync ±150 ms | PASS | worst 8 ms over 4 pairs |
+| Transitions | — | 18: blurDissolve, radial, whip, wipe (strips in `qa/relay/transitions.png`) |
 | Music under voice | — | -15 dB while speaking; source `audio/synth.mjs music()`, seed 7, 92 BPM |
 
 ## Sync pairs
 
 | Action | Word | Offset |
 |---|---|---|
-| Orb tap | “helps (end)” at 14.15 s | -3 ms |
-| Typing starts | “types” at 41.20 s | -3 ms |
-| Reply ready for confirmation | “waits” at 44.30 s | -3 ms |
-| Confirm click | “click” at 46.05 s | +2 ms |
-| Reply on the case | “case” at 47.69 s | -5 ms |
-| Case drafted | “complete” at 52.50 s | -3 ms |
-| Confirm click | “confirmed” at 54.18 s | 0 ms |
+| Orb tap | “day one (end)” at 34.62 s | 0 ms |
+| Request drafted | “drafts” at 67.03 s | +3 ms |
+| Confirm click | “confirms” at 71.03 s | +3 ms |
+| Meeting confirm | “books” at 84.28 s | +8 ms |
 
 ## Camera moves
 
@@ -32,45 +29,53 @@ Measured = at least 70% of frame pairs fitted on clean capture pixels. Tracking 
 
 | Scene | From | To | Frames fitted | Measured | Reversals | Tracking RMS (px) | Peak pan (px/frame) |
 |---|---|---|---|---|---|---|---|
-| cold | 0.08 s | 1.4 s | 40/79 | no | — | — | 2.43 |
-| cold | 1.67 s | 2.52 s | 0/51 | no | — | — | 0 |
-| home | 5.02 s | 5.62 s | 24/36 | no | — | — | 6.06 |
-| home | 7.22 s | 8.42 s | 70/72 | yes | 0 | 0.119 | 3.67 |
-| home | 11.08 s | 12.18 s | 48/66 | yes | 0 | 0.359 | 6.23 |
-| home | 13.97 s | 14.38 s | 16/25 | no | — | — | 3.56 |
-| voice | 14.78 s | 20.55 s | 12/346 | no | — | — | 0.02 |
-| voice | 20.93 s | 21.78 s | 10/51 | no | — | — | 13.39 |
-| voice | 23.72 s | 24.62 s | 0/54 | no | — | — | 0 |
-| voice | 24.78 s | 28.03 s | 0/195 | no | — | — | 0 |
-| voice | 28.2 s | 29.1 s | 0/54 | no | — | — | 0 |
-| voice | 29.52 s | 34.35 s | 1/290 | no | — | — | 0.03 |
-| reply | 36.28 s | 36.88 s | 19/36 | no | — | — | 3.99 |
-| reply | 37.38 s | 37.98 s | 5/36 | no | — | — | 2.04 |
-| reply | 38.52 s | 39.12 s | 0/36 | no | — | — | 0 |
-| reply | 39.18 s | 40.03 s | 11/51 | no | — | — | 4.53 |
-| reply | 44.37 s | 45.07 s | 0/42 | no | — | — | 0 |
-| reply | 46.37 s | 47.22 s | 20/51 | no | — | — | 8 |
-| laptop | 52.27 s | 53.07 s | 0/48 | no | — | — | 0 |
-| laptop | 54.5 s | 55.3 s | 18/48 | no | — | — | 2.28 |
-| contract | 60.75 s | 61.55 s | 42/48 | yes | 0 | 0.117 | 6.22 |
-| contract | 65.05 s | 65.65 s | 5/36 | no | — | — | 1.32 |
-| contract | 65.78 s | 66.53 s | 8/45 | no | — | — | 2.34 |
-| evaluation | 68.75 s | 69.75 s | 52/60 | yes | 0 | 0.109 | 4.58 |
-| evaluation | 70.5 s | 71.2 s | 15/42 | no | — | — | 6.24 |
-| evaluation | 71.57 s | 74.35 s | 152/167 | yes | 0 | 0.051 | 0.17 |
-| evaluation | 74.7 s | 75.4 s | 20/42 | no | — | — | 16.8 |
-| evaluation | 75.48 s | 77.35 s | 93/112 | yes | 0 | 0.089 | 2.07 |
-| evaluation | 77.43 s | 78.13 s | 32/42 | yes | 0 | 0.495 | 9.14 |
-| evaluation | 80.37 s | 81.12 s | 27/45 | no | — | — | 28.39 |
+| tour | 21.28 s | 31.43 s | 270/609 | no | — | — | 9.52 |
+| idea | 32.77 s | 34.63 s | 77/112 | no | — | — | 9.05 |
+| idea | 34.75 s | 35.32 s | 28/34 | yes | 0 | 0.118 | 1.67 |
+| voice | 36.07 s | 43.88 s | 114/469 | no | — | — | 0.1 |
+| voice-answer | 46.32 s | 47.32 s | 0/60 | no | — | — | 0 |
+| voice-answer | 47.63 s | 51.98 s | 1/261 | no | — | — | 0.12 |
+| voice-answer | 52.3 s | 53.2 s | 0/54 | no | — | — | 0 |
+| voice-answer | 53.42 s | 55.27 s | 0/111 | no | — | — | 0 |
+| form | 56.68 s | 57.57 s | 42/53 | yes | 0 | 0.96 | 11.09 |
+| form | 57.62 s | 59.27 s | 64/99 | no | — | — | 0.82 |
+| form | 59.3 s | 60.08 s | 18/47 | no | — | — | 18 |
+| form | 60.22 s | 62.22 s | 106/120 | yes | 0 | 0.091 | 0.38 |
+| laptop-ask | 62.87 s | 66.58 s | 17/223 | no | — | — | 0.06 |
+| laptop-confirm | 67.02 s | 70.88 s | 87/232 | no | — | — | 0.44 |
+| laptop-confirm | 71.35 s | 72.15 s | 4/48 | no | — | — | 15.64 |
+| laptop-confirm | 72.22 s | 72.67 s | 6/27 | no | — | — | 0.7 |
+| meeting | 73.15 s | 77 s | 3/231 | no | — | — | 0.11 |
+| meeting-draft | 78.22 s | 79.12 s | 0/54 | no | — | — | 0 |
+| meeting-draft | 79.5 s | 83.43 s | 3/236 | no | — | — | 0.05 |
+| meeting-confirm | 84.55 s | 85.35 s | 10/48 | no | — | — | 4.99 |
+| paycheck | 86.07 s | 88.47 s | 48/144 | no | — | — | 0.62 |
+| deposit | 88.75 s | 90.28 s | 0/92 | no | — | — | 0 |
+| deposit | 90.35 s | 91.15 s | 0/48 | no | — | — | 0 |
+| operations | 130.5 s | 131.3 s | 32/48 | no | — | — | 12.46 |
+| operations | 132.57 s | 133.13 s | 10/34 | no | — | — | 5.89 |
+| operations | 133.15 s | 133.95 s | 32/48 | no | — | — | 5.84 |
+| evaluation | 135.97 s | 136.85 s | 50/53 | yes | 0 | 0.122 | 5.85 |
+| evaluation | 136.95 s | 137.65 s | 20/42 | no | — | — | 9.39 |
+| evaluation | 138.15 s | 140.75 s | 149/156 | yes | 0 | 0.043 | 0.1 |
+| evaluation | 141.23 s | 141.93 s | 24/42 | no | — | — | 19.04 |
+| evaluation | 142.45 s | 145.75 s | 187/198 | yes | 0 | 0.044 | 0.16 |
 
 ## Speed ramps
 
-- `cold`: moving footage at 1–1× (idle frames held or skipped)
-- `home`: moving footage at 1–1× (idle frames held or skipped)
+- `tour`: moving footage at 1–1× (idle frames held or skipped)
+- `idea`: moving footage at 1–1× (idle frames held or skipped)
 - `voice`: moving footage at 1–1× (idle frames held or skipped)
-- `reply`: moving footage at 1–1× (idle frames held or skipped)
-- `laptop`: moving footage at 1–1× (idle frames held or skipped)
-- `contract`: moving footage at 1–1× (idle frames held or skipped)
+- `voice-answer`: moving footage at 1–1× (idle frames held or skipped)
+- `form`: moving footage at 1–1× (idle frames held or skipped)
+- `laptop-ask`: moving footage at 1–1× (idle frames held or skipped)
+- `laptop-confirm`: moving footage at 1–1× (idle frames held or skipped)
+- `meeting`: moving footage at 1–1× (idle frames held or skipped)
+- `meeting-draft`: moving footage at 1–1× (idle frames held or skipped)
+- `meeting-confirm`: moving footage at 1–1× (idle frames held or skipped)
+- `paycheck`: moving footage at 1–1× (idle frames held or skipped)
+- `deposit`: moving footage at 1–1× (idle frames held or skipped)
+- `operations`: moving footage at 1–1× (idle frames held or skipped)
 - `evaluation`: moving footage at 1–1× (idle frames held or skipped)
 
 ## Legibility
@@ -78,3 +83,7 @@ Measured = at least 70% of frame pairs fitted on clean capture pixels. Tracking 
 All added text (titles, callouts, lower thirds, tracker, captions, terminal, diagram) is set at 28 px or larger inside 5% title-safe margins. Product UI text is shown at the capture's native size and enlarged by the 1.3–1.9× camera on every element the narration names.
 
 Contact sheet: `qa/relay/contact.png` · transitions: `qa/relay/transitions.png` · raw report: `qa/relay/report.json`
+
+## Delivered on approval (2026-10-31)
+
+The only failing check is "No hold over 3 s": the intelligence-layer diagram (3.35 s at 93.27 s) and the security diagram (3.55 s at 116.85 s) rest while the narration finishes. Both diagrams were approved as they are; the user watched this cut and approved it for the website, so it was delivered with `--force` rather than restyling them.

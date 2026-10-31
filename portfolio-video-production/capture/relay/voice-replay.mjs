@@ -5,8 +5,9 @@
 // its recorded delay after the client message it answered (Settings or a function-call response),
 // and never arrives earlier than its recorded offset from Settings, so the conversation keeps its
 // live pacing. The employee's line reaches the app through its real microphone path (the PCM
-// worklet's port), so the orb reacts to Maya's voice as it did live. The audio clock the agent
-// player schedules against follows page time, so playback drains when it would have live.
+// worklet's port). The audio clock the agent player schedules against follows page time, so
+// playback drains when it would have live, and the player's output meter (which drives the orb)
+// reads the agent audio scheduled at that page time.
 // The app's own code runs unchanged: tools execute against the portal and navigate it.
 import { readFileSync } from "node:fs";
 
@@ -76,6 +77,36 @@ export function replayScript(sessions) {
     if (!origins.has(this)) origins.set(this, now());
     return (now() - origins.get(this)) / 1000;
   } });
+
+  // Playback meter on page time. The real audio graph renders on the wall clock, which runs far
+  // ahead of the stepped page, so an AnalyserNode in a context that plays buffers is answered from
+  // the buffers themselves: the samples scheduled at the context's (page-time) currentTime.
+  const played = new WeakMap();
+  const nativeStart = AudioBufferSourceNode.prototype.start;
+  AudioBufferSourceNode.prototype.start = function (when = 0, ...rest) {
+    const ctx = this.context;
+    if (this.buffer) {
+      const list = played.get(ctx) || [];
+      list.push({ at: Math.max(when, ctx.currentTime), data: this.buffer.getChannelData(0), rate: this.buffer.sampleRate });
+      played.set(ctx, list.filter((b) => b.at + b.data.length / b.rate > ctx.currentTime - 1));
+    }
+    return nativeStart.call(this, when, ...rest);
+  };
+  const nativeBytes = AnalyserNode.prototype.getByteTimeDomainData;
+  AnalyserNode.prototype.getByteTimeDomainData = function (out) {
+    const list = played.get(this.context);
+    if (!list) return nativeBytes.call(this, out);
+    const t = this.context.currentTime;
+    out.fill(128);
+    for (const b of list) {
+      // The analyser's window is the latest fftSize samples; the caller reads the first out.length.
+      const first = Math.round((t - b.at) * b.rate) - this.fftSize;
+      for (let k = 0; k < out.length; k += 1) {
+        const i = first + k;
+        if (i >= 0 && i < b.data.length) out[k] = Math.max(0, Math.min(255, Math.round(128 + b.data[i] * 128)));
+      }
+    }
+  };
 
   // Microphone: a silent stream for getUserMedia; the PCM worklet's port is fed Maya's line.
   const media = navigator.mediaDevices || (navigator.mediaDevices = {});

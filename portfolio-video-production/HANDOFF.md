@@ -35,7 +35,7 @@ Six narrated portfolio films, built on a Remotion engine.
 
 | Film | State |
 |---|---|
-| Relay | **v3 second draft rendered and reviewed (2026-10-30).** Take 4, 3:11.7, full-res, mix −15.9 LUFS. Saved as `projects/relay/reference/relay-v3-draft2-2026-10-30.mp4` (+ contact sheet). The user: "a perfect base", but it needs to be **snappier**. Their notes and the plan are in **Relay draft-2 notes** below. Do that pass, render draft 3 at full res, show the user, then QA/deliver/commit on approval. |
+| Relay | **v3 delivered (2026-10-31), approved by the user for the website.** Take 4 re-captured with the orb fix, 2:47.68, full-res, mix −15.9 LUFS / −3.4 dBTP. In `../output/portfolio-videos/` (relay.mp4, relay-captioned.mp4, .vtt, poster, contact); QA log `qa/relay.md` (all pass except two approved diagram holds of 3.35 s and 3.55 s, delivered with `--force`). Next: wire it into the website (the delivered files are CRF 15 masters, about 400 MB; make a web encode for the site). |
 | Homeward | v1 delivered, but the user rejected its opening (a cropped cold open with no need or industry). The **v3 script** is in `plans/film-scripts-v3.md`; the user said "fine". |
 | TraceLens | v3 script: the user said "fine" and set the opener (Nature Medicine, then the portfolio question). Boards D1–D4 exist (`plans/boards/`). Fix the D3 "median per answer" overflow before use. |
 | Alzheimer's | v3 script rewritten to the user's notes (dementia's importance, then the research question). Needs a final look. |
@@ -55,6 +55,48 @@ The user's notes, in their words:
 - "in general we need a little more snappier video (so this video is a perfect base just needs to be adjusted to make it a bit more well paced and speech could also be a little faster and warmer)"
 - "Relay guide's voice needs to be as loud as the narrator when the video switches to showing its greeting or functionality"
 - Assess "where we can add a little more meaning in the visual frame (the content is there, but how do we make the right visual and focus on it better to convey the significance of the work)".
+
+- Later note (2026-10-30): end on "a slightly better and more impactful slogan". The end card's "Say it once, and Relay finds the record, the owner and the next step" (`meta.impact`) "sounds a bit dull". **Change nothing else in the script or its tone.** Offer options; the user picks.
+
+**Draft 3 (2026-10-30, uncommitted).** Plan **2:51.4**. The user's choices:
+- Narrator: **1.06 warm**. `narrationSpeed: 1.06` in production.json (read per project by generate-narration.mjs); `meta.narrationEq` in relay.mjs.
+- Slogan (`meta.impact`): **"Your whole workplace, one question away."**
+- Closing narration replaces line 14 with two lines (14 and 15), signed off: "That was Maya's first day, sorted in a few sentences. Relay takes the guesswork and friction out of work by automating the essential tasks."
+- Visuals: **items 1, 2, 3 and 7** below. The user: keep the edits focused, because draft 2 was slow.
+
+Done:
+- Items 1, 3 and 4 of the plan below.
+- Narration rebuilt: 120.1 s, 16 sentences, pronunciation checked.
+- Tour: the user asked for its idle gap to go (2026-10-30). It now plays at its captured 1× pace (draft 2 stretched it to 0.76× for the slower narrator), so line 3 follows line 2 0.45 s later. The orb callout runs "with a Deepgram voice agent" only, so all four section callouts show (draft 2 dropped Payroll).
+- Visual item 1: push-ins on the meeting draft (the calendar slot, z 1.75–1.8), the meeting confirm (confirm, then the booked card) and the deposit (record, then the "Add direct-deposit information" button). Boxes were measured on take-04 frames.
+- Visual item 2: `RelaySting` flies the schematic's four portals into the mark (`IntroSting` gained `delay`). The payoff ticks the three questions.
+- Visual item 3:
+  - A "link" overlay draws a line from the orb to the opened record.
+  - The record callout lands on the spoken "federal…".
+  - Dialogue captions carry a `speaker` (Maya amber, Relay Guide teal).
+- Visual item 7: a new `recap` scene (`designed/RelayRecap.tsx`) shows four real end frames, with the tiles' `stills` extracted by plan-film.
+- Mix: −15.9 LUFS, −3.5 dBTP. Master windows (on the 2:51.6 variant; re-check on this plan): narrator −15.7/−15.8, dialogue −15.6 to −15.8, greeting −15.1, closing −15.8.
+
+Orb re-capture (2026-10-30, the user's request): the Relay app's orb used to react to Maya's microphone; the user rewired it (uncommitted in the Relay repo) to the agent's playback level (`AgentPlayer.getOutputVolume()`). `capture/relay/voice-replay.mjs` now answers that output meter from the scheduled agent buffers at page time, since the real audio graph runs on the wall clock. Take 4 was re-captured **with the same take number** (same seed, so cursor paths and timings match the approved edit), replaying live-02/live-03 (no new Deepgram sessions), with `RELAY_URL=http://127.0.0.1:5173` (the user's dev server). The original is kept in `take-04-pre-orbfix/`. Measured on the 1080p test: orb motion during agent speech 3.2–3.6 (was ~0.5), during Maya's line 0.47 (was 1.76).
+
+Voice-scene notes from the user (2026-10-30, after the orb re-capture):
+- **Chipping at ~9–10 s of the greeting** was in the live-02 recording: Deepgram streamed the greeting's tail slower than real time, so the player ran dry 10 times (9–234 ms, 0.69 s total). `voice-audio.mjs` now plays each utterance's chunks back to back (a player gap over 0.3 s still starts a new utterance at its arrival).
+- **Maya's voice is now Kokoro `af_bella`** (the user's pick from an A/B; was `bf_emma`, which they heard as Siri). Film lines: `voice/maya-q2-bella.wav`, `maya-q3-bella.wav` (via `say-line.mjs <name> "<text>" af_bella`). The capture's microphone feed stays bf_emma; it only reaches the replayed session. Build the voice audio with the `-bella` files.
+- **Meeting tightened** (user, 2026-10-30): Maya's lead-in 0.35 s, the draft hold 0.7 s plus a 0.35 s ramp, the agent's lead-in 0.25 s, and narration line 6 starts 0.4 s into the confirm shot. Plan 2:47.7.
+- **Quicker conversation:** the long pauses inside the agent's speech (greeting 1.0 s, answer 1.5 s and 1.2 s) now play as 0.12 s + 0.25 s ramp + 0.12 s. The opening wait the user saw in the raw clip is already cut in the edit (the idea shot ends 1 s after the tap, then the greeting).
+
+Render gotcha (fixed 2026-10-30): `--chunk` resumed from **stale parts** of the Oct 29 render and joined draft-1 frames into the draft-3 master (2:55.0 instead of 2:51.4). `render-film.mjs` now stamps `renders/<slug>/parts/stamp.txt` with a hash of plan.json and `remotion/**` and discards the parts when the hash changes. The captions pass also hung for hours after a browser crash; it now has the same 3-minute stall watchdog as the parts. Always check the master's duration against the plan before delivery.
+
+**Current draft (rendered 2026-10-31 00:41):** full-res, 2:47.68, new take-4 frames (orb follows the agent), cursor off the orb, no Schematic label, af_bella Maya, mix −15.9 LUFS / −3.5 dBTP. Saved over `projects/relay/reference/relay-v3-draft3-2026-10-30.mp4` (+ `-sheet.jpg`). Checked on frames pulled from the master. **Approved and delivered 2026-10-31.**
+
+**Superseded the same night:** the 23:14 render still showed the *old* orb. `plan-film.mjs` extracts capture stills into `public/<slug>/frames/take-NN/<chapter>/` and only extracted missing frames, so the re-captured take 4 kept serving Oct 29 stills. Fixed: each chapter folder has a `.source` stamp (capture path, size, mtime) and is re-extracted when it changes; `render-film.mjs` hashes those stamps too. Also, at the user's request, the drawn cursor steps off the orb after each tap (`stepAside` in relay.mjs: eases 230 px left and 160 px up over 0.6 s, and the next recorded move blends back). Re-rendering; this file is replaced when that finishes. **The user had the "Schematic" label removed** (2026-10-30) from the problem portals and both diagrams in Relay (`RelayProblem.tsx`, the `diagram` case in `films/Relay.tsx`). Ask before assuming the same for the other films' designed visuals.
+
+**Rendered 2026-10-30 23:14:** full-res, 2:47.68 (matches the plan), mix −15.9 LUFS / −3.5 dBTP. Saved as `projects/relay/reference/relay-v3-draft3-2026-10-30.mp4` (+ `-sheet.jpg`). Awaiting the user's review; then QA, deliver and commit on approval. Diagram fix: a `lit` window of ≤ 20 frames crashed `interpolate` (equal input points); it now fades up and down with no hold.
+
+Next (superseded by the render above):
+1. Full-res render: `RENDER_CONCURRENCY=1 RENDER_TIMEOUT_MS=300000 node scripts/render-film.mjs relay --chunk 300`.
+2. Contact sheet.
+3. Save to `projects/relay/reference/relay-v3-draft3-2026-10-30.mp4` and show the user.
 
 This is an explicit request to re-pace. The "don't re-time approved parts" rule still holds for anything the notes don't cover (the problem schematic, the diagrams, the scene order and the script).
 

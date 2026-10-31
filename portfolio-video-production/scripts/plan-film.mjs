@@ -1,7 +1,7 @@
 // Builds projects/<slug>/edit/plan.json from the selected capture take, the narration
 // word timings, and the film's edit decisions in edit/films/<slug>.mjs.
 // Usage: node scripts/plan-film.mjs <slug> [--take N]
-import { mkdirSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync, existsSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync, existsSync, statSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import ffmpegPath from "ffmpeg-static";
 import path from "node:path";
@@ -95,7 +95,7 @@ for (const p of [...placements].sort((a, b) => a.at - b.at)) {
   });
 }
 // Cues the film supplies itself (dialogue in a captured audio clip), in seconds.
-for (const c of built.captions ?? []) captions.push({ start: Math.round(c.start * FPS), end: Math.round(c.end * FPS), text: c.text });
+for (const c of built.captions ?? []) captions.push({ start: Math.round(c.start * FPS), end: Math.round(c.end * FPS), text: c.text, ...(c.speaker && { speaker: c.speaker }) });
 captions.sort((a, b) => a.start - b.start);
 for (const c of captions) if (c.text.length > 52) throw new Error(`Caption over 52 characters: "${c.text}"`);
 for (let i = 0; i < captions.length - 1; i += 1) captions[i].end = Math.min(captions[i].end, captions[i + 1].start);
@@ -134,6 +134,8 @@ const plan = {
   syncs: built.syncs ?? [],
   scenes: outScenes,
   tracker: built.tracker,
+  // One plain-language status line at a time in a fixed slot above the captions (tool calls, time cuts).
+  status: (built.status ?? []).map((x) => ({ ...x, start: Math.round(x.start * FPS), end: Math.round(x.end * FPS) })),
   chapters: built.chapters,
   captions,
   narration: placements.map(({ words, ...p }) => {
@@ -149,6 +151,7 @@ const plan = {
 const needed = {};
 const need = (dir, frame) => (needed[dir] ??= new Set()).add(frame);
 for (const s of built.scenes) {
+  for (const st of s.stills ?? []) need(st.video, st.frame);
   if (s.kind !== "capture") continue;
   for (const fr of s.frames.src) need(s.video, fr);
   for (const r of s.reveals) need(s.video, r.before);
@@ -158,7 +161,18 @@ const frameName = (n) => `${String(n).padStart(6, "0")}.jpg`;
 for (const [dir, frames] of Object.entries(needed)) {
   const chapter = dir.split("/").pop();
   const target = path.join(root, "public", dir);
+  // Frames are only reusable while they come from the same capture file: a re-captured take
+  // (same take number) must not keep serving the old take's stills.
+  const file = journey.chapters[chapter].file;
+  const { size, mtimeMs } = statSync(file);
+  const source = `${path.relative(root, file)} ${size} ${Math.round(mtimeMs)}`;
+  const sourceFile = path.join(target, ".source");
+  if (existsSync(target) && (!existsSync(sourceFile) || readFileSync(sourceFile, "utf8") !== source)) {
+    console.log(`  ${chapter}: capture changed; discarding its extracted frames`);
+    rmSync(target, { recursive: true, force: true });
+  }
   mkdirSync(target, { recursive: true });
+  writeFileSync(sourceFile, source);
   const missing = [...frames].filter((n) => !existsSync(path.join(target, frameName(n))));
   if (!missing.length) continue;
   const tmp = path.join(target, ".all");

@@ -30,7 +30,7 @@ const lines = [
   "",
   "| Check | Result | Detail |",
   "|---|---|---|",
-  `| Runtime 40–90 s | ${mark(report.runtime.pass)} | ${report.runtime.seconds} s |`,
+  `| Runtime ${(report.runtime.range ?? [40, 90]).join("–")} s | ${mark(report.runtime.pass)} | ${report.runtime.seconds} s |`,
   `| Jitter: planned camera | ${mark(!report.jitter.plan_bounces.length)} | ${report.jitter.plan_bounces.length} direction reversals in the exact per-frame camera values the renderer draws, across all ${report.jitter.moves.length} moves |`,
   `| Jitter: rendered camera | ${mark(report.jitter.reversals === 0)} | ${report.jitter.measured_moves} of ${report.jitter.moves.length} moves have enough clean capture pixels to measure (overlays, cursor, ripples and in-page changes excluded); on those, ${report.jitter.reversals} reversals and the rendered motion tracks the plan to ${report.jitter.track_rms_px} px RMS. The other moves are covered by the planned-camera check |`,
   `| Jitter: holds | ${mark(report.jitter.max_hold_rms < 0.05)} | worst residual motion ${report.jitter.max_hold_rms} px/frame over ${report.jitter.holds.length} holds |`,

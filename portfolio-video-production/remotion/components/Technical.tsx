@@ -178,16 +178,25 @@ export const ChartDrawOn: React.FC<{
   );
 };
 
+// Who is talking in a dialogue cue: a name tag in the speaker's colour replaces the "Name:" prefix.
+const SPEAKERS: Record<string, { name: string; colour: string }> = {
+  maya: { name: "Maya", colour: "#f5b14a" },
+  relay: { name: "Relay Guide", colour: "#3ccfba" },
+};
+
 // Captions track (burned-in version): sentence-level timing, one line at a time.
-export const Captions: React.FC<{ cues: { start: number; end: number; text: string }[] }> = ({ cues }) => {
+export const Captions: React.FC<{ cues: { start: number; end: number; text: string; speaker?: string }[] }> = ({ cues }) => {
   const frame = useCurrentFrame();
   const cue = cues.find((c) => frame >= c.start && frame < c.end);
   if (!cue) return null;
   const o = interpolate(frame, [cue.start, cue.start + 6, cue.end - 6, cue.end], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const who = cue.speaker ? SPEAKERS[cue.speaker] : undefined;
+  const text = who ? cue.text.replace(/^[A-Z][a-z]+: /, "") : cue.text;
   return (
     <div style={{ position: "absolute", left: 0, right: 0, bottom: 58, display: "flex", justifyContent: "center", opacity: o }}>
-      <div style={{ maxWidth: 1500, padding: "10px 26px 12px", borderRadius: 14, background: "rgba(6,9,18,0.78)", color: "#fff", fontFamily: FONT, fontSize: 36, fontWeight: 550, lineHeight: 1.25, textAlign: "center", letterSpacing: -0.2 }}>
-        {cue.text}
+      <div style={{ maxWidth: 1500, padding: "10px 26px 12px", borderRadius: 14, background: "rgba(6,9,18,0.78)", color: "#fff", fontFamily: FONT, fontSize: 36, fontWeight: 550, lineHeight: 1.25, textAlign: "center", letterSpacing: -0.2, display: "flex", alignItems: "center", gap: 16, borderLeft: who ? `5px solid ${who.colour}` : undefined }}>
+        {who && <span style={{ flex: "none", fontSize: 24, fontWeight: 700, letterSpacing: 0.4, textTransform: "uppercase", color: who.colour }}>{who.name}</span>}
+        <span>{text}</span>
       </div>
     </div>
   );

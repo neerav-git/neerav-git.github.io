@@ -5,7 +5,7 @@ import { alpha, EASE, FONT, type Palette } from "../lib/theme";
 
 // The need, as a schematic: one portal per department, each with its own sign-in, forms and owner,
 // then a new hire in the middle working out where things go while requests bounce between desks.
-// Generic windows (no real company's portal); labelled "Schematic" on screen.
+// Generic windows (no real company's portal). The user asked for no "Schematic" label (2026-10-30).
 export type ProblemTimes = {
   hr: number; it: number; payroll: number; learning: number; forms: number; owners: number;
   hire: number; system: number; form: number; person: number; support: number; incomplete: number; wrong: number;
@@ -13,8 +13,8 @@ export type ProblemTimes = {
 
 const ramp = (frame: number, a: number, b: number) => EASE.enter(interpolate(frame, [a, b], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
 
-type Portal = { id: string; name: string; colour: string; forms: string[]; owner: string; x: number; y: number; w: number; h: number; tilt: number; key: keyof ProblemTimes };
-const PORTALS: Portal[] = [
+export type Portal = { id: string; name: string; colour: string; forms: string[]; owner: string; x: number; y: number; w: number; h: number; tilt: number; key: keyof ProblemTimes };
+export const PORTALS: Portal[] = [
   { id: "hr", name: "HR portal", colour: "#8a6fd1", forms: ["Employment eligibility (I-9)", "Emergency contacts", "Benefits enrollment"], owner: "HR Operations", x: 110, y: 120, w: 660, h: 380, tilt: -2.2, key: "hr" },
   { id: "it", name: "IT service desk", colour: "#d0714f", forms: ["Access request form", "Hardware request", "Software license request"], owner: "IT Support", x: 1150, y: 96, w: 660, h: 380, tilt: 1.8, key: "it" },
   { id: "payroll", name: "Payroll system", colour: "#3f8fcf", forms: ["Federal withholding (W-4)", "State withholding", "Direct deposit form"], owner: "Payroll team", x: 170, y: 590, w: 660, h: 380, tilt: 1.4, key: "payroll" },
@@ -31,7 +31,7 @@ const TICKETS: { text: string; to: string; stamp: string; key: keyof ProblemTime
 
 const centreOf = (p: { x: number; y: number; w: number; h: number }) => ({ x: p.x + p.w / 2, y: p.y + p.h / 2 });
 
-const Window: React.FC<{ p: Portal; t: ProblemTimes; frame: number; palette: Palette }> = ({ p, t, frame, palette }) => {
+export const Window: React.FC<{ p: Portal; t: ProblemTimes; frame: number; palette: Palette }> = ({ p, t, frame, palette }) => {
   const shown = ramp(frame, t[p.key] - 6, t[p.key] + 16);
   const back = ramp(frame, t.hire - 10, t.hire + 30);
   const formsLit = ramp(frame, t.forms - 4, t.forms + 14);
@@ -153,7 +153,6 @@ export const RelayProblem: React.FC<{ palette: Palette; times: ProblemTimes }> =
           </div>
         );
       })}
-      <div style={{ position: "absolute", right: 96, bottom: 54, padding: "8px 18px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.72)", fontSize: 28, fontFamily: FONT, background: alpha(palette.deep, 0.6) }}>Schematic</div>
     </AbsoluteFill>
   );
 };

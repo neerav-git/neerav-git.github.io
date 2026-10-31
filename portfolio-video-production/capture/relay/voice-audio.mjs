@@ -1,7 +1,7 @@
 // Builds the sound of a captured Relay voice chapter, aligned to its frames.
 // Maya's Kokoro line starts where the replay began feeding the microphone; the agent's recorded PCM
-// is laid out the way the app's player schedules it (each chunk starts at the later of its arrival
-// and the end of the previous chunk), using the arrival times logged during the capture.
+// is laid out from the arrival times logged during the capture: each utterance starts when its first
+// chunk arrived and plays its chunks back to back, without the live network's starvation gaps.
 // Usage: node capture/relay/voice-audio.mjs <take-dir> <session.json> <maya.wav (24 kHz)> [chapter]
 // The chapter defaults to 01-voice; its <chapter>.voice.json names the socket whose audio is laid out.
 import { readFileSync, writeFileSync } from "node:fs";
@@ -44,10 +44,16 @@ const chunks = session.dg.msgs.filter((m) => m.dir === "in" && m.bin).sort((a, b
 const arrivals = voice.log.filter((e) => e.in === "audio" && (e.sock ?? 1) === sock);
 if (arrivals.length !== chunks.length) throw new Error(`replay delivered ${arrivals.length} audio chunks, recording has ${chunks.length}`);
 let end = -Infinity;
+let playerEnd = -Infinity; // where the app's player (later of arrival and previous end) finished
 const spans = [];
 chunks.forEach((chunk, i) => {
   const pcm = new Int16Array(Uint8Array.from(Buffer.from(chunk.bin, "base64")).buffer);
-  const start = Math.max(toSample(arrivals[i].at), end);
+  // Within an utterance the chunks are one continuous stream. When the live network delivered them
+  // slower than real time, the player ran dry for 10–250 ms mid-word, which is heard as chipping;
+  // those starvation gaps are closed. A player gap over 0.3 s starts a new utterance at its arrival.
+  const arrival = toSample(arrivals[i].at);
+  const start = arrival - playerEnd > RATE * 0.3 ? arrival : end;
+  playerEnd = Math.max(arrival, playerEnd) + pcm.length;
   add(pcm, start);
   end = start + pcm.length;
   if (!spans.length || start - spans.at(-1).end > RATE * 0.3) spans.push({ start, end });

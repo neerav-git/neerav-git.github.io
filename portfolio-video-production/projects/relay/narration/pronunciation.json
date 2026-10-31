@@ -13,7 +13,7 @@
     },
     {
       "sentence": "Relay puts all of it in one workspace, with a Deepgram voice agent, Nova-3 listening and Flux speaking, that connects every service to a single conversation.",
-      "heard": "Relay puts all of it in one workspace, with a deep gram voice agent, NOVA 3 listening and flux speaking, that connects every service to a single conversation.",
+      "heard": "Relay puts all of it in one workspace, with a deep-gram voice agent, NOVA 3 listening and flux speaking, that connects every service to a single conversation.",
       "missing": [
         "deepgram"
       ]
@@ -35,7 +35,7 @@
     },
     {
       "sentence": "It books meetings on the calendar and explains what’s holding up a first paycheck, and every action waits for the employee’s click.",
-      "heard": "It books meetings on the calendar and explains what's holding up a first paycheck, and every action waits for the employee's click.",
+      "heard": "It books meetings on the calendar and explains what's holding up a first paycheck and every action waits for the employee's click.",
       "missing": []
     },
     {
@@ -77,8 +77,13 @@
       "missing": []
     },
     {
-      "sentence": "Whatever the request, the employee says it once, and Relay finds the record, the owner and the next step.",
-      "heard": "Whatever the request, the employee says it once, and Relay finds the record, the owner and the next step.",
+      "sentence": "That was Maya’s first day, sorted in a few sentences.",
+      "heard": "That was Maya's first day, sorted in a few sentences.",
+      "missing": []
+    },
+    {
+      "sentence": "Relay takes the guesswork and friction out of work by automating the essential tasks.",
+      "heard": "Relay takes the guesswork and friction out of work by automating the essential tasks.",
       "missing": []
     }
   ],
@@ -99,6 +104,24 @@
       "term": "IT",
       "expect": "IT",
       "heard": "IT",
+      "missing": []
+    },
+    {
+      "term": "guesswork",
+      "expect": "guesswork",
+      "heard": "Guesswork.",
+      "missing": []
+    },
+    {
+      "term": "sorted",
+      "expect": "sorted",
+      "heard": "Sorted",
+      "missing": []
+    },
+    {
+      "term": "friction",
+      "expect": "friction",
+      "heard": "Friction",
       "missing": []
     }
   ]

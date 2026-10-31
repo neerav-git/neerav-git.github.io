@@ -13,7 +13,9 @@ export const meta = {
   take: 4,
   palette: { accent: "#3ccfba", accent2: "#3b7be0", deep: "#06141f", ink: "#ffffff", muted: "rgba(255,255,255,0.72)", warn: "#f5a524", ok: "#34c38f" },
   tagline: "One workspace and one voice agent for every employee service",
-  impact: "Say it once, and Relay finds the record, the owner and the next step.",
+  impact: "Your whole workplace, one question away.",
+  // Warmth on the narration stem only (approved A/B, 2026-10-30): a gentle low shelf, softened highs.
+  narrationEq: "bass=g=1.75:f=200:w=0.7,treble=g=-1.5:f=6500:w=0.7",
   link: "neerav-git.github.io/projects/relay",
   runtime: [120, 200], // v3 script approved at about 2:30; the greeting and the spoken meeting add about 30 s
 };
@@ -39,6 +41,24 @@ export function build({ journey, say, video, terminal }) {
   const ev = (c, action, label, n) => event(ch[c], action, label, n);
   // The 01-voice "document" mark stored a box under `action` in takes before the rename to `button`.
   const markByLabel = (c, label) => ch[c].events.find((e) => e.label === label && (e.action === "mark" || typeof e.action === "object"));
+  // The drawn cursor steps off the orb after Maya taps it, so it never covers the visualization:
+  // it eases up and to the left, rests there, and the next recorded move blends back from that spot.
+  const stepAside = (c, label, by = { x: -230, y: -160 }) => {
+    const track = ch[c].cursor;
+    const tap = ev(c, "click", label).frame;
+    const next = ch[c].events.find((e) => e.action === "move-start" && e.frame > tap);
+    const away = tap + f(0.15);
+    const settled = away + f(0.6);
+    const back = next ? next.frame : track.length;
+    const backEnd = next ? (ch[c].events.find((e) => e.action === "click" && e.frame > next.frame)?.frame ?? back + f(0.7)) : back;
+    const ease = (u) => u * u * (3 - 2 * u);
+    for (let i = away; i < Math.min(track.length, backEnd); i += 1) {
+      const k = i < settled ? ease((i - away) / (settled - away)) : i < back ? 1 : 1 - ease((i - back) / Math.max(1, backEnd - back));
+      track[i] = [track[i][0] + by.x * k, track[i][1] + by.y * k, track[i][2], track[i][3]];
+    }
+  };
+  stepAside("01-voice", "orb");
+  stepAside("03-meeting", "orb-meeting");
   const root = path.resolve(journey.dir, "../../../../..");
   const narration = loadNarration(root, "relay").sentences;
   const offset = (i, word) => {
@@ -75,16 +95,61 @@ export function build({ journey, say, video, terminal }) {
   const steps = [];
   const audio = [];
   const extraCaptions = [];
-  // Caption cues split in proportion to their length (52 characters at most).
-  const cueParts = (from, to, parts, place) => {
+  // Caption cues split in proportion to their length (52 characters at most), tagged with who speaks.
+  const cueParts = (from, to, parts, place, speaker) => {
     const total = parts.join(" ").length;
     let cursor = from;
     parts.forEach((text) => {
       const d = ((to - from) * text.length) / total;
-      extraCaptions.push({ start: place(cursor), end: place(cursor + d), text });
+      extraCaptions.push({ start: place(cursor), end: place(cursor + d), text, speaker });
       cursor += d;
     });
   };
+  // Utterances in a captured dialogue track (chapter seconds): 20 ms windows over -50 dBFS, with
+  // words less than 0.35 s apart joined into one run.
+  const speechRuns = (file) => {
+    const buf = readFileSync(file);
+    const rate = buf.readUInt32LE(24);
+    let at = 12;
+    while (buf.toString("ascii", at, at + 4) !== "data") at += 8 + buf.readUInt32LE(at + 4);
+    const pcm = new Int16Array(buf.buffer.slice(buf.byteOffset + at + 8, buf.byteOffset + at + 8 + buf.readUInt32LE(at + 4)));
+    const win = Math.round(0.02 * rate);
+    const runs = [];
+    for (let i = 0; i + win <= pcm.length; i += win) {
+      let e = 0;
+      for (let k = i; k < i + win; k += 1) e += (pcm[k] / 32768) ** 2;
+      if (20 * Math.log10(Math.sqrt(e / win) + 1e-9) <= -50) continue;
+      const t = i / rate;
+      if (runs.length && t - runs.at(-1)[1] < 0.35) runs.at(-1)[1] = t + 0.02;
+      else runs.push([t, t + 0.02]);
+    }
+    return runs.filter(([a, b]) => b - a >= 0.12);
+  };
+  // Keeps each source span [a, b] (chapter seconds) at 1× and plays the silence between two spans
+  // in gaps[k] seconds (a speed ramp over agent work or a pause). Returns the shot's source range,
+  // its length, pins for shot(), a source → shot-time map and the seconds each gap removes.
+  const squeeze = (spans, gaps) => {
+    const map = [];
+    const removed = [];
+    let out = 0;
+    spans.forEach(([a, b], k) => {
+      if (k) {
+        removed.push(a - spans[k - 1][1] - gaps[k - 1]);
+        out += gaps[k - 1];
+      }
+      map.push([a, out]);
+      out += b - a;
+      map.push([b, out]);
+    });
+    const at = (src) => {
+      const k = map.findIndex(([x], i) => i + 1 < map.length && src <= map[i + 1][0]);
+      if (k < 0) return out + (src - map.at(-1)[0]);
+      const [[x0, y0], [x1, y1]] = [map[k], map[k + 1]];
+      return y0 + ((src - x0) * (y1 - y0)) / Math.max(1e-6, x1 - x0);
+    };
+    return { srcIn: Math.round(spans[0][0] * FPS), srcOut: Math.round(spans.at(-1)[1] * FPS), length: out, pins: map.slice(1, -1).map(([x, o]) => [Math.round(x * FPS), o]), at, removed };
+  };
+  const status = [];
 
   // ---------- 1. The need: one portal per department, as a schematic ----------
   {
@@ -107,13 +172,7 @@ export function build({ journey, say, video, terminal }) {
   t = stingStart + 114 / FPS;
 
   // ---------- 3. Relay: every department in one workspace, then the voice agent and Maya's tap ----------
-  const voiceLog = JSON.parse(readFileSync(path.join(journey.dir, "01-voice.voice.json"), "utf8"));
-  const cues = JSON.parse(readFileSync(path.join(journey.dir, "01-voice.audio.json"), "utf8"));
   const voiceWav = path.relative(root, path.join(journey.dir, "01-voice.audio.wav"));
-  const chapterT = (e) => (e.at - voiceLog.pageT0) / 1000;
-  const calls = voiceLog.log.filter((e) => e.in === "FunctionCallRequest").map(chapterT);
-  const answerAt = cues.agent[1].start;
-  const lines = voiceLog.log.filter((e) => e.in === "ConversationText").map(chapterT).filter((s) => s >= answerAt - 0.1);
   const orb = ev("01-voice", "click", "orb");
   const orbBox = orb.box;
   const aOut = orb.frame + f(1.0);
@@ -121,21 +180,21 @@ export function build({ journey, say, video, terminal }) {
   let s2;
   let s3;
   {
-    // The sections at the approved draft's pace: My Onboarding to Home over 16.3 s. Line 2 runs over
-    // them; the voice-agent callout sits on the orb, which is in the same corner on every page.
+    // The sections at their captured 1× pace (draft 2 stretched them to 16.3 s for the slower
+    // narrator; the user asked for the idle gap to go, 2026-10-30). Line 2 runs over them; the
+    // voice-agent callout sits on the orb, which is in the same corner on every page.
     const c = "00-tour";
     const firstMove = ev(c, "move-start", "nav-My Onboarding");
-    const homeClick = ev(c, "click", "nav-Home");
     const homeArrived = ev(c, "wait-end", "page-Home");
     const srcIn = firstMove.frame - f(0.3);
-    const pace = (homeClick.frame - firstMove.frame) / FPS / 16.3;
-    const length = (homeArrived.frame - srcIn) / FPS / pace;
+    const length = (homeArrived.frame - srcIn) / FPS;
     const L = (x) => x - tourStart;
     s2 = say(2, tourStart + 1.0);
     // Line 3 ends as Maya taps, a moment after the tour lands on Home.
     s3 = say(3, Math.max(s2.end + 0.45, tourStart + length + 0.9 - (narration[3].end - narration[3].start)));
-    const orbFrom = Math.max(0.3, L(s2.word("deepgram")) - 0.05);
-    const orbTo = L(s2.word("connects")) + 0.6;
+    const orbFrom = Math.max(0.3, L(s2.word("with")) - 0.05);
+    // Held through "Deepgram voice agent" only, so the Pay & Benefits callout has room too.
+    const orbTo = L(s2.word("agent")) + 0.4;
     const s = shot({
       id: "tour", chapter: c, start: tourStart, srcIn, srcOut: homeArrived.frame, length,
       keys: [
@@ -201,57 +260,78 @@ export function build({ journey, say, video, terminal }) {
   }
 
   // ---------- 4. The live voice request: Maya asks, the agent reads her records and opens the form ----------
+  // Paced for the film: the turn gap before Maya plays as a quick speed ramp over silence, and the
+  // agent's work before it answers is cut. Both cuts are marked in the status line; each utterance
+  // plays at 1× and is levelled on its own in the mix.
   const docMark = markByLabel("01-voice", "document");
   const record = docMark.record;
   const button = docMark.button ?? docMark.action;
+  let bOut;
   {
     const start = t - 15 / FPS;
-    // From just before the greeting: the agent introduces itself, then Maya asks.
-    const bIn = f(cues.agent[0].start - 0.5);
-    const bOut = Math.min(ch["01-voice"].frames - 1, f(cues.agent[1].end + 0.5));
-    const length = (bOut - bIn) / FPS;
-    const at = (src) => src - bIn / FPS; // shot-local seconds for a chapter time
+    const runs = speechRuns(path.join(journey.dir, "01-voice.audio.wav"));
+    // Greeting (two runs), Maya's question, then the answer's three sentences.
+    const [g1, g2, mq, a1, a2, a3] = runs;
     const opened = ev("01-voice", "wait-end", "document-opened").frame / FPS;
-    const mayaEnd = cues.maya.start + 3.3;
-    // The log stamps the reveal request a moment after the app has already navigated on it.
-    const revealFrom = Math.min(at(calls[1]), at(opened) - 0.6);
-    const s = shot({
-      id: "voice", chapter: "01-voice", start, srcIn: bIn, srcOut: bOut, length,
+    bOut = Math.min(ch["01-voice"].frames - 1, f(a3[1] + 0.5));
+    // A: the greeting (its long mid-greeting pause tightened), a ramp over the turn gap, Maya's question.
+    // Pauses inside the agent's speech keep 0.12 s either side plus a 0.25 s ramp: a natural sentence gap.
+    const A = squeeze([[g1[0] - 0.45, g1[1] + 0.12], [g2[0] - 0.12, g2[1] + 0.3], [mq[0] - 0.35, mq[1] + 0.3]], [0.25, 0.4]);
+    const atA = (src) => start + A.at(src);
+    const near = { x: centre(orbBox).x - 330, y: centre(orbBox).y - 190 };
+    const lenA = A.length;
+    shot({
+      id: "voice", chapter: "01-voice", start, srcIn: A.srcIn, srcOut: A.srcOut, length: lenA, pins: A.pins,
       keys: [
-        { at: 0, z: 1.55, focus: { x: centre(orbBox).x - 330, y: centre(orbBox).y - 190 }, dur: 0 },
-        { at: 0.2, z: 1.62, focus: { x: centre(orbBox).x - 300, y: centre(orbBox).y - 170 }, dur: at(opened) - 0.6 },
-        { at: at(opened) - 0.3, z: 1.08, focus: { x: 1060, y: 540 }, dur: 0.9 },
-        { at: at(lines[0]) + 0.2, z: 1.38, focus: { x: centre(record).x + 40, y: centre(record).y + 60 }, dur: 1.0 },
-        { at: at(lines[0]) + 1.3, z: 1.42, focus: { x: centre(record).x + 30, y: centre(record).y + 120 }, dur: at(lines[2]) - at(lines[0]) - 1.6 },
-        { at: at(lines[2]) - 0.2, z: 1.5, focus: { x: centre(button).x + 160, y: centre(button).y - 80 }, dur: 0.9 },
-        { at: at(lines[2]) + 0.8, z: 1.52, focus: { x: centre(button).x + 150, y: centre(button).y - 70 }, dur: length - at(lines[2]) - 0.8 },
+        { at: 0, z: 1.55, focus: near, dur: 0 },
+        { at: 0.2, z: 1.64, focus: { x: near.x + 30, y: near.y + 20 }, dur: lenA - 0.2 },
       ],
       overlays: [
-        { type: "lowerThird", from: 0.3, to: at(cues.maya.start) - 0.3, title: "Live voice agent", detail: "A recorded Deepgram session in the real portal" },
-        { type: "chip", from: at(calls[0]), to: revealFrom - 0.05, box: orbBox, text: "Tool · get_employee_portal_context", side: "left", icon: "⚙" },
-        { type: "chip", from: revealFrom, to: at(opened) + 1.4, box: orbBox, text: "Tool · reveal_portal_record → DOC-TAX-1007", side: "left", icon: "⚙" },
-        { type: "callout", from: at(opened) + 0.4, to: at(lines[2]) - 0.3, box: record, label: "Due today · opened by the agent", side: "top", tone: "warn", pad: 8, dim: false },
-        { type: "callout", from: at(lines[2]) + 0.1, to: length + 0.5, box: button, label: "Ready to start", side: "top", tone: "ok", pad: 8 },
+        { type: "lowerThird", from: 0.3, to: atA(g2[1]) - start - 0.1, title: "Live voice agent", detail: "A recorded Deepgram session in the real portal" },
       ],
       inT: { type: "blurDissolve", dur: 15 },
     });
-    void s;
-    audio.push({ file: voiceWav, srcStart: bIn / FPS, srcEnd: bOut / FPS, at: start, fadeIn: 0.12, fadeOut: 0.35 });
-    const filmT = (src) => start + at(src);
-    cueParts(cues.agent[0].start, cues.agent[0].end, ["Relay: Hi, I'm Relay Guide.", "Ask me about your onboarding, tasks, documents,", "pay, benefits, or support."], filmT);
-    extraCaptions.push({ start: filmT(cues.maya.start), end: filmT(mayaEnd), text: "Maya: What's my next highest-priority task?" });
-    ANSWER.forEach((parts, k) => {
-      const a = lines[k];
-      const b = k + 1 < ANSWER.length ? lines[k + 1] : cues.agent[1].end;
-      const total = parts.join(" ").length;
-      let cursor = a;
-      parts.forEach((text) => {
-        const d = ((b - a) * text.length) / total;
-        extraCaptions.push({ start: filmT(cursor), end: filmT(Math.min(cursor + d, bOut / FPS)), text });
-        cursor += d;
-      });
+    status.push({ start: atA(g2[1]) + 0.1, end: atA(mq[0]) + 0.9, text: "Listening", cut: `${Math.round(A.removed[1])} s cut` });
+    // B: a hard cut past the agent's work to the record it opened, then the answer at 1× with the
+    // pauses between its sentences tightened.
+    const startB = start + lenA;
+    const B = squeeze([[opened - 0.3, opened + 0.6], [a1[0] - 0.35, a1[1] + 0.12], [a2[0] - 0.12, a2[1] + 0.12], [a3[0] - 0.12, bOut / FPS]], [0.5, 0.25, 0.25]);
+    const atB = (src) => startB + B.at(src);
+    const skipped = opened - 0.3 - (mq[1] + 0.3) + B.removed[0];
+    const lenB = B.length;
+    const LB = (src) => B.at(src);
+    // "federal and California withholding" (the record's name) is spoken this far into the first sentence.
+    const spoken = ANSWER[0].join(" ").replace(/^Relay: /, "");
+    const named = a1[0] + ((a1[1] - a1[0]) * spoken.indexOf("federal")) / spoken.length;
+    shot({
+      id: "voice-answer", chapter: "01-voice", start: startB, srcIn: B.srcIn, srcOut: B.srcOut, length: lenB, pins: B.pins,
+      keys: [
+        { at: 0, z: 1.08, focus: { x: 1060, y: 540 }, dur: 0 },
+        { at: LB(a1[0]) + 0.2, z: 1.38, focus: { x: centre(record).x + 40, y: centre(record).y + 60 }, dur: 1.0 },
+        { at: LB(a1[0]) + 1.3, z: 1.42, focus: { x: centre(record).x + 30, y: centre(record).y + 120 }, dur: LB(a3[0]) - LB(a1[0]) - 1.6 },
+        { at: LB(a3[0]) - 0.2, z: 1.5, focus: { x: centre(button).x + 160, y: centre(button).y - 80 }, dur: 0.9 },
+        { at: LB(a3[0]) + 0.8, z: 1.52, focus: { x: centre(button).x + 150, y: centre(button).y - 70 }, dur: lenB - LB(a3[0]) - 0.8 },
+      ],
+      overlays: [
+        { type: "link", from: 0.1, to: LB(a1[0]) + 0.2, fromBox: orbBox, box: record },
+        { type: "callout", from: LB(named) - 0.1, to: LB(a3[0]) - 0.3, box: record, label: "Due today · opened by the agent", side: "top", tone: "warn", pad: 8, dim: false },
+        { type: "callout", from: LB(a3[0]) + 0.1, to: lenB + 0.5, box: button, label: "Ready to start", side: "top", tone: "ok", pad: 8 },
+      ],
     });
-    t = start + length;
+    status.push({ start: startB, end: atB(a1[0]) + 0.3, text: "Opening the form due first", sub: "reveal_portal_record", cut: `${Math.round(skipped)} s of agent work cut` });
+    const clip = (a0, b0, place, role) => audio.push({ file: voiceWav, srcStart: a0, srcEnd: b0, at: place(a0), fadeIn: 0.04, fadeOut: 0.08, role });
+    // One clip per kept span, so each lands where its squeezed span plays.
+    clip(g1[0] - 0.45, g1[1] + 0.12, atA, "agent");
+    clip(g2[0] - 0.12, g2[1] + 0.3, atA, "agent");
+    clip(mq[0] - 0.35, mq[1] + 0.3, atA, "maya");
+    clip(a1[0] - 0.35, a1[1] + 0.12, atB, "agent");
+    clip(a2[0] - 0.12, a2[1] + 0.12, atB, "agent");
+    clip(a3[0] - 0.12, bOut / FPS, atB, "agent");
+    cueParts(g1[0], g1[1], ["Relay: Hi, I'm Relay Guide."], atA, "relay");
+    cueParts(g2[0], g2[1], ["Ask me about your onboarding, tasks, documents,", "pay, benefits, or support."], atA, "relay");
+    extraCaptions.push({ start: atA(mq[0]), end: atA(mq[1]) + 0.3, text: "Maya: What's my next highest-priority task?", speaker: "maya" });
+    [a1, a2, a3].forEach(([x, y], k) => cueParts(x, y + 0.15, ANSWER[k], atB, "relay"));
+    t = startB + lenB;
 
     // Line 4 over the opened form: the last frames of the chapter, held with a slow drift.
     const s4 = say(4, t + 0.35);
@@ -326,12 +406,12 @@ export function build({ journey, say, video, terminal }) {
         { at: L(s5.word("confirms")) + 1.15, z: 1.44, focus: { x: centre(cm.row).x + 150, y: centre(cm.row).y + 170 }, dur: Math.max(0.3, lenB - L(s5.word("confirms")) - 1.15) },
       ],
       overlays: [
-        { type: "chip", from: 0.05, to: 1.6, box: panel, text: `${skipped} s of agent work cut`, side: "left", icon: "⏩" },
         { type: "callout", from: L(s5.word("drafts")) + 0.1, to: L(s5.word("confirms")) - 0.1, box: cardTop, label: "Complete IT request · waits for Maya", side: "left", tone: "warn", pad: 6, dim: false },
         { type: "callout", from: L(s5.word("confirms")) + 0.5, to: lenB + 0.5, box: cm.row, label: "Filed with IT Support", side: "top", tone: "ok", pad: 6, dim: false },
       ],
       outT: { type: "whip", dur: 24, dir: "left" },
     });
+    status.push({ start: startB + 0.05, end: startB + 1.6, text: "Drafting the IT request", sub: "propose_onboarding_action", cut: `${skipped} s of agent work cut` });
     sync("Request drafted", s, draft.frame, s5.word("drafts"), "drafts");
     sync("Confirm click", s, confirm.frame, s5.word("confirms"), "confirms");
     t = startB + lenB;
@@ -340,69 +420,67 @@ export function build({ journey, say, video, terminal }) {
   // ---------- 6. A meeting by voice (live-03), then the paycheck and direct deposit under one sentence ----------
   {
     const c = "03-meeting";
-    const mLog = JSON.parse(readFileSync(path.join(journey.dir, "03-meeting.voice.json"), "utf8"));
-    const mCues = JSON.parse(readFileSync(path.join(journey.dir, "03-meeting.audio.json"), "utf8"));
     const mWav = path.relative(root, path.join(journey.dir, "03-meeting.audio.wav"));
-    const mT = (e) => (e.at - mLog.pageT0) / 1000;
-    const mine = mLog.log.filter((e) => (e.sock ?? 1) === mLog.sock);
-    const mCalls = mine.filter((e) => e.in === "FunctionCallRequest").map(mT);
-    const mAnswer = mCues.agent[1].start;
-    const mLines = mine.filter((e) => e.in === "ConversationText").map(mT).filter((x) => x >= mAnswer - 0.1);
     const m = ev(c, "mark", "meeting-draft");
     const drafted = ev(c, "wait-end", "meeting-draft").frame / FPS;
     const confirm = ev(c, "click", "confirm-meeting");
     const booked = ev(c, "mark", "meeting-booked");
     const mOrb = ev(c, "click", "orb-meeting").box;
+    // The page's own greeting runs first; then Maya's request and the agent's answer.
+    const runs = speechRuns(path.join(journey.dir, "03-meeting.audio.wav"));
+    const mq = runs.find(([x]) => x > ev(c, "wait-end", "meeting-listening").frame / FPS);
+    const a1 = runs.find(([x]) => x > drafted);
 
-    // A: Maya asks; the agent drafts the meeting and says the first two lines of its answer, at 1×.
+    // A: Maya asks at 1×; a hard cut past the agent's work lands as the draft appears, and the agent
+    // says its first line. The rest of its answer is left out; the confirm follows. Lead-ins and
+    // holds are kept short, as in the voice scene.
     const startM = t - 24 / FPS;
-    const aIn = f(mCues.maya.start - 0.6);
-    const aOutM = f(mLines[2] - 0.15);
-    const lenA = (aOutM - aIn) / FPS;
-    const at = (src) => src - aIn / FPS;
+    const A = squeeze([[mq[0] - 0.35, mq[1] + 0.25]], []);
+    const B = squeeze([[drafted - 0.2, drafted + 0.5], [a1[0] - 0.25, a1[1] + 0.25]], [0.35]);
+    const lenA1 = A.length;
+    const lenA = lenA1 + B.length;
+    const atA = (src) => startM + A.at(src);
+    const atB = (src) => startM + lenA1 + B.at(src);
     const panel = m.panel;
     const cal = m.calendar;
     const both = { x: Math.min(cal.x, panel.x), y: Math.min(cal.y, panel.y), width: Math.max(cal.x + cal.width, panel.x + panel.width) - Math.min(cal.x, panel.x), height: Math.max(cal.y + cal.height, panel.y + panel.height) - Math.min(cal.y, panel.y) };
     steps.push({ label: "Meeting", from: f(startM + 0.2) });
     shot({
-      id: "meeting", chapter: c, start: startM, srcIn: aIn, srcOut: aOutM, length: lenA,
+      id: "meeting", chapter: c, start: startM, srcIn: A.srcIn, srcOut: A.srcOut, length: lenA1,
       keys: [
         { at: 0, z: 1.5, focus: { x: centre(mOrb).x - 330, y: centre(mOrb).y - 190 }, dur: 0 },
-        { at: 0.2, z: 1.55, focus: { x: centre(mOrb).x - 310, y: centre(mOrb).y - 180 }, dur: at(drafted) - 0.6 },
-        { at: at(drafted) - 0.2, z: 1.06, focus: { x: centre(both).x, y: centre(both).y }, dur: 0.9 },
-        { at: at(drafted) + 0.8, z: 1.1, focus: { x: centre(both).x + 20, y: centre(both).y + 10 }, dur: Math.max(0.3, lenA - at(drafted) - 0.8) },
+        { at: 0.2, z: 1.58, focus: { x: centre(mOrb).x - 300, y: centre(mOrb).y - 170 }, dur: lenA1 - 0.2 },
       ],
       overlays: [
-        { type: "lowerThird", from: 0.3, to: at(mCalls[0]) - 0.2, title: "Maya asks by voice", detail: "A second recorded Deepgram session" },
-        { type: "chip", from: at(mCalls[0]), to: at(mCalls[1]) - 0.05, box: mOrb, text: "Tool · get_employee_portal_context", side: "left", icon: "⚙" },
-        { type: "chip", from: at(mCalls[1]), to: Math.max(at(drafted) + 1.2, at(mCalls[1]) + 2.2), box: mOrb, text: "Tool · propose_onboarding_action → meeting", side: "left", icon: "⚙" },
-        { type: "callout", from: at(mLines[0]) + 0.2, to: lenA + 0.5, box: m.card, label: "Drafted · waits for Maya", side: "left", tone: "warn", pad: 6, dim: false },
+        { type: "lowerThird", from: 0.3, to: lenA1 + 0.2, title: "Maya asks by voice", detail: "A second recorded Deepgram session" },
       ],
       inT: { type: "whip", dur: 24, dir: "left" },
+    });
+    const LB = (src) => B.at(src);
+    // The drafted slot and its time in the calendar (measured on the take-04 frames; the calendar doesn't scroll).
+    const slot = { x: 758, y: 520, width: 140, height: 32 };
+    const when = { x: 760, y: 420 };
+    shot({
+      id: "meeting-draft", chapter: c, start: startM + lenA1, srcIn: B.srcIn, srcOut: B.srcOut, length: B.length, pins: B.pins,
+      keys: [
+        { at: 0, z: 1.12, focus: { x: centre(both).x + 20, y: centre(both).y + 10 }, dur: 0 },
+        { at: Math.max(0.3, LB(a1[0]) - 0.2), z: 1.75, focus: when, dur: 0.9 },
+        { at: LB(a1[0]) + 0.75, z: 1.8, focus: { x: when.x + 10, y: when.y + 10 }, dur: Math.max(0.3, B.length - LB(a1[0]) - 0.75) },
+      ],
+      overlays: [
+        { type: "callout", from: LB(a1[0]) + 0.4, to: B.length + 0.5, box: slot, label: "Drafted · waits for Maya", side: "right", tone: "warn", pad: 6, dim: false },
+      ],
       outT: { type: "blurDissolve", dur: 12 },
     });
-    audio.push({ file: mWav, srcStart: aIn / FPS, srcEnd: aOutM / FPS + 0.3, at: startM, fadeIn: 0.12, fadeOut: 0.3 });
-    const mFilm = (src) => startM + at(src);
-    cueParts(mCues.maya.start, mCues.maya.end, ["Maya: Set up a 30 minute follow-up with Casey", "tomorrow afternoon at 2."], mFilm);
-    const SAID = [
-      ["Relay: A thirty-minute follow-up with Casey Nguyen", "is ready to schedule on Fri, Oct 2,", "from 2:00 PM to 2:30 PM."],
-      ["The subject is “Follow-up with Casey”."],
-    ];
-    SAID.forEach((parts, k) => {
-      const a = mLines[k];
-      const b = k + 1 < SAID.length ? mLines[k + 1] : Math.min(mLines[2], mCues.agent[1].end);
-      const total = parts.join(" ").length;
-      let cursor = a;
-      parts.forEach((text) => {
-        const d = ((b - a - 0.2) * text.length) / total;
-        extraCaptions.push({ start: mFilm(cursor), end: mFilm(cursor + d), text });
-        cursor += d;
-      });
-    });
+    status.push({ start: startM + lenA1, end: atB(a1[0]) + 0.3, text: "Drafting the meeting", sub: "propose_onboarding_action", cut: `${Math.round(drafted - 0.2 - (mq[1] + 0.3) + B.removed[0])} s of agent work cut` });
+    audio.push({ file: mWav, srcStart: mq[0] - 0.35, srcEnd: mq[1] + 0.25, at: atA(mq[0] - 0.35), fadeIn: 0.08, fadeOut: 0.08, role: "maya" });
+    audio.push({ file: mWav, srcStart: a1[0] - 0.25, srcEnd: a1[1] + 0.25, at: atB(a1[0] - 0.25), fadeIn: 0.04, fadeOut: 0.15, role: "agent" });
+    cueParts(mq[0], mq[1] + 0.2, ["Maya: Set up a 30 minute follow-up with Casey", "tomorrow afternoon at 2."], atA, "maya");
+    cueParts(a1[0], a1[1] + 0.15, ["Relay: A thirty-minute follow-up with Casey Nguyen", "is ready to schedule on Fri, Oct 2,", "from 2:00 PM to 2:30 PM."], atB, "relay");
 
     // B: Maya confirms as the narrator says "books"; the meeting lands on the calendar.
     const startB = startM + lenA - 12 / FPS;
-    const s6 = say(6, startB + 0.6);
+    const s6 = say(6, startB + 0.4);
     const LM = (x) => x - startB;
     const startP = s6.word("explains") - 0.35;
     const lenM = startP + 12 / FPS - startB;
@@ -410,8 +488,8 @@ export function build({ journey, say, video, terminal }) {
       id: "meeting-confirm", chapter: c, start: startB, srcIn: confirm.frame - f(LM(s6.word("books"))), srcOut: booked.frame + f(0.4), length: lenM,
       pins: [[confirm.frame, LM(s6.word("books"))]],
       keys: [
-        { at: 0, z: 1.1, focus: { x: centre(both).x + 20, y: centre(both).y + 10 }, dur: 0 },
-        { at: 0.2, z: 1.14, focus: { x: centre(both).x + 60, y: centre(both).y + 10 }, dur: lenM - 0.2 },
+        { at: 0, z: 1.6, focus: { x: centre(confirm.box).x + 80, y: centre(confirm.box).y + 40 }, dur: 0 },
+        { at: LM(s6.word("books")) + 0.25, z: 1.6, focus: { x: centre(booked.outcome).x, y: centre(booked.outcome).y }, dur: 0.8 },
       ],
       overlays: [
         { type: "callout", from: LM(s6.word("books")) + 0.3, to: lenM + 0.3, box: booked.outcome, label: "On the calendar", side: "left", tone: "ok", pad: 6, dim: false },
@@ -434,25 +512,29 @@ export function build({ journey, say, video, terminal }) {
       ],
       overlays: [
         { type: "lowerThird", from: 0.2, to: lenP, title: "Maya asks", detail: ASKED.paycheck },
-        { type: "chip", from: 0.05, to: 1.3, box: pm.panel, text: `${Math.round((pa.frame - f(1.2) - sentP.frame) / FPS)} s of agent work cut`, side: "left", icon: "⏩" },
       ],
       inT: { type: "blurDissolve", dur: 12 },
       outT: { type: "blurDissolve", dur: 12 },
     });
 
+    status.push({ start: startP + 0.05, end: startP + 1.3, text: "", cut: `${Math.round((pa.frame - f(1.2) - sentP.frame) / FPS)} s of agent work cut` });
     const opened = ev("04-pay", "wait-end", "deposit-opened");
     const dm = ev("04-pay", "mark", "deposit");
     const lenD = s6.end + 0.7 - startD;
     const LD = (x) => x - startD;
+    // The opened record and its "Add direct-deposit information" button (measured on the take-04 frames).
+    const depositRecord = { x: 990, y: 220, width: 790, height: 690 };
+    const depositButton = { x: 1006, y: 818, width: 228, height: 34 };
     shot({
       id: "deposit", chapter: "04-pay", start: startD, srcIn: opened.frame - f(0.3), srcOut: dm.frame + f(0.8), length: lenD,
       keys: [
-        { at: 0, z: 1.1, focus: { x: centre(dm.main).x, y: centre(dm.main).y }, dur: 0 },
-        { at: 0.3, z: 1.22, focus: { x: centre(dm.main).x - 60, y: centre(dm.main).y + 20 }, dur: lenD - 0.3 },
+        { at: 0, z: 1.3, focus: centre(depositRecord), dur: 0 },
+        { at: 0.1, z: 1.38, focus: { x: centre(depositRecord).x - 20, y: centre(depositRecord).y + 30 }, dur: Math.max(0.3, LD(s6.word("click")) - 0.6) },
+        { at: LD(s6.word("click")) - 0.45, z: 1.6, focus: { x: centre(depositButton).x + 260, y: centre(depositButton).y - 160 }, dur: 0.8 },
       ],
       overlays: [
         { type: "lowerThird", from: 0.2, to: lenD, title: "Maya asks", detail: ASKED.deposit },
-        { type: "callout", from: LD(s6.word("click")) - 0.15, to: lenD + 0.5, box: dm.main, label: "Opened for Maya to finish", side: "top", tone: "ok", pad: 6, dim: false },
+        { type: "callout", from: LD(s6.word("click")) - 0.15, to: lenD + 0.5, box: depositButton, label: "Opened for Maya to finish", side: "top", tone: "ok", pad: 6, dim: false },
       ],
       inT: { type: "blurDissolve", dur: 12 },
       outT: { type: "blurDissolve", dur: 26 },
@@ -632,26 +714,26 @@ export function build({ journey, say, video, terminal }) {
     t = start + length;
   }
 
-  // ---------- 11. Payoff over the form the agent found, then the end card ----------
+  // ---------- 11. Payoff: Maya's day one in four real end frames, then the closing line ----------
   {
     const start = t - 26 / FPS;
     const s14 = say(14, start + 0.6);
-    const length = s14.end + 0.7 - start;
-    const L = (x) => x - start;
-    const last = ch["01-voice"].frames - 1;
-    shot({
-      id: "payoff", chapter: "01-voice", start, srcIn: last - f(0.5), srcOut: last, length,
-      keys: [
-        { at: 0, z: 1.0, focus: { x: 960, y: 540 }, dur: 0 },
-        { at: 0.1, z: 1.06, focus: { x: 1010, y: 560 }, dur: L(s14.word("record")) - 0.2 },
-        { at: L(s14.word("record")) - 0.1, z: 1.14, focus: { x: centre(record).x + 60, y: centre(record).y + 80 }, dur: length - L(s14.word("record")) },
-      ],
-      overlays: [
-        { type: "callout", from: L(s14.word("record")) - 0.05, to: L(s14.word("next")) - 0.1, box: record, label: "The record and its owner", side: "top", pad: 8, dim: false },
-        { type: "callout", from: L(s14.word("next")) - 0.05, to: length + 0.5, box: button, label: "The next step", side: "top", tone: "ok", pad: 8, dim: false },
-      ],
-      inT: { type: "blurDissolve", dur: 26 },
-      outT: { type: "blurDissolve", dur: 26 },
+    const s15 = say(15, s14.end + 0.4);
+    const length = s15.end + 0.8 - start;
+    const at = (s) => f(s - start);
+    // Crops are capture CSS pixels around what each request produced (16:9, from the take-04 frames).
+    const tiles = [
+      { video: video("01-voice"), frame: ch["01-voice"].frames - 1, crop: { x: 480, y: 250, width: 1300, height: 731 }, label: "Withholding forms opened", colour: "#3f8fcf" },
+      { video: video("02-laptop"), frame: ev("02-laptop", "mark", "case-created").frame, crop: { x: 400, y: 220, width: 1500, height: 844 }, label: "Laptop request filed with IT Support", colour: "#d0714f" },
+      { video: video("03-meeting"), frame: ev("03-meeting", "mark", "meeting-booked").frame, crop: { x: 1140, y: 520, width: 760, height: 428 }, label: "Follow-up with Casey booked", colour: "#8a6fd1" },
+      { video: video("04-pay"), frame: ev("04-pay", "mark", "deposit").frame, crop: { x: 800, y: 240, width: 1100, height: 619 }, label: "Direct deposit opened", colour: "#3f8fcf" },
+    ].map((tile, k) => ({ ...tile, at: f(0.35) + k * 15 }));
+    push({
+      id: "payoff", kind: "recap", from: f(start), duration: span(start, length),
+      in: { type: "blurDissolve", dur: 26 }, out: { type: "blurDissolve", dur: 26 },
+      stills: tiles.map(({ video: v, frame }) => ({ video: v, frame })),
+      // The new hire's three questions from the opening schematic, ticked as "sorted" is said.
+      props: { tiles, questions: ["Which system?", "Which form?", "Who do I ask?"], questionsAt: f(0.3), ticksAt: at(s14.word("sorted")) - 4 },
     });
     t = start + length;
   }
@@ -665,6 +747,7 @@ export function build({ journey, say, video, terminal }) {
     scenes,
     audio,
     captions: extraCaptions,
+    status,
     durationInFrames: f(t),
     tracker: { from: f(journeyStart) + 30, to: f(journeyEnd) - 10, steps },
     chapters: [
