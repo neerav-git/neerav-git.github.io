@@ -54,6 +54,18 @@
     "url": "/uploads/relay/workspace-and-guide.png",
     "alt": "Relay employee workspace and conversational guide"
   },
+  "showcaseImage": {
+    "url": "/uploads/relay/relay-film-poster.png",
+    "alt": "Relay film poster showing the Relay mark and employee workspace"
+  },
+  "showcaseVideo": {
+    "url": "/uploads/relay/relay-film.mp4",
+    "alt": "Relay product film"
+  },
+  "showcaseVideoCaptions": {
+    "url": "/uploads/relay/relay-film.vtt",
+    "label": "English captions"
+  },
   "technologies": [
     { "value": "React 19" },
     { "value": "TypeScript" },
