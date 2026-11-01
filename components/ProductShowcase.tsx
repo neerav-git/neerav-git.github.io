@@ -168,7 +168,7 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
               preload="metadata"
               ref={videoRef}
             >
-              <source src={video} />
+              <source src={video} type="video/mp4" />
               {captions ? <track default kind="captions" label="English" src={captions} srcLang="en" /> : null}
             </video>
             <div className="active-product-media-status">

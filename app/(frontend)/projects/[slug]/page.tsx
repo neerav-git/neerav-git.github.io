@@ -75,6 +75,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   }
 
   const coverUrl = getUploadUrl(project.coverImage)
+  const showcasePosterUrl = getUploadUrl(project.showcaseImage) || coverUrl
+  const showcaseVideoUrl = getUploadUrl(project.showcaseVideo)
+  const showcaseCaptionsUrl = getUploadUrl(project.showcaseVideoCaptions)
   const normalizedMedia = normalizeContentMedia(project.pageSections, coverUrl ? [coverUrl] : [])
   const gallery = uniqueAssets(project.gallery, normalizedMedia.usedUrls)
   const repoTopics = Array.isArray(project.github?.repoTopics) ? project.github.repoTopics : []
@@ -113,9 +116,24 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </aside>
         </div>
 
-        {project.coverImage && getUploadUrl(project.coverImage) ? (
+        {showcaseVideoUrl ? (
+          <div className="cover-frame detail-cover detail-cover--video">
+            <video
+              aria-label={`${project.title} product film`}
+              controls
+              playsInline
+              poster={showcasePosterUrl || undefined}
+              preload="metadata"
+            >
+              <source src={showcaseVideoUrl} type="video/mp4" />
+              {showcaseCaptionsUrl ? (
+                <track default kind="captions" label="English" src={showcaseCaptionsUrl} srcLang="en" />
+              ) : null}
+            </video>
+          </div>
+        ) : project.coverImage && coverUrl ? (
           <div className="cover-frame detail-cover">
-            <img alt={getUploadAlt(project.coverImage)} src={getUploadUrl(project.coverImage) || ''} />
+            <img alt={getUploadAlt(project.coverImage)} src={coverUrl} />
           </div>
         ) : null}
 

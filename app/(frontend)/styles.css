@@ -3089,6 +3089,14 @@ body::before {
   width: 100%;
 }
 
+.detail-entry > .detail-cover--video video {
+  aspect-ratio: 16 / 9;
+  background: #080b0d;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
 .entry-section-map {
   background: rgba(255, 255, 255, 0.018);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);

@@ -146,11 +146,11 @@ export type ProjectRecord = {
   portfolioKeywords?: PortfolioKeyword[]
   /** Optional problem statement shown above the summary wherever the project is introduced. */
   headline?: string
-  /** Optional image for the homepage product showcase panel; falls back to the cover. */
+  /** Optional poster image for the product film; falls back to the cover. */
   showcaseImage?: Asset | null
-  /** Optional homepage product film. The showcase image remains its poster and fallback. */
+  /** Optional product film shown in the homepage showcase and at the top of the case study. */
   showcaseVideo?: Asset | null
-  /** Optional WebVTT captions for the homepage product film. */
+  /** Optional WebVTT captions for the product film. */
   showcaseVideoCaptions?: Asset | null
   secondaryCategories?: Array<
     'research-system' | 'evaluation' | 'voice-ai' | 'healthcare' | 'multiplayer' | 'machine-learning'
