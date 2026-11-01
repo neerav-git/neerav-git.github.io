@@ -2540,11 +2540,16 @@ body::before {
 }
 
 .active-product-media--video {
+  align-self: start;
+  aspect-ratio: 16 / 9;
+  min-height: 0;
   position: relative;
 }
 
 .active-product-media--video video {
+  aspect-ratio: 16 / 9;
   display: block;
+  height: auto;
 }
 
 .active-product-media-status,
