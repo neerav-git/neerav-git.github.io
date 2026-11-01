@@ -14,6 +14,8 @@ type ProductShowcaseProps = {
   projects: ProjectRecord[]
 }
 
+const POSTER_HOLD_MS = 2500
+
 function productHash(slug: string) {
   return `#product-${slug}`
 }
@@ -22,6 +24,8 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
   const [activeSlug, setActiveSlug] = useState(projects[0]?.slug || '')
   const [autoplayEnabled, setAutoplayEnabled] = useState(false)
   const [failedVideoSlug, setFailedVideoSlug] = useState('')
+  const [posterHoldSlug, setPosterHoldSlug] = useState('')
+  const [readyVideoSlug, setReadyVideoSlug] = useState('')
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const activeProject = projects.find((project) => project.slug === activeSlug) || projects[0]
@@ -56,13 +60,28 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
 
   useEffect(() => {
     const player = videoRef.current
-    if (!autoplayEnabled || !video || !player) return
+
+    setPosterHoldSlug('')
+    setReadyVideoSlug(player && player.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA ? activeSlug : '')
+
+    if (!video) return
+
+    const timer = window.setTimeout(() => setPosterHoldSlug(activeSlug), POSTER_HOLD_MS)
+    return () => window.clearTimeout(timer)
+  }, [activeSlug, video])
+
+  useEffect(() => {
+    const player = videoRef.current
+    const heldLongEnough = posterHoldSlug === activeSlug
+    const readyToPlay = readyVideoSlug === activeSlug
+    if (!autoplayEnabled || !video || !player || !heldLongEnough || !readyToPlay) return
 
     player.currentTime = 0
     void player.play().catch(() => {
-      // Browser autoplay rules can still block playback. The poster and controls remain available.
+      // Browser autoplay rules can still block playback. Fall back to the native poster and controls.
+      setAutoplayEnabled(false)
     })
-  }, [activeSlug, autoplayEnabled, video])
+  }, [activeSlug, autoplayEnabled, posterHoldSlug, readyVideoSlug, video])
 
   if (!activeProject) return null
 
@@ -157,15 +176,15 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
           <div className="active-product-media active-product-media--video">
             <video
               aria-label={`${activeProject.title} product demo`}
-              autoPlay={autoplayEnabled}
               controls
               key={video}
               muted
+              onCanPlay={() => setReadyVideoSlug(activeProject.slug)}
               onEnded={handleVideoEnded}
               onError={() => setFailedVideoSlug(activeProject.slug)}
               playsInline
               poster={image || undefined}
-              preload="metadata"
+              preload="auto"
               ref={videoRef}
             >
               <source src={video} type="video/mp4" />

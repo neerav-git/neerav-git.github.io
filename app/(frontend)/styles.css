@@ -2560,6 +2560,7 @@ body::before {
   color: var(--text);
   position: absolute;
   top: 14px;
+  z-index: 3;
 }
 
 .active-product-media-status {
