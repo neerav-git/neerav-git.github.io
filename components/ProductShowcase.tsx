@@ -199,50 +199,52 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
       >
         {video ? (
           <div className="active-product-media active-product-media--video">
-            <video
-              aria-label={`${activeProject.title} product demo`}
-              controls
-              key={video}
-              muted={isVideoMuted}
-              onCanPlay={() => setReadyVideoSlug(activeProject.slug)}
-              onEnded={handleVideoEnded}
-              onError={() => setFailedVideoSlug(activeProject.slug)}
-              onVolumeChange={(event) => setIsVideoMuted(event.currentTarget.muted || event.currentTarget.volume === 0)}
-              playsInline
-              poster={image || undefined}
-              preload="auto"
-              ref={videoRef}
-            >
-              <source src={video} type="video/mp4" />
-              {captions ? <track default kind="captions" label="English" src={captions} srcLang="en" /> : null}
-            </video>
-            <div className="active-product-media-status">
-              <span>Product demo</span>
-              {nextProject && projects.length > 1 ? <span>Next: {nextProject.title}</span> : null}
-            </div>
-            <div className="active-product-media-actions">
-              <Link className="active-product-media-link" href={`/projects/${activeProject.slug}/`}>
-                Open case study ↗
-              </Link>
-              <button
-                aria-label={isVideoMuted ? 'Turn video sound on' : 'Mute video'}
-                className="active-product-sound-toggle"
-                onClick={toggleVideoSound}
-                title={isVideoMuted ? 'Turn sound on' : 'Mute video'}
-                type="button"
+            <div className="active-product-video-frame">
+              <video
+                aria-label={`${activeProject.title} product demo`}
+                controls
+                key={video}
+                muted={isVideoMuted}
+                onCanPlay={() => setReadyVideoSlug(activeProject.slug)}
+                onEnded={handleVideoEnded}
+                onError={() => setFailedVideoSlug(activeProject.slug)}
+                onVolumeChange={(event) => setIsVideoMuted(event.currentTarget.muted || event.currentTarget.volume === 0)}
+                playsInline
+                poster={image || undefined}
+                preload="auto"
+                ref={videoRef}
               >
-                {isVideoMuted ? (
-                  <svg aria-hidden="true" viewBox="0 0 24 24">
-                    <path d="M11 5 6.8 8.5H3.5v7h3.3L11 19V5Z" />
-                    <path d="m16 9 5 5m0-5-5 5" />
-                  </svg>
-                ) : (
-                  <svg aria-hidden="true" viewBox="0 0 24 24">
-                    <path d="M11 5 6.8 8.5H3.5v7h3.3L11 19V5Z" />
-                    <path d="M15 9.2c1.4 1.5 1.4 4.1 0 5.6M18 6.7c3 2.9 3 7.7 0 10.6" />
-                  </svg>
-                )}
-              </button>
+                <source src={video} type="video/mp4" />
+                {captions ? <track default kind="captions" label="English" src={captions} srcLang="en" /> : null}
+              </video>
+              <div className="active-product-media-status">
+                <span>Product demo</span>
+                {nextProject && projects.length > 1 ? <span>Next: {nextProject.title}</span> : null}
+              </div>
+              <div className="active-product-media-actions">
+                <Link className="active-product-media-link" href={`/projects/${activeProject.slug}/`}>
+                  Open case study ↗
+                </Link>
+                <button
+                  aria-label={isVideoMuted ? 'Turn video sound on' : 'Mute video'}
+                  className="active-product-sound-toggle"
+                  onClick={toggleVideoSound}
+                  title={isVideoMuted ? 'Turn sound on' : 'Mute video'}
+                  type="button"
+                >
+                  {isVideoMuted ? (
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M11 5 6.8 8.5H3.5v7h3.3L11 19V5Z" />
+                      <path d="m16 9 5 5m0-5-5 5" />
+                    </svg>
+                  ) : (
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M11 5 6.8 8.5H3.5v7h3.3L11 19V5Z" />
+                      <path d="M15 9.2c1.4 1.5 1.4 4.1 0 5.6M18 6.7c3 2.9 3 7.7 0 10.6" />
+                    </svg>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         ) : image ? (
