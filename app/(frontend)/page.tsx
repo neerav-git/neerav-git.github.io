@@ -31,11 +31,6 @@ export default async function HomePage() {
               <Link className="text-link" href="/about/">About my role →</Link>
             </div>
           </div>
-          <aside className="home-principles" aria-label="How the products work">
-            <div><strong>Keep evidence attached</strong><span>Show the employee record, cited passage, source instruction, or measured image region behind the result.</span></div>
-            <div><strong>Make control explicit</strong><span>Separate a model’s proposal from the confirmation, approval, or review that authorizes the next step.</span></div>
-            <div><strong>Test the outcome</strong><span>Verify the resulting application state, model output, synchronized interaction, or quantitative measurement with recorded evidence.</span></div>
-          </aside>
         </section>
       </EditableRegion>
 
