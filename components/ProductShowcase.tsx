@@ -26,6 +26,7 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
   const [failedVideoSlug, setFailedVideoSlug] = useState('')
   const [posterHoldSlug, setPosterHoldSlug] = useState('')
   const [readyVideoSlug, setReadyVideoSlug] = useState('')
+  const [isVideoMuted, setIsVideoMuted] = useState(false)
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const activeProject = projects.find((project) => project.slug === activeSlug) || projects[0]
@@ -63,6 +64,7 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
 
     setPosterHoldSlug('')
     setReadyVideoSlug(player && player.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA ? activeSlug : '')
+    setIsVideoMuted(false)
 
     if (!video) return
 
@@ -77,9 +79,17 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
     if (!autoplayEnabled || !video || !player || !heldLongEnough || !readyToPlay) return
 
     player.currentTime = 0
+    player.muted = false
+    setIsVideoMuted(false)
+
     void player.play().catch(() => {
-      // Browser autoplay rules can still block playback. Fall back to the native poster and controls.
-      setAutoplayEnabled(false)
+      // Most browsers block audible autoplay. Keep playback moving and expose an obvious unmute control.
+      player.muted = true
+      setIsVideoMuted(true)
+      void player.play().catch(() => {
+        // Browser autoplay rules can still block playback. Fall back to the native poster and controls.
+        setAutoplayEnabled(false)
+      })
     })
   }, [activeSlug, autoplayEnabled, posterHoldSlug, readyVideoSlug, video])
 
@@ -114,6 +124,21 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
   function handleVideoEnded() {
     if (autoplayEnabled && nextProject && projects.length > 1) {
       selectProduct(nextProject.slug)
+    }
+  }
+
+  function toggleVideoSound() {
+    const player = videoRef.current
+    if (!player) return
+
+    const nextMutedState = !player.muted
+    player.muted = nextMutedState
+    setIsVideoMuted(nextMutedState)
+
+    if (player.paused) {
+      void player.play().catch(() => {
+        // Leave the poster and native controls available if playback itself is blocked.
+      })
     }
   }
 
@@ -178,10 +203,11 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
               aria-label={`${activeProject.title} product demo`}
               controls
               key={video}
-              muted
+              muted={isVideoMuted}
               onCanPlay={() => setReadyVideoSlug(activeProject.slug)}
               onEnded={handleVideoEnded}
               onError={() => setFailedVideoSlug(activeProject.slug)}
+              onVolumeChange={(event) => setIsVideoMuted(event.currentTarget.muted || event.currentTarget.volume === 0)}
               playsInline
               poster={image || undefined}
               preload="auto"
@@ -194,9 +220,30 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
               <span>Product demo</span>
               {nextProject && projects.length > 1 ? <span>Next: {nextProject.title}</span> : null}
             </div>
-            <Link className="active-product-media-link" href={`/projects/${activeProject.slug}/`}>
-              Open case study ↗
-            </Link>
+            <div className="active-product-media-actions">
+              <Link className="active-product-media-link" href={`/projects/${activeProject.slug}/`}>
+                Open case study ↗
+              </Link>
+              <button
+                aria-label={isVideoMuted ? 'Turn video sound on' : 'Mute video'}
+                className="active-product-sound-toggle"
+                onClick={toggleVideoSound}
+                title={isVideoMuted ? 'Turn sound on' : 'Mute video'}
+                type="button"
+              >
+                {isVideoMuted ? (
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M11 5 6.8 8.5H3.5v7h3.3L11 19V5Z" />
+                    <path d="m16 9 5 5m0-5-5 5" />
+                  </svg>
+                ) : (
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M11 5 6.8 8.5H3.5v7h3.3L11 19V5Z" />
+                    <path d="M15 9.2c1.4 1.5 1.4 4.1 0 5.6M18 6.7c3 2.9 3 7.7 0 10.6" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         ) : image ? (
           <Link className="active-product-media" href={`/projects/${activeProject.slug}/`}>
