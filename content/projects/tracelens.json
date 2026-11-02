@@ -11,7 +11,7 @@
     "research-system",
     "machine-learning"
   ],
-  "summary": "TraceLens is a self-built AI safety and evaluation workspace that tests this question. Vega, a supporting model, reads the patient's message independently of the chatbot. When the two disagree, the chatbot reconsiders with the flag disclosed to the user, and every step from first answer to final action is recorded for review.",
+  "summary": "An AI safety and evaluation workspace where Vega independently reads the patient's message, flags disagreement with the chatbot, prompts a disclosed reconsideration, and records the path from first answer to final action.",
   "landingDeck": "A self-built workspace that tests whether a supporting model can catch the emergencies a chatbot misses and make each failure visible: an independent emergency detector, a disclosed reconsideration loop, a preregistered study on physician-labelled cases, and a cascade decision-model architecture.",
   "landingHighlights": [
     "Vega reached held-out AUC 0.966: it ranks a true emergency above a non-emergency 97% of the time, accurate enough for its flags to be acted on. It caught 18 of the chatbot's 31 missed emergencies and disclosed each flag, raising final emergency guidance from 39 to 47 of 70 with one added false alarm in 134 non-emergencies.",
