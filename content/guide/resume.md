@@ -2,7 +2,7 @@
 
 ## Professional summary
 
-Neerav Chaudhary is an AI engineer and Engineering Management graduate who builds conversational systems, research tools, applied machine-learning studies, and realtime products. His work combines product direction, interface and backend engineering, controlled automation, data and service contracts, and evaluation designed around observable outcomes.
+Neerav Chaudhary is an applied AI engineer and Engineering Management graduate who builds conversational systems, research tools, applied machine-learning studies, and realtime products. His work combines product direction, interface and backend engineering, controlled automation, data and service contracts, and evaluation designed around observable outcomes.
 
 ## Experience timeline
 

@@ -20,7 +20,7 @@ export default async function HomePage() {
         <section className="home-intro" id="glance">
           <div className="home-intro-copy">
             <div className="cover-issue-line">
-              <span>Neerav Chaudhary · AI engineer</span>
+              <span>Neerav Chaudhary · Applied AI engineer</span>
               <span>Selected work · 2026</span>
             </div>
             <div className="panel-eyebrow">{home?.heroEyebrow || 'Product systems · applied AI · evaluation'}</div>

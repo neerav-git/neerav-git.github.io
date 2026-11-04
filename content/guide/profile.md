@@ -4,11 +4,11 @@
 
 This is the summary Neerav wrote for the top of his portfolio. It names the strengths he wants his work read through.
 
-> I am an AI engineer and published researcher, with experience across product design, AI/ML research, healthcare, ed tech, and AI safety and evaluation. I bring this breadth and a researcher's discipline to building products: I turn what a person needs into a measured goal, design an interface people find easy to use and an automation layer around it, and, most importantly, build the evaluation that shows whether the system works and how well. Working with founders, policy researchers, and cross-functional teams has made me adept at turning an ambiguous problem into interactive software that people can rely on.
+> I am an applied AI engineer and published researcher working across product design, AI/ML research, healthcare, ed tech, and AI safety. I bring a researcher's discipline to product development: defining measurable goals, designing clear interfaces and dependable automation, and building evaluations that show whether a system works. Working with founders, policy researchers, and cross-functional teams has made me adept at turning ambiguity into reliable software.
 
 ## What Neerav is strongest at
 
-Neerav's greatest strength is product vision grounded in the user's perspective. As an AI product engineer, he starts from what a person is trying to get done, then builds complete feature sets and responsive interfaces around it. His deep interest in interaction design shows in software that feels simple and accessible to use while the engineering underneath stays innovative and rigorous.
+Neerav's greatest strength is product vision grounded in the user's perspective. As an applied AI engineer, he uses AI product engineering to turn what a person is trying to get done into complete feature sets and responsive interfaces. His deep interest in interaction design shows in software that feels simple and accessible to use while the engineering underneath stays innovative and rigorous.
 
 He demonstrates this across his products. Relay gives employees a voice AI agent they can talk to or type to: it answers from their own records, takes them to the right page, and uses tool calling to complete requests like opening a support case once they say yes. Refract puts an entire research process in one place, from reading papers and capturing evidence through comparing sources, testing recall, and running statistical analysis, and its retrieval-augmented generation (RAG) ties every answer to its source, so researchers stop stitching together half a dozen tools. Homeward uses multi-agent AI to turn confusing hospital discharge paperwork into a clear recovery plan a patient can follow. Birb Hangout gives distant friends a realtime multiplayer 3D space where they can simply spend time together.
 
@@ -58,7 +58,7 @@ His background combines a bachelor's degree in Computer Engineering from Manipal
 
 ## Role fit
 
-### Applied AI engineer or AI product engineer
+### Applied AI engineer
 
 Neerav is a strong fit. He builds AI features people can trust inside complete products: Relay's voice AI agent uses tool calling to complete real employee requests with confirmation, Homeward's multi-agent AI helps patients follow discharge instructions safely, and Refract's retrieval-augmented generation (RAG) keeps research answers tied to their sources. He works across the full stack, from React and TypeScript interfaces to Python, FastAPI, Fastify, Express, and SQL backends, and he builds the evaluation harness that proves the feature works.
 
