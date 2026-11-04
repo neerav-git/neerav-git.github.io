@@ -2545,6 +2545,7 @@ body::before {
 
 .active-product-media--video video {
   display: block;
+  object-position: center;
 }
 
 .active-product-media-status,
