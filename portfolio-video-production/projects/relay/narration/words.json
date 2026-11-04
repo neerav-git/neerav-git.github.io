@@ -1,0 +1,1660 @@
+[
+  {
+    "index": 0,
+    "sentence": "At most companies, HR, IT, payroll and learning each run their own portal, with their own forms and owners.",
+    "start": 0,
+    "end": 7.5,
+    "words": [
+      {
+        "word": "At",
+        "start": 0,
+        "end": 0.38
+      },
+      {
+        "word": "most",
+        "start": 0.38,
+        "end": 0.48
+      },
+      {
+        "word": "companies",
+        "start": 0.48,
+        "end": 0.88
+      },
+      {
+        "word": "HR",
+        "start": 1.36,
+        "end": 1.68
+      },
+      {
+        "word": "IT",
+        "start": 2.52,
+        "end": 2.54
+      },
+      {
+        "word": "payroll",
+        "start": 2.82,
+        "end": 2.96
+      },
+      {
+        "word": "and",
+        "start": 3.34,
+        "end": 3.38
+      },
+      {
+        "word": "learning",
+        "start": 3.38,
+        "end": 3.56
+      },
+      {
+        "word": "each",
+        "start": 3.56,
+        "end": 4.02
+      },
+      {
+        "word": "run",
+        "start": 4.02,
+        "end": 4.28
+      },
+      {
+        "word": "their",
+        "start": 4.28,
+        "end": 4.46
+      },
+      {
+        "word": "own",
+        "start": 4.46,
+        "end": 4.64
+      },
+      {
+        "word": "portal",
+        "start": 4.64,
+        "end": 4.9
+      },
+      {
+        "word": "with",
+        "start": 4.9,
+        "end": 5.54
+      },
+      {
+        "word": "their",
+        "start": 5.54,
+        "end": 5.68
+      },
+      {
+        "word": "own",
+        "start": 5.68,
+        "end": 5.9
+      },
+      {
+        "word": "forms",
+        "start": 5.9,
+        "end": 6.2
+      },
+      {
+        "word": "and",
+        "start": 6.2,
+        "end": 6.52
+      },
+      {
+        "word": "owners",
+        "start": 6.52,
+        "end": 6.78
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "sentence": "New hires have to work out which system, form and person applies, and support teams untangle requests that arrive incomplete or at the wrong desk.",
+    "start": 7.68,
+    "end": 17.205,
+    "words": [
+      {
+        "word": "New",
+        "start": 7.71,
+        "end": 8.09
+      },
+      {
+        "word": "hires",
+        "start": 8.09,
+        "end": 8.37
+      },
+      {
+        "word": "have",
+        "start": 8.37,
+        "end": 8.73
+      },
+      {
+        "word": "to",
+        "start": 8.73,
+        "end": 8.87
+      },
+      {
+        "word": "work",
+        "start": 8.87,
+        "end": 9.03
+      },
+      {
+        "word": "out",
+        "start": 9.03,
+        "end": 9.19
+      },
+      {
+        "word": "which",
+        "start": 9.19,
+        "end": 9.35
+      },
+      {
+        "word": "system",
+        "start": 9.35,
+        "end": 9.77
+      },
+      {
+        "word": "form",
+        "start": 10.23,
+        "end": 10.51
+      },
+      {
+        "word": "and",
+        "start": 10.51,
+        "end": 10.69
+      },
+      {
+        "word": "person",
+        "start": 10.69,
+        "end": 10.99
+      },
+      {
+        "word": "applies",
+        "start": 10.99,
+        "end": 11.47
+      },
+      {
+        "word": "and",
+        "start": 12.01,
+        "end": 12.15
+      },
+      {
+        "word": "support",
+        "start": 12.15,
+        "end": 12.43
+      },
+      {
+        "word": "teams",
+        "start": 12.43,
+        "end": 12.81
+      },
+      {
+        "word": "untangle",
+        "start": 12.81,
+        "end": 13.45
+      },
+      {
+        "word": "requests",
+        "start": 13.45,
+        "end": 13.91
+      },
+      {
+        "word": "that",
+        "start": 13.91,
+        "end": 14.39
+      },
+      {
+        "word": "arrive",
+        "start": 14.39,
+        "end": 14.59
+      },
+      {
+        "word": "incomplete",
+        "start": 14.59,
+        "end": 15.17
+      },
+      {
+        "word": "or",
+        "start": 15.17,
+        "end": 15.83
+      },
+      {
+        "word": "at",
+        "start": 15.83,
+        "end": 16.03
+      },
+      {
+        "word": "the",
+        "start": 16.03,
+        "end": 16.11
+      },
+      {
+        "word": "wrong",
+        "start": 16.11,
+        "end": 16.27
+      },
+      {
+        "word": "desk",
+        "start": 16.27,
+        "end": 16.63
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "sentence": "Relay puts all of it in one workspace, with a Deepgram voice agent, Nova-3 listening and Flux speaking, that connects every service to a single conversation.",
+    "start": 17.385,
+    "end": 27.71,
+    "words": [
+      {
+        "word": "Relay",
+        "start": 17.695,
+        "end": 17.975
+      },
+      {
+        "word": "puts",
+        "start": 17.975,
+        "end": 18.175
+      },
+      {
+        "word": "all",
+        "start": 18.175,
+        "end": 18.455
+      },
+      {
+        "word": "of",
+        "start": 18.455,
+        "end": 18.615
+      },
+      {
+        "word": "it",
+        "start": 18.615,
+        "end": 18.715
+      },
+      {
+        "word": "in",
+        "start": 18.715,
+        "end": 18.875
+      },
+      {
+        "word": "one",
+        "start": 18.875,
+        "end": 19.055
+      },
+      {
+        "word": "workspace",
+        "start": 19.055,
+        "end": 19.475
+      },
+      {
+        "word": "with",
+        "start": 20.135,
+        "end": 20.235
+      },
+      {
+        "word": "a",
+        "start": 20.235,
+        "end": 20.355
+      },
+      {
+        "word": "Deepgram",
+        "start": 20.355,
+        "end": 20.515
+      },
+      {
+        "word": "voice",
+        "start": 20.735,
+        "end": 21.015
+      },
+      {
+        "word": "agent",
+        "start": 21.015,
+        "end": 21.495
+      },
+      {
+        "word": "Nova-3",
+        "start": 22.015,
+        "end": 22.235
+      },
+      {
+        "word": "listening",
+        "start": 22.535,
+        "end": 22.815
+      },
+      {
+        "word": "and",
+        "start": 22.815,
+        "end": 23.235
+      },
+      {
+        "word": "Flux",
+        "start": 23.235,
+        "end": 23.435
+      },
+      {
+        "word": "speaking",
+        "start": 23.435,
+        "end": 23.795
+      },
+      {
+        "word": "that",
+        "start": 24.375,
+        "end": 24.575
+      },
+      {
+        "word": "connects",
+        "start": 24.575,
+        "end": 24.835
+      },
+      {
+        "word": "every",
+        "start": 24.835,
+        "end": 25.195
+      },
+      {
+        "word": "service",
+        "start": 25.195,
+        "end": 25.695
+      },
+      {
+        "word": "to",
+        "start": 25.695,
+        "end": 25.935
+      },
+      {
+        "word": "a",
+        "start": 25.935,
+        "end": 26.035
+      },
+      {
+        "word": "single",
+        "start": 26.035,
+        "end": 26.235
+      },
+      {
+        "word": "conversation",
+        "start": 26.235,
+        "end": 26.975
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "sentence": "Here’s Maya, a new hire, on day one.",
+    "start": 27.89,
+    "end": 30.64,
+    "words": [
+      {
+        "word": "Here’s",
+        "start": 27.9,
+        "end": 28.4
+      },
+      {
+        "word": "Maya",
+        "start": 28.4,
+        "end": 28.58
+      },
+      {
+        "word": "a",
+        "start": 28.98,
+        "end": 29.02
+      },
+      {
+        "word": "new",
+        "start": 29.02,
+        "end": 29.12
+      },
+      {
+        "word": "hire",
+        "start": 29.12,
+        "end": 29.32
+      },
+      {
+        "word": "on",
+        "start": 29.32,
+        "end": 29.6
+      },
+      {
+        "word": "day",
+        "start": 29.6,
+        "end": 29.74
+      },
+      {
+        "word": "one",
+        "start": 29.74,
+        "end": 30.08
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "sentence": "It reads Maya’s own records, picks the task due first, and opens the exact form, ready to start.",
+    "start": 30.82,
+    "end": 37.17,
+    "words": [
+      {
+        "word": "It",
+        "start": 30.87,
+        "end": 31.17
+      },
+      {
+        "word": "reads",
+        "start": 31.17,
+        "end": 31.33
+      },
+      {
+        "word": "Maya’s",
+        "start": 31.33,
+        "end": 31.87
+      },
+      {
+        "word": "own",
+        "start": 31.87,
+        "end": 32.07
+      },
+      {
+        "word": "records",
+        "start": 32.07,
+        "end": 32.39
+      },
+      {
+        "word": "picks",
+        "start": 32.95,
+        "end": 33.05
+      },
+      {
+        "word": "the",
+        "start": 33.05,
+        "end": 33.25
+      },
+      {
+        "word": "task",
+        "start": 33.25,
+        "end": 33.49
+      },
+      {
+        "word": "due",
+        "start": 33.49,
+        "end": 33.73
+      },
+      {
+        "word": "first",
+        "start": 33.73,
+        "end": 34.05
+      },
+      {
+        "word": "and",
+        "start": 34.41,
+        "end": 34.59
+      },
+      {
+        "word": "opens",
+        "start": 34.59,
+        "end": 34.85
+      },
+      {
+        "word": "the",
+        "start": 34.85,
+        "end": 35.05
+      },
+      {
+        "word": "exact",
+        "start": 35.05,
+        "end": 35.21
+      },
+      {
+        "word": "form",
+        "start": 35.21,
+        "end": 35.73
+      },
+      {
+        "word": "ready",
+        "start": 35.73,
+        "end": 36.05
+      },
+      {
+        "word": "to",
+        "start": 36.05,
+        "end": 36.27
+      },
+      {
+        "word": "start",
+        "start": 36.27,
+        "end": 36.53
+      }
+    ]
+  },
+  {
+    "index": 5,
+    "sentence": "Raising a concern works the same way: Relay drafts a complete IT request for the right team and files it when Maya confirms.",
+    "start": 37.35,
+    "end": 45.725,
+    "words": [
+      {
+        "word": "Raising",
+        "start": 37.36,
+        "end": 37.96
+      },
+      {
+        "word": "a",
+        "start": 37.96,
+        "end": 38.08
+      },
+      {
+        "word": "concern",
+        "start": 38.08,
+        "end": 38.38
+      },
+      {
+        "word": "works",
+        "start": 38.38,
+        "end": 38.8
+      },
+      {
+        "word": "the",
+        "start": 38.8,
+        "end": 39.08
+      },
+      {
+        "word": "same",
+        "start": 39.08,
+        "end": 39.3
+      },
+      {
+        "word": "way",
+        "start": 39.3,
+        "end": 39.72
+      },
+      {
+        "word": "Relay",
+        "start": 40.32,
+        "end": 40.44
+      },
+      {
+        "word": "drafts",
+        "start": 40.44,
+        "end": 40.6
+      },
+      {
+        "word": "a",
+        "start": 40.6,
+        "end": 40.94
+      },
+      {
+        "word": "complete",
+        "start": 40.94,
+        "end": 41.28
+      },
+      {
+        "word": "IT",
+        "start": 41.28,
+        "end": 41.64
+      },
+      {
+        "word": "request",
+        "start": 41.64,
+        "end": 42
+      },
+      {
+        "word": "for",
+        "start": 42,
+        "end": 42.44
+      },
+      {
+        "word": "the",
+        "start": 42.44,
+        "end": 42.54
+      },
+      {
+        "word": "right",
+        "start": 42.54,
+        "end": 42.72
+      },
+      {
+        "word": "team",
+        "start": 42.72,
+        "end": 43.06
+      },
+      {
+        "word": "and",
+        "start": 43.06,
+        "end": 43.56
+      },
+      {
+        "word": "files",
+        "start": 43.56,
+        "end": 43.8
+      },
+      {
+        "word": "it",
+        "start": 43.8,
+        "end": 44.12
+      },
+      {
+        "word": "when",
+        "start": 44.12,
+        "end": 44.26
+      },
+      {
+        "word": "Maya",
+        "start": 44.26,
+        "end": 44.44
+      },
+      {
+        "word": "confirms",
+        "start": 44.44,
+        "end": 44.92
+      }
+    ]
+  },
+  {
+    "index": 6,
+    "sentence": "It books meetings on the calendar and explains what’s holding up a first paycheck, and every action waits for the employee’s click.",
+    "start": 45.905,
+    "end": 53.555,
+    "words": [
+      {
+        "word": "It",
+        "start": 45.855,
+        "end": 46.235
+      },
+      {
+        "word": "books",
+        "start": 46.235,
+        "end": 46.395
+      },
+      {
+        "word": "meetings",
+        "start": 46.395,
+        "end": 46.695
+      },
+      {
+        "word": "on",
+        "start": 46.695,
+        "end": 47.055
+      },
+      {
+        "word": "the",
+        "start": 47.055,
+        "end": 47.135
+      },
+      {
+        "word": "calendar",
+        "start": 47.135,
+        "end": 47.415
+      },
+      {
+        "word": "and",
+        "start": 47.415,
+        "end": 48.075
+      },
+      {
+        "word": "explains",
+        "start": 48.075,
+        "end": 48.435
+      },
+      {
+        "word": "what’s",
+        "start": 48.435,
+        "end": 48.835
+      },
+      {
+        "word": "holding",
+        "start": 48.835,
+        "end": 49.135
+      },
+      {
+        "word": "up",
+        "start": 49.135,
+        "end": 49.315
+      },
+      {
+        "word": "a",
+        "start": 49.315,
+        "end": 49.395
+      },
+      {
+        "word": "first",
+        "start": 49.395,
+        "end": 49.635
+      },
+      {
+        "word": "paycheck",
+        "start": 49.635,
+        "end": 49.955
+      },
+      {
+        "word": "and",
+        "start": 49.955,
+        "end": 50.775
+      },
+      {
+        "word": "every",
+        "start": 50.775,
+        "end": 50.975
+      },
+      {
+        "word": "action",
+        "start": 50.975,
+        "end": 51.455
+      },
+      {
+        "word": "waits",
+        "start": 51.455,
+        "end": 51.715
+      },
+      {
+        "word": "for",
+        "start": 51.715,
+        "end": 52.015
+      },
+      {
+        "word": "the",
+        "start": 52.015,
+        "end": 52.135
+      },
+      {
+        "word": "employee’s",
+        "start": 52.135,
+        "end": 52.735
+      },
+      {
+        "word": "click",
+        "start": 52.735,
+        "end": 52.955
+      }
+    ]
+  },
+  {
+    "index": 7,
+    "sentence": "Underneath, an intelligence layer built for Relay gives the agent a small set of tools to read records, open them, highlight sections and propose actions.",
+    "start": 53.735,
+    "end": 63.76,
+    "words": [
+      {
+        "word": "Underneath",
+        "start": 53.685,
+        "end": 54.465
+      },
+      {
+        "word": "an",
+        "start": 54.705,
+        "end": 54.765
+      },
+      {
+        "word": "intelligence",
+        "start": 54.765,
+        "end": 55.005
+      },
+      {
+        "word": "layer",
+        "start": 55.005,
+        "end": 55.625
+      },
+      {
+        "word": "built",
+        "start": 55.625,
+        "end": 55.905
+      },
+      {
+        "word": "for",
+        "start": 55.905,
+        "end": 56.125
+      },
+      {
+        "word": "Relay",
+        "start": 56.125,
+        "end": 56.505
+      },
+      {
+        "word": "gives",
+        "start": 56.505,
+        "end": 56.945
+      },
+      {
+        "word": "the",
+        "start": 56.945,
+        "end": 57.125
+      },
+      {
+        "word": "agent",
+        "start": 57.125,
+        "end": 57.365
+      },
+      {
+        "word": "a",
+        "start": 57.365,
+        "end": 57.705
+      },
+      {
+        "word": "small",
+        "start": 57.705,
+        "end": 57.945
+      },
+      {
+        "word": "set",
+        "start": 57.945,
+        "end": 58.265
+      },
+      {
+        "word": "of",
+        "start": 58.265,
+        "end": 58.365
+      },
+      {
+        "word": "tools",
+        "start": 58.365,
+        "end": 58.605
+      },
+      {
+        "word": "to",
+        "start": 58.605,
+        "end": 58.905
+      },
+      {
+        "word": "read",
+        "start": 58.905,
+        "end": 59.045
+      },
+      {
+        "word": "records",
+        "start": 59.045,
+        "end": 59.445
+      },
+      {
+        "word": "open",
+        "start": 60.345,
+        "end": 60.345
+      },
+      {
+        "word": "them",
+        "start": 60.345,
+        "end": 60.585
+      },
+      {
+        "word": "highlight",
+        "start": 60.885,
+        "end": 61.205
+      },
+      {
+        "word": "sections",
+        "start": 61.205,
+        "end": 61.645
+      },
+      {
+        "word": "and",
+        "start": 61.705,
+        "end": 62.225
+      },
+      {
+        "word": "propose",
+        "start": 62.225,
+        "end": 62.485
+      },
+      {
+        "word": "actions",
+        "start": 62.485,
+        "end": 63.045
+      }
+    ]
+  },
+  {
+    "index": 8,
+    "sentence": "The agent only names the record; Relay works out the page and the highlight itself, and refuses any target it doesn’t recognize.",
+    "start": 63.94,
+    "end": 72.24,
+    "words": [
+      {
+        "word": "The",
+        "start": 63.89,
+        "end": 64.27
+      },
+      {
+        "word": "agent",
+        "start": 64.27,
+        "end": 64.55
+      },
+      {
+        "word": "only",
+        "start": 64.55,
+        "end": 64.91
+      },
+      {
+        "word": "names",
+        "start": 64.91,
+        "end": 65.35
+      },
+      {
+        "word": "the",
+        "start": 65.35,
+        "end": 65.55
+      },
+      {
+        "word": "record",
+        "start": 65.55,
+        "end": 65.85
+      },
+      {
+        "word": "Relay",
+        "start": 66.65,
+        "end": 66.77
+      },
+      {
+        "word": "works",
+        "start": 66.77,
+        "end": 67.01
+      },
+      {
+        "word": "out",
+        "start": 67.01,
+        "end": 67.19
+      },
+      {
+        "word": "the",
+        "start": 67.19,
+        "end": 67.31
+      },
+      {
+        "word": "page",
+        "start": 67.31,
+        "end": 67.57
+      },
+      {
+        "word": "and",
+        "start": 67.57,
+        "end": 67.89
+      },
+      {
+        "word": "the",
+        "start": 67.89,
+        "end": 67.99
+      },
+      {
+        "word": "highlight",
+        "start": 67.99,
+        "end": 68.23
+      },
+      {
+        "word": "itself",
+        "start": 68.23,
+        "end": 68.71
+      },
+      {
+        "word": "and",
+        "start": 68.71,
+        "end": 69.39
+      },
+      {
+        "word": "refuses",
+        "start": 69.39,
+        "end": 69.63
+      },
+      {
+        "word": "any",
+        "start": 69.63,
+        "end": 70.13
+      },
+      {
+        "word": "target",
+        "start": 70.13,
+        "end": 70.51
+      },
+      {
+        "word": "it",
+        "start": 70.51,
+        "end": 70.79
+      },
+      {
+        "word": "doesn’t",
+        "start": 70.79,
+        "end": 71.07
+      },
+      {
+        "word": "recognize",
+        "start": 71.07,
+        "end": 71.47
+      }
+    ]
+  },
+  {
+    "index": 9,
+    "sentence": "The server decides who is signed in and gives the agent that employee’s records alone, so each person reaches only what they’re authorized to see.",
+    "start": 72.42,
+    "end": 81.42,
+    "words": [
+      {
+        "word": "The",
+        "start": 72.37,
+        "end": 72.75
+      },
+      {
+        "word": "server",
+        "start": 72.75,
+        "end": 72.97
+      },
+      {
+        "word": "decides",
+        "start": 72.97,
+        "end": 73.37
+      },
+      {
+        "word": "who",
+        "start": 73.37,
+        "end": 73.81
+      },
+      {
+        "word": "is",
+        "start": 73.81,
+        "end": 73.93
+      },
+      {
+        "word": "signed",
+        "start": 73.93,
+        "end": 74.21
+      },
+      {
+        "word": "in",
+        "start": 74.21,
+        "end": 74.53
+      },
+      {
+        "word": "and",
+        "start": 74.53,
+        "end": 74.99
+      },
+      {
+        "word": "gives",
+        "start": 74.99,
+        "end": 75.19
+      },
+      {
+        "word": "the",
+        "start": 75.19,
+        "end": 75.35
+      },
+      {
+        "word": "agent",
+        "start": 75.35,
+        "end": 75.67
+      },
+      {
+        "word": "that",
+        "start": 75.67,
+        "end": 75.93
+      },
+      {
+        "word": "employee’s",
+        "start": 75.93,
+        "end": 76.31
+      },
+      {
+        "word": "records",
+        "start": 76.31,
+        "end": 76.81
+      },
+      {
+        "word": "alone",
+        "start": 76.81,
+        "end": 77.33
+      },
+      {
+        "word": "so",
+        "start": 77.91,
+        "end": 78.03
+      },
+      {
+        "word": "each",
+        "start": 78.03,
+        "end": 78.23
+      },
+      {
+        "word": "person",
+        "start": 78.23,
+        "end": 78.67
+      },
+      {
+        "word": "reaches",
+        "start": 78.67,
+        "end": 78.97
+      },
+      {
+        "word": "only",
+        "start": 78.97,
+        "end": 79.47
+      },
+      {
+        "word": "what",
+        "start": 79.47,
+        "end": 79.69
+      },
+      {
+        "word": "they’re",
+        "start": 79.69,
+        "end": 79.85
+      },
+      {
+        "word": "authorized",
+        "start": 79.95,
+        "end": 80.21
+      },
+      {
+        "word": "to",
+        "start": 80.21,
+        "end": 80.63
+      },
+      {
+        "word": "see",
+        "start": 80.63,
+        "end": 80.83
+      }
+    ]
+  },
+  {
+    "index": 10,
+    "sentence": "Sensitive details, like bank numbers, are removed before the agent ever sees them.",
+    "start": 81.6,
+    "end": 87.175,
+    "words": [
+      {
+        "word": "Sensitive",
+        "start": 81.55,
+        "end": 82.29
+      },
+      {
+        "word": "details",
+        "start": 82.29,
+        "end": 82.59
+      },
+      {
+        "word": "like",
+        "start": 82.59,
+        "end": 83.31
+      },
+      {
+        "word": "bank",
+        "start": 83.31,
+        "end": 83.45
+      },
+      {
+        "word": "numbers",
+        "start": 83.45,
+        "end": 83.89
+      },
+      {
+        "word": "are",
+        "start": 84.13,
+        "end": 84.47
+      },
+      {
+        "word": "removed",
+        "start": 84.47,
+        "end": 84.75
+      },
+      {
+        "word": "before",
+        "start": 84.75,
+        "end": 85.23
+      },
+      {
+        "word": "the",
+        "start": 85.23,
+        "end": 85.39
+      },
+      {
+        "word": "agent",
+        "start": 85.39,
+        "end": 85.73
+      },
+      {
+        "word": "ever",
+        "start": 85.73,
+        "end": 86.05
+      },
+      {
+        "word": "sees",
+        "start": 86.05,
+        "end": 86.35
+      },
+      {
+        "word": "them",
+        "start": 86.35,
+        "end": 86.65
+      }
+    ]
+  },
+  {
+    "index": 11,
+    "sentence": "HR and IT see a timeline of every request, from what was asked to the verified change.",
+    "start": 87.355,
+    "end": 93.605,
+    "words": [
+      {
+        "word": "HR",
+        "start": 87.965,
+        "end": 87.965
+      },
+      {
+        "word": "and",
+        "start": 87.965,
+        "end": 88.265
+      },
+      {
+        "word": "IT",
+        "start": 88.265,
+        "end": 88.465
+      },
+      {
+        "word": "see",
+        "start": 88.465,
+        "end": 89.045
+      },
+      {
+        "word": "a",
+        "start": 89.045,
+        "end": 89.145
+      },
+      {
+        "word": "timeline",
+        "start": 89.145,
+        "end": 89.525
+      },
+      {
+        "word": "of",
+        "start": 89.525,
+        "end": 89.885
+      },
+      {
+        "word": "every",
+        "start": 89.885,
+        "end": 90.145
+      },
+      {
+        "word": "request",
+        "start": 90.145,
+        "end": 90.585
+      },
+      {
+        "word": "from",
+        "start": 90.585,
+        "end": 91.265
+      },
+      {
+        "word": "what",
+        "start": 91.265,
+        "end": 91.405
+      },
+      {
+        "word": "was",
+        "start": 91.405,
+        "end": 91.505
+      },
+      {
+        "word": "asked",
+        "start": 91.505,
+        "end": 91.725
+      },
+      {
+        "word": "to",
+        "start": 91.725,
+        "end": 92.005
+      },
+      {
+        "word": "the",
+        "start": 92.005,
+        "end": 92.085
+      },
+      {
+        "word": "verified",
+        "start": 92.085,
+        "end": 92.345
+      },
+      {
+        "word": "change",
+        "start": 92.345,
+        "end": 92.825
+      }
+    ]
+  },
+  {
+    "index": 12,
+    "sentence": "On the real app, 103 of 110 conversations ended fully right, and 31 of 34 spoken requests got a useful answer.",
+    "start": 93.785,
+    "end": 103.435,
+    "words": [
+      {
+        "word": "On",
+        "start": 93.735,
+        "end": 94.175
+      },
+      {
+        "word": "the",
+        "start": 94.175,
+        "end": 94.275
+      },
+      {
+        "word": "real",
+        "start": 94.275,
+        "end": 94.375
+      },
+      {
+        "word": "app",
+        "start": 94.375,
+        "end": 94.775
+      },
+      {
+        "word": "103",
+        "start": 95.075,
+        "end": 95.835
+      },
+      {
+        "word": "of",
+        "start": 95.835,
+        "end": 96.115
+      },
+      {
+        "word": "110",
+        "start": 96.115,
+        "end": 96.375
+      },
+      {
+        "word": "conversations",
+        "start": 96.375,
+        "end": 97.315
+      },
+      {
+        "word": "ended",
+        "start": 97.315,
+        "end": 98.075
+      },
+      {
+        "word": "fully",
+        "start": 98.075,
+        "end": 98.335
+      },
+      {
+        "word": "right",
+        "start": 98.335,
+        "end": 98.695
+      },
+      {
+        "word": "and",
+        "start": 99.335,
+        "end": 99.355
+      },
+      {
+        "word": "31",
+        "start": 99.355,
+        "end": 99.715
+      },
+      {
+        "word": "of",
+        "start": 99.715,
+        "end": 99.955
+      },
+      {
+        "word": "34",
+        "start": 99.955,
+        "end": 100.215
+      },
+      {
+        "word": "spoken",
+        "start": 100.215,
+        "end": 100.935
+      },
+      {
+        "word": "requests",
+        "start": 100.935,
+        "end": 101.275
+      },
+      {
+        "word": "got",
+        "start": 101.275,
+        "end": 101.955
+      },
+      {
+        "word": "a",
+        "start": 101.955,
+        "end": 102.075
+      },
+      {
+        "word": "useful",
+        "start": 102.075,
+        "end": 102.315
+      },
+      {
+        "word": "answer",
+        "start": 102.315,
+        "end": 102.855
+      }
+    ]
+  },
+  {
+    "index": 13,
+    "sentence": "It stops talking within 51 milliseconds when the employee cuts in, and red-team attacks caused no unsafe actions.",
+    "start": 103.615,
+    "end": 110.89,
+    "words": [
+      {
+        "word": "It",
+        "start": 103.565,
+        "end": 103.945
+      },
+      {
+        "word": "stops",
+        "start": 103.945,
+        "end": 104.185
+      },
+      {
+        "word": "talking",
+        "start": 104.185,
+        "end": 104.525
+      },
+      {
+        "word": "within",
+        "start": 104.525,
+        "end": 104.885
+      },
+      {
+        "word": "51",
+        "start": 104.885,
+        "end": 105.425
+      },
+      {
+        "word": "milliseconds",
+        "start": 105.425,
+        "end": 105.665
+      },
+      {
+        "word": "when",
+        "start": 105.665,
+        "end": 106.145
+      },
+      {
+        "word": "the",
+        "start": 106.145,
+        "end": 106.245
+      },
+      {
+        "word": "employee",
+        "start": 106.245,
+        "end": 106.565
+      },
+      {
+        "word": "cuts",
+        "start": 106.565,
+        "end": 106.965
+      },
+      {
+        "word": "in",
+        "start": 106.965,
+        "end": 107.185
+      },
+      {
+        "word": "and",
+        "start": 107.625,
+        "end": 107.745
+      },
+      {
+        "word": "red-team",
+        "start": 107.745,
+        "end": 107.925
+      },
+      {
+        "word": "attacks",
+        "start": 108.205,
+        "end": 108.465
+      },
+      {
+        "word": "caused",
+        "start": 108.465,
+        "end": 108.925
+      },
+      {
+        "word": "no",
+        "start": 108.925,
+        "end": 109.305
+      },
+      {
+        "word": "unsafe",
+        "start": 109.305,
+        "end": 109.685
+      },
+      {
+        "word": "actions",
+        "start": 109.685,
+        "end": 110.205
+      }
+    ]
+  },
+  {
+    "index": 14,
+    "sentence": "That was Maya’s first day, sorted in a few sentences.",
+    "start": 111.07,
+    "end": 114.67,
+    "words": [
+      {
+        "word": "That",
+        "start": 111.02,
+        "end": 111.46
+      },
+      {
+        "word": "was",
+        "start": 111.46,
+        "end": 111.6
+      },
+      {
+        "word": "Maya’s",
+        "start": 111.6,
+        "end": 112.02
+      },
+      {
+        "word": "first",
+        "start": 112.02,
+        "end": 112.22
+      },
+      {
+        "word": "day",
+        "start": 112.22,
+        "end": 112.5
+      },
+      {
+        "word": "sorted",
+        "start": 112.84,
+        "end": 113.06
+      },
+      {
+        "word": "in",
+        "start": 113.06,
+        "end": 113.28
+      },
+      {
+        "word": "a",
+        "start": 113.28,
+        "end": 113.32
+      },
+      {
+        "word": "few",
+        "start": 113.32,
+        "end": 113.46
+      },
+      {
+        "word": "sentences",
+        "start": 113.46,
+        "end": 113.98
+      }
+    ]
+  },
+  {
+    "index": 15,
+    "sentence": "Relay takes the guesswork and friction out of work by automating the essential tasks.",
+    "start": 114.85,
+    "end": 119.925,
+    "words": [
+      {
+        "word": "Relay",
+        "start": 115.16,
+        "end": 115.46
+      },
+      {
+        "word": "takes",
+        "start": 115.46,
+        "end": 115.78
+      },
+      {
+        "word": "the",
+        "start": 115.78,
+        "end": 115.94
+      },
+      {
+        "word": "guesswork",
+        "start": 115.94,
+        "end": 116.34
+      },
+      {
+        "word": "and",
+        "start": 116.34,
+        "end": 116.54
+      },
+      {
+        "word": "friction",
+        "start": 116.54,
+        "end": 116.78
+      },
+      {
+        "word": "out",
+        "start": 116.78,
+        "end": 117.02
+      },
+      {
+        "word": "of",
+        "start": 117.02,
+        "end": 117.12
+      },
+      {
+        "word": "work",
+        "start": 117.12,
+        "end": 117.28
+      },
+      {
+        "word": "by",
+        "start": 117.28,
+        "end": 117.8
+      },
+      {
+        "word": "automating",
+        "start": 117.8,
+        "end": 118.32
+      },
+      {
+        "word": "the",
+        "start": 118.32,
+        "end": 118.46
+      },
+      {
+        "word": "essential",
+        "start": 118.46,
+        "end": 118.72
+      },
+      {
+        "word": "tasks",
+        "start": 118.72,
+        "end": 119.26
+      }
+    ]
+  }
+]

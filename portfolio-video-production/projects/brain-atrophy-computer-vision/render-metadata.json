@@ -1,0 +1,28 @@
+{
+  "audioSeconds": 74.385,
+  "durationSeconds": 76.23500000000001,
+  "fps": 24,
+  "resolution": "1920x1080",
+  "cues": [
+    {
+      "cue": "This study asked",
+      "at": 7.93
+    },
+    {
+      "cue": "The OpenCV workflow",
+      "at": 17.384999999999998
+    },
+    {
+      "cue": "Across 2,198",
+      "at": 29.439999999999998
+    },
+    {
+      "cue": "The same method was evaluated",
+      "at": 42.919999999999995
+    },
+    {
+      "cue": "The work is distinctive",
+      "at": 55.355
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "title": "Birb Hangout",
+  "subtitle": "A shared 3D place for the quiet rituals of friendship",
+  "scenes": [
+    {
+      "start": 0,
+      "end": 18.38,
+      "beat": "WHY IT MATTERS",
+      "cue": "Most remote social products demand a",
+      "media": [
+        "captures/repository/reading.mp4",
+        "captures/repository/nap.mp4"
+      ]
+    },
+    {
+      "start": 18.38,
+      "end": 24.51,
+      "beat": "THE LOUNGE",
+      "cue": "Friends enter a private",
+      "media": "captures/repository/watching.mp4"
+    },
+    {
+      "start": 24.51,
+      "end": 31.84,
+      "beat": "SHARED ACTIVITIES",
+      "cue": "Records, books, television",
+      "media": [
+        "captures/repository/records.mp4",
+        "captures/repository/trivia.mp4"
+      ]
+    },
+    {
+      "start": 31.84,
+      "end": 40.22,
+      "beat": "THE DREAM",
+      "cue": "Resting by the fire",
+      "media": [
+        "captures/repository/dream-entry.mp4",
+        "captures/repository/flight.mp4"
+      ]
+    },
+    {
+      "start": 40.22,
+      "end": 48.93,
+      "beat": "SOCIAL ENGINEERING",
+      "cue": "The engineering matches",
+      "media": "captures/repository/hug.mp4"
+    },
+    {
+      "start": 48.93,
+      "end": 64.58,
+      "beat": "VISUAL RIGOUR",
+      "cue": "Its special contribution",
+      "media": [
+        "captures/repository/exploration.mp4",
+        "captures/repository/islands.mp4"
+      ]
+    }
+  ]
+}

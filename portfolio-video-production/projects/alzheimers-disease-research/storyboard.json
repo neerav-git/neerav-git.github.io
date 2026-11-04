@@ -1,0 +1,51 @@
+{
+  "title": "Four-Class Alzheimer MRI Classification",
+  "subtitle": "A notebook-first TensorFlow experiment with probability ensembling",
+  "scenes": [
+    {
+      "start": 0,
+      "end": 9.13,
+      "beat": "THE RESEARCH PROBLEM",
+      "cue": "Four-class Alzheimer MRI classification must separate",
+      "media": "captures/repository/notebook-output-1.png"
+    },
+    {
+      "start": 9.13,
+      "end": 31.11,
+      "beat": "DATA PIPELINE",
+      "cue": "This experiment turns",
+      "media": [
+        "captures/designed/dataset-plate.png",
+        "captures/repository/notebook-output-2.png"
+      ]
+    },
+    {
+      "start": 31.11,
+      "end": 41.17,
+      "beat": "MODEL DESIGN",
+      "cue": "The primary convolutional",
+      "media": "captures/designed/model-plate.png"
+    },
+    {
+      "start": 41.17,
+      "end": 52,
+      "beat": "ENSEMBLE METHOD",
+      "cue": "Independently saved models",
+      "media": "captures/designed/ensemble-plate.png"
+    },
+    {
+      "start": 52,
+      "end": 59.83,
+      "beat": "THE RESULT",
+      "cue": "In the author-confirmed",
+      "media": "captures/designed/result-plate.png"
+    },
+    {
+      "start": 59.83,
+      "end": 78.56,
+      "beat": "REPRODUCIBLE NOTEBOOK",
+      "cue": "What makes the project special",
+      "media": "captures/designed/progression-plate.png"
+    }
+  ]
+}

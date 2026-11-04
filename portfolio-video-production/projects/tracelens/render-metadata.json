@@ -1,0 +1,24 @@
+{
+  "audioSeconds": 70.215,
+  "durationSeconds": 72.06500000000001,
+  "fps": 24,
+  "resolution": "1920x1080",
+  "cues": [
+    {
+      "cue": "A pinned chatbot",
+      "at": 12.91
+    },
+    {
+      "cue": "When the two disagree",
+      "at": 23.814999999999998
+    },
+    {
+      "cue": "On held-out",
+      "at": 36.65
+    },
+    {
+      "cue": "TraceLens is special",
+      "at": 59.11
+    }
+  ]
+}

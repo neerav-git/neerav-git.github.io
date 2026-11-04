@@ -1,0 +1,281 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:04.700
+A 2026 Nature Medicine study found that ChatGPT
+
+2
+00:00:04.700 --> 00:00:08.817
+Health under-triaged 52 percent of true emergencies,
+
+3
+00:00:08.817 --> 00:00:12.133
+often advising a doctor's visit within a day or two.
+
+4
+00:00:12.133 --> 00:00:13.917
+Millions of people now turn
+
+5
+00:00:13.917 --> 00:00:16.750
+to general-purpose chatbots for health advice,
+
+6
+00:00:16.750 --> 00:00:19.750
+so under-triage like this can be consequential.
+
+7
+00:00:19.750 --> 00:00:22.600
+General-purpose chatbots miss emergencies,
+
+8
+00:00:22.600 --> 00:00:25.067
+or don't state them clearly to the patient.
+
+9
+00:00:25.067 --> 00:00:27.667
+Can a supporting model both reduce under-triage
+
+10
+00:00:27.667 --> 00:00:30.783
+and make failures transparent to the end user?
+
+11
+00:00:30.933 --> 00:00:32.917
+Here is a case from HealthBench,
+
+12
+00:00:32.917 --> 00:00:34.883
+a public dataset for benchmarking
+
+13
+00:00:34.883 --> 00:00:37.133
+language models on health questions.
+
+14
+00:00:37.133 --> 00:00:39.117
+A person asks about a friend who
+
+15
+00:00:39.117 --> 00:00:41.567
+is slurring words and drifting in and out
+
+16
+00:00:41.567 --> 00:00:44.233
+of consciousness after an hour in a hot tub.
+
+17
+00:00:44.233 --> 00:00:47.150
+Gemma 3 4B, the chatbot we tested,
+
+18
+00:00:47.150 --> 00:00:49.233
+calls it heat exhaustion and recommends
+
+19
+00:00:49.233 --> 00:00:52.283
+hydration with unclear care instructions.
+
+20
+00:00:52.283 --> 00:00:55.117
+A physician labelled this case an emergency.
+
+21
+00:00:55.117 --> 00:00:56.400
+That gap between the danger
+
+22
+00:00:56.400 --> 00:00:58.533
+and the advice is under-triage.
+
+23
+00:00:59.033 --> 00:01:01.617
+TraceLens is a safety and evaluation workspace,
+
+24
+00:01:01.617 --> 00:01:03.633
+built from scratch for teams
+
+25
+00:01:03.633 --> 00:01:05.400
+that make health chatbots.
+
+26
+00:01:05.400 --> 00:01:07.750
+It pairs the chatbot with Vega, a decision
+
+27
+00:01:07.750 --> 00:01:11.850
+model in the same class as TypeSafe AI's Jev.
+
+28
+00:01:12.050 --> 00:01:14.150
+Vega reads only the person's message
+
+29
+00:01:14.150 --> 00:01:16.417
+and checks it for an emergency.
+
+30
+00:01:16.417 --> 00:01:19.150
+The chatbot takes a median of 67 seconds
+
+31
+00:01:19.150 --> 00:01:23.667
+to write an answer; Vega decides in 0.36 seconds,
+
+32
+00:01:23.667 --> 00:01:25.517
+without writing a word.
+
+33
+00:01:25.517 --> 00:01:28.717
+Vega calls it an emergency, but in our tests
+
+34
+00:01:28.717 --> 00:01:32.400
+Gemma 3 4B under-triaged it, so the two disagree.
+
+35
+00:01:32.400 --> 00:01:34.817
+So the flag appears right in the chat,
+
+36
+00:01:34.817 --> 00:01:37.317
+the first answer stays visible, and the chatbot
+
+37
+00:01:37.317 --> 00:01:41.000
+reconsiders: call emergency services immediately.
+
+38
+00:01:41.000 --> 00:01:43.200
+This is failing transparently.
+
+39
+00:01:43.200 --> 00:01:45.717
+Instead of a generic warning that the chatbot
+
+40
+00:01:45.717 --> 00:01:47.867
+can make mistakes, the person sees
+
+41
+00:01:47.867 --> 00:01:50.150
+the specific mistake it may have made,
+
+42
+00:01:50.150 --> 00:01:53.217
+so they can act with caution and seek an expert.
+
+43
+00:01:53.217 --> 00:01:55.183
+The workspace is built to test several
+
+44
+00:01:55.183 --> 00:01:57.933
+models side by side on the same cases,
+
+45
+00:01:57.933 --> 00:02:01.333
+from Gemma and MedGemma to Qwen and OLMo.
+
+46
+00:02:01.400 --> 00:02:05.117
+Vega uses the Qwen 3.5 4B language model
+
+47
+00:02:05.117 --> 00:02:07.183
+as its feature extractor,
+
+48
+00:02:07.183 --> 00:02:10.500
+so only a small classifier on top needs training.
+
+49
+00:02:10.500 --> 00:02:14.250
+That classifier learned from 146 physician-labelled
+
+50
+00:02:14.250 --> 00:02:16.883
+messages and conversations, and it makes
+
+51
+00:02:16.883 --> 00:02:19.700
+the call on whether a case is an emergency.
+
+52
+00:02:19.700 --> 00:02:22.200
+Given two messages it has never seen,
+
+53
+00:02:22.200 --> 00:02:24.617
+one an emergency and one not,
+
+54
+00:02:24.617 --> 00:02:28.283
+Vega picks the emergency 97 times out of 100.
+
+55
+00:02:28.283 --> 00:02:32.067
+Across 277 physician-labelled cases from four
+
+56
+00:02:32.067 --> 00:02:34.517
+public datasets, including HealthBench
+
+57
+00:02:34.517 --> 00:02:36.933
+and the Nature Medicine study's own cases,
+
+58
+00:02:36.933 --> 00:02:41.200
+Vega recognised 79 percent of emergencies,
+
+59
+00:02:41.200 --> 00:02:45.117
+where the chatbot's first answers caught 56 percent.
+
+60
+00:02:46.483 --> 00:02:48.067
+As part of this study,
+
+61
+00:02:48.067 --> 00:02:50.750
+TraceLens ran the entire flow, from testing
+
+62
+00:02:50.750 --> 00:02:53.550
+the models to safety checks and evaluation.
+
+63
+00:02:53.550 --> 00:02:55.967
+It helped us propose a system in which decision
+
+64
+00:02:55.967 --> 00:02:59.267
+models act as the safety and transparency layer
+
+65
+00:02:59.267 --> 00:03:02.317
+for general-purpose chatbots in healthcare.
+
+66
+00:03:02.317 --> 00:03:04.333
+The next time someone asks a chatbot
+
+67
+00:03:04.333 --> 00:03:06.850
+for health advice, the answer and the level
+
+68
+00:03:06.850 --> 00:03:09.883
+of urgency can be checked in under a second.
+
+69
+00:03:09.883 --> 00:03:12.333
+So a supporting model can do both: reduce
+
+70
+00:03:12.333 --> 00:03:15.767
+under-triage, and make failures transparent.

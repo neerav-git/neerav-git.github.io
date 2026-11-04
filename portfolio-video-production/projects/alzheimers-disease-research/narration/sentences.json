@@ -1,0 +1,37 @@
+[
+  {
+    "sentence": "Four-class Alzheimer MRI classification must separate adjacent stages whose scans can look structurally similar.",
+    "start": 0,
+    "end": 8.4
+  },
+  {
+    "sentence": "This experiment turns 6,400 folder-labelled MRI images into a complete TensorFlow workflow.",
+    "start": 8.58,
+    "end": 16.405
+  },
+  {
+    "sentence": "It inspects the scans, builds an 80-10-10 train, validation, and test pipeline, resizes images to 256 square pixels, and applies augmentation only to training data.",
+    "start": 16.585,
+    "end": 30.385
+  },
+  {
+    "sentence": "The primary convolutional network contains six convolution-and-pooling blocks, dropout, a dense representation, and a four-class softmax output.",
+    "start": 30.565,
+    "end": 40.44
+  },
+  {
+    "sentence": "Independently saved models are then compared through their full probability vectors, allowing uncertain judgments to be combined before the final class is chosen.",
+    "start": 40.62,
+    "end": 51.27
+  },
+  {
+    "sentence": "In the author-confirmed companion experiment, held-out accuracy increased from 78 to 85 percent.",
+    "start": 51.45,
+    "end": 59.1
+  },
+  {
+    "sentence": "What makes the project special is the visible experimental progression: data, tensors, architecture, individual predictions, model diversity, ensemble probabilities, and image-level error review all remain inspectable inside one reproducible notebook.",
+    "start": 59.28,
+    "end": 76.53
+  }
+]

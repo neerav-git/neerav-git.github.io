@@ -1,6 +1,6 @@
 {
   "siteTitle": "Neerav Chaudhary",
-  "siteTagline": "AI products and research systems for employee support, healthcare, scientific work, and shared virtual spaces.",
+  "siteTagline": "Applied AI products and research systems for employee support, healthcare, scientific work, and shared virtual spaces.",
   "footerLine": "Products, methods, measured results, and the source records behind them.",
   "contactEmail": "neerav.ch@icloud.com",
   "socialLinks": [
@@ -41,7 +41,7 @@
     "about": {
       "label": "Profile",
       "title": "About",
-      "intro": "I design and build AI products that combine product direction, full-stack implementation, controlled automation, and evidence-led evaluation."
+      "intro": "I am an applied AI engineer who combines product direction, full-stack implementation, controlled automation, and evidence-led evaluation."
     },
     "recommendations": {
       "label": "Professional references",
@@ -55,7 +55,7 @@
     }
   },
   "about": {
-    "lead": "I take AI products from an ambiguous workflow problem to an implemented interface, controlled system behavior, and a result that can be inspected and evaluated.",
+    "lead": "I am an applied AI engineer who takes an ambiguous workflow problem to an implemented interface, controlled system behavior, and a result that can be inspected and evaluated.",
     "skills": [
       "Python",
       "PyTorch",

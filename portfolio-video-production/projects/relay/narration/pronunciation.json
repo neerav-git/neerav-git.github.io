@@ -1,0 +1,128 @@
+{
+  "slug": "relay",
+  "sentences": [
+    {
+      "sentence": "At most companies, HR, IT, payroll and learning each run their own portal, with their own forms and owners.",
+      "heard": "At most companies, HR, IT, payroll, and learning each run their own portal with their own forms and owners.",
+      "missing": []
+    },
+    {
+      "sentence": "New hires have to work out which system, form and person applies, and support teams untangle requests that arrive incomplete or at the wrong desk.",
+      "heard": "New hires have to work out which system, form and person applies, and support teams untangle requests that arrive incomplete or at the wrong desk.",
+      "missing": []
+    },
+    {
+      "sentence": "Relay puts all of it in one workspace, with a Deepgram voice agent, Nova-3 listening and Flux speaking, that connects every service to a single conversation.",
+      "heard": "Relay puts all of it in one workspace, with a deep-gram voice agent, NOVA 3 listening and flux speaking, that connects every service to a single conversation.",
+      "missing": [
+        "deepgram"
+      ]
+    },
+    {
+      "sentence": "Here’s Maya, a new hire, on day one.",
+      "heard": "Here's Maya, a new hire on day one.",
+      "missing": []
+    },
+    {
+      "sentence": "It reads Maya’s own records, picks the task due first, and opens the exact form, ready to start.",
+      "heard": "It reads Maya's own records, picks the task due first, and opens the exact form ready to start.",
+      "missing": []
+    },
+    {
+      "sentence": "Raising a concern works the same way: Relay drafts a complete IT request for the right team and files it when Maya confirms.",
+      "heard": "Raising a concern works the same way. Relay drafts a complete IT request for the right team and files it when Maya confirms.",
+      "missing": []
+    },
+    {
+      "sentence": "It books meetings on the calendar and explains what’s holding up a first paycheck, and every action waits for the employee’s click.",
+      "heard": "It books meetings on the calendar and explains what's holding up a first paycheck and every action waits for the employee's click.",
+      "missing": []
+    },
+    {
+      "sentence": "Underneath, an intelligence layer built for Relay gives the agent a small set of tools to read records, open them, highlight sections and propose actions.",
+      "heard": "Underneath, an intelligence layer built for Relay gives the agent a small set of tools to read records. Open them, highlight sections, and propose actions.",
+      "missing": []
+    },
+    {
+      "sentence": "The agent only names the record; Relay works out the page and the highlight itself, and refuses any target it doesn’t recognize.",
+      "heard": "The agent only names the record. Relay works out the page and the highlight itself, and refuses any target it doesn't recognize.",
+      "missing": []
+    },
+    {
+      "sentence": "The server decides who is signed in and gives the agent that employee’s records alone, so each person reaches only what they’re authorized to see.",
+      "heard": "The server decides who is signed in and gives the agent that employees records alone, so each person reaches only what they are authorized to see.",
+      "missing": [
+        "employee's",
+        "they're"
+      ]
+    },
+    {
+      "sentence": "Sensitive details, like bank numbers, are removed before the agent ever sees them.",
+      "heard": "Sensitive details, like bank numbers, are removed before the agent ever sees them.",
+      "missing": []
+    },
+    {
+      "sentence": "HR and IT see a timeline of every request, from what was asked to the verified change.",
+      "heard": "HR and IT see a timeline of every request from what was asked to the verified change.",
+      "missing": []
+    },
+    {
+      "sentence": "On the real app, 103 of 110 conversations ended fully right, and 31 of 34 spoken requests got a useful answer.",
+      "heard": "On the real app, 103 of 110 conversations ended fully right, and 31 of 34 spoken requests got a useful answer.",
+      "missing": []
+    },
+    {
+      "sentence": "It stops talking within 51 milliseconds when the employee cuts in, and red-team attacks caused no unsafe actions.",
+      "heard": "It stops talking within 51 milliseconds when the employee cuts in, and Red Team attacks caused no unsafe actions.",
+      "missing": []
+    },
+    {
+      "sentence": "That was Maya’s first day, sorted in a few sentences.",
+      "heard": "That was Maya's first day, sorted in a few sentences.",
+      "missing": []
+    },
+    {
+      "sentence": "Relay takes the guesswork and friction out of work by automating the essential tasks.",
+      "heard": "Relay takes the guesswork and friction out of work by automating the essential tasks.",
+      "missing": []
+    }
+  ],
+  "terms": [
+    {
+      "term": "Relay",
+      "expect": "Relay",
+      "heard": "Relay.",
+      "missing": []
+    },
+    {
+      "term": "Maya",
+      "expect": "Maya",
+      "heard": "Maya",
+      "missing": []
+    },
+    {
+      "term": "IT",
+      "expect": "IT",
+      "heard": "IT",
+      "missing": []
+    },
+    {
+      "term": "guesswork",
+      "expect": "guesswork",
+      "heard": "Guesswork.",
+      "missing": []
+    },
+    {
+      "term": "sorted",
+      "expect": "sorted",
+      "heard": "Sorted",
+      "missing": []
+    },
+    {
+      "term": "friction",
+      "expect": "friction",
+      "heard": "Friction",
+      "missing": []
+    }
+  ]
+}

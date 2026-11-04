@@ -1,0 +1,44 @@
+{
+  "audioSeconds": 87.525,
+  "durationSeconds": 89.37500000000001,
+  "fps": 24,
+  "resolution": "1920x1080",
+  "cues": [
+    {
+      "cue": "Refract makes one persistent",
+      "at": 10.780000000000001
+    },
+    {
+      "cue": "In the Reader",
+      "at": 15.735000000000001
+    },
+    {
+      "cue": "Index and Compare",
+      "at": 24.889999999999997
+    },
+    {
+      "cue": "A React front end",
+      "at": 34.894999999999996
+    },
+    {
+      "cue": "Stats moves a dataset",
+      "at": 44.775
+    },
+    {
+      "cue": "Each column receives",
+      "at": 51.105
+    },
+    {
+      "cue": "In a battery remaining-useful-life",
+      "at": 59.16
+    },
+    {
+      "cue": "Interpretive claims carry",
+      "at": 70.49000000000001
+    },
+    {
+      "cue": "What makes Refract distinctive",
+      "at": 77.19500000000001
+    }
+  ]
+}

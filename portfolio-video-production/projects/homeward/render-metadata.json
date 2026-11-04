@@ -1,0 +1,28 @@
+{
+  "audioSeconds": 66.135,
+  "durationSeconds": 67.98500000000001,
+  "fps": 24,
+  "resolution": "1920x1080",
+  "cues": [
+    {
+      "cue": "Homeward turns the saved",
+      "at": 15.135000000000002
+    },
+    {
+      "cue": "Patients see the next task",
+      "at": 20.615
+    },
+    {
+      "cue": "Four role-scoped specialists",
+      "at": 31.769999999999996
+    },
+    {
+      "cue": "Verification spans",
+      "at": 41.4
+    },
+    {
+      "cue": "Homeward's defining contribution",
+      "at": 51.605
+    }
+  ]
+}

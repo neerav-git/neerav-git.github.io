@@ -1,0 +1,225 @@
+{
+  "slug": "tracelens",
+  "sentences": [
+    {
+      "sentence": "A 2026 Nature Medicine study found that ChatGPT Health under-triaged 52 percent of true emergencies, often advising a doctor's visit within a day or two.",
+      "heard": "A 2026 Nature Medicine study found that chat GPT health under triaged 52% of true emergencies, often advising a doctor's visit within a day or two.",
+      "missing": [
+        "chatgpt",
+        "percent"
+      ]
+    },
+    {
+      "sentence": "Millions of people now turn to general-purpose chatbots for health advice, so under-triage like this can be consequential.",
+      "heard": "Millions of people now turn to general-purpose chatbots for health advice, so under triage like this can be consequential.",
+      "missing": []
+    },
+    {
+      "sentence": "General-purpose chatbots miss emergencies, or don't state them clearly to the patient.",
+      "heard": "General-purpose chatbots misemergencies, or don't state them clearly to the patient.",
+      "missing": [
+        "miss",
+        "emergencies"
+      ]
+    },
+    {
+      "sentence": "Can a supporting model both reduce under-triage and make failures transparent to the end user?",
+      "heard": "Can a supporting model both reduce under triage and make failures transparent to the end user?",
+      "missing": []
+    },
+    {
+      "sentence": "Here is a case from HealthBench, a public dataset for benchmarking language models on health questions.",
+      "heard": "Here is a case from Healthbench, a public data set for benchmarking language models on health questions.",
+      "missing": [
+        "dataset"
+      ]
+    },
+    {
+      "sentence": "A person asks about a friend who is slurring words and drifting in and out of consciousness after an hour in a hot tub.",
+      "heard": "A person asks about a friend who is slurring words and drifting in and out of consciousness after an hour in a hot tub.",
+      "missing": []
+    },
+    {
+      "sentence": "Gemma 3 4B, the chatbot we tested, calls it heat exhaustion and recommends hydration with unclear care instructions.",
+      "heard": "Gemma 3.4B, the chat bot we tested, calls it heat exhaustion and recommends hydration with unclear care instructions.",
+      "missing": [
+        "chatbot"
+      ]
+    },
+    {
+      "sentence": "A physician labelled this case an emergency.",
+      "heard": "A physician labeled this case an emergency.",
+      "missing": [
+        "labelled"
+      ]
+    },
+    {
+      "sentence": "That gap between the danger and the advice is under-triage.",
+      "heard": "That gap between the danger and the advice is under triage.",
+      "missing": []
+    },
+    {
+      "sentence": "TraceLens is a safety and evaluation workspace, built from scratch for teams that make health chatbots.",
+      "heard": "Trace Lens is a safety and evaluation workspace built from scratch for teams that make health chatbots.",
+      "missing": [
+        "tracelens"
+      ]
+    },
+    {
+      "sentence": "It pairs the chatbot with Vega, a decision model in the same class as TypeSafe AI's Jev.",
+      "heard": "It pairs the chatbot with Vega, a decision model in the same class as TypeSafe, AI's JEV.",
+      "missing": []
+    },
+    {
+      "sentence": "Vega reads only the person's message and checks it for an emergency.",
+      "heard": "Viga reads only the person's message and checks it for an emergency.",
+      "missing": [
+        "vega"
+      ]
+    },
+    {
+      "sentence": "The chatbot takes a median of 67 seconds to write an answer; Vega decides in 0.36 seconds, without writing a word.",
+      "heard": "The chat bot takes a median of 67 seconds to write an answer. Vega decides in 0.36 seconds without writing a word.",
+      "missing": [
+        "chatbot"
+      ]
+    },
+    {
+      "sentence": "Here, Vega scores the message 0.98, above its threshold, so the two disagree.",
+      "heard": "Here, Vega scores the message 0.98 above its threshold, so the two disagree.",
+      "missing": []
+    },
+    {
+      "sentence": "This answer is real: Gemma 3 4B under-triaged this case in our tests.",
+      "heard": "This answer is real. Gemma 3.4 be under triage this case in our tests.",
+      "missing": [
+        "4b",
+        "triaged"
+      ]
+    },
+    {
+      "sentence": "The flag appears right in the chat, the first answer stays visible, and the chatbot reconsiders: call emergency services immediately.",
+      "heard": "The flag appears right in the chat, the first answer stays visible, and the chat bot reconsiders. Call emergency services immediately.",
+      "missing": [
+        "chatbot"
+      ]
+    },
+    {
+      "sentence": "This is failing transparently.",
+      "heard": "This is failing transparently.",
+      "missing": []
+    },
+    {
+      "sentence": "Instead of a generic warning that the chatbot can make mistakes, the person sees the specific mistake it may have made, so they can act with caution and seek an expert.",
+      "heard": "Instead of a generic warning that the chatbot can make mistakes, the person sees the specific mistake it may have made, so they can act with caution and seek an expert.",
+      "missing": []
+    },
+    {
+      "sentence": "The workspace is built to test several models side by side on the same cases, from Gemma and MedGemma to Qwen and OLMo.",
+      "heard": "The workspace is built to test several models side by side on the same cases, from Gemma and Med Gemma to Quen and Olmo.",
+      "missing": [
+        "medgemma",
+        "qwen"
+      ]
+    },
+    {
+      "sentence": "Given two messages it has never seen, one an emergency and one not, Vega picks the emergency 97 times out of 100.",
+      "heard": "Given two messages it has never seen, one in emergency and one not, Vega picks the emergency 97 times of 100.",
+      "missing": [
+        "an",
+        "out"
+      ]
+    },
+    {
+      "sentence": "Across 277 physician-labelled cases from four public datasets, including HealthBench and the Nature Medicine study's own cases, Vega recognised 79 percent of emergencies, where the chatbot's first answers caught 56 percent.",
+      "heard": "Across 277 physician-labeled cases from four public datasets, including health bench and the Nature Medicine Studies' own cases, Viga recognized 79% of emergencies, where the chatbot's first answers caught 56%.",
+      "missing": [
+        "labelled",
+        "healthbench",
+        "study's",
+        "vega",
+        "recognised",
+        "percent",
+        "percent"
+      ]
+    },
+    {
+      "sentence": "As part of this study, TraceLens ran the entire flow, from testing the models to safety checks and evaluation.",
+      "heard": "As part of this study, trace lens ran the entire flow from testing the models to safety checks and evaluation.",
+      "missing": [
+        "tracelens"
+      ]
+    },
+    {
+      "sentence": "It helped us propose a system in which decision models act as the safety and transparency layer for general-purpose chatbots in healthcare.",
+      "heard": "It helped us propose a system in which decision models act as the safety and transparency layer for general-purpose chatbots in healthcare.",
+      "missing": []
+    }
+  ],
+  "terms": [
+    {
+      "term": "TraceLens",
+      "expect": "TraceLens",
+      "heard": "Trace lens",
+      "missing": [
+        "tracelens"
+      ]
+    },
+    {
+      "term": "Vega",
+      "expect": "Vega",
+      "heard": "Vega",
+      "missing": []
+    },
+    {
+      "term": "Gemma",
+      "expect": "Gemma",
+      "heard": "Gemma",
+      "missing": []
+    },
+    {
+      "term": "MedGemma",
+      "expect": "MedGemma",
+      "heard": "Medjama",
+      "missing": [
+        "medgemma"
+      ]
+    },
+    {
+      "term": "Qwen",
+      "expect": "Qwen",
+      "heard": "QN",
+      "missing": [
+        "qwen"
+      ]
+    },
+    {
+      "term": "OLMo",
+      "expect": "OLMo",
+      "heard": "Almo.",
+      "missing": [
+        "olmo"
+      ]
+    },
+    {
+      "term": "HealthBench",
+      "expect": "HealthBench",
+      "heard": "Healthbench",
+      "missing": []
+    },
+    {
+      "term": "Jev",
+      "expect": "Jev",
+      "heard": "Jev",
+      "missing": []
+    },
+    {
+      "term": "TypeSafe",
+      "expect": "TypeSafe",
+      "heard": "Type save",
+      "missing": [
+        "typesafe"
+      ]
+    }
+  ]
+}

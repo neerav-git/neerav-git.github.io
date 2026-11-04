@@ -79,6 +79,14 @@
     "url": "/uploads/tracelens/product-workspace.png",
     "alt": "TraceLens Training Lab showing the model ladder, current study set, and local-to-Colab execution plan"
   },
+  "showcaseVideo": {
+    "url": "/uploads/tracelens/tracelens-film.mp4",
+    "alt": "TraceLens product film"
+  },
+  "showcaseVideoCaptions": {
+    "url": "/uploads/tracelens/tracelens-film.vtt",
+    "label": "English captions"
+  },
   "technologies": [
     {
       "value": "Python"
@@ -343,8 +351,8 @@
     }
   ],
   "showcaseImage": {
-    "url": "/uploads/tracelens/product-workspace.png",
-    "alt": "TraceLens Training Lab showing the model ladder, current study set, and local-to-Colab execution plan"
+    "url": "/uploads/tracelens/tracelens-film-poster.png",
+    "alt": "TraceLens film poster showing the product mark, health-chatbot safety focus, and Training Lab workspace"
   },
   "headline": "General-purpose chatbots miss emergencies or do not clearly state them to the patient. Can a supporting model both reduce under-triage and make failures transparent to the end user?"
 }

@@ -1,0 +1,132 @@
+[
+  {
+    "sentence": "A 2026 Nature Medicine study found that ChatGPT Health under-triaged 52 percent of true emergencies, often advising a doctor's visit within a day or two.",
+    "start": 0,
+    "end": 11.7
+  },
+  {
+    "sentence": "Millions of people now turn to general-purpose chatbots for health advice, so under-triage like this can be consequential.",
+    "start": 11.88,
+    "end": 19.73
+  },
+  {
+    "sentence": "General-purpose chatbots miss emergencies, or don't state them clearly to the patient.",
+    "start": 19.91,
+    "end": 25.335
+  },
+  {
+    "sentence": "Can a supporting model both reduce under-triage and make failures transparent to the end user?",
+    "start": 25.515,
+    "end": 31.365
+  },
+  {
+    "sentence": "Here is a case from HealthBench, a public dataset for benchmarking language models on health questions.",
+    "start": 31.545,
+    "end": 37.945
+  },
+  {
+    "sentence": "A person asks about a friend who is slurring words and drifting in and out of consciousness after an hour in a hot tub.",
+    "start": 38.125,
+    "end": 45.45
+  },
+  {
+    "sentence": "Gemma 3 4B, the chatbot we tested, calls it heat exhaustion and recommends hydration with unclear care instructions.",
+    "start": 45.63,
+    "end": 54.055
+  },
+  {
+    "sentence": "A physician labelled this case an emergency.",
+    "start": 54.235,
+    "end": 57.485
+  },
+  {
+    "sentence": "That gap between the danger and the advice is under-triage.",
+    "start": 57.665,
+    "end": 61.79
+  },
+  {
+    "sentence": "TraceLens is a safety and evaluation workspace, built from scratch for teams that make health chatbots.",
+    "start": 61.97,
+    "end": 68.695
+  },
+  {
+    "sentence": "It pairs the chatbot with Vega, a decision model in the same class as TypeSafe AI's Jev.",
+    "start": 68.875,
+    "end": 75.075
+  },
+  {
+    "sentence": "Vega reads only the person's message and checks it for an emergency.",
+    "start": 75.255,
+    "end": 79.955
+  },
+  {
+    "sentence": "The chatbot takes a median of 67 seconds to write an answer; Vega decides in 0.36 seconds, without writing a word.",
+    "start": 80.135,
+    "end": 89.385
+  },
+  {
+    "sentence": "Vega calls it an emergency, but in our tests Gemma 3 4B under-triaged it, so the two disagree.",
+    "start": 89.565,
+    "end": 96.69
+  },
+  {
+    "sentence": "So the flag appears right in the chat, the first answer stays visible, and the chatbot reconsiders: call emergency services immediately.",
+    "start": 96.87,
+    "end": 105.82
+  },
+  {
+    "sentence": "This is failing transparently.",
+    "start": 106,
+    "end": 108.25
+  },
+  {
+    "sentence": "Instead of a generic warning that the chatbot can make mistakes, the person sees the specific mistake it may have made, so they can act with caution and seek an expert.",
+    "start": 108.43,
+    "end": 118.53
+  },
+  {
+    "sentence": "The workspace is built to test several models side by side on the same cases, from Gemma and MedGemma to Qwen and OLMo.",
+    "start": 118.71,
+    "end": 126.91
+  },
+  {
+    "sentence": "Vega uses the Qwen 3.5 4B language model as its feature extractor, so only a small classifier on top needs training.",
+    "start": 127.09,
+    "end": 136.44
+  },
+  {
+    "sentence": "That classifier learned from 146 physician-labelled messages and conversations, and it makes the call on whether a case is an emergency.",
+    "start": 136.62,
+    "end": 146.22
+  },
+  {
+    "sentence": "Given two messages it has never seen, one an emergency and one not, Vega picks the emergency 97 times out of 100.",
+    "start": 146.4,
+    "end": 155.2
+  },
+  {
+    "sentence": "Across 277 physician-labelled cases from four public datasets, including HealthBench and the Nature Medicine study's own cases, Vega recognised 79 percent of emergencies, where the chatbot's first answers caught 56 percent.",
+    "start": 155.38,
+    "end": 171.955
+  },
+  {
+    "sentence": "As part of this study, TraceLens ran the entire flow, from testing the models to safety checks and evaluation.",
+    "start": 172.135,
+    "end": 179.585
+  },
+  {
+    "sentence": "It helped us propose a system in which decision models act as the safety and transparency layer for general-purpose chatbots in healthcare.",
+    "start": 179.765,
+    "end": 188.79
+  },
+  {
+    "sentence": "The next time someone asks a chatbot for health advice, the answer and the level of urgency can be checked in under a second.",
+    "start": 188.97,
+    "end": 196.545
+  },
+  {
+    "sentence": "So a supporting model can do both: reduce under-triage, and make failures transparent.",
+    "start": 196.725,
+    "end": 202.35
+  }
+]

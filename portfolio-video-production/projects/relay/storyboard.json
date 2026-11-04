@@ -1,0 +1,73 @@
+{
+  "title": "Relay",
+  "subtitle": "Voice-first employee service, carried through to a verified result",
+  "scenes": [
+    {
+      "start": 0,
+      "end": 9.26,
+      "beat": "THE PROBLEM",
+      "cue": "Employee service portals make people hunt",
+      "media": "captures/motion/workspace-overview.mp4"
+    },
+    {
+      "start": 9.26,
+      "end": 21.04,
+      "beat": "THE WORKFLOW",
+      "cue": "Relay begins with",
+      "media": [
+        "captures/repository/02-whats-next-grounded-answer.png",
+        {
+          "src": "captures/motion/document-grounding.mp4",
+          "trim": 1.6
+        }
+      ]
+    },
+    {
+      "start": 21.04,
+      "end": 32.67,
+      "beat": "CONTROLLED ACTION",
+      "cue": "A VPN issue",
+      "media": [
+        "captures/repository/04-vpn-action-prepared.png",
+        "captures/repository/05-vpn-case-confirmed.png"
+      ]
+    },
+    {
+      "start": 32.67,
+      "end": 51.33,
+      "beat": "EVALUATION",
+      "cue": "The evaluation covered",
+      "media": [
+        {
+          "src": "captures/motion/evaluation-dashboard.mp4",
+          "trim": 1.6,
+          "until": 6.6
+        },
+        {
+          "src": "captures/motion/evaluation-dashboard.mp4",
+          "trim": 4.4,
+          "until": 6.4,
+          "focus": [
+            262,
+            110,
+            1120,
+            630
+          ]
+        }
+      ]
+    },
+    {
+      "start": 51.33,
+      "end": 65.16,
+      "beat": "EXECUTION CONTRACT",
+      "cue": "Its defining achievement",
+      "media": [
+        {
+          "src": "captures/motion/operations-trace.mp4",
+          "trim": 2.3
+        },
+        "captures/repository/07-workflow-evidence-trace.png"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "sentence": "Measuring brain atrophy from MRI can require expert tracing and time-consuming segmentation.",
+    "start": 0,
+    "end": 7.2
+  },
+  {
+    "sentence": "This study asked whether visible tissue loss, ventricular expansion, and widened sulci could become a repeatable image-level measure.",
+    "start": 7.38,
+    "end": 16.655
+  },
+  {
+    "sentence": "The OpenCV workflow separates dark space, bright tissue, and mid-range tissue, then computes an auditable ratio: black pixels divided by white plus grey pixels.",
+    "start": 16.835,
+    "end": 28.71
+  },
+  {
+    "sentence": "Across 2,198 ADNI T1-weighted MRI images, cohort averages established lower and upper reference bounds of 0.41 and 0.83.",
+    "start": 28.89,
+    "end": 42.19
+  },
+  {
+    "sentence": "The same method was evaluated with two anatomical views.",
+    "start": 42.37,
+    "end": 46.52
+  },
+  {
+    "sentence": "Focusing the crop around the hippocampal region improved reported accuracy from 66 to 71 percent.",
+    "start": 46.7,
+    "end": 54.625
+  },
+  {
+    "sentence": "The work is distinctive because the anatomical hypothesis, pixel masks, equation, reference bounds, and crop comparison remain visible from input image to result, creating an interpretable computer-vision pipeline that was published in the IEEE ICRITO 2022 proceedings.",
+    "start": 54.805,
+    "end": 74.205
+  }
+]
