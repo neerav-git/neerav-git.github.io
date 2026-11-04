@@ -141,7 +141,8 @@ const end = plan.scenes.find((s) => s.kind === "endcard");
 if (sting) sections.push({ at: sting.from / plan.fps, name: "Sting" }, { at: (sting.from + sting.duration) / plan.fps - 0.4, name: "Problem" });
 if (end) sections.push({ at: end.from / plan.fps, name: "End" });
 const musicSpec = { seed: 7, bpm: 92, root: 50, ...(plan.meta.music ?? {}) };
-const bed = music({ duration, sections, ...musicSpec });
+// `resolveOnEnd`: the bed settles on its home chord as the end card arrives.
+const bed = music({ duration, sections, ...musicSpec, resolveAt: musicSpec.resolveOnEnd && end ? end.from / plan.fps : undefined });
 const bedRms = rms(bed[0], Math.round(5 * SR), Math.round((duration - 5) * SR));
 
 // Ducking: a smoothed voice envelope (fast attack, slow release, short hold) sets

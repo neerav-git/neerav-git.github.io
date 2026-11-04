@@ -305,3 +305,6 @@ The hero case is **T1-8db5d356** (HealthBench held-out). It is one of 8 cases co
 - ffmpeg isn't on PATH; use `node_modules/ffmpeg-static/ffmpeg`.
 - **Pitfall:** never `require("./scripts/generate-narration.mjs")`, because it regenerates every project. Use `node scripts/generate-narration.mjs --project <slug>`.
 - **Homeward audio fix (earlier):** the music bed's hi-hats caused the "chipping". The fix is in `audio/synth.mjs` (hats removed, bed low-passed at 4.2 kHz) and `scripts/mix-audio.mjs` (SFX ducked 12 dB under voice).
+
+- 2026-11-02 checkpoint: the 2:58.6 TraceLens close draft (MP4, ProRes master, plan, mix, narration, sources) is saved in `renders/tracelens/checkpoints/2026-11-01-close-2m58/` (see its README) before the Vega training scene goes in.
+- 2026-11-02 delivered: TraceLens 3:16.98 with the Vega training scene (beat 12b), in `output/portfolio-videos/` (forced past holds that are only in approved scenes; see `qa/tracelens.md`). Not committed yet.

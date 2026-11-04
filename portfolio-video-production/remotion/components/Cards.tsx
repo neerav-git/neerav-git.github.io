@@ -29,7 +29,7 @@ export const IntroSting: React.FC<{ palette: Palette; mark: React.ReactNode; wor
 };
 
 // Shared end card: project, one-line impact, author, portfolio link.
-export const EndCard: React.FC<{ palette: Palette; title: string; impact: string; link: string; mark?: React.ReactNode }> = ({ palette, title, impact, link, mark }) => {
+export const EndCard: React.FC<{ palette: Palette; title: string; impact: string; link: string; mark?: React.ReactNode; impactNode?: React.ReactNode; fadeOut?: { at: number; dur: number } }> = ({ palette, title, impact, link, mark, impactNode, fadeOut }) => {
   const frame = useCurrentFrame();
   const line = ramp(frame, 24, 54);
   const foot = ramp(frame, 40, 66);
@@ -41,13 +41,14 @@ export const EndCard: React.FC<{ palette: Palette; title: string; impact: string
           {mark && <div style={{ opacity: ramp(frame, 0, 20), transform: `scale(${0.8 + 0.2 * ramp(frame, 0, 20)})` }}>{mark}</div>}
           <KineticText text={title} size={104} weight={750} color="#fff" />
         </div>
-        <KineticText text={impact} start={10} size={44} weight={500} color="rgba(255,255,255,0.82)" stagger={1.6} style={{ marginTop: 22, maxWidth: 1400 }} />
+        {impactNode ?? <KineticText text={impact} start={10} size={44} weight={500} color="rgba(255,255,255,0.82)" stagger={1.6} style={{ marginTop: 22, maxWidth: 1400 }} />}
         <div style={{ height: 3, width: 1560 * line, background: `linear-gradient(90deg, ${palette.accent}, ${alpha(palette.accent, 0)})`, margin: "56px 0 40px" }} />
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", opacity: foot, transform: `translateY(${(1 - foot) * 14}px)` }}>
           <div style={{ fontSize: 40, fontWeight: 650, color: "#fff", letterSpacing: -0.4 }}>Neerav Chaudhary</div>
           <div style={{ fontSize: 34, fontWeight: 550, color: palette.accent2 === palette.accent ? palette.accent : "#fff", opacity: 0.9 }}>{link}</div>
         </div>
       </AbsoluteFill>
+      {fadeOut ? <AbsoluteFill style={{ background: "#000", opacity: ramp(frame, fadeOut.at, fadeOut.at + fadeOut.dur) }} /> : null}
     </AbsoluteFill>
   );
 };

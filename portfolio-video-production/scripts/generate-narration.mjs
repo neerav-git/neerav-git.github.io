@@ -3,7 +3,7 @@ import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ffmpegPath from "ffmpeg-static";
-import { KokoroTTS } from "kokoro-js";
+import { KokoroTTS, TextSplitterStream } from "kokoro-js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -95,8 +95,27 @@ for (const project of production.projects) {
   const pieces = [];
   const timings = [];
   let cursor = 0;
+  // `ttsRespell` changes only what Kokoro reads (e.g. Qwen → Kwen); sentence text and captions keep the real names.
+  const respell = (text) => Object.entries(project.ttsRespell ?? {}).reduce((out, [word, spoken]) => out.replaceAll(word, spoken), text);
+  // `ttsPhonemes` swaps phonemes where the voice model mispronounces espeak's output (TraceLens:
+  // espeak's "triage" /tɹˈiːɑːʒ/ comes out as "tree-age"; the user picked "try-ahzh", /tɹˈaɪɑːʒ/).
+  const synthesize = async (text) => {
+    const options = { voice: production.format.voice, speed: project.narrationSpeed ?? SPEED };
+    const swaps = Object.entries(project.ttsPhonemes ?? {});
+    if (!swaps.length) return tts.generate(text, options);
+    const splitter = new TextSplitterStream();
+    splitter.push(text);
+    splitter.close();
+    const chunks = [];
+    for await (const chunk of tts.stream(splitter, options)) chunks.push(chunk);
+    if (chunks.length !== 1) throw new Error(`Expected one phoneme chunk for: ${text}`);
+    const phonemes = swaps.reduce((out, [from, to]) => out.replaceAll(from, to), chunks[0].phonemes);
+    if (phonemes === chunks[0].phonemes) return chunks[0].audio;
+    const { input_ids } = tts.tokenizer(phonemes, { truncation: true });
+    return tts.generate_from_ids(input_ids, options);
+  };
   for (const sentence of sentencesOf(project.narration)) {
-    const audio = await tts.generate(sentence, { voice: production.format.voice, speed: project.narrationSpeed ?? SPEED });
+    const audio = await synthesize(respell(sentence));
     if (audio.sampling_rate !== SAMPLE_RATE) throw new Error(`Unexpected sample rate ${audio.sampling_rate}`);
     timings.push({ sentence, start: cursor / SAMPLE_RATE, end: (cursor + audio.audio.length) / SAMPLE_RATE });
     pieces.push(audio.audio, new Float32Array(Math.round(SENTENCE_PAUSE_S * SAMPLE_RATE)));

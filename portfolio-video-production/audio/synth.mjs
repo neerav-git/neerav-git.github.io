@@ -116,7 +116,12 @@ const LAYERS = {
   End: { pad: 1, arp: 0.35, kick: 0, bright: 0.5 },
 };
 
-export function music({ duration, sections, seed = 7, bpm = 92, root = 50, progression }) {
+// Per-film character (all optional; the defaults are the Homeward/Relay bed):
+//   layers  section name → { pad, arp, kick, bright }, merged over LAYERS
+//   arp     { rate: beats per note, pattern, octave, timbre: "pluck" | "bell", decay: seconds, attack: seconds }
+//   resolveAt  seconds; from then on the bed settles on its first (home) chord with a fresh swell
+export function music({ duration, sections, seed = 7, bpm = 92, root = 50, progression, layers: ownLayers, arp: arpSpec = {}, resolveAt }) {
+  const layers = { ...LAYERS, ...(ownLayers ?? {}) };
   const rand = rng(seed);
   const beat = 60 / bpm;
   const bar = beat * 4;
@@ -127,16 +132,23 @@ export function music({ duration, sections, seed = 7, bpm = 92, root = 50, progr
     [-7, -3, 0, 4, 9], // IVmaj9 (voiced low)
     [-5, -1, 2, 5, 9], // V6/9
   ];
-  const chordAt = (t) => chords[Math.floor(t / (bar * 2)) % chords.length];
+  const chordLen = bar * 2;
+  // Chord slot at t: index, time into it, and the slot it crossfades from.
+  const slot = (t) => {
+    if (resolveAt !== undefined && t >= resolveAt) return { ci: 0, local: t - resolveAt, prev: Math.floor(resolveAt / chordLen) };
+    const ci = Math.floor(t / chordLen);
+    return { ci, local: t - ci * chordLen, prev: ci - 1 };
+  };
+  const chordAt = (t) => chords[slot(t).ci % chords.length];
   const out = stereo(duration + 2);
   const n = out[0].length;
 
   // Section levels, crossfaded over 1.2 s so layers enter and leave smoothly.
   const sorted = [...sections].sort((a, b) => a.at - b.at);
   const level = (t, key) => {
-    let v = (LAYERS[sorted[0].name] ?? LAYERS.Journey)[key];
+    let v = (layers[sorted[0].name] ?? layers.Journey)[key];
     for (const s of sorted) {
-      const target = (LAYERS[s.name] ?? LAYERS.Journey)[key];
+      const target = (layers[s.name] ?? layers.Journey)[key];
       const fade = smooth((t - s.at + 0.6) / 1.2);
       v = v + (target - v) * fade;
     }
@@ -147,18 +159,16 @@ export function music({ duration, sections, seed = 7, bpm = 92, root = 50, progr
   const pad = [new Float32Array(n), new Float32Array(n)];
   const voices = [];
   for (let c = 0; c < chords.length; c += 1) for (let k = 0; k < 5; k += 1) voices.push({ c, k, phase: [rand(), rand(), rand()] });
-  const chordLen = bar * 2;
   const ratios = [-0.07, 0, 0.065].map((d) => 2 ** (d / 12));
   for (let i = 0; i < n; i += 1) {
     const t = i / SR;
-    const ci = Math.floor(t / chordLen);
-    const local = t - ci * chordLen;
+    const { ci, local, prev } = slot(t);
     let l = 0;
     let r = 0;
     // Current chord plus the release tail of the previous one.
     for (const [idx, env] of [
       [ci, smooth(local / 1.4)],
-      [ci - 1, 1 - smooth(local / 1.6)],
+      [prev, 1 - smooth(local / 1.6)],
     ]) {
       if (idx < 0 || env <= 0) continue;
       const chord = chords[idx % chords.length];
@@ -187,31 +197,35 @@ export function music({ duration, sections, seed = 7, bpm = 92, root = 50, progr
   // Bass: soft sine root, crossfaded between chords so it never steps.
   for (let i = 0; i < n; i += 1) {
     const t = i / SR;
-    const ci = Math.floor(t / chordLen);
-    const x = smooth((t - ci * chordLen) / 0.35);
+    const { ci, local, prev } = slot(t);
+    const x = smooth(local / 0.35);
     const now = Math.sin(TAU * midiHz(root - 12 + chords[ci % chords.length][0]) * t);
-    const before = ci > 0 ? Math.sin(TAU * midiHz(root - 12 + chords[(ci - 1) % chords.length][0]) * t) : 0;
+    const before = prev >= 0 ? Math.sin(TAU * midiHz(root - 12 + chords[prev % chords.length][0]) * t) : 0;
     const s = (now * x + before * (1 - x)) * 0.045 * Math.max(level(t, "kick"), level(t, "pad") * 0.5);
     out[0][i] += s;
     out[1][i] += s;
   }
 
-  // Arpeggio: plucked 8ths over chord tones, alternating pan, into a dotted-8th echo.
+  // Arpeggio: plucked 8ths over chord tones (or the film's own rhythm and timbre), alternating
+  // pan, into a dotted-8th echo.
   const arp = stereo(duration + 2);
-  const pattern = [0, 2, 1, 3, 4, 2, 3, 1];
-  for (let step = 0; step * beat * 0.5 < duration; step += 1) {
-    const t = step * beat * 0.5;
+  const { rate = 0.5, pattern = [0, 2, 1, 3, 4, 2, 3, 1], octave = 24, timbre = "pluck", decay = 0.12, attack = 0.004 } = arpSpec;
+  const accentEvery = Math.max(1, Math.round(2 / rate));
+  for (let step = 0; step * beat * rate < duration; step += 1) {
+    const t = step * beat * rate;
     const lvl = level(t, "arp");
     if (lvl < 0.02) continue;
     const chord = chordAt(t);
-    const hz = midiHz(root + 24 + chord[pattern[step % 8] % chord.length]);
-    const len = Math.round(0.42 * SR);
+    const hz = midiHz(root + octave + chord[pattern[step % pattern.length] % chord.length]);
+    const len = Math.round(Math.max(0.42, decay * 4) * SR);
     const note = new Float32Array(len);
-    const vel = (step % 4 === 0 ? 1 : 0.72) * (0.9 + 0.2 * rand());
+    const vel = (step % accentEvery === 0 ? 1 : 0.72) * (0.9 + 0.2 * rand());
     for (let i = 0; i < len; i += 1) {
       const x = i / SR;
-      const env = Math.min(1, x / 0.004) * Math.exp(-x / 0.12);
-      note[i] = (Math.sin(TAU * hz * x) + 0.25 * Math.sin(TAU * hz * 2 * x) * Math.exp(-x / 0.05)) * env * vel;
+      const env = Math.min(1, x / attack) * Math.exp(-x / decay);
+      note[i] = timbre === "bell"
+        ? (Math.sin(TAU * hz * x) + 0.3 * Math.sin(TAU * hz * 2.76 * x) * Math.exp(-x / 0.35) + 0.12 * Math.sin(TAU * hz * 5.4 * x) * Math.exp(-x / 0.12)) * env * vel
+        : (Math.sin(TAU * hz * x) + 0.25 * Math.sin(TAU * hz * 2 * x) * Math.exp(-x / 0.05)) * env * vel;
     }
     addMono(arp, note, t, 0.07 * lvl, step % 2 ? 0.35 : -0.35);
   }

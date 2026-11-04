@@ -210,7 +210,8 @@ for (let i = 1; i < scenes.length; i += 1) {
 for (const p of placements) console.log(`  narration ${String(p.index).padStart(2)} at ${p.at.toFixed(2)} s – ${(p.at + p.srcEnd - p.srcStart).toFixed(2)} s`);
 for (let i = 1; i < placements.length; i += 1) {
   const a = [...placements].sort((x, y) => x.at - y.at);
-  if (a[i].at < a[i - 1].at + (a[i - 1].srcEnd - a[i - 1].srcStart) - 0.01) problems.push(`narration ${a[i - 1].index} overlaps ${a[i].index}`);
+  // Speech must not overlap; a sentence's trailing room tone may run under the next (the mix adds slices).
+  if (a[i].words[0].start < a[i - 1].words.at(-1).end + 0.15) problems.push(`narration ${a[i - 1].index} overlaps ${a[i].index}`);
 }
 const runtime = plan.durationInFrames / FPS;
 const [minRuntime, maxRuntime] = film.meta.runtime ?? [40, 90];

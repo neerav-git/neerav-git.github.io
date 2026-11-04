@@ -365,7 +365,7 @@
       "title": "TraceLens",
       "subtitle": "Measuring the action a health-information answer ultimately gives",
       "accent": "#ff7d8b",
-      "narration": "Someone asks a chatbot about a friend slurring words and drifting in and out of consciousness after a hot tub. The answer calls it heat exhaustion, suggests care within one to two hours, and keeps 911 for if the friend loses consciousness. A physician labelled this case an emergency, and the answer was read as self-care. That gap is under-triage. TraceLens sends the same message to Vega, a decision model that reads only the person’s words. At the median, Gemma takes 67 seconds per answer, and Vega decides in 0.36 seconds without writing a word. Vega scores this message 0.98, above its frozen threshold, so the disagreement is shown to the person. The chatbot reconsiders and now says to call emergency services immediately, with its first answer still visible. The research runs in one workspace: saved runs and receipts, blinded review, gate decisions, and Colab training. On held-out cases, Vega reached an AUC of 0.966. Replaying 277 saved cases, Vega flagged 18 of 31 missed emergencies, and emergency guidance rose from 39 to 47 of 70. False alarms went from four to five of 134.",
+      "narration": "A 2026 Nature Medicine study found that ChatGPT Health under-triaged 52 percent of true emergencies, often advising a doctor's visit within a day or two. Millions of people now turn to general-purpose chatbots for health advice, so under-triage like this can be consequential. General-purpose chatbots miss emergencies, or don't state them clearly to the patient. Can a supporting model both reduce under-triage and make failures transparent to the end user? Here is a case from HealthBench, a public dataset for benchmarking language models on health questions. A person asks about a friend who is slurring words and drifting in and out of consciousness after an hour in a hot tub. Gemma 3 4B, the chatbot we tested, calls it heat exhaustion and recommends hydration with unclear care instructions. A physician labelled this case an emergency. That gap between the danger and the advice is under-triage. TraceLens is a safety and evaluation workspace, built from scratch for teams that make health chatbots. It pairs the chatbot with Vega, a decision model in the same class as TypeSafe AI's Jev. Vega reads only the person's message and checks it for an emergency. The chatbot takes a median of 67 seconds to write an answer; Vega decides in 0.36 seconds, without writing a word. Vega calls it an emergency, but in our tests Gemma 3 4B under-triaged it, so the two disagree. So the flag appears right in the chat, the first answer stays visible, and the chatbot reconsiders: call emergency services immediately. This is failing transparently. Instead of a generic warning that the chatbot can make mistakes, the person sees the specific mistake it may have made, so they can act with caution and seek an expert. The workspace is built to test several models side by side on the same cases, from Gemma and MedGemma to Qwen and OLMo. Vega uses the Qwen 3.5 4B language model as its feature extractor, so only a small classifier on top needs training. That classifier learned from 146 physician-labelled messages and conversations, and it makes the call on whether a case is an emergency. Given two messages it has never seen, one an emergency and one not, Vega picks the emergency 97 times out of 100. Across 277 physician-labelled cases from four public datasets, including HealthBench and the Nature Medicine study's own cases, Vega recognised 79 percent of emergencies, where the chatbot's first answers caught 56 percent. As part of this study, TraceLens ran the entire flow, from testing the models to safety checks and evaluation. It helped us propose a system in which decision models act as the safety and transparency layer for general-purpose chatbots in healthcare. The next time someone asks a chatbot for health advice, the answer and the level of urgency can be checked in under a second. So a supporting model can do both: reduce under-triage, and make failures transparent.",
       "scenes": [
         {
           "beat": "THE PROBLEM",
@@ -407,7 +407,28 @@
           "media": "captures/repository/evaluation-dashboard-showcase.png",
           "cue": "TraceLens is special"
         }
-      ]
+      ],
+      "narrationSpeed": 1.06,
+      "pronunciation": [
+        "TraceLens",
+        "Vega",
+        "Gemma",
+        "MedGemma",
+        "Qwen",
+        "OLMo",
+        "HealthBench",
+        "Jev",
+        "TypeSafe"
+      ],
+      "ttsRespell": {
+        "Qwen": "Kwen",
+        "TypeSafe": "Type-Safe",
+        "OLMo": "Ohlmo",
+        "datasets": "data sets"
+      },
+      "ttsPhonemes": {
+        "tɹˈiːɑːʒ": "tɹˈaɪɑːʒ"
+      }
     },
     {
       "slug": "brain-atrophy-computer-vision",

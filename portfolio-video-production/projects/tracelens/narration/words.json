@@ -1,0 +1,2635 @@
+[
+  {
+    "index": 0,
+    "sentence": "A 2026 Nature Medicine study found that ChatGPT Health under-triaged 52 percent of true emergencies, often advising a doctor's visit within a day or two.",
+    "start": 0,
+    "end": 11.7,
+    "words": [
+      {
+        "word": "A",
+        "start": 0,
+        "end": 0.32
+      },
+      {
+        "word": "2026",
+        "start": 0.32,
+        "end": 1.04
+      },
+      {
+        "word": "Nature",
+        "start": 1.04,
+        "end": 1.48
+      },
+      {
+        "word": "Medicine",
+        "start": 1.48,
+        "end": 1.84
+      },
+      {
+        "word": "study",
+        "start": 1.84,
+        "end": 2.28
+      },
+      {
+        "word": "found",
+        "start": 2.28,
+        "end": 3.06
+      },
+      {
+        "word": "that",
+        "start": 3.06,
+        "end": 3.26
+      },
+      {
+        "word": "ChatGPT",
+        "start": 3.26,
+        "end": 3.54
+      },
+      {
+        "word": "Health",
+        "start": 4.18,
+        "end": 4.64
+      },
+      {
+        "word": "under-triaged",
+        "start": 4.64,
+        "end": 5.1
+      },
+      {
+        "word": "52",
+        "start": 5.64,
+        "end": 6.12
+      },
+      {
+        "word": "percent",
+        "start": 6.12,
+        "end": 6.72,
+        "interpolated": true
+      },
+      {
+        "word": "of",
+        "start": 6.72,
+        "end": 6.96
+      },
+      {
+        "word": "true",
+        "start": 6.96,
+        "end": 7.1
+      },
+      {
+        "word": "emergencies",
+        "start": 7.1,
+        "end": 7.66
+      },
+      {
+        "word": "often",
+        "start": 8.3,
+        "end": 8.72
+      },
+      {
+        "word": "advising",
+        "start": 8.72,
+        "end": 9
+      },
+      {
+        "word": "a",
+        "start": 9,
+        "end": 9.38
+      },
+      {
+        "word": "doctor's",
+        "start": 9.38,
+        "end": 9.92
+      },
+      {
+        "word": "visit",
+        "start": 9.92,
+        "end": 10.08
+      },
+      {
+        "word": "within",
+        "start": 10.08,
+        "end": 10.42
+      },
+      {
+        "word": "a",
+        "start": 10.42,
+        "end": 10.54
+      },
+      {
+        "word": "day",
+        "start": 10.54,
+        "end": 10.7
+      },
+      {
+        "word": "or",
+        "start": 10.7,
+        "end": 10.84
+      },
+      {
+        "word": "two",
+        "start": 10.84,
+        "end": 11.1
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "sentence": "Millions of people now turn to general-purpose chatbots for health advice, so under-triage like this can be consequential.",
+    "start": 11.88,
+    "end": 19.73,
+    "words": [
+      {
+        "word": "Millions",
+        "start": 11.89,
+        "end": 12.35
+      },
+      {
+        "word": "of",
+        "start": 12.35,
+        "end": 12.65
+      },
+      {
+        "word": "people",
+        "start": 12.65,
+        "end": 12.87
+      },
+      {
+        "word": "now",
+        "start": 12.87,
+        "end": 13.41
+      },
+      {
+        "word": "turn",
+        "start": 13.41,
+        "end": 13.73
+      },
+      {
+        "word": "to",
+        "start": 13.73,
+        "end": 13.99
+      },
+      {
+        "word": "general-purpose",
+        "start": 13.99,
+        "end": 14.31
+      },
+      {
+        "word": "chatbots",
+        "start": 14.73,
+        "end": 15.19
+      },
+      {
+        "word": "for",
+        "start": 15.19,
+        "end": 15.55
+      },
+      {
+        "word": "health",
+        "start": 15.55,
+        "end": 15.73
+      },
+      {
+        "word": "advice",
+        "start": 15.73,
+        "end": 16.09
+      },
+      {
+        "word": "so",
+        "start": 16.57,
+        "end": 16.81
+      },
+      {
+        "word": "under-triage",
+        "start": 16.81,
+        "end": 17.03
+      },
+      {
+        "word": "like",
+        "start": 17.53,
+        "end": 17.79
+      },
+      {
+        "word": "this",
+        "start": 17.79,
+        "end": 18.01
+      },
+      {
+        "word": "can",
+        "start": 18.01,
+        "end": 18.35
+      },
+      {
+        "word": "be",
+        "start": 18.35,
+        "end": 18.45
+      },
+      {
+        "word": "consequential",
+        "start": 18.45,
+        "end": 18.99
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "sentence": "General-purpose chatbots miss emergencies, or don't state them clearly to the patient.",
+    "start": 19.91,
+    "end": 25.335,
+    "words": [
+      {
+        "word": "General-purpose",
+        "start": 19.86,
+        "end": 20.48
+      },
+      {
+        "word": "chatbots",
+        "start": 20.86,
+        "end": 21.4
+      },
+      {
+        "word": "miss",
+        "start": 21.4,
+        "end": 22.12,
+        "interpolated": true
+      },
+      {
+        "word": "emergencies",
+        "start": 22.12,
+        "end": 22.84,
+        "interpolated": true
+      },
+      {
+        "word": "or",
+        "start": 22.84,
+        "end": 23.02
+      },
+      {
+        "word": "don't",
+        "start": 23.02,
+        "end": 23.26
+      },
+      {
+        "word": "state",
+        "start": 23.26,
+        "end": 23.44
+      },
+      {
+        "word": "them",
+        "start": 23.44,
+        "end": 23.68
+      },
+      {
+        "word": "clearly",
+        "start": 23.68,
+        "end": 23.96
+      },
+      {
+        "word": "to",
+        "start": 23.96,
+        "end": 24.26
+      },
+      {
+        "word": "the",
+        "start": 24.26,
+        "end": 24.34
+      },
+      {
+        "word": "patient",
+        "start": 24.34,
+        "end": 24.74
+      }
+    ]
+  },
+  {
+    "index": 3,
+    "sentence": "Can a supporting model both reduce under-triage and make failures transparent to the end user?",
+    "start": 25.515,
+    "end": 31.365,
+    "words": [
+      {
+        "word": "Can",
+        "start": 25.465,
+        "end": 25.865
+      },
+      {
+        "word": "a",
+        "start": 25.865,
+        "end": 25.945
+      },
+      {
+        "word": "supporting",
+        "start": 25.945,
+        "end": 26.245
+      },
+      {
+        "word": "model",
+        "start": 26.245,
+        "end": 26.605
+      },
+      {
+        "word": "both",
+        "start": 26.605,
+        "end": 27.065
+      },
+      {
+        "word": "reduce",
+        "start": 27.065,
+        "end": 27.525
+      },
+      {
+        "word": "under-triage",
+        "start": 27.525,
+        "end": 27.765
+      },
+      {
+        "word": "and",
+        "start": 28.205,
+        "end": 28.765
+      },
+      {
+        "word": "make",
+        "start": 28.765,
+        "end": 28.925
+      },
+      {
+        "word": "failures",
+        "start": 28.925,
+        "end": 29.325
+      },
+      {
+        "word": "transparent",
+        "start": 29.325,
+        "end": 29.725
+      },
+      {
+        "word": "to",
+        "start": 29.725,
+        "end": 30.225
+      },
+      {
+        "word": "the",
+        "start": 30.225,
+        "end": 30.305
+      },
+      {
+        "word": "end",
+        "start": 30.305,
+        "end": 30.445
+      },
+      {
+        "word": "user",
+        "start": 30.445,
+        "end": 30.725
+      }
+    ]
+  },
+  {
+    "index": 4,
+    "sentence": "Here is a case from HealthBench, a public dataset for benchmarking language models on health questions.",
+    "start": 31.545,
+    "end": 37.945,
+    "words": [
+      {
+        "word": "Here",
+        "start": 31.595,
+        "end": 31.975
+      },
+      {
+        "word": "is",
+        "start": 31.975,
+        "end": 32.135
+      },
+      {
+        "word": "a",
+        "start": 32.135,
+        "end": 32.235
+      },
+      {
+        "word": "case",
+        "start": 32.235,
+        "end": 32.415
+      },
+      {
+        "word": "from",
+        "start": 32.415,
+        "end": 32.655
+      },
+      {
+        "word": "HealthBench",
+        "start": 32.655,
+        "end": 33.115
+      },
+      {
+        "word": "a",
+        "start": 33.595,
+        "end": 33.775
+      },
+      {
+        "word": "public",
+        "start": 33.775,
+        "end": 34.055
+      },
+      {
+        "word": "dataset",
+        "start": 34.055,
+        "end": 34.315
+      },
+      {
+        "word": "for",
+        "start": 34.655,
+        "end": 34.895
+      },
+      {
+        "word": "benchmarking",
+        "start": 34.895,
+        "end": 35.575
+      },
+      {
+        "word": "language",
+        "start": 35.575,
+        "end": 35.855
+      },
+      {
+        "word": "models",
+        "start": 35.855,
+        "end": 36.255
+      },
+      {
+        "word": "on",
+        "start": 36.255,
+        "end": 36.535
+      },
+      {
+        "word": "health",
+        "start": 36.535,
+        "end": 36.735
+      },
+      {
+        "word": "questions",
+        "start": 36.735,
+        "end": 37.235
+      }
+    ]
+  },
+  {
+    "index": 5,
+    "sentence": "A person asks about a friend who is slurring words and drifting in and out of consciousness after an hour in a hot tub.",
+    "start": 38.125,
+    "end": 45.45,
+    "words": [
+      {
+        "word": "A",
+        "start": 38.075,
+        "end": 38.455
+      },
+      {
+        "word": "person",
+        "start": 38.455,
+        "end": 38.755
+      },
+      {
+        "word": "asks",
+        "start": 38.755,
+        "end": 39.035
+      },
+      {
+        "word": "about",
+        "start": 39.035,
+        "end": 39.355
+      },
+      {
+        "word": "a",
+        "start": 39.355,
+        "end": 39.415
+      },
+      {
+        "word": "friend",
+        "start": 39.415,
+        "end": 39.715
+      },
+      {
+        "word": "who",
+        "start": 39.715,
+        "end": 40.195
+      },
+      {
+        "word": "is",
+        "start": 40.195,
+        "end": 40.295
+      },
+      {
+        "word": "slurring",
+        "start": 40.295,
+        "end": 40.615
+      },
+      {
+        "word": "words",
+        "start": 40.615,
+        "end": 40.975
+      },
+      {
+        "word": "and",
+        "start": 40.975,
+        "end": 41.615
+      },
+      {
+        "word": "drifting",
+        "start": 41.615,
+        "end": 41.815
+      },
+      {
+        "word": "in",
+        "start": 41.815,
+        "end": 42.295
+      },
+      {
+        "word": "and",
+        "start": 42.295,
+        "end": 42.475
+      },
+      {
+        "word": "out",
+        "start": 42.475,
+        "end": 42.635
+      },
+      {
+        "word": "of",
+        "start": 42.635,
+        "end": 42.695
+      },
+      {
+        "word": "consciousness",
+        "start": 42.695,
+        "end": 43.095
+      },
+      {
+        "word": "after",
+        "start": 43.095,
+        "end": 43.695
+      },
+      {
+        "word": "an",
+        "start": 43.695,
+        "end": 43.835
+      },
+      {
+        "word": "hour",
+        "start": 43.835,
+        "end": 44.135
+      },
+      {
+        "word": "in",
+        "start": 44.135,
+        "end": 44.335
+      },
+      {
+        "word": "a",
+        "start": 44.335,
+        "end": 44.415
+      },
+      {
+        "word": "hot",
+        "start": 44.415,
+        "end": 44.595
+      },
+      {
+        "word": "tub",
+        "start": 44.595,
+        "end": 44.855
+      }
+    ]
+  },
+  {
+    "index": 6,
+    "sentence": "Gemma 3 4B, the chatbot we tested, calls it heat exhaustion and recommends hydration with unclear care instructions.",
+    "start": 45.63,
+    "end": 54.055,
+    "words": [
+      {
+        "word": "Gemma",
+        "start": 45.94,
+        "end": 46.24
+      },
+      {
+        "word": "3",
+        "start": 46.24,
+        "end": 46.48
+      },
+      {
+        "word": "4B",
+        "start": 46.48,
+        "end": 47.04
+      },
+      {
+        "word": "the",
+        "start": 47.56,
+        "end": 47.64
+      },
+      {
+        "word": "chatbot",
+        "start": 47.64,
+        "end": 48.04
+      },
+      {
+        "word": "we",
+        "start": 48.04,
+        "end": 48.2
+      },
+      {
+        "word": "tested",
+        "start": 48.2,
+        "end": 48.44
+      },
+      {
+        "word": "calls",
+        "start": 48.86,
+        "end": 49.2
+      },
+      {
+        "word": "it",
+        "start": 49.2,
+        "end": 49.4
+      },
+      {
+        "word": "heat",
+        "start": 49.4,
+        "end": 49.62
+      },
+      {
+        "word": "exhaustion",
+        "start": 49.62,
+        "end": 50.06
+      },
+      {
+        "word": "and",
+        "start": 50.06,
+        "end": 50.74
+      },
+      {
+        "word": "recommends",
+        "start": 50.74,
+        "end": 50.94
+      },
+      {
+        "word": "hydration",
+        "start": 50.94,
+        "end": 51.72
+      },
+      {
+        "word": "with",
+        "start": 51.72,
+        "end": 52.04
+      },
+      {
+        "word": "unclear",
+        "start": 52.04,
+        "end": 52.32
+      },
+      {
+        "word": "care",
+        "start": 52.32,
+        "end": 52.78
+      },
+      {
+        "word": "instructions",
+        "start": 52.78,
+        "end": 53.3
+      }
+    ]
+  },
+  {
+    "index": 7,
+    "sentence": "A physician labelled this case an emergency.",
+    "start": 54.235,
+    "end": 57.485,
+    "words": [
+      {
+        "word": "A",
+        "start": 54.185,
+        "end": 54.565
+      },
+      {
+        "word": "physician",
+        "start": 54.565,
+        "end": 54.925
+      },
+      {
+        "word": "labelled",
+        "start": 54.925,
+        "end": 55.445
+      },
+      {
+        "word": "this",
+        "start": 55.445,
+        "end": 55.785
+      },
+      {
+        "word": "case",
+        "start": 55.785,
+        "end": 56.025
+      },
+      {
+        "word": "an",
+        "start": 56.025,
+        "end": 56.225
+      },
+      {
+        "word": "emergency",
+        "start": 56.225,
+        "end": 56.565
+      }
+    ]
+  },
+  {
+    "index": 8,
+    "sentence": "That gap between the danger and the advice is under-triage.",
+    "start": 57.665,
+    "end": 61.79,
+    "words": [
+      {
+        "word": "That",
+        "start": 57.615,
+        "end": 58.055
+      },
+      {
+        "word": "gap",
+        "start": 58.055,
+        "end": 58.235
+      },
+      {
+        "word": "between",
+        "start": 58.235,
+        "end": 58.595
+      },
+      {
+        "word": "the",
+        "start": 58.595,
+        "end": 58.735
+      },
+      {
+        "word": "danger",
+        "start": 58.735,
+        "end": 59.035
+      },
+      {
+        "word": "and",
+        "start": 59.035,
+        "end": 59.595
+      },
+      {
+        "word": "the",
+        "start": 59.595,
+        "end": 59.695
+      },
+      {
+        "word": "advice",
+        "start": 59.695,
+        "end": 59.995
+      },
+      {
+        "word": "is",
+        "start": 59.995,
+        "end": 60.335
+      },
+      {
+        "word": "under-triage",
+        "start": 60.335,
+        "end": 60.615
+      }
+    ]
+  },
+  {
+    "index": 9,
+    "sentence": "TraceLens is a safety and evaluation workspace, built from scratch for teams that make health chatbots.",
+    "start": 61.97,
+    "end": 68.695,
+    "words": [
+      {
+        "word": "TraceLens",
+        "start": 62.24,
+        "end": 62.36
+      },
+      {
+        "word": "is",
+        "start": 62.68,
+        "end": 63.12
+      },
+      {
+        "word": "a",
+        "start": 63.12,
+        "end": 63.24
+      },
+      {
+        "word": "safety",
+        "start": 63.24,
+        "end": 63.6
+      },
+      {
+        "word": "and",
+        "start": 63.6,
+        "end": 63.9
+      },
+      {
+        "word": "evaluation",
+        "start": 63.9,
+        "end": 64.2
+      },
+      {
+        "word": "workspace",
+        "start": 64.2,
+        "end": 64.82
+      },
+      {
+        "word": "built",
+        "start": 64.82,
+        "end": 65.62
+      },
+      {
+        "word": "from",
+        "start": 65.62,
+        "end": 65.9
+      },
+      {
+        "word": "scratch",
+        "start": 65.9,
+        "end": 66.1
+      },
+      {
+        "word": "for",
+        "start": 66.1,
+        "end": 66.5
+      },
+      {
+        "word": "teams",
+        "start": 66.5,
+        "end": 66.84
+      },
+      {
+        "word": "that",
+        "start": 66.84,
+        "end": 67.12
+      },
+      {
+        "word": "make",
+        "start": 67.12,
+        "end": 67.26
+      },
+      {
+        "word": "health",
+        "start": 67.26,
+        "end": 67.48
+      },
+      {
+        "word": "chatbots",
+        "start": 67.48,
+        "end": 68.02
+      }
+    ]
+  },
+  {
+    "index": 10,
+    "sentence": "It pairs the chatbot with Vega, a decision model in the same class as TypeSafe AI's Jev.",
+    "start": 68.875,
+    "end": 75.075,
+    "words": [
+      {
+        "word": "It",
+        "start": 68.825,
+        "end": 69.225
+      },
+      {
+        "word": "pairs",
+        "start": 69.225,
+        "end": 69.385
+      },
+      {
+        "word": "the",
+        "start": 69.385,
+        "end": 69.645
+      },
+      {
+        "word": "chatbot",
+        "start": 69.645,
+        "end": 70.005
+      },
+      {
+        "word": "with",
+        "start": 70.005,
+        "end": 70.205
+      },
+      {
+        "word": "Vega",
+        "start": 70.205,
+        "end": 70.385
+      },
+      {
+        "word": "a",
+        "start": 70.965,
+        "end": 71.085
+      },
+      {
+        "word": "decision",
+        "start": 71.085,
+        "end": 71.305
+      },
+      {
+        "word": "model",
+        "start": 71.305,
+        "end": 71.665
+      },
+      {
+        "word": "in",
+        "start": 71.665,
+        "end": 71.905
+      },
+      {
+        "word": "the",
+        "start": 71.905,
+        "end": 72.005
+      },
+      {
+        "word": "same",
+        "start": 72.005,
+        "end": 72.205
+      },
+      {
+        "word": "class",
+        "start": 72.205,
+        "end": 72.565
+      },
+      {
+        "word": "as",
+        "start": 72.565,
+        "end": 72.885
+      },
+      {
+        "word": "TypeSafe",
+        "start": 72.885,
+        "end": 73.425
+      },
+      {
+        "word": "AI's",
+        "start": 73.425,
+        "end": 74.25,
+        "interpolated": true
+      },
+      {
+        "word": "Jev",
+        "start": 74.25,
+        "end": 75.075,
+        "interpolated": true
+      }
+    ]
+  },
+  {
+    "index": 11,
+    "sentence": "Vega reads only the person's message and checks it for an emergency.",
+    "start": 75.255,
+    "end": 79.955,
+    "words": [
+      {
+        "word": "Vega",
+        "start": 75.255,
+        "end": 75.805,
+        "interpolated": true
+      },
+      {
+        "word": "reads",
+        "start": 75.805,
+        "end": 76.025
+      },
+      {
+        "word": "only",
+        "start": 76.025,
+        "end": 76.425
+      },
+      {
+        "word": "the",
+        "start": 76.425,
+        "end": 76.605
+      },
+      {
+        "word": "person's",
+        "start": 76.605,
+        "end": 76.905
+      },
+      {
+        "word": "message",
+        "start": 76.905,
+        "end": 77.445
+      },
+      {
+        "word": "and",
+        "start": 77.445,
+        "end": 78.005
+      },
+      {
+        "word": "checks",
+        "start": 78.005,
+        "end": 78.185
+      },
+      {
+        "word": "it",
+        "start": 78.185,
+        "end": 78.445
+      },
+      {
+        "word": "for",
+        "start": 78.445,
+        "end": 78.625
+      },
+      {
+        "word": "an",
+        "start": 78.625,
+        "end": 78.725
+      },
+      {
+        "word": "emergency",
+        "start": 78.725,
+        "end": 79.145
+      }
+    ]
+  },
+  {
+    "index": 12,
+    "sentence": "The chatbot takes a median of 67 seconds to write an answer; Vega decides in 0.36 seconds, without writing a word.",
+    "start": 80.135,
+    "end": 89.385,
+    "words": [
+      {
+        "word": "The",
+        "start": 80.225,
+        "end": 80.465
+      },
+      {
+        "word": "chatbot",
+        "start": 80.465,
+        "end": 80.625
+      },
+      {
+        "word": "takes",
+        "start": 80.845,
+        "end": 81.245
+      },
+      {
+        "word": "a",
+        "start": 81.245,
+        "end": 81.345
+      },
+      {
+        "word": "median",
+        "start": 81.345,
+        "end": 81.605
+      },
+      {
+        "word": "of",
+        "start": 81.605,
+        "end": 81.925
+      },
+      {
+        "word": "67",
+        "start": 81.925,
+        "end": 82.285
+      },
+      {
+        "word": "seconds",
+        "start": 82.285,
+        "end": 82.945
+      },
+      {
+        "word": "to",
+        "start": 82.945,
+        "end": 83.365
+      },
+      {
+        "word": "write",
+        "start": 83.365,
+        "end": 83.565
+      },
+      {
+        "word": "an",
+        "start": 83.565,
+        "end": 83.745
+      },
+      {
+        "word": "answer",
+        "start": 83.745,
+        "end": 84.185
+      },
+      {
+        "word": "Vega",
+        "start": 84.825,
+        "end": 84.965
+      },
+      {
+        "word": "decides",
+        "start": 84.965,
+        "end": 85.365
+      },
+      {
+        "word": "in",
+        "start": 85.365,
+        "end": 85.785
+      },
+      {
+        "word": "0.36",
+        "start": 85.785,
+        "end": 86.805,
+        "interpolated": true
+      },
+      {
+        "word": "seconds",
+        "start": 86.805,
+        "end": 87.465
+      },
+      {
+        "word": "without",
+        "start": 87.465,
+        "end": 87.965
+      },
+      {
+        "word": "writing",
+        "start": 87.965,
+        "end": 88.445
+      },
+      {
+        "word": "a",
+        "start": 88.445,
+        "end": 88.565
+      },
+      {
+        "word": "word",
+        "start": 88.565,
+        "end": 88.785
+      }
+    ]
+  },
+  {
+    "index": 13,
+    "sentence": "Vega calls it an emergency, but in our tests Gemma 3 4B under-triaged it, so the two disagree.",
+    "start": 89.565,
+    "end": 96.69,
+    "words": [
+      {
+        "word": "Vega",
+        "start": 89.565,
+        "end": 90.095,
+        "interpolated": true
+      },
+      {
+        "word": "calls",
+        "start": 90.095,
+        "end": 90.395
+      },
+      {
+        "word": "it",
+        "start": 90.395,
+        "end": 90.595
+      },
+      {
+        "word": "an",
+        "start": 90.595,
+        "end": 90.715
+      },
+      {
+        "word": "emergency",
+        "start": 90.715,
+        "end": 90.955
+      },
+      {
+        "word": "but",
+        "start": 91.895,
+        "end": 91.995
+      },
+      {
+        "word": "in",
+        "start": 91.995,
+        "end": 92.095
+      },
+      {
+        "word": "our",
+        "start": 92.095,
+        "end": 92.215
+      },
+      {
+        "word": "tests",
+        "start": 92.215,
+        "end": 92.475
+      },
+      {
+        "word": "Gemma",
+        "start": 92.855,
+        "end": 93.295
+      },
+      {
+        "word": "3",
+        "start": 93.295,
+        "end": 93.295,
+        "interpolated": true
+      },
+      {
+        "word": "4B",
+        "start": 93.295,
+        "end": 93.795
+      },
+      {
+        "word": "under-triaged",
+        "start": 93.795,
+        "end": 94.095
+      },
+      {
+        "word": "it",
+        "start": 94.635,
+        "end": 94.835
+      },
+      {
+        "word": "so",
+        "start": 95.115,
+        "end": 95.295
+      },
+      {
+        "word": "the",
+        "start": 95.295,
+        "end": 95.395
+      },
+      {
+        "word": "two",
+        "start": 95.395,
+        "end": 95.555
+      },
+      {
+        "word": "disagree",
+        "start": 95.555,
+        "end": 95.955
+      }
+    ]
+  },
+  {
+    "index": 14,
+    "sentence": "So the flag appears right in the chat, the first answer stays visible, and the chatbot reconsiders: call emergency services immediately.",
+    "start": 96.87,
+    "end": 105.82,
+    "words": [
+      {
+        "word": "So",
+        "start": 96.82,
+        "end": 97.22
+      },
+      {
+        "word": "the",
+        "start": 97.22,
+        "end": 97.32
+      },
+      {
+        "word": "flag",
+        "start": 97.32,
+        "end": 97.58
+      },
+      {
+        "word": "appears",
+        "start": 97.58,
+        "end": 97.86
+      },
+      {
+        "word": "right",
+        "start": 97.86,
+        "end": 98.4
+      },
+      {
+        "word": "in",
+        "start": 98.4,
+        "end": 98.56
+      },
+      {
+        "word": "the",
+        "start": 98.56,
+        "end": 98.64
+      },
+      {
+        "word": "chat",
+        "start": 98.64,
+        "end": 98.88
+      },
+      {
+        "word": "the",
+        "start": 99.36,
+        "end": 99.4
+      },
+      {
+        "word": "first",
+        "start": 99.4,
+        "end": 99.62
+      },
+      {
+        "word": "answer",
+        "start": 99.62,
+        "end": 99.92
+      },
+      {
+        "word": "stays",
+        "start": 99.92,
+        "end": 100.38
+      },
+      {
+        "word": "visible",
+        "start": 100.38,
+        "end": 100.76
+      },
+      {
+        "word": "and",
+        "start": 101.28,
+        "end": 101.32
+      },
+      {
+        "word": "the",
+        "start": 101.32,
+        "end": 101.42
+      },
+      {
+        "word": "chatbot",
+        "start": 101.42,
+        "end": 101.6
+      },
+      {
+        "word": "reconsiders",
+        "start": 101.86,
+        "end": 102.52
+      },
+      {
+        "word": "call",
+        "start": 103.16,
+        "end": 103.36
+      },
+      {
+        "word": "emergency",
+        "start": 103.36,
+        "end": 103.72
+      },
+      {
+        "word": "services",
+        "start": 103.72,
+        "end": 104.4
+      },
+      {
+        "word": "immediately",
+        "start": 104.4,
+        "end": 104.96
+      }
+    ]
+  },
+  {
+    "index": 15,
+    "sentence": "This is failing transparently.",
+    "start": 106,
+    "end": 108.25,
+    "words": [
+      {
+        "word": "This",
+        "start": 105.95,
+        "end": 106.41
+      },
+      {
+        "word": "is",
+        "start": 106.41,
+        "end": 106.51
+      },
+      {
+        "word": "failing",
+        "start": 106.51,
+        "end": 106.79
+      },
+      {
+        "word": "transparently",
+        "start": 106.79,
+        "end": 107.71
+      }
+    ]
+  },
+  {
+    "index": 16,
+    "sentence": "Instead of a generic warning that the chatbot can make mistakes, the person sees the specific mistake it may have made, so they can act with caution and seek an expert.",
+    "start": 108.43,
+    "end": 118.53,
+    "words": [
+      {
+        "word": "Instead",
+        "start": 108.38,
+        "end": 109.02
+      },
+      {
+        "word": "of",
+        "start": 109.02,
+        "end": 109.28
+      },
+      {
+        "word": "a",
+        "start": 109.28,
+        "end": 109.34
+      },
+      {
+        "word": "generic",
+        "start": 109.34,
+        "end": 109.64
+      },
+      {
+        "word": "warning",
+        "start": 109.64,
+        "end": 110.12
+      },
+      {
+        "word": "that",
+        "start": 110.12,
+        "end": 110.48
+      },
+      {
+        "word": "the",
+        "start": 110.48,
+        "end": 110.6
+      },
+      {
+        "word": "chatbot",
+        "start": 110.6,
+        "end": 111.02
+      },
+      {
+        "word": "can",
+        "start": 111.02,
+        "end": 111.24
+      },
+      {
+        "word": "make",
+        "start": 111.24,
+        "end": 111.38
+      },
+      {
+        "word": "mistakes",
+        "start": 111.38,
+        "end": 111.74
+      },
+      {
+        "word": "the",
+        "start": 112.32,
+        "end": 112.54
+      },
+      {
+        "word": "person",
+        "start": 112.54,
+        "end": 112.8
+      },
+      {
+        "word": "sees",
+        "start": 112.8,
+        "end": 113.18
+      },
+      {
+        "word": "the",
+        "start": 113.18,
+        "end": 113.46
+      },
+      {
+        "word": "specific",
+        "start": 113.46,
+        "end": 113.72
+      },
+      {
+        "word": "mistake",
+        "start": 113.72,
+        "end": 114.3
+      },
+      {
+        "word": "it",
+        "start": 114.3,
+        "end": 114.5
+      },
+      {
+        "word": "may",
+        "start": 114.5,
+        "end": 114.68
+      },
+      {
+        "word": "have",
+        "start": 114.68,
+        "end": 114.86
+      },
+      {
+        "word": "made",
+        "start": 114.86,
+        "end": 115.12
+      },
+      {
+        "word": "so",
+        "start": 115.46,
+        "end": 115.68
+      },
+      {
+        "word": "they",
+        "start": 115.68,
+        "end": 115.78
+      },
+      {
+        "word": "can",
+        "start": 115.78,
+        "end": 115.92
+      },
+      {
+        "word": "act",
+        "start": 115.92,
+        "end": 116.12
+      },
+      {
+        "word": "with",
+        "start": 116.12,
+        "end": 116.32
+      },
+      {
+        "word": "caution",
+        "start": 116.32,
+        "end": 116.78
+      },
+      {
+        "word": "and",
+        "start": 116.78,
+        "end": 117.12
+      },
+      {
+        "word": "seek",
+        "start": 117.12,
+        "end": 117.36
+      },
+      {
+        "word": "an",
+        "start": 117.36,
+        "end": 117.5
+      },
+      {
+        "word": "expert",
+        "start": 117.5,
+        "end": 117.82
+      }
+    ]
+  },
+  {
+    "index": 17,
+    "sentence": "The workspace is built to test several models side by side on the same cases, from Gemma and MedGemma to Qwen and OLMo.",
+    "start": 118.71,
+    "end": 126.91,
+    "words": [
+      {
+        "word": "The",
+        "start": 118.66,
+        "end": 119.06
+      },
+      {
+        "word": "workspace",
+        "start": 119.06,
+        "end": 119.24
+      },
+      {
+        "word": "is",
+        "start": 119.24,
+        "end": 119.72
+      },
+      {
+        "word": "built",
+        "start": 119.72,
+        "end": 119.98
+      },
+      {
+        "word": "to",
+        "start": 119.98,
+        "end": 120.14
+      },
+      {
+        "word": "test",
+        "start": 120.14,
+        "end": 120.34
+      },
+      {
+        "word": "several",
+        "start": 120.34,
+        "end": 120.76
+      },
+      {
+        "word": "models",
+        "start": 120.76,
+        "end": 121.06
+      },
+      {
+        "word": "side",
+        "start": 121.06,
+        "end": 121.44
+      },
+      {
+        "word": "by",
+        "start": 121.44,
+        "end": 121.66
+      },
+      {
+        "word": "side",
+        "start": 121.66,
+        "end": 122.08
+      },
+      {
+        "word": "on",
+        "start": 122.08,
+        "end": 122.22
+      },
+      {
+        "word": "the",
+        "start": 122.22,
+        "end": 122.3
+      },
+      {
+        "word": "same",
+        "start": 122.3,
+        "end": 122.5
+      },
+      {
+        "word": "cases",
+        "start": 122.5,
+        "end": 122.98
+      },
+      {
+        "word": "from",
+        "start": 123.52,
+        "end": 123.7
+      },
+      {
+        "word": "Gemma",
+        "start": 123.7,
+        "end": 124.14
+      },
+      {
+        "word": "and",
+        "start": 124.14,
+        "end": 124.42
+      },
+      {
+        "word": "MedGemma",
+        "start": 124.42,
+        "end": 125.06,
+        "interpolated": true
+      },
+      {
+        "word": "to",
+        "start": 125.06,
+        "end": 125.4
+      },
+      {
+        "word": "Qwen",
+        "start": 125.4,
+        "end": 125.76,
+        "interpolated": true
+      },
+      {
+        "word": "and",
+        "start": 125.76,
+        "end": 125.94
+      },
+      {
+        "word": "OLMo",
+        "start": 125.94,
+        "end": 126.34
+      }
+    ]
+  },
+  {
+    "index": 18,
+    "sentence": "Vega uses the Qwen 3.5 4B language model as its feature extractor, so only a small classifier on top needs training.",
+    "start": 127.09,
+    "end": 136.44,
+    "words": [
+      {
+        "word": "Vega",
+        "start": 127.09,
+        "end": 127.62,
+        "interpolated": true
+      },
+      {
+        "word": "uses",
+        "start": 127.62,
+        "end": 128
+      },
+      {
+        "word": "the",
+        "start": 128,
+        "end": 128.28
+      },
+      {
+        "word": "Qwen",
+        "start": 128.28,
+        "end": 128.913,
+        "interpolated": true
+      },
+      {
+        "word": "3.5",
+        "start": 128.913,
+        "end": 129.547,
+        "interpolated": true
+      },
+      {
+        "word": "4B",
+        "start": 129.547,
+        "end": 130.18,
+        "interpolated": true
+      },
+      {
+        "word": "language",
+        "start": 130.18,
+        "end": 130.44
+      },
+      {
+        "word": "model",
+        "start": 130.44,
+        "end": 130.88
+      },
+      {
+        "word": "as",
+        "start": 130.88,
+        "end": 131.36
+      },
+      {
+        "word": "its",
+        "start": 131.36,
+        "end": 131.48
+      },
+      {
+        "word": "feature",
+        "start": 131.48,
+        "end": 131.8
+      },
+      {
+        "word": "extractor",
+        "start": 131.8,
+        "end": 132.54
+      },
+      {
+        "word": "so",
+        "start": 132.94,
+        "end": 133.1
+      },
+      {
+        "word": "only",
+        "start": 133.1,
+        "end": 133.44
+      },
+      {
+        "word": "a",
+        "start": 133.44,
+        "end": 133.56
+      },
+      {
+        "word": "small",
+        "start": 133.56,
+        "end": 133.8
+      },
+      {
+        "word": "classifier",
+        "start": 133.8,
+        "end": 134.46
+      },
+      {
+        "word": "on",
+        "start": 134.46,
+        "end": 134.8
+      },
+      {
+        "word": "top",
+        "start": 134.8,
+        "end": 135.04
+      },
+      {
+        "word": "needs",
+        "start": 135.04,
+        "end": 135.32
+      },
+      {
+        "word": "training",
+        "start": 135.32,
+        "end": 135.68
+      }
+    ]
+  },
+  {
+    "index": 19,
+    "sentence": "That classifier learned from 146 physician-labelled messages and conversations, and it makes the call on whether a case is an emergency.",
+    "start": 136.62,
+    "end": 146.22,
+    "words": [
+      {
+        "word": "That",
+        "start": 136.57,
+        "end": 136.99
+      },
+      {
+        "word": "classifier",
+        "start": 136.99,
+        "end": 137.57
+      },
+      {
+        "word": "learned",
+        "start": 137.57,
+        "end": 137.89
+      },
+      {
+        "word": "from",
+        "start": 137.89,
+        "end": 138.27
+      },
+      {
+        "word": "146",
+        "start": 138.27,
+        "end": 138.89
+      },
+      {
+        "word": "physician-labelled",
+        "start": 138.89,
+        "end": 139.81
+      },
+      {
+        "word": "messages",
+        "start": 140.45,
+        "end": 140.87
+      },
+      {
+        "word": "and",
+        "start": 140.87,
+        "end": 141.41
+      },
+      {
+        "word": "conversations",
+        "start": 141.41,
+        "end": 141.81
+      },
+      {
+        "word": "and",
+        "start": 142.71,
+        "end": 142.87
+      },
+      {
+        "word": "it",
+        "start": 142.87,
+        "end": 142.97
+      },
+      {
+        "word": "makes",
+        "start": 142.97,
+        "end": 143.09
+      },
+      {
+        "word": "the",
+        "start": 143.09,
+        "end": 143.31
+      },
+      {
+        "word": "call",
+        "start": 143.31,
+        "end": 143.59
+      },
+      {
+        "word": "on",
+        "start": 143.59,
+        "end": 143.91
+      },
+      {
+        "word": "whether",
+        "start": 143.91,
+        "end": 144.09
+      },
+      {
+        "word": "a",
+        "start": 144.09,
+        "end": 144.29
+      },
+      {
+        "word": "case",
+        "start": 144.29,
+        "end": 144.53
+      },
+      {
+        "word": "is",
+        "start": 144.53,
+        "end": 144.85
+      },
+      {
+        "word": "an",
+        "start": 144.85,
+        "end": 144.95
+      },
+      {
+        "word": "emergency",
+        "start": 144.95,
+        "end": 145.31
+      }
+    ]
+  },
+  {
+    "index": 20,
+    "sentence": "Given two messages it has never seen, one an emergency and one not, Vega picks the emergency 97 times out of 100.",
+    "start": 146.4,
+    "end": 155.2,
+    "words": [
+      {
+        "word": "Given",
+        "start": 146.45,
+        "end": 146.79
+      },
+      {
+        "word": "two",
+        "start": 146.79,
+        "end": 147.05
+      },
+      {
+        "word": "messages",
+        "start": 147.05,
+        "end": 147.41
+      },
+      {
+        "word": "it",
+        "start": 147.41,
+        "end": 147.89
+      },
+      {
+        "word": "has",
+        "start": 147.89,
+        "end": 148.01
+      },
+      {
+        "word": "never",
+        "start": 148.01,
+        "end": 148.27
+      },
+      {
+        "word": "seen",
+        "start": 148.27,
+        "end": 148.57
+      },
+      {
+        "word": "one",
+        "start": 148.97,
+        "end": 149.25
+      },
+      {
+        "word": "an",
+        "start": 149.25,
+        "end": 149.37,
+        "interpolated": true
+      },
+      {
+        "word": "emergency",
+        "start": 149.37,
+        "end": 149.69
+      },
+      {
+        "word": "and",
+        "start": 149.69,
+        "end": 150.33
+      },
+      {
+        "word": "one",
+        "start": 150.33,
+        "end": 150.51
+      },
+      {
+        "word": "not",
+        "start": 150.51,
+        "end": 150.85
+      },
+      {
+        "word": "Vega",
+        "start": 151.39,
+        "end": 151.53
+      },
+      {
+        "word": "picks",
+        "start": 151.53,
+        "end": 151.81
+      },
+      {
+        "word": "the",
+        "start": 151.81,
+        "end": 152.03
+      },
+      {
+        "word": "emergency",
+        "start": 152.03,
+        "end": 152.41
+      },
+      {
+        "word": "97",
+        "start": 152.41,
+        "end": 153.05
+      },
+      {
+        "word": "times",
+        "start": 153.05,
+        "end": 153.83
+      },
+      {
+        "word": "out",
+        "start": 153.83,
+        "end": 153.83,
+        "interpolated": true
+      },
+      {
+        "word": "of",
+        "start": 153.83,
+        "end": 154.05
+      },
+      {
+        "word": "100",
+        "start": 154.05,
+        "end": 154.37
+      }
+    ]
+  },
+  {
+    "index": 21,
+    "sentence": "Across 277 physician-labelled cases from four public datasets, including HealthBench and the Nature Medicine study's own cases, Vega recognised 79 percent of emergencies, where the chatbot's first answers caught 56 percent.",
+    "start": 155.38,
+    "end": 171.955,
+    "words": [
+      {
+        "word": "Across",
+        "start": 155.33,
+        "end": 155.81
+      },
+      {
+        "word": "277",
+        "start": 155.81,
+        "end": 156.81
+      },
+      {
+        "word": "physician-labelled",
+        "start": 156.81,
+        "end": 157.61
+      },
+      {
+        "word": "cases",
+        "start": 158.21,
+        "end": 158.41
+      },
+      {
+        "word": "from",
+        "start": 158.41,
+        "end": 158.95
+      },
+      {
+        "word": "four",
+        "start": 158.95,
+        "end": 159.23
+      },
+      {
+        "word": "public",
+        "start": 159.23,
+        "end": 159.61
+      },
+      {
+        "word": "datasets",
+        "start": 159.61,
+        "end": 160.03
+      },
+      {
+        "word": "including",
+        "start": 160.73,
+        "end": 161.07
+      },
+      {
+        "word": "HealthBench",
+        "start": 161.07,
+        "end": 161.43
+      },
+      {
+        "word": "and",
+        "start": 161.69,
+        "end": 162.29
+      },
+      {
+        "word": "the",
+        "start": 162.29,
+        "end": 162.41
+      },
+      {
+        "word": "Nature",
+        "start": 162.41,
+        "end": 162.69
+      },
+      {
+        "word": "Medicine",
+        "start": 162.69,
+        "end": 163.01
+      },
+      {
+        "word": "study's",
+        "start": 163.01,
+        "end": 163.45
+      },
+      {
+        "word": "own",
+        "start": 163.69,
+        "end": 163.83
+      },
+      {
+        "word": "cases",
+        "start": 163.83,
+        "end": 164.11
+      },
+      {
+        "word": "Vega",
+        "start": 164.11,
+        "end": 165.09,
+        "interpolated": true
+      },
+      {
+        "word": "recognised",
+        "start": 165.09,
+        "end": 165.55
+      },
+      {
+        "word": "79",
+        "start": 165.55,
+        "end": 166.37
+      },
+      {
+        "word": "percent",
+        "start": 166.37,
+        "end": 166.95,
+        "interpolated": true
+      },
+      {
+        "word": "of",
+        "start": 166.95,
+        "end": 167.17
+      },
+      {
+        "word": "emergencies",
+        "start": 167.17,
+        "end": 167.61
+      },
+      {
+        "word": "where",
+        "start": 168.37,
+        "end": 168.51
+      },
+      {
+        "word": "the",
+        "start": 168.51,
+        "end": 168.61
+      },
+      {
+        "word": "chatbot's",
+        "start": 168.61,
+        "end": 169.19
+      },
+      {
+        "word": "first",
+        "start": 169.19,
+        "end": 169.35
+      },
+      {
+        "word": "answers",
+        "start": 169.35,
+        "end": 169.79
+      },
+      {
+        "word": "caught",
+        "start": 169.79,
+        "end": 170.21
+      },
+      {
+        "word": "56",
+        "start": 170.21,
+        "end": 170.65
+      },
+      {
+        "word": "percent",
+        "start": 170.65,
+        "end": 171.955,
+        "interpolated": true
+      }
+    ]
+  },
+  {
+    "index": 22,
+    "sentence": "As part of this study, TraceLens ran the entire flow, from testing the models to safety checks and evaluation.",
+    "start": 172.135,
+    "end": 179.585,
+    "words": [
+      {
+        "word": "As",
+        "start": 172.085,
+        "end": 172.545
+      },
+      {
+        "word": "part",
+        "start": 172.545,
+        "end": 172.705
+      },
+      {
+        "word": "of",
+        "start": 172.705,
+        "end": 172.865
+      },
+      {
+        "word": "this",
+        "start": 172.865,
+        "end": 172.965
+      },
+      {
+        "word": "study",
+        "start": 172.965,
+        "end": 173.325
+      },
+      {
+        "word": "TraceLens",
+        "start": 173.805,
+        "end": 173.965
+      },
+      {
+        "word": "ran",
+        "start": 174.285,
+        "end": 174.645
+      },
+      {
+        "word": "the",
+        "start": 174.645,
+        "end": 174.885
+      },
+      {
+        "word": "entire",
+        "start": 174.885,
+        "end": 175.065
+      },
+      {
+        "word": "flow",
+        "start": 175.065,
+        "end": 175.585
+      },
+      {
+        "word": "from",
+        "start": 175.585,
+        "end": 176.225
+      },
+      {
+        "word": "testing",
+        "start": 176.225,
+        "end": 176.485
+      },
+      {
+        "word": "the",
+        "start": 176.485,
+        "end": 176.725
+      },
+      {
+        "word": "models",
+        "start": 176.725,
+        "end": 177.005
+      },
+      {
+        "word": "to",
+        "start": 177.005,
+        "end": 177.285
+      },
+      {
+        "word": "safety",
+        "start": 177.285,
+        "end": 177.585
+      },
+      {
+        "word": "checks",
+        "start": 177.585,
+        "end": 178.005
+      },
+      {
+        "word": "and",
+        "start": 178.005,
+        "end": 178.325
+      },
+      {
+        "word": "evaluation",
+        "start": 178.325,
+        "end": 178.705
+      }
+    ]
+  },
+  {
+    "index": 23,
+    "sentence": "It helped us propose a system in which decision models act as the safety and transparency layer for general-purpose chatbots in healthcare.",
+    "start": 179.765,
+    "end": 188.79,
+    "words": [
+      {
+        "word": "It",
+        "start": 179.715,
+        "end": 180.115
+      },
+      {
+        "word": "helped",
+        "start": 180.115,
+        "end": 180.255
+      },
+      {
+        "word": "us",
+        "start": 180.255,
+        "end": 180.495
+      },
+      {
+        "word": "propose",
+        "start": 180.495,
+        "end": 180.835
+      },
+      {
+        "word": "a",
+        "start": 180.835,
+        "end": 181.095
+      },
+      {
+        "word": "system",
+        "start": 181.095,
+        "end": 181.395
+      },
+      {
+        "word": "in",
+        "start": 181.395,
+        "end": 181.875
+      },
+      {
+        "word": "which",
+        "start": 181.875,
+        "end": 182.015
+      },
+      {
+        "word": "decision",
+        "start": 182.015,
+        "end": 182.255
+      },
+      {
+        "word": "models",
+        "start": 182.255,
+        "end": 182.715
+      },
+      {
+        "word": "act",
+        "start": 182.715,
+        "end": 183.475
+      },
+      {
+        "word": "as",
+        "start": 183.475,
+        "end": 183.715
+      },
+      {
+        "word": "the",
+        "start": 183.715,
+        "end": 183.855
+      },
+      {
+        "word": "safety",
+        "start": 183.855,
+        "end": 184.295
+      },
+      {
+        "word": "and",
+        "start": 184.295,
+        "end": 184.555
+      },
+      {
+        "word": "transparency",
+        "start": 184.555,
+        "end": 184.995
+      },
+      {
+        "word": "layer",
+        "start": 184.995,
+        "end": 185.555
+      },
+      {
+        "word": "for",
+        "start": 185.555,
+        "end": 186.155
+      },
+      {
+        "word": "general-purpose",
+        "start": 186.155,
+        "end": 186.475
+      },
+      {
+        "word": "chatbots",
+        "start": 186.935,
+        "end": 187.415
+      },
+      {
+        "word": "in",
+        "start": 187.415,
+        "end": 187.735
+      },
+      {
+        "word": "healthcare",
+        "start": 187.735,
+        "end": 188.035
+      }
+    ]
+  },
+  {
+    "index": 24,
+    "sentence": "The next time someone asks a chatbot for health advice, the answer and the level of urgency can be checked in under a second.",
+    "start": 188.97,
+    "end": 196.545,
+    "words": [
+      {
+        "word": "The",
+        "start": 188.92,
+        "end": 189.32
+      },
+      {
+        "word": "next",
+        "start": 189.32,
+        "end": 189.42
+      },
+      {
+        "word": "time",
+        "start": 189.42,
+        "end": 189.72
+      },
+      {
+        "word": "someone",
+        "start": 189.72,
+        "end": 190.1
+      },
+      {
+        "word": "asks",
+        "start": 190.1,
+        "end": 190.44
+      },
+      {
+        "word": "a",
+        "start": 190.44,
+        "end": 190.66
+      },
+      {
+        "word": "chatbot",
+        "start": 190.66,
+        "end": 191.06
+      },
+      {
+        "word": "for",
+        "start": 191.06,
+        "end": 191.28
+      },
+      {
+        "word": "health",
+        "start": 191.28,
+        "end": 191.44
+      },
+      {
+        "word": "advice",
+        "start": 191.44,
+        "end": 191.86
+      },
+      {
+        "word": "the",
+        "start": 192.46,
+        "end": 192.52
+      },
+      {
+        "word": "answer",
+        "start": 192.52,
+        "end": 192.9
+      },
+      {
+        "word": "and",
+        "start": 192.9,
+        "end": 193.24
+      },
+      {
+        "word": "the",
+        "start": 193.24,
+        "end": 193.34
+      },
+      {
+        "word": "level",
+        "start": 193.34,
+        "end": 193.58
+      },
+      {
+        "word": "of",
+        "start": 193.58,
+        "end": 193.72
+      },
+      {
+        "word": "urgency",
+        "start": 193.72,
+        "end": 194
+      },
+      {
+        "word": "can",
+        "start": 194,
+        "end": 194.6
+      },
+      {
+        "word": "be",
+        "start": 194.6,
+        "end": 194.7
+      },
+      {
+        "word": "checked",
+        "start": 194.7,
+        "end": 194.9
+      },
+      {
+        "word": "in",
+        "start": 194.9,
+        "end": 195.18
+      },
+      {
+        "word": "under",
+        "start": 195.18,
+        "end": 195.46
+      },
+      {
+        "word": "a",
+        "start": 195.46,
+        "end": 195.56
+      },
+      {
+        "word": "second",
+        "start": 195.56,
+        "end": 195.92
+      }
+    ]
+  },
+  {
+    "index": 25,
+    "sentence": "So a supporting model can do both: reduce under-triage, and make failures transparent.",
+    "start": 196.725,
+    "end": 202.35,
+    "words": [
+      {
+        "word": "So",
+        "start": 196.675,
+        "end": 197.095
+      },
+      {
+        "word": "a",
+        "start": 197.095,
+        "end": 197.155
+      },
+      {
+        "word": "supporting",
+        "start": 197.155,
+        "end": 197.435
+      },
+      {
+        "word": "model",
+        "start": 197.435,
+        "end": 197.795
+      },
+      {
+        "word": "can",
+        "start": 197.795,
+        "end": 198.055
+      },
+      {
+        "word": "do",
+        "start": 198.055,
+        "end": 198.195
+      },
+      {
+        "word": "both",
+        "start": 198.195,
+        "end": 198.475
+      },
+      {
+        "word": "reduce",
+        "start": 199.255,
+        "end": 199.255
+      },
+      {
+        "word": "under-triage",
+        "start": 199.255,
+        "end": 199.515
+      },
+      {
+        "word": "and",
+        "start": 200.035,
+        "end": 200.435
+      },
+      {
+        "word": "make",
+        "start": 200.435,
+        "end": 200.595
+      },
+      {
+        "word": "failures",
+        "start": 200.595,
+        "end": 200.975
+      },
+      {
+        "word": "transparent",
+        "start": 200.975,
+        "end": 201.415
+      }
+    ]
+  }
+]
