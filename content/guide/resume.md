@@ -2,13 +2,13 @@
 
 ## Professional summary
 
-Neerav Chaudhary is an applied AI engineer and Engineering Management graduate who builds conversational systems, research tools, applied machine-learning studies, and realtime products. His work combines product direction, interface and backend engineering, controlled automation, data and service contracts, and evaluation designed around observable outcomes.
+Neerav Chaudhary is an applied AI engineer and published researcher who takes ambiguous workflows from product direction and interface design through full-stack implementation and measurable evaluation. He builds voice agents, grounded research tools, healthcare safety systems, and realtime products with explicit permissions, source traceability, confirmation-gated actions, and evaluation harnesses.
 
 ## Experience timeline
 
 ### 2024–2026 — San Jose State University and independent product engineering
 
-Neerav completed an M.S. in Industrial and Engineering Management at San Jose State University with a 3.81 GPA. During this period he built Relay, Refract, Homeward, and Birb Hangout: products spanning voice agents, employee services, research workflows, healthcare coordination, realtime multiplayer systems, and human-in-the-loop evaluation.
+Neerav completed an M.S. in Industrial and Engineering Management at San Jose State University with a 3.81 GPA. During this period he built Relay, Refract, Homeward, Birb Hangout, and TraceLens: work spanning voice agents, employee services, research workflows, healthcare coordination, healthcare-AI safety, realtime multiplayer systems, and human-in-the-loop evaluation.
 
 ### August–November 2023 — Deep Strat, Artificial Intelligence Research Intern
 
@@ -29,7 +29,8 @@ Neerav Chaudhary and Sourabh Singh Verma, “Analyzing Brain Atrophy in Dementia
 
 ## Selected product evidence
 
-- Relay: an employee-service workspace with a voice and text guide that answers from an employee's own records, takes them to the right page, and completes requests such as support cases and meetings after they confirm. Built with React, TypeScript, Fastify, and Deepgram voice.
+- Relay: a voice-first employee-service agent that answers from an employee's own records, navigates to the right page, and completes confirmed support, reminder, meeting, and task workflows. Its evaluation harness covers seven multi-turn workflow families, held-out rewordings, and adversarial attempts that produced no unsafe state change. Built with React, TypeScript, Fastify, and Deepgram voice.
+- TraceLens: a healthcare-AI safety and evaluation workspace with hash-pinned study inputs, frozen analysis, multi-GPU runners, and an independent message detector. Vega reached held-out AUC 0.966, caught 18 of the chatbot's 31 missed emergencies, and improved final emergency guidance with one added false alarm. Built with Python, PyTorch, Hugging Face, Kaggle, and Colab.
 - Refract: one research workspace for reading papers, getting answers tied to the exact page, comparing sources, testing recall, and running reviewed statistical analysis. Built with React, FastAPI, PostgreSQL, ChromaDB, and Python.
 - Homeward: a discharge recovery app that turns hospital paperwork into a clear plan with the source behind every step, care-team questions for anything unclear, and reminders only with the patient's approval. Built with React, Express, SQLite, Synthea data, and role-specific AI assistants.
 - Birb Hangout: a live multiplayer 3D world where friends spend time together through shared media, games, voice, consent-based interactions, and flight. Built with React Three Fiber, Colyseus, Rapier, TypeScript, WebRTC, and Blender.
