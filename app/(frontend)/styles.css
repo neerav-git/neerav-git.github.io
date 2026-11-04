@@ -2144,6 +2144,10 @@ body::before {
     grid-template-columns: 1fr;
   }
 
+  .resume-grid {
+    grid-template-columns: 1fr;
+  }
+
   .top-nav {
     flex-wrap: nowrap;
     overflow-x: auto;
