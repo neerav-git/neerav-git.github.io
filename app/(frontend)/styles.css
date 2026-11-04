@@ -3539,22 +3539,32 @@ body::before {
 }
 
 @media (max-width: 720px) {
+  body.guide-open {
+    overflow: hidden;
+  }
+
   .guide-panel {
     border-left: 0;
     border-radius: 16px 16px 0 0;
     border-top: 1px solid var(--line);
-    height: 46vh;
+    bottom: 0;
+    height: auto;
+    left: 0;
+    max-height: min(62dvh, 560px);
+    min-height: 0;
+    overflow: hidden;
+    right: 0;
     top: auto;
-    width: 100vw;
+    width: 100%;
   }
 
   .guide-launcher {
-    bottom: 14px;
-    height: 46px;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    height: 48px;
     justify-content: center;
     padding: 0;
-    right: 14px;
-    width: 46px;
+    right: max(14px, env(safe-area-inset-right));
+    width: 48px;
   }
 
   .guide-launcher span {
@@ -4051,6 +4061,75 @@ body::before {
   font-size: 11px;
   margin: 0;
   padding: 0 16px 12px;
+}
+
+@media (max-width: 720px) {
+  .guide-panel-header {
+    align-items: center;
+    flex: 0 0 auto;
+    padding: max(12px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) 11px max(14px, env(safe-area-inset-left));
+  }
+
+  .guide-panel-header .guide-icon-button,
+  .guide-composer .guide-icon-button {
+    height: 44px;
+    width: 44px;
+  }
+
+  .guide-log {
+    flex: 0 1 auto;
+    min-height: 0;
+    overscroll-behavior: contain;
+    padding: 14px max(14px, env(safe-area-inset-right)) 16px max(14px, env(safe-area-inset-left));
+    scrollbar-gutter: stable;
+  }
+
+  .guide-turn {
+    max-width: 96%;
+  }
+
+  .guide-chip {
+    min-height: 36px;
+    padding: 8px 12px;
+  }
+
+  .guide-status-strip,
+  .guide-tour-bar {
+    flex: 0 0 auto;
+    padding-left: max(14px, env(safe-area-inset-left));
+    padding-right: max(14px, env(safe-area-inset-right));
+  }
+
+  .guide-tour-bar {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .guide-tour-bar span {
+    flex-basis: 100%;
+  }
+
+  .guide-composer {
+    align-items: flex-end;
+    flex: 0 0 auto;
+    padding: 10px max(12px, env(safe-area-inset-right)) 10px max(12px, env(safe-area-inset-left));
+  }
+
+  .guide-composer textarea {
+    font-size: 16px;
+    max-height: 112px;
+    min-height: 46px;
+    min-width: 0;
+    resize: none;
+  }
+
+  .guide-composer-actions {
+    flex: 0 0 auto;
+  }
+
+  .guide-footnote {
+    display: none;
+  }
 }
 
 .guide-focus {
