@@ -2619,6 +2619,36 @@ body::before {
   padding: clamp(24px, 3.5vw, 38px);
 }
 
+.active-product-intro,
+.active-product-evidence {
+  align-content: start;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* A film keeps its own 16:9 frame across the card, so long copy can't letterbox it. */
+.active-product--video {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.active-product--video .active-product-media {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+  border-right: 0;
+  min-height: 0;
+}
+
+.active-product--video .active-product-media video {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
+.active-product--video .active-product-copy {
+  align-items: start;
+  column-gap: clamp(28px, 4vw, 56px);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+
 .active-product-meta {
   color: var(--muted);
   display: flex;
@@ -3312,6 +3342,10 @@ body::before {
   .active-product-media video {
     aspect-ratio: 16 / 9;
     height: auto;
+  }
+
+  .active-product--video .active-product-copy {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .entry-rail {

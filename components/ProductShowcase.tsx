@@ -192,7 +192,7 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
 
       <article
         aria-labelledby={`product-tab-${activeProject.slug}`}
-        className="active-product"
+        className={video ? 'active-product active-product--video' : 'active-product'}
         id="active-product-panel"
         key={activeProject.slug}
         role="tabpanel"
@@ -254,36 +254,41 @@ export function ProductShowcase({ projects }: ProductShowcaseProps) {
         ) : null}
 
         <div className="active-product-copy">
-          <div className="active-product-meta">
-            <span>{activeProject.cardEyebrow || 'Product'}</span>
-            <span>{maturity.label}</span>
+          <div className="active-product-intro">
+            <div className="active-product-meta">
+              <span>{activeProject.cardEyebrow || 'Product'}</span>
+              <span>{maturity.label}</span>
+            </div>
+            <h3>{activeProject.title}</h3>
+            {activeProject.headline ? <p className="project-headline">{activeProject.headline}</p> : null}
+            <p className="active-product-summary">{activeProject.summary}</p>
           </div>
-          <h3>{activeProject.title}</h3>
-          {activeProject.headline ? <p className="project-headline">{activeProject.headline}</p> : null}
-          <p className="active-product-summary">{activeProject.summary}</p>
-          {highlights[0] ? <p className="active-product-outcome"><strong>Lead evidence:</strong> {highlights[0]}</p> : null}
-          <SkillTags compact skills={activeProject.skills} />
 
-          {(highlights.length > 1 || activeProject.methodology?.evaluation || activeProject.methodology?.boundary) ? (
-            <details className="product-details">
-              <summary>Method, evaluation, and scope</summary>
-              {highlights.length > 1 ? (
-                <ul>
-                  {highlights.slice(1).map((highlight) => <li key={highlight}>{highlight}</li>)}
-                </ul>
-              ) : null}
-              {activeProject.methodology?.evaluation ? (
-                <p><strong>Evaluation:</strong> {activeProject.methodology.evaluation}</p>
-              ) : null}
-              {activeProject.methodology?.boundary ? (
-                <p><strong>Next validation:</strong> {activeProject.methodology.boundary}</p>
-              ) : null}
-            </details>
-          ) : null}
+          <div className="active-product-evidence">
+            {highlights[0] ? <p className="active-product-outcome"><strong>Lead evidence:</strong> {highlights[0]}</p> : null}
+            <SkillTags compact skills={activeProject.skills} />
 
-          <Link className="primary-button" href={`/projects/${activeProject.slug}/`}>
-            Open {activeProject.title} case study
-          </Link>
+            {(highlights.length > 1 || activeProject.methodology?.evaluation || activeProject.methodology?.boundary) ? (
+              <details className="product-details">
+                <summary>Method, evaluation, and scope</summary>
+                {highlights.length > 1 ? (
+                  <ul>
+                    {highlights.slice(1).map((highlight) => <li key={highlight}>{highlight}</li>)}
+                  </ul>
+                ) : null}
+                {activeProject.methodology?.evaluation ? (
+                  <p><strong>Evaluation:</strong> {activeProject.methodology.evaluation}</p>
+                ) : null}
+                {activeProject.methodology?.boundary ? (
+                  <p><strong>Next validation:</strong> {activeProject.methodology.boundary}</p>
+                ) : null}
+              </details>
+            ) : null}
+
+            <Link className="primary-button" href={`/projects/${activeProject.slug}/`}>
+              Open {activeProject.title} case study
+            </Link>
+          </div>
         </div>
       </article>
     </section>
