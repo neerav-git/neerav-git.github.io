@@ -10,13 +10,13 @@ Neerav Chaudhary is an applied AI engineer and published researcher who takes am
 
 Neerav completed an M.S. in Industrial and Engineering Management at San Jose State University with a 3.81 GPA. During this period he built Relay, Refract, Homeward, Birb Hangout, and TraceLens: work spanning voice agents, employee services, research workflows, healthcare coordination, healthcare-AI safety, realtime multiplayer systems, and human-in-the-loop evaluation.
 
-### November 2023–May 2024 — NTPC, AI/ML Engineer
+### November 2023–May 2024 — NTPC, AI/ML Engineer Intern
 
 Neerav built an industrial air-quality compliance system around plant-stack, traffic, and regional-background attribution. An XGBoost and SHAP model reached R² 0.84 and produced source attributions validated at r = 0.93–0.96 against ground truth. An LSTM forecast 24-hour PM₂.₅ exceedances at RMSE 9.9 µg/m³, while a Random Forest virtual sensor filled maintenance gaps at MAPE 4.8% and raised regulatory data uptime from 92.16% to 100%.
 
 He also automated the compliance-report path from roughly nine hours to 22 seconds by serializing SHAP outputs into JSON and generating internal briefs and regulator-ready letters with a local Llama 3.1 deployment on llama.cpp/Ollama and a provider-agnostic fallback. For monitoring procurement, he mapped plant, model, and CPCB requirements to reference-grade CAAQMS and lower-cost IoT options so the selected station would meet pollutant, sampling, cost, and compliance needs.
 
-### August–November 2023 — Deep Strat, Artificial Intelligence Research Intern
+### August–November 2023 — Deep Strat, AI Safety and Research Intern
 
 Neerav built a three-stage LLM workflow that turned raw customer complaints into routed, structured cases, cut false churn alarms by 25 percent, and advised the founders and policy researchers on AI safety, guardrails, and failure modes.
 
