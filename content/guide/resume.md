@@ -2,13 +2,19 @@
 
 ## Professional summary
 
-Neerav Chaudhary is an applied AI engineer and published researcher who takes ambiguous workflows from product direction and interface design through full-stack implementation and measurable evaluation. He builds voice agents, grounded research tools, healthcare safety systems, and realtime products with explicit permissions, source traceability, confirmation-gated actions, and evaluation harnesses.
+Neerav Chaudhary is an applied AI engineer and published researcher who takes ambiguous workflows from product direction and interface design through full-stack implementation and measurable evaluation. He builds industrial compliance systems, voice agents, grounded research tools, healthcare safety systems, and realtime products with explicit permissions, source traceability, confirmation-gated actions, and evaluation harnesses.
 
 ## Experience timeline
 
 ### 2024–2026 — San Jose State University and independent product engineering
 
 Neerav completed an M.S. in Industrial and Engineering Management at San Jose State University with a 3.81 GPA. During this period he built Relay, Refract, Homeward, Birb Hangout, and TraceLens: work spanning voice agents, employee services, research workflows, healthcare coordination, healthcare-AI safety, realtime multiplayer systems, and human-in-the-loop evaluation.
+
+### November 2023–May 2024 — NTPC, AI/ML Engineer
+
+Neerav built an industrial air-quality compliance system around plant-stack, traffic, and regional-background attribution. An XGBoost and SHAP model reached R² 0.84 and produced source attributions validated at r = 0.93–0.96 against ground truth. An LSTM forecast 24-hour PM₂.₅ exceedances at RMSE 9.9 µg/m³, while a Random Forest virtual sensor filled maintenance gaps at MAPE 4.8% and raised regulatory data uptime from 92.16% to 100%.
+
+He also automated the compliance-report path from roughly nine hours to 22 seconds by serializing SHAP outputs into JSON and generating internal briefs and regulator-ready letters with a local Llama 3.1 deployment on llama.cpp/Ollama and a provider-agnostic fallback. For monitoring procurement, he mapped plant, model, and CPCB requirements to reference-grade CAAQMS and lower-cost IoT options so the selected station would meet pollutant, sampling, cost, and compliance needs.
 
 ### August–November 2023 — Deep Strat, Artificial Intelligence Research Intern
 
@@ -40,7 +46,7 @@ Neerav Chaudhary and Sourabh Singh Verma, “Analyzing Brain Atrophy in Dementia
 - AI and agent systems: harness engineering (evaluation and test harnesses for LLM agents), voice agents, structured function calling, RAG, LLM workflows, multi-agent systems, role-scoped tools, human-in-the-loop controls, model evaluation, grounding, failure analysis, and replay testing.
 - AI platforms and tooling: extensive hands-on work with OpenAI, Anthropic Claude, Hugging Face, Deepgram (Nova-3 speech recognition and the Voice Agent), LangChain, Flux TTS, and browser agent SDKs.
 - Full-stack development: TypeScript, Python, SQL, R, React, Fastify, Express, FastAPI, SQLite, PostgreSQL, REST APIs, authentication and authorization, idempotency, audit logging, Docker, AWS, and Git.
-- Machine learning and research: PyTorch, TensorFlow, Keras, scikit-learn, OpenCV, CNNs and neural network tuning, Random Forest, statistical modeling, regression, hypothesis testing, data-quality and leakage checks, ChromaDB, Matplotlib, evidence synthesis, and technical writing.
+- Machine learning and research: XGBoost, SHAP, LSTMs, Random Forest, PyTorch, TensorFlow, Keras, scikit-learn, OpenCV, CNNs and neural network tuning, forecasting, attribution, statistical modeling, regression, hypothesis testing, data-quality and leakage checks, ChromaDB, Matplotlib, evidence synthesis, and technical writing.
 - AI policy and safety: model failure modes, guardrail design, AI-safety research synthesis, and advising founders and policy researchers.
 - Product and delivery: workflow design, voice UX, interaction design, requirements translation, stakeholder collaboration, rapid prototyping, evaluation planning, and human-centered automation.
 
