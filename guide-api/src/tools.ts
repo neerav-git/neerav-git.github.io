@@ -26,7 +26,7 @@ export const TOOLS: Anthropic.Tool[] = [
   {
     name: 'start_tour',
     description:
-      'Walk the visitor through 2 to 4 registered targets in order; each narration (one or two sentences) is spoken while its target is highlighted. Use it for hiring-manager walkthroughs and when the visitor asks for a tour or overview, instead of show_on_page in that answer.',
+      'Walk the visitor through 2 to 4 registered targets in order; each narration (one or two sentences) is spoken while its target is highlighted. Use it for hiring-manager walkthroughs and when the visitor asks for a tour or overview, instead of show_on_page in that answer. A tour spanning several project pages may use only one target from each page; a tour contained within one project may use several sections from that project.',
     strict: true,
     input_schema: {
       type: 'object',
@@ -182,6 +182,20 @@ export class TurnState {
       if (!narration) return { ok: false, error: { error: 'EMPTY_NARRATION', target_id: id } }
       if (clean.some((earlier) => earlier.target === id)) return { ok: false, error: { error: 'DUPLICATE_STEP', target_id: id, message: 'Each tour step must show a different target.' } }
       clean.push({ target: id, narration: narration.slice(0, 400) })
+    }
+    const routes = clean.map((step) => this.knowledge.targetById.get(step.target)!.route)
+    if (new Set(routes).size > 1) {
+      const repeatedRoute = routes.find((route, index) => routes.indexOf(route) !== index)
+      if (repeatedRoute) {
+        return {
+          ok: false,
+          error: {
+            error: 'DUPLICATE_DESTINATION',
+            route: repeatedRoute,
+            message: 'A cross-project tour may use only one stop per project page. Keep the strongest target from this page and use the remaining stops for different projects.',
+          },
+        }
+      }
     }
     this.mode = 'tour'
     return { ok: true, result: { status: 'tour_started', steps: clean.map((step) => this.knowledge.targetById.get(step.target)!.label), note: 'Each narration is spoken as its step is shown. Do not summarize or refer to the tour afterward.' }, action: { type: 'tour', steps: clean } }
