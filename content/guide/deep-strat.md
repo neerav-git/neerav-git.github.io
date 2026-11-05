@@ -1,5 +1,5 @@
 <!-- Sources: resume PDF (Deep Strat entry) and Neerav's round-1 guide review, 2026-10-14 (consulting on AI policy and the internal AI manual). -->
-# Deep Strat — AI Research Intern, August to November 2023
+# Deep Strat — AI Safety and Research Intern, August to November 2023
 
 ## What Neerav did
 
