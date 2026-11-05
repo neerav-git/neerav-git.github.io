@@ -64,6 +64,7 @@ export default async function ResumePage() {
           <section className="entry-rail-panel">
             <div className="panel-eyebrow">What this covers</div>
             <div className="resume-signal-list">
+              <p>NTPC: R² 0.84 source attribution, 24-hour forecasting, and regulatory data uptime raised from 92.16% to 100%.</p>
               <p>Relay: 103/110 development conversations and 39/42 held-out rewordings completed.</p>
               <p>TraceLens: held-out AUC 0.966 and emergency guidance raised from 39/70 to 47/70.</p>
               <p>Deep Strat: a three-stage LLM workflow and a 25% reduction in false churn alarms.</p>
