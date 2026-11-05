@@ -55,6 +55,21 @@ test('tours may cross pages but need 2 to 4 valid steps and exclude highlights',
   assert.equal(state.run('show_on_page', { target_id: 'resume.pdf', reason: '' }).ok, false)
 })
 
+test('cross-project tours use only one destination per project page', () => {
+  const duplicateDestination = new TurnState(knowledge).run('start_tour', { steps: [
+    { target_id: 'project.relay', narration: 'Relay workflow.' },
+    { target_id: 'project.relay.methodology', narration: 'Relay evaluation.' },
+    { target_id: 'project.refract-ai', narration: 'Refract retrieval.' },
+  ] })
+  assert.equal(!duplicateDestination.ok && duplicateDestination.error.error, 'DUPLICATE_DESTINATION')
+
+  const singleProjectWalkthrough = new TurnState(knowledge).run('start_tour', { steps: [
+    { target_id: 'project.relay', narration: 'Relay overview.' },
+    { target_id: 'project.relay.methodology', narration: 'Relay evaluation.' },
+  ] })
+  assert.equal(singleProjectWalkthrough.ok, true)
+})
+
 test('links must come from the registry', () => {
   const state = new TurnState(knowledge)
   assert.equal(state.run('offer_links', { link_ids: ['link.contact.email'] }).ok, true)

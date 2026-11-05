@@ -91,6 +91,13 @@ function listOf(names: string[]) {
   return unique.length < 2 ? unique.join('') : `${unique.slice(0, -1).join(', ')} and ${unique.at(-1)}`
 }
 
+function precedingUserQuestion(turns: Turn[], turnIndex: number) {
+  for (let index = turnIndex - 1; index >= 0; index--) {
+    if (turns[index]?.role === 'user') return turns[index]!.text
+  }
+  return ''
+}
+
 function MicIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
@@ -502,7 +509,7 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
           </div>
         ) : null}
 
-        {turns.map((turn) =>
+        {turns.map((turn, turnIndex) =>
           turn.tourCard ? (
             <div aria-label="Guided tour" className="guide-tour-card" key={turn.id} role="group">
               <div className="guide-tour-card-title">Guided tour · {turn.tourCard.stops.length} stops</div>
@@ -557,7 +564,8 @@ export function PortfolioGuide({ apiUrl }: { apiUrl: string }) {
               </div>
             ) : null}
             {turn.role === 'assistant' && !turn.error && turn.text ? (() => {
-              const skills = guideFooterSkills(turn.text, turn.skills)
+              const question = precedingUserQuestion(turns, turnIndex)
+              const skills = guideFooterSkills(turn.text, turn.skills, question)
               return skills.length ? (
                 <footer className="guide-skill-footer" aria-label="Relevant skills for this answer">
                   <span>Skills</span>

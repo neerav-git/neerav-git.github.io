@@ -19,6 +19,15 @@ test('portfolio-level skills appear only when the answer names them', () => {
   assert.deepEqual(guideFooterSkills('Refract keeps research evidence connected.'), [])
 })
 
+test('question requirements prioritize supported skills and exclude explicit gaps', () => {
+  const question = 'My role requires production RAG, Kubernetes, cloud deployment, and direct customer work.'
+  const answer = "Refract uses RAG. At Deep Strat he worked with department leadership and founders. AWS appears in his skills, and Docker is his base for deployment. Kubernetes isn't in any project."
+  assert.deepEqual(
+    guideFooterSkills(answer, [], question),
+    ['RAG', 'AWS', 'Docker', 'Stakeholder Collaboration'],
+  )
+})
+
 test('the response rules require focused evidence and project-grounded skill explanations', () => {
   assert.match(GUIDE_RULES, /observed problem, engineering decision, and verified result/i)
   assert.match(GUIDE_RULES, /group technologies by the work they enable/i)
