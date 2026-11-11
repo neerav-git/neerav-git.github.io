@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { EditableRegion } from '@/components/EditableRegion'
 import { getUploadUrl } from '@/lib/assets'
 import { adminLinks } from '@/lib/admin'
@@ -64,10 +62,10 @@ export default async function RecommendationsPage() {
           <article className="stacked-item quiet-card">
             <div>
               <strong>Reference letters are available on request</strong>
-              <p>Use the resume page for the current professional summary, project history, and contact details.</p>
+              <p>Use the résumé PDF for the current professional summary, project history, and contact details.</p>
               <small>Published reference documents will appear on this page.</small>
             </div>
-            <Link href="/resume/">Resume</Link>
+            <a href="/uploads/references/Resume_Neerav_Chaudhary.pdf" rel="noreferrer" target="_blank">Résumé PDF</a>
           </article>
         </EditableRegion>
       )}

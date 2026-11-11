@@ -100,19 +100,18 @@ async function main() {
   // Action metadata is derived from the rendered site's source of truth.
   addTarget('page.home', '/', 'glance', 'Home')
   addTarget('home.products', '/', 'products-and-systems', 'Home: products and studies')
-  addTarget('home.writing', '/', 'home-writing', 'Home: technical notes')
-  addTarget('home.archive', '/', 'home-archive', 'Home: source records')
-  addTarget('page.projects', '/projects/', null, 'Work index')
-  addTarget('projects.products', '/projects/', 'product-case-studies', 'Work index: product case studies')
-  addTarget('projects.studies', '/projects/', 'research-case-studies', 'Work index: research studies')
-  addTarget('page.writing', '/writing/', null, 'Writing index')
-  addTarget('page.archive', '/archive/', null, 'Archive index')
-  addTarget('page.about', '/about/', null, 'About', settings?.about?.skills)
-  addTarget('about.biography', '/about/', 'biography', 'About: biography', settings?.about?.skills)
-  addTarget('about.focus', '/about/', 'current-focus', 'About: current focus', settings?.about?.skills)
-  addTarget('page.resume', '/resume/', null, 'Resume', settings?.about?.skills)
-  addTarget('resume.pdf', '/resume/', 'resume-pdf', 'Resume: PDF and summary', settings?.about?.skills)
-  addTarget('resume.references', '/resume/', 'references', 'Resume: references')
+  addTarget('page.projects', '/projects/', null, 'Projects and research')
+  addTarget('projects.products', '/projects/', 'product-case-studies', 'Projects and research: product case studies')
+  addTarget('projects.studies', '/projects/', 'research-case-studies', 'Projects and research: research studies')
+  addTarget('page.notes', '/notes/', null, 'Notes index')
+  addTarget('page.writing', '/notes/', 'engineering-notes', 'Notes: engineering methods')
+  addTarget('page.archive', '/notes/', 'source-records', 'Notes: evidence and source records')
+  // Retain the established guide ids, but point them to the profile summary and PDF on Home.
+  addTarget('page.about', '/', 'glance', 'Home: profile summary', settings?.about?.skills)
+  addTarget('about.biography', '/', 'glance', 'Home: profile summary', settings?.about?.skills)
+  addTarget('about.focus', '/', 'products-and-systems', 'Home: projects and research', settings?.about?.skills)
+  addTarget('page.resume', '/', 'resume-pdf', 'Home: resume PDF', settings?.about?.skills)
+  addTarget('resume.pdf', '/', 'resume-pdf', 'Home: resume PDF', settings?.about?.skills)
 
   addLinks('contact', [
     ...(settings?.socialLinks || []),

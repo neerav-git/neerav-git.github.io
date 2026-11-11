@@ -1,7 +1,7 @@
 {
   "heroEyebrow": "Published research · product design · AI safety & evaluation",
   "heroTitle": "I design the interfaces and engineer the systems that get the most out of AI.",
-  "heroBody": "I am an applied AI engineer and published researcher working across product design, AI/ML research, healthcare, ed tech, and AI safety. I bring a researcher's discipline to product development: defining measurable goals, designing clear interfaces and dependable automation, and building evaluations that show whether a system works. Working with founders, policy researchers, and cross-functional teams has made me adept at turning ambiguity into reliable software.",
+  "heroBody": "Applied AI Engineer and published researcher building end-to-end products across healthcare, energy, and  AI safety/evaluation. I partner with founders, policymakers, and industry teams to deliver products grounded in sound research and interaction design.",
   "heroImage": "/uploads/relay/workspace-and-guide.png",
   "heroLinks": [
     {
@@ -55,7 +55,7 @@
     "alzheimers-notebook-record",
     "alzheimers-disease-ieee-record"
   ],
-  "recommendationsNote": "Resume and formal references are available on their dedicated pages.",
+  "recommendationsNote": "The résumé PDF is available from the home page.",
   "modules": [
     {
       "blockType": "markdownSection",
@@ -79,7 +79,7 @@
         },
         {
           "label": "Resume",
-          "url": "/resume/",
+          "url": "/uploads/references/Resume_Neerav_Chaudhary.pdf",
           "description": "Open the conventional PDF summary if you need a compact professional overview."
         }
       ]

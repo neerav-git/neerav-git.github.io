@@ -24,7 +24,6 @@ const uiFiles = [
   'app/(frontend)/projects/[slug]/page.tsx',
   'app/(frontend)/projects/page.tsx',
   'app/(frontend)/recommendations/page.tsx',
-  'app/(frontend)/resume/page.tsx',
   'app/(frontend)/writing/[slug]/page.tsx',
   'app/(frontend)/writing/page.tsx',
   'components/PortfolioDeskTabs.tsx',

@@ -15,17 +15,17 @@
   ],
   "navigation": {
     "homeLabel": "Home",
-    "projectsLabel": "Products",
-    "writingLabel": "Methods",
-    "archiveLabel": "Evidence",
-    "aboutLabel": "About",
+    "projectsLabel": "Projects & Research",
+    "writingLabel": "Notes",
+    "archiveLabel": "Notes",
+    "aboutLabel": "About & Résumé",
     "recommendationsLabel": "References",
     "resumeLabel": "Resume"
   },
   "pageIntros": {
     "projects": {
       "label": "Selected work",
-      "title": "Products & Systems",
+      "title": "Projects & Research",
       "intro": "Four implemented products, TraceLens (a self-built AI safety and evaluation workspace), and two medical-imaging studies. Each dossier explains the problem, built workflow, engineering method, differentiating decisions, evaluation, and achieved result."
     },
     "writing": {
@@ -40,7 +40,7 @@
     },
     "about": {
       "label": "Profile",
-      "title": "About",
+      "title": "About & Résumé",
       "intro": "I am an applied AI engineer who combines product direction, full-stack implementation, controlled automation, and evidence-led evaluation."
     },
     "recommendations": {

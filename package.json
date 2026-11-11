@@ -13,6 +13,7 @@
     "sync:github": "node scripts/sync-github.mjs",
     "predev": "npm run guide:knowledge",
     "guide:knowledge": "tsx scripts/build-guide-knowledge.ts && node scripts/audit-guide-knowledge.mjs",
+    "guide:live-proxy": "node scripts/guide-live-proxy.mjs",
     "audit:guide-knowledge": "node scripts/audit-guide-knowledge.mjs"
   },
   "dependencies": {

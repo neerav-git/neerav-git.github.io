@@ -12,7 +12,6 @@ export const adminLinks = {
   project: (slug: string) => adminEntry('projects', slug),
   projectsPage: adminEntry('site_settings', 'site'),
   recommendations: (slug: string) => adminEntry('recommendations', slug),
-  resumePage: adminEntry('site_settings', 'site'),
   site: adminEntry('site_settings', 'site'),
   writingPage: adminEntry('site_settings', 'site'),
 }
@@ -35,6 +34,10 @@ export function getPageEditTarget(pathname: string) {
     return { href: adminLinks.writingPage, label: 'Edit writing page' }
   }
 
+  if (pathname === '/notes' || pathname === '/notes/') {
+    return { href: adminLinks.writingPage, label: 'Edit notes page' }
+  }
+
   if (pathname.startsWith('/writing/')) {
     const slug = pathname.replace(/^\/writing\//, '').replace(/\/$/, '')
     return { href: adminLinks.article(slug), label: 'Edit this article' }
@@ -49,16 +52,8 @@ export function getPageEditTarget(pathname: string) {
     return { href: adminLinks.archive(slug), label: 'Edit this archive item' }
   }
 
-  if (pathname === '/about' || pathname === '/about/') {
-    return { href: adminLinks.site, label: 'Edit about page' }
-  }
-
   if (pathname === '/recommendations' || pathname === '/recommendations/') {
     return { href: adminLinks.lettersPage, label: 'Edit letters page' }
-  }
-
-  if (pathname === '/resume' || pathname === '/resume/') {
-    return { href: adminLinks.resumePage, label: 'Edit resume page' }
   }
 
   return { href: '/admin/', label: 'Open studio' }

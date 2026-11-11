@@ -56,6 +56,7 @@ export default async function ProjectsPage() {
           <div className="mast-side">
             {pageIntro.intro ? <p className="section-summary">{pageIntro.intro}</p> : null}
             <span className="count-pill">{projects.length} case studies</span>
+            <Link className="secondary-button" href="/notes/">Browse notes &amp; evidence</Link>
           </div>
         </section>
       </EditableRegion>
